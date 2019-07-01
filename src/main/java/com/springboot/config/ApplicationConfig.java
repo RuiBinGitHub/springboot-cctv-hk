@@ -61,6 +61,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		filterMap.put("/item/**", "roles[role4]");
 
 		filterMap.put("/geominfo/**", "roles[role4]");
+		filterMap.put("/map/**", "roles[role4]");
 
 		filterMap.put("/markinfo/markview", "roles[role3]");
 		filterMap.put("/markinfo/marklist", "roles[role3]");

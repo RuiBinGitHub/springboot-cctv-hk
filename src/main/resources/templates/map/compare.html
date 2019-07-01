@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>信息对比</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/CCTV/css/map/compare.css"/>
+  </head>
+  <body>
+    <div th:replace="navigation::navigation"></div>
+    <div id="main">
+      <div id="main1">
+        <div class="title">项目信息</div>
+        <table id="tab1">
+          <thead>
+            <tr>
+              <th width="4%">No</th>
+              <th width="20%">项目编号</th>
+              <th width="20%">公司名称</th>
+              <th width="12%">项目规范</th>
+              <th width="10%">斜坡</th>
+              <th width="12%">编辑人员</th>
+              <th width="12%">操作人员</th>
+              <th width="10%">创建日期</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="i:${#numbers.sequence(1,5)}">
+              <td th:text="${i}"></td>
+              <td>Y19-P011-002</td>
+              <td>BUDA Surveying Limited</td>
+              <td>HKCCEC 2009</td>
+              <td>N</td>
+              <td>管理人员1</td>
+              <td>W.F.WONG</td>
+              <td>2019-03-29</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div id="main2">
+        <div class="title">管道对比</div>
+        <div id="showImg"><img style="width:320px;height:240px"></div>
+      </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

@@ -28,10 +28,10 @@
           <div style="width:40px">No</div>
           <div style="width:155px">Start MH</div>
           <div style="width:155px">Finish MH</div>
-          <div style="width:140px">Pipe Score</div>
-          <div style="width:140px">Item Score</div>
-          <div style="width:230px">Editorial Score</div>
-          <div style="width:230px">Operator Score</div>
+          <div style="width:140px" th:text="#{markinfo.findinfo.mark.span1}"></div>
+          <div style="width:140px" th:text="#{markinfo.findinfo.mark.span2}"></div>
+          <div style="width:230px" th:text="#{markinfo.findinfo.mark.span3}"></div>
+          <div style="width:230px" th:text="#{markinfo.findinfo.mark.span4}"></div>
           <div style="width:70px">View</div>
 	    </div>
         <div id="showpipe" style="width:100%;max-height:240px;overflow-y:scroll;float:left;">
@@ -217,24 +217,18 @@
         <div class="title" style="background-color:#5288DA;color:#fff" th:text="#{markinfo.findinfo.title3}"></div>
         <table id="tab3">
           <tr height="60px">
-            <td colspan="2" width="25%">
-              <div th:text="#{markinfo.findinfo.mark.span1}"></div>
-              <input type="text" name="pipescore" th:value="${markPipe.pipescore}">
-            </td>
-            <td colspan="2" width="25%">
-              <div th:text="#{markinfo.findinfo.mark.span2}"></div>
-              <input type="text" name="itemscore" th:value="${markPipe.itemscore}">
-            </td>
+            <td colspan="2" width="25%"><div th:text="#{markinfo.findinfo.mark.span1}"></div><input type="text" th:value="${markPipe.pipescore}"></td>
+            <td colspan="2" width="25%"><div th:text="#{markinfo.findinfo.mark.span2}"></div><input type="text" th:value="${markPipe.itemscore}"></td>
             <td width="10%" th:text="#{markinfo.findinfo.mark.span3}"></td>
             <td width="15%" id="showstar1" th:text="${markPipe.score1}"></td>
             <td width="10%" th:text="#{markinfo.findinfo.mark.span4}"></td>
             <td width="15%" id="showstar2" th:text="${markPipe.score2}"></td>
           </tr>
           <tr>
-            <td colspan="2"><textarea name="piperemark" th:text="${markPipe.piperemark}" th:placeholder="#{markinfo.findinfo.mark.remark}"></textarea></td>
-            <td colspan="2"><textarea name="itemremark" th:text="${markPipe.itemremark}" th:placeholder="#{markinfo.findinfo.mark.remark}"></textarea></td>
-            <td colspan="2"><textarea name="remark1" th:text="${markPipe.remark1}" th:placeholder="#{markinfo.findinfo.mark.remark}"></textarea></td>
-            <td colspan="2"><textarea name="remark2" th:text="${markPipe.remark2}" th:placeholder="#{markinfo.findinfo.mark.remark}"></textarea></td>
+            <td colspan="2"><div class="showremark" th:text="${markPipe.piperemark}"></div></td>
+            <td colspan="2"><div class="showremark" th:text="${markPipe.itemremark}"></div></td>
+            <td colspan="2"><div class="showremark" th:text="${markPipe.remark1}"></div></td>
+            <td colspan="2"><div class="showremark" th:text="${markPipe.remark2}"></div></td>
           </tr>
         </table>
       </div>

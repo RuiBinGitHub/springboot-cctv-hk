@@ -77,7 +77,6 @@ $(document).ready(function() {
     $("#showstar1").html(getImg(value1));
     $("#showstar2").html(getImg(value2));
     $("#tab3 input").attr("readonly", true);
-    $("#tab3 textarea").attr("readonly", true);
     /********************************************************************/
     var path = "http://192.168.0.125:8080/ItemIamge/";
     $("#tab2 tbody tr").each(function(i) {
@@ -98,6 +97,11 @@ $(document).ready(function() {
         $(this).find("td:eq(11),td:eq(13)").attr("title", text);
         if (Number($(this).find("td:eq(12)").text()) != 0)
             $(this).find("td:eq(12)").css("background-color", "#ff4400");
+    });
+    /********************************************************************/
+    $(".showremark").each(function(){
+    	if ($(this).text() == "")
+    		$(this).text("(无)");
     });
     /********************************************************************/
     $("#video").click(function() {

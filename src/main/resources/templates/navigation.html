@@ -12,7 +12,10 @@
   				datatype:"json",
   				success:function(data){
   					var text = $(".naviItem:eq(2) a").text();
-  					$(".naviItem:eq(2) a").text(text + "(" + data + ")");
+  					if (text.length > 10)
+  						$(".naviItem:eq(2) a").text(text + "(0)");
+  					else
+  						$(".naviItem:eq(2) a").text(text + "(" + data + ")");
   				}
   			});
   			$("#naviLogo").click(function(){

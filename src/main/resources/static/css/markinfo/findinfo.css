@@ -219,7 +219,7 @@ body{
 	border-bottom:2px solid #ccc;
 }
 
-#tab3 tr td textarea {
+.showremark {
 	width:282px;
 	height:90px;
 	margin-top:10px;
@@ -230,6 +230,7 @@ body{
 	border-bottom:2px solid #ccc;
 	resize:none;
 }
+
 #tab3 tr td img{
 	margin-left:4px;
 	float:left;

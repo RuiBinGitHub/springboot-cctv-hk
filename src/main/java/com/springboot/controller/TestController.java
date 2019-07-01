@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping(value = "/test")
@@ -39,8 +40,9 @@ public class TestController {
 	}
 
 	@RequestMapping("/index")
-	public void index() {
-		initpage(10, "123456", "123465");
+	public ModelAndView index() {
+		ModelAndView view = new ModelAndView("index");
+		return view;
 	}
 
 	@RequestMapping(value = "/init")
