@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>新建公司</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/CCTV/css/company/insert.css"/>
+    <script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/CCTV/js/company/insert.js"></script>
+  </head>
+  <body>
+    <div id="Tip"></div>
+    <div id="naviMain">
+      <div id="navi">
+        <div style="width:900px;height:100%;float:left;">
+          <img id="naviLogo" src="/CCTV/img/msdi.png" title="首页">
+        </div>
+        <div class="naviItem">
+          <img src="/CCTV/img/退出1.png"/>
+          <a href="/CCTV/user/leave">退出登录</a>
+        </div>
+      </div>
+    </div>
+    <div id="main">
+      <div id="maininfo">
+        <div id="top">新建公司</div>
+        <form id="form1" action="insert" method="post" autocomplete="off">
+        <fieldset id="field1" class="field">
+	      <legend><span style="font-size:18px;font-weight:700">公司信息</span></legend>
+	      <table id="table1">
+	    	<tr>
+	    	  <td width="140px" align="right"><span style="color:#f00">*</span><span class="label">公司名称：</span></td>
+	    	  <td width="220px" align="left"><input type="text" name="name" class="textbox1" placeholder="请输入公司名称"/></td>
+	    	</tr>
+	    	<tr>
+	    	  <td align="right"><span style="color:#f00">*</span><span class="label">公司规模：</span></td>
+	    	  <td align="left"><input type="text" name="cont" class="textbox1" placeholder="使用人数，如：100"/></td>
+	    	</tr>
+	    	<tr>
+	       	  <td align="right"><span style="color:#f00">*</span><span class="label">使用期限：</span></td>
+	       	  <td align="left"><input type="text" name="term" class="textbox1" placeholder="使用期限，如：500"/></td>
+	       	</tr>
+	      </table>
+	  	</fieldset>
+	  	<fieldset id="field2" class="field">
+	   	  <legend><span style="font-size:18px;font-weight:700">人员信息</span></legend>
+	   	  <table id="table2">
+	   	    <tr height="40px">
+	   	      <td width="140px" align="right"><span style="color:#f00">*</span><span class="label">用户姓名：</span></td>
+	   	      <td width="220px" align="left"><input type="text" name="nickname" class="textbox1" style="width:200px"/></td>
+	     	  <td width="300px" align="left"><span style="font-size:14px;color:#ccc"><span style="color:#FDDD9B">*</span>用户姓名,最多9位</span></td>
+	     	</tr>
+	   	    <tr height="40px">
+	   	      <td align="right"><span style="color:#f00">*</span><span class="label">登录账号：</span></td>
+	   	      <td align="left"><input type="text" name="username" class="textbox1" style="width:200px"/></td>
+	     	  <td align="left"><span style="font-size:14px;color:#ccc"><span style="color:#FDDD9B">*</span>登录账号,6-16位,由数字、字母下划线组成</span></td>
+	     	</tr>
+	   	    <tr height="40px">
+	   	      <td align="right"><span style="color:#f00">*</span><span class="label">登录密码：</span></td>
+	   	      <td align="left"><input type="text" name="password" class="textbox1" style="width:200px"/></td>
+	     	  <td align="left"><span style="font-size:14px;color:#ccc"><span style="color:#FDDD9B">*</span>登录密码,6-16位,由数字、字母下划线组成</span></td>
+	     	</tr>
+	      </table>
+	  	</fieldset> 
+	  	<table style="width:600px;margin:10px 135px;float:left;">
+	  	  <tr height="40px;">
+	  	    <td><input type="button" value="确定" class="combtn"></td>
+	  	  </tr>
+	  	</table> 
+  	  	</form>
+  	  	<div style="width:720px;margin-left:137px;color:#AAA;font-size:14px;float:left;">注：添加公司后公司名称无法再进行修改，公司序列号由系统自动生成。</div>
+  	  	<div style="width:720px;margin-left:165px;color:#AAA;font-size:14px;float:left;">添加用户信息身份为该公司管理人员。</div>
+      </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

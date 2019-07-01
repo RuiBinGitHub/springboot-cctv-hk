@@ -1,0 +1,196 @@
+@CHARSET "UTF-8";
+body{
+	background-color:#F5F5F5;
+}
+#TitleMemu{
+	width:100%;
+	height:80px;
+	top:0px;left:0px;
+	background-color:rgba(102,102,102,0.9);
+	position:fixed;
+	display:none;
+	z-index:10;
+}
+#TitleMemu div img{
+	width:106px;
+	height:50px;
+	margin:15px 900px 15px 10px;
+	float:left;
+}
+#TitleMemu div input{
+	width:80px;
+	height:32px;
+	margin:24px 0px 24px 10px;
+	color:#ffffff;
+	font-size:15px;
+	border-radius:4px;
+	border:none;
+	float:left;
+}
+#TitleMemu div input:hover{
+	cursor:pointer;
+	color:#F7C93D;
+}
+/************************************************************************/
+#main{
+	width:1200px;
+	margin:5px auto;
+}
+#main1{
+	width:100%;
+	background-color:#fff;
+	border:1px solid #ddd;
+	border-bottom:2px solid #ddd;
+	float:left;
+}
+#memu1{
+	width:100%;
+	height:50px;
+	font-size:20px;
+	font-weight:700;
+	text-indent:20px;
+	line-height:50px;
+	float:left;
+}
+#memu1 input{
+	width:80px;
+	height:32px;
+	margin:10px 20px;
+	color:#ffffff;
+	font-size:15px;
+	background-color:#00A3FE;
+	border-radius:4px;
+	border:none;
+	float:right;
+}
+#memu1 input:hover{
+	cursor:pointer;
+	color:#F7C93D;
+}
+#head1{
+	width:100%;
+	height:35px;
+	color:#ffffff;
+	background-color:#00A4FF;
+	float:left;
+}
+#head1 div{
+	height:100%;
+	text-align:center;
+	line-height:35px;
+	border:none;
+	float:left;
+}
+#tab1{
+	width:100%;
+	border-collapse:collapse;
+	table-layout:fixed;
+}
+#tab1 tr{
+	height:24px;
+	font-size:14px;
+	text-align:center;
+	background-color:#fff;
+}
+#tab1 tr:nth-child(even){
+	background-color:#f0f0f0;
+}
+#tab1 tr:hover{
+	background-color:#FFD58D;
+}
+#tab1 tr td{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+#tab1 tr td input{
+	width:40px;
+	height:20px;
+	color:#ffffff;
+	border-radius:4px;
+	display:none;
+	border:none;
+}
+#tab1 tr td input:hover{
+	background-color:#ff8c1a;
+	cursor:pointer;
+}
+#main2{
+	width:100%;
+	height:230px;
+	margin:5px 0px;
+	background-color:#fff;
+	border:1px solid #ddd;
+	float:left;
+}
+#main2 table{
+	margin-left:16px;
+}
+#main2 table input{
+	height:16px;
+	text-indent:5px;
+	border:1px solid #ccc;
+	text-indent:5px;
+}
+#main3{
+	width:100%;
+	height:840px;
+	background-color:#fff;
+	border:1px solid #ddd;
+	float:left;
+}
+#showpipeimg{
+	width:199px;
+	height:100%;
+	border-right:1px solid #ccc;
+	float:left;
+}
+#video{
+	width:480px;;
+	height:360px;
+	margin:0 10px 10px 15px;
+	background-color:#fff;
+	border-radius:4px;
+	cursor:pointer;
+	float:left;
+}
+.img{
+	width:480px;
+	height:360px;
+	border-radius:4px;
+	float:left;
+}
+#memu2{
+	width:1000px;
+	height:32px;
+	font-size:15px;
+	font-weight:700;
+	text-indent:10px;
+	line-height:33px;
+	border-top:1px solid #DADADA;
+	border-bottom:none;
+	float: left;
+}
+#tab2{
+	width:100%;
+	background-color:#F1F1F1;
+	table-layout:fixed; 
+}
+#tab2 thead{ 
+	color:#fff;
+	font-size:14px;
+	text-align:center;
+	background-color:#5288DA;
+}
+#tab2 tbody tr{
+	height:25px;
+	background-color:#fff;
+	cursor: pointer;
+}
+#tab2 tbody tr td{ 
+	font-size:12px;
+	text-indent:5px;
+	overflow:hidden;
+ 	text-overflow:ellipsis;
+	white-space:nowrap;
+}

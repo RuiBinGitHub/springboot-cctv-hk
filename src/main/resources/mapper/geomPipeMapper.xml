@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.springboot.dao.GeomPipeDao">
+
+	<insert id = "insertGeomPipe" parameterType = "GeomPipe" keyProperty = "id" useGeneratedKeys = "true">
+		INSERT INTO geompipe VALUES(nextval('indexID'),
+			#{smhNo},
+			#{fmhNo},
+			#{smhX},
+			#{smhY},
+			#{smhH},
+			#{fmhX},
+			#{fmhY},
+			#{fmhH},
+			#{actualX1},
+			#{actualY1},
+			#{actualX2},
+			#{actualY2},
+			#{smhGradeA},
+			#{smhGradeB},
+			#{fmhGradeA},
+			#{fmhGradeB},
+			#{pipetype},
+			#{material},
+			#{direction},
+			#{pipeshape},
+			#{grade},
+			#{score},
+			#{pipe.id},
+			#{geomProject.id},
+			null
+		)
+	</insert>
+
+	<update id = "updateGeomPipe" parameterType = "GeomPipe">
+		UPDATE geompipe SET 
+			smhNo = #{smhNo},
+			fmhNo = #{fmhNo},
+			smhX = #{smhX},
+			smhY = #{smhY},
+			smhH = #{smhH},
+			fmhX = #{fmhX},
+			fmhY = #{fmhY},
+			fmhH = #{fmhH},
+			actualX1 = #{actualX1},
+			actualY1 = #{actualY1},
+			actualX2 = #{actualX2},
+			actualY2 = #{actualY2},
+			smhGradeA = #{smhGradeA},
+			smhGradeB = #{smhGradeB},
+			fmhGradeA = #{fmhGradeA},
+			fmhGradeB = #{fmhGradeB},
+			pipetype = #{pipetype},
+			material = #{material},
+			direction = #{direction},
+			pipeshape = #{pipeshape},
+			grade = #{grade},
+			score = #{score},
+			pipeid = #{pipe.id},
+			geomprojectid = #{geomProject.id},
+			<if test = "actualX1 == 0 or actualY1 == 0 or actualX2 == 0 or actualY2 == 0">
+				geom = null
+			</if>
+			<if test = "actualX1 != 0 and actualY1 != 0 and actualX2 != 0 and actualY2 != 0">
+				geom = ST_GeomFromText('linestring(${actualX1} ${actualY1},${actualX2} ${actualY2})')
+			</if>
+		WHERE id = #{id}
+	</update>
+
+	<delete id = "deleteGeomPipe" parameterType = "GeomPipe">
+		DELETE FROM geompipe WHERE id = #{id}
+	</delete>
+
+	<select id = "findGeomPipeByID" parameterType = "int" resultMap = "GeomPipeMap">
+		select * from geompipe where id  =  #{id}
+	</select>
+	
+	<select id = "findInfoGeomPipe" parameterType = "Map" resultMap = "GeomPipeMap">
+		select g1.* from geompipe g1 left join geomproject g2 on g1.geomprojectid = g2.id left join project p on g2.projectid = p.id
+		<where>
+			<if test = "id != null">
+				g1.id = #{id}
+			</if>
+			<if test = "smhNo != null">
+				and g1.smhNo = #{smhNo}
+			</if>
+			<if test = "fmhNo != null">
+				and g1.fmhNo = #{fmhNo}
+			</if>
+			<if test = "pipe != null">
+				and g1.pipeid = #{pipe.id}
+			</if>
+			<if test = "geomProject != null">
+				and g2.id = #{geomProject.id}
+			</if>
+			<if test = "person != null">
+				and p.personid = #{person.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id = "findListGeomPipe" parameterType = "Map" resultMap = "GeomPipeMap">
+		select g.* from geompipe g left join pipe p on g.pipeid = p.id
+		<where>
+			<if test = "smhGradeA != null">
+				and g.smhGradeA = #{smhGradeA}
+			</if>
+			<if test = "fmhGradeA != null">
+				and g.fmhGradeA = #{fmhGradeA}
+			</if>
+			<if test = "geomProject != null">
+				and g.geomprojectid = #{geomProject.id}
+			</if>
+		</where>
+		order by p.no
+	</select>
+	
+	<select id = "findSMHGradeA" parameterType = "String" resultMap = "GradeMap">
+		select Avg(smhX) as mhx, Avg(smhY) as mhy from geompipe where smhGradeA = #{smhGradeA}
+	</select>
+	<select id = "findFMHGradeA" parameterType = "String" resultMap = "GradeMap">
+		select Avg(fmhX) as mhx, Avg(fmhY) as mhy from geompipe where fmhGradeA = #{fmhGradeA}
+	</select>
+	
+	<resultMap id = "GradeMap" type = "java.util.HashMap">
+    	<result property="mhx" column="mhx"/>
+    	<result property="mhy" column="mhy"/>
+	</resultMap>
+	
+	<resultMap id = "GeomPipeMap" type = "GeomPipe">
+		<id property = "id" column = "id"/>
+		<result property="smhNo" column="smhNo"/>
+		<result property="fmhNo" column="fmhNo"/>
+		<result property="smhX" column="smhX"/>
+		<result property="smhY" column="smhY"/>
+		<result property="smhH" column="smhH"/>
+		<result property="fmhX" column="fmhX"/>
+		<result property="fmhY" column="fmhY"/>
+		<result property="fmhH" column="fmhH"/>
+		<result property="actualX1" column="actualX1"/>
+		<result property="actualY1" column="actualY1"/>
+		<result property="actualX2" column="actualX2"/>
+		<result property="actualY2" column="actualY2"/>
+		<result property="smhGradeA" column="smhGradeA"/>
+		<result property="smhGradeB" column="smhGradeB"/>
+		<result property="fmhGradeA" column="fmhGradeA"/>
+		<result property="fmhGradeB" column="fmhGradeB"/>
+		
+		<result property="pipetype" column="pipetype"/>
+		<result property="material" column="material"/>
+		<result property="direction" column="direction"/>
+		<result property="pipeshape" column="pipeshape"/>
+		<result property="grade" column="grade"/>
+		<result property="score" column="score"/>
+		<association property="pipe" column="pipeid" select="com.springboot.dao.PipeDao.findPipeByID"/>
+		<association property="geomProject" column="geomprojectid" select="com.springboot.dao.GeomProjectDao.findGeomProjectByID"/>
+	</resultMap>
+</mapper>
+ 

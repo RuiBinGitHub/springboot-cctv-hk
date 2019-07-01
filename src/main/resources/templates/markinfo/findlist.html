@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+  <head>
+	<title>评分管理</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/CCTV/css/markinfo/findlist.css"/>
+	<script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="/CCTV/js/markinfo/findlist.js"></script>
+  </head>
+  <body>
+    <div th:replace="navigation::navigation"></div>
+    <div id="Tip"></div>
+    <div id="main">
+      <div id="mainLeft">
+        <div id="menuTitle" th:text="#{menu.title.text}"></div>
+        <div class="menu2"><a href="/CCTV/project/showlist" th:text="#{menu.div.text1}"></a></div>
+        <shiro:hasRole name="role2">
+          <div class="menu2"><a href="/CCTV/project/findlist" th:text="#{menu.div.text2}"></a></div>
+        </shiro:hasRole>
+        <shiro:hasRole name="role3">
+          <div class="menu2"><a href="/CCTV/markinfo/markview" th:text="#{menu.div.text3}"></a></div>
+          <div class="menu2"><a href="/CCTV/markinfo/marklist" th:text="#{menu.div.text4}"></a></div>
+        </shiro:hasRole>
+        <shiro:hasRole name="role2">
+          <div class="menu1"><a href="/CCTV/markinfo/findlist" th:text="#{menu.div.text5}"></a></div>
+          <div class="menu2"><a href="/CCTV/operator/showlist" th:text="#{menu.div.text6}"></a></div>
+          <div class="menu2"><a href="/CCTV/person/showlist" th:text="#{menu.div.text7}"></a></div>
+        </shiro:hasRole>
+        <div class="menu2"><a href="/CCTV/message/showlist" th:text="#{menu.div.text8}"></a></div>
+        <div class="menu2"><a href="/CCTV/person/center" th:text="#{menu.div.text9}"></a></div>
+      </div>
+      <div id="mainRight">
+        <div id="rightTop" th:text="#{markinfo.findlist.title1}"></div>
+        <div id="rightMenu">
+          <span style="font-weight:600;margin-left:10px;float:left;" th:text="#{markinfo.findlist.menu1}"></span>
+          <input id="menuBtn1" type="button" value="←"/>
+          <input id="menuText" th:value="${param.name}"/>
+          <input id="menuBtn2" type="button" th:value="#{markinfo.findlist.menu2}"/>
+        </div>
+        <table id="tab1">
+          <thead>
+            <tr height="40px" style="font-size:18px;background-color:#F0F0F0">
+              <th width="4%">NO</th>           
+			  <th width="16%" th:text="#{markinfo.findlist.table.title1}"></th>   
+			  <th width="24%" th:text="#{markinfo.findlist.table.title2}"></th> 
+			  <th width="12%" th:text="#{markinfo.findlist.table.title3}"></th>   
+			  <th width="12%" th:text="#{markinfo.findlist.table.title4}"></th>   
+			  <th width="12%" th:text="#{markinfo.findlist.table.title5}"></th>   
+			  <th width="10%" th:text="#{markinfo.findlist.table.title6}"></th>   
+			  <th width="10%" th:text="#{markinfo.findlist.table.title7}"></th>   
+			</tr>       
+          </thead>
+          <tbody>
+            <tr th:each="markProject,status:${markProjects}">
+              <td th:text="${status.count+(page-1)*15}"></td>
+              <td><a th:href="@{/project/findinfo(id=${markProject.project.id})}" th:text="${markProject.project.name}"></a></td>
+              <td th:text="${markProject.project.client}"></td>
+          	  <td th:text="${markProject.person.nickname}"></td>
+          	  <td th:text="${markProject.score1}"></td>
+          	  <td th:text="${markProject.score2}"></td>
+              <td th:text="${markProject.date}"></td>
+		      <td>
+		        <input type="button" th:name="${markProject.id}" th:value="#{markinfo.findlist.table.button1}" class="tablebtn1">
+		        <input type="button" th:name="${markProject.id}" th:value="#{markinfo.findlist.table.button2}" class="tablebtn2">
+		      </td>
+          	</tr>
+          </tbody>
+        </table>
+        <img th:if="${#lists.isEmpty(markProjects)}" src="/CCTV/img/null.png" style="margin:145px 400px;float:left;">
+        <table id="tab2" th:if="${!#lists.isEmpty(markProjects)}">
+          <tr height="30px">
+            <td width="45%" align="right"><input type="button" th:value="#{showlit.page.button1}" class="pagebtn"/></td>
+            <td width="10%" align="center"><a id="page1" th:text="${page}"></a> / <a id="page2" th:text="${cont}"></a></td>
+            <td width="45%" align="left"><input type="button" th:value="#{showlit.page.button2}" class="pagebtn"/></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

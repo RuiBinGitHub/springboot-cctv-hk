@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.PipeDao">
+
+	<insert id="insertPipe" parameterType="Pipe" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO pipe VALUES(nextval('indexID'),
+			#{no},
+			#{operator},
+			#{workorder},
+			#{reference},
+			#{purposes},
+			#{slope},
+			#{sloperef},
+			#{yearlaid},
+			#{date},
+			#{time},
+			
+			#{district1},
+			#{district2},
+			#{district3},
+			#{roadname},
+			#{housenum},
+			#{building},
+			#{division},
+			#{areacode},
+			
+			#{smanholeno},
+			#{fmanholeno},
+			#{use},
+			#{direction},
+			#{hsize},
+			#{wsize},
+			#{shape},
+			#{material},
+			#{lining},
+			#{pipelength},
+			#{totallength},
+			
+			#{sdepth},
+			#{scoverlevel},
+			#{sinvertlevel},
+			#{fdepth},
+			#{fcoverlevel},
+			#{finvertlevel},
+			#{category},
+			#{cleaned},
+			#{weather},
+			#{videono},
+			#{comment},
+			
+			#{project.id}
+		)
+	</insert>
+
+	<update id="updatePipe" parameterType="Pipe">
+		UPDATE pipe SET no=#{no},
+			operator=#{operator},
+			workorder=#{workorder},
+			reference=#{reference},
+			purposes=#{purposes},
+			slope=#{slope},
+			sloperef=#{sloperef},
+			yearlaid=#{yearlaid},
+			date=#{date},
+			time=#{time},
+			
+			district1=#{district1},
+			district2=#{district2},
+			district3=#{district3},
+			roadname=#{roadname},
+			housenum=#{housenum},
+			building=#{building},
+			division=#{division},
+			areacode=#{areacode},
+			
+			smanholeno=#{smanholeno},
+			fmanholeno=#{fmanholeno},
+			use=#{use},
+			direction=#{direction},
+			hsize=#{hsize},
+			wsize=#{wsize},
+			shape=#{shape},
+			material=#{material},
+			lining=#{lining},
+			pipelength=#{pipelength},
+			totallength=#{totallength},
+			
+			sdepth=#{sdepth},
+			scoverlevel=#{scoverlevel},
+			sinvertlevel=#{sinvertlevel},
+			fdepth=#{fdepth},
+			fcoverlevel=#{fcoverlevel},
+			finvertlevel=#{finvertlevel},
+			category=#{category},
+			cleaned=#{cleaned},
+			weather=#{weather},
+			videono=#{videono},
+			comment=#{comment},
+			
+			projectid=#{project.id}
+		WHERE id=#{id}
+	</update>
+
+	<delete id="deletePipe" parameterType="Pipe">
+		DELETE FROM pipe WHERE id=#{id}
+	</delete>
+
+	<select id="findPipeByID" parameterType="int" resultMap="PipeMap">
+		select * from pipe where id = #{id}
+	</select>
+	<select id="findInfoPipe" parameterType="Map" resultMap="PipeMap">
+		select p1.* from pipe p1 left join project p2 on p1.projectid=p2.id
+		<where>
+			<if test="id != null">
+				p1.id=#{id}
+			</if>
+			<if test="person != null">
+				and p2.personid=#{person.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListPipe" parameterType="Map" resultMap="PipeMap">
+		select * from pipe
+		<where>
+			<if test="project != null">
+				projectid=#{project.id}
+			</if>
+		</where>
+		<if test="order != null">
+			order by workorder, use, no
+		</if>
+		<if test="order == null">
+			order by no asc
+		</if>
+	</select>
+	
+	<resultMap id="PipeMap" type="pipe">
+		<id property="id" column="id"/>
+		<result property="no" column="no"/>
+		<result property="operator" column="operator"/>
+		<result property="workorder" column="workorder"/>
+		<result property="reference" column="reference"/>
+		<result property="purposes" column="purposes"/>
+		<result property="slope" column="slope"/>
+		<result property="sloperef" column="sloperef"/>
+		<result property="yearlaid" column="yearlaid"/>
+		<result property="date" column="date"/>
+		<result property="time" column="time"/>
+		
+		<result property="district1" column="district1"/>
+		<result property="district2" column="district2"/>
+		<result property="district3" column="district3"/>
+		<result property="roadname" column="roadname"/>
+		<result property="housenum" column="housenum"/>
+		<result property="building" column="building"/>
+		<result property="division" column="division"/>
+		<result property="areacode" column="areacode"/>
+		
+		<result property="smanholeno" column="smanholeno"/>
+		<result property="fmanholeno" column="fmanholeno"/>
+		<result property="use" column="use"/>
+		<result property="direction" column="direction"/>
+		<result property="hsize" column="hsize"/>
+		<result property="wsize" column="wsize"/>
+		<result property="shape" column="shape"/>
+		<result property="material" column="material"/>
+		<result property="lining" column="lining"/>
+		<result property="pipelength" column="pipelength"/>
+		<result property="totallength" column="totallength"/>
+		
+		<result property="sdepth" column="sdepth"/>
+		<result property="scoverlevel" column="scoverlevel"/>
+		<result property="sinvertlevel" column="sinvertlevel"/>
+		<result property="fdepth" column="fdepth"/>
+		<result property="fcoverlevel" column="fcoverlevel"/>
+		<result property="finvertlevel" column="finvertlevel"/>
+		<result property="category" column="category"/>
+		<result property="cleaned" column="cleaned"/>
+		<result property="weather" column="weather"/>
+		<result property="videono" column="videono"/>
+		<result property="comment" column="comment"/>
+		
+	 	<association property="project" column="projectid" select="com.springboot.dao.ProjectDao.findProjectByID"/>
+	</resultMap>
+</mapper>
+ 

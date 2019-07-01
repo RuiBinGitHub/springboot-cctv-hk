@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.MarkPipeDao">
+	<insert id="insertMarkPipe" parameterType="MarkProject" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO markpipe VALUES(nextval('indexID'),
+			#{pipescore},
+			#{itemscore},
+			#{score1},
+			#{score2},
+			#{piperemark},
+			#{itemremark},
+			#{remark1},
+			#{remark2},
+			#{pipe.id},
+			#{markProject.id}
+		)
+	</insert>
+	
+	<update id="updateMarkPipe" parameterType="MarkPipe">
+		UPDATE markpipe SET pipescore=#{pipescore},
+			itemscore=#{itemscore},
+			score1=#{score1},
+			score2=#{score2},
+			piperemark=#{piperemark},
+			itemremark=#{itemremark},
+			remark1=#{remark1},
+			remark2=#{remark2},
+			pipeid=#{pipe.id},
+			markprojectid=#{markProject.id}
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteMarkPipe" parameterType="MarkPipe">
+		DELETE FROM markpipe WHERE id=#{id}
+	</delete>
+	
+	<select id="findMarkPipeByID" parameterType="int" resultMap="MarkPipeMap">
+		select * from markpipe where id = #{id}
+	</select>
+	
+	<select id="findInfoMarkPipe" parameterType="Map" resultMap="MarkPipeMap">
+		select * from markpipe m1 left join markproject m2 on m1.markprojectid=m2.id
+		<where>
+			<if test="id != null">
+				m1.id = #{id}
+			</if>
+			<if test="person != null">
+				and m2.personid = #{person.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListMarkPipe" parameterType="Map" resultMap="MarkPipeMap">
+		select * from markpipe m left join pipe p on m.pipeid=p.id
+		<where>
+			<if test="markProject != null">
+				 m.markprojectid=#{markProject.id}
+			</if>
+		</where>
+		order by p.no
+	</select>
+	
+	<resultMap id="MarkPipeMap" type="MarkPipe">
+		<id property="id" column="id"/>
+		<result property="pipescore" column="pipescore"/>
+		<result property="itemscore" column="itemscore"/>
+		<result property="score1" column="score1"/>
+		<result property="score2" column="score2"/>
+		<result property="piperemark" column="piperemark"/>
+		<result property="itemremark" column="itemremark"/>
+		<result property="remark1" column="remark1"/>
+		<result property="remark2" column="remark2"/>
+		<association property="pipe" column="pipeid" select="com.springboot.dao.PipeDao.findPipeByID"/>
+		<association property="markProject" column="markprojectid" select="com.springboot.dao.MarkProjectDao.findMarkProjectByID"/>
+	</resultMap>
+</mapper>
+ 

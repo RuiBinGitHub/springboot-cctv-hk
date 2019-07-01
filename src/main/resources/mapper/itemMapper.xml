@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.ItemDao">
+
+	<insert id="insertItem" parameterType="Item" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO item VALUES(nextval('indexID'),
+			#{no},
+			#{video},
+			#{photo},
+			#{dist},
+			#{cont},
+			#{code},
+			#{diam},
+			#{clockAt},
+			#{clockTo},
+			#{percent},
+			#{lengths},
+			#{remarks},
+			#{picture},
+			#{pipe.id}
+		)
+	</insert>
+
+	<update id="updateItem" parameterType="Item">
+		UPDATE item SET no=#{no},
+			video=#{video},
+			photo=#{photo},
+			dist=#{dist},
+			cont=#{cont},
+			code=#{code},
+			diam=#{diam},
+			clockAt=#{clockAt},
+			clockTo=#{clockTo},
+			percent=#{percent},
+			lengths=#{lengths},
+			remarks=#{remarks},
+			picture=#{picture},
+			pipeid=#{pipe.id}
+		WHERE id=#{id}
+	</update>
+
+	<delete id="deleteItem" parameterType="Item">
+		DELETE FROM item WHERE id=#{id}
+	</delete>
+
+	<select id="findItemByID" parameterType="int" resultMap="ItemMap">
+		select * from item where id = #{id}
+	</select>
+
+	<select id="findInfoItem" parameterType="Map" resultMap="ItemMap">
+		select i.* from item i left join pipe p1 on p1.id=i.pipeid left join project p2 on p2.id=p1.projectid
+		<where>
+			<if test="id != null">
+				and i.id = #{id}
+			</if>
+			<if test="person != null">
+				and p2.personid = #{person.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListItem" parameterType="Map" resultMap="ItemMap">
+		select i.* from item i left join pipe p1 on p1.id=i.pipeid left join project p2 on p2.id=p1.projectid
+		<where>
+			<if test="photo != null">
+				i.photo = #{photo}
+			</if>
+			<if test="picture != null">
+				and i.picture != ''
+			</if>
+			<if test="pipe != null">
+				and p1.id = #{pipe.id}
+			</if>
+			<if test="project != null">
+				and p2.id = #{project.id}
+			</if>
+		</where>
+		order by p1.no,i.no
+		<if test="page > 0">
+			limit 30 offset (#{page}-1)*30
+		</if>
+	</select>
+	
+	<resultMap id="ItemMap" type="Item">
+		<id property="id" column="id"/>
+		<result property="no" column="no"/>
+		<result property="video" column="video"/>
+		<result property="photo" column="photo"/>
+		<result property="dist" column="dist"/>
+		<result property="cont" column="cont"/>
+		<result property="code" column="code"/>
+		<result property="diam" column="diam"/>
+		<result property="clockAt" column="clockAt"/>
+		<result property="clockTo" column="clockTo"/>
+		<result property="percent" column="percent"/>
+		<result property="lengths" column="lengths"/>
+		<result property="remarks" column="remarks"/>
+		<result property="picture" column="picture"/>
+		<association property="pipe" column="pipeid" select="com.springboot.dao.PipeDao.findPipeByID"/>
+	</resultMap>
+</mapper>
+ 

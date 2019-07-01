@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+  <head>
+    <title>用户中心</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/CCTV/css/person/center.css"/>
+    <script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/CCTV/js/person/center.js"></script>
+  </head>
+  <body>
+    <div th:replace="navigation::navigation"></div>
+    <div id="Tip"></div>
+    <div id="main">
+      <div id="mainLeft">
+        <div id="menuTitle" th:text="#{menu.title.text}"></div>
+        <div class="menu2"><a href="/CCTV/project/showlist" th:text="#{menu.div.text1}"></a></div>
+        <shiro:hasRole name="role2">
+          <div class="menu2"><a href="/CCTV/manage/project/showlist" th:text="#{menu.div.text2}"></a></div>
+        </shiro:hasRole>
+        <shiro:hasRole name="role3">
+          <div class="menu2"><a href="/CCTV/mark/markview" th:text="#{menu.div.text3}"></a></div>
+          <div class="menu2"><a href="/CCTV/mark/marklist" th:text="#{menu.div.text4}"></a></div>
+        </shiro:hasRole>
+        <shiro:hasRole name="role2">
+          <div class="menu2"><a href="/CCTV/manage/mark/showlist" th:text="#{menu.div.text5}"></a></div>
+          <div class="menu2"><a href="/CCTV/operator/showlist" th:text="#{menu.div.text6}"></a></div>
+          <div class="menu2"><a href="/CCTV/person/showlist" th:text="#{menu.div.text7}"></a></div>
+        </shiro:hasRole>
+        <div class="menu2"><a href="/CCTV/message/showlist" th:text="#{menu.div.text8}"></a></div>
+        <div class="menu1"><a href="/CCTV/person/center" th:text="#{menu.div.text9}"></a></div>
+      </div>
+      <div id="mainRight">
+        <div id="rightTop" th:text="#{person.center.title}"></div>
+        <!-- 
+        <div style="width:160px;height:200px;margin:30px 10px 0px 20px;float:left;"><img id="img" src="/CCTV/img/portrait.png"></div>
+         -->
+        <table class="table" style="width:400px;margin:10px 10px;font-family:'Helvetica';float:left;">
+          <tr><td colspan="2" align="center"><a style="font-size:20px;font-weight:700" th:text="#{person.center.title1}"></a></td></tr>
+          <tr>
+            <td width="160px" align="right"><a style="font-weight:700" th:text="#{person.center.user.label1}"></a></td>
+            <td width="240px" th:text="${person.nickname}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label2}"></a></td>
+            <td th:text="${person.role}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label3}"></a></td>
+            <td th:text="${person.email}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label4}"></a></td>
+            <td th:text="${person.phone}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label5}"></a></td>
+            <td th:text="${person.date}"></td>
+          </tr>
+        </table>
+        <shiro:hasRole name="role2">
+        <table class="table" style="width:440px;margin:10px 10px;font-family:'Helvetica';float:left;">
+          <tr><td colspan="2" align="center"><a style="font-size:20px;font-weight:700" th:text="#{person.center.title2}"></a></td></tr>
+          <tr>
+            <td width="160px" align="right"><a style="font-weight:700" th:text="#{person.center.company.label1}"></a></td>
+            <td width="280px" th:text="${person.company.name}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a style="font-weight:700" th:text="#{person.center.company.label2}"></a></td>
+            <td th:text="${person.company.code}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a style="font-weight:700" th:text="#{person.center.company.label3}"></a></td>
+            <td th:text="${person.company.cont}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a style="font-weight:700" th:text="#{person.center.company.label4}"></a></td>
+            <td th:text="${person.company.date}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a style="font-weight:700" th:text="#{person.center.company.label5}"></a></td>
+            <td th:text="${person.company.term}"></td>
+          </tr>
+        </table>
+        </shiro:hasRole>
+        
+        <table id="tab1">
+          <tr>
+            <td width="120px;" align="center" th:text="#{person.center.list.label1}"></td>
+            <td width="720px;" align="left">
+              <div style="width:240px;height:20px;background-color:#FF9900;margin-right:40px;float:left;"></div>
+              <font th:text="#{person.center.list.label2}"><span style="color:#FF9900" th:text="#{person.center.list.level}"></span></font>
+            </td>
+            <td width="140px"></td>
+          </tr>
+          <tr>
+            <td align="center"><h4 style="font-weight:700" th:text="#{person.center.list.title1}"></h4></td>
+            <td align="left" th:text="#{person.center.list.context1}"></td>
+            <td align="center">
+              <img src="/CCTV/img/ioc1.png" style="float:left;"><span style="color:#44B333" th:text="#{person.center.list.link1}"></span> | <a id="link1" th:text="#{person.center.list.link3}"></a>
+            </td>
+          </tr>
+          <tr>
+            <td align="center"><h4 style="font-weight:700" th:text="#{person.center.list.title2}"></h4></td>
+            <td align="left" th:text="#{person.center.list.context2}"></td>
+            <td th:if="${person.email!='' && person.email!=null}" align="center">
+              <img src="/CCTV/img/ioc1.png" style="float:left;"><span style="color:#44B333" th:text="#{person.center.list.link1}"></span> | <a id="link2" th:text="#{person.center.list.link3}"></a>
+            </td>
+            <td th:if="${person.email=='' || person.email==null}" align="center">
+              <img src="/CCTV/img/ioc2.png" style="float:left;"><span style="color:#FF9900" th:text="#{person.center.list.link2}"></span> | <a id="link2" th:text="#{person.center.list.link4}"></a>
+            </td>
+          </tr>
+          <tr>
+            <td align="center"><h4 style="font-weight:700" th:text="#{person.center.list.title3}"></h4></td>
+            <td align="left" th:text="#{person.center.list.context3}"></td>
+            <td th:if="${person.phone!='--' && person.phone!=null}" align="center">
+              <img src="/CCTV/img/ioc1.png" style="float:left;"><span style="color:#44B333" th:text="#{person.center.list.link1}"></span> | <a id="link3" th:text="#{person.center.list.link3}"></a>
+            </td>
+            <td th:if="${person.phone=='--' || person.phone==null}" align="center">
+              <img src="/CCTV/img/ioc2.png" style="float:left;"><span style="color:#FF9900" th:text="#{person.center.list.link2}"></span> | <a id="link3" th:text="#{person.center.list.link4}"></a>
+         	</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <div id="page">
+      <div id="webform1">
+        <div class="formbar">
+	      <span style="font-size:15px;font-weight:700;color:#fff;" th:text="#{person.center.webform1.title}"></span>
+	      <input type="button" class="closebtn" value="X"/>
+	    </div>
+	    <table id="pageTab1">
+	      <tr height="20px">
+	        <td colspan="2" align="center"><a style="color:#f00"></a></td>
+	      </tr>
+	      <tr height="55px">
+	        <td align="right"><font color="#ff0000">*</font><a th:text="#{person.center.webform1.font1}"></a></td>
+	        <td><input class="textbox" type="password"/></td>
+	      </tr>
+	      <tr height="55px">
+	        <td align="right"><font color="#ff0000">*</font><a th:text="#{person.center.webform1.font2}"></a></td>
+	        <td><input class="textbox" type="password"/></td>
+	      </tr>
+	      <tr height="55px">
+	        <td align="right"><font color="#ff0000">*</font><a th:text="#{person.center.webform1.font3}"></a></td>
+	        <td><input class="textbox" type="password"/></td>
+	      </tr>
+	      <tr height="55px">
+	        <td></td>
+	        <td><input type="button" class="btn" th:value="#{person.center.webform.button}"/></td>
+	      </tr>
+	    </table>
+	  </div>
+	  
+	  <div id="webform2">
+        <div class="formbar">
+	      <span style="font-size:15px;font-weight:700;color:#fff;" th:text="#{person.center.webform2.title}"></span>
+	      <input type="button" class="closebtn" value="X"/>
+	    </div>
+	    <table id="pageTab2">
+	      <tr height="20px">
+	        <td colspan="2" align="center"><a style="color:#f00"></a></td>
+	      </tr>
+	      <tr height="55px">
+	        <td align="right"><font color="#ff0000">*</font><a th:text="#{person.center.webform2.font1}"></a></td>
+	        <td><a style="color:#F29D17;font-weight:700" th:text="${person.username}"></a></td>
+	      </tr>
+	      <tr height="55px">
+	        <td align="right"><font color="#ff0000">*</font><a th:text="#{person.center.webform2.font2}"></a></td>
+	        <td><input class="textbox" type="text"/></td>
+	      </tr>
+	      <tr height="55px">
+	        <td align="right"><font color="#ff0000">*</font><a th:text="#{person.center.webform2.font3}"></a></td>
+	        <td>
+	          <input class="textbox" type="text" style="width:120px"/>
+	          <input id="getCode" type="button" th:value="#{person.center.webform2.button}"/>
+	        </td>
+	      </tr>
+	      <tr height="55px">
+	        <td></td>
+	        <td><input type="button" class="btn" th:value="#{person.center.webform.button}"/></td>
+	      </tr>
+	    </table>
+	  </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>评分详情</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/CCTV/css/markinfo/findinfo.css"/>
+    <script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/CCTV/js/markinfo/findinfo.js"></script>
+  </head>
+  <body>
+    <div th:replace="navigation::navigation"></div>
+    <div id="Tip"></div>
+    <div id="TitleMemu">
+      <div style="width:1200px;height:100%;margin:0 auto;">
+        <a href="/CCTV/project/showlist" title="首页"><img src="/CCTV/img/msdi.png"></a>
+	    <input type="button" th:value="#{markinfo.findinfo.button1}"/>
+	    <input type="button" th:value="#{markinfo.findinfo.button2}"/>
+      </div>
+    </div>
+    <div id="main">
+      <input type="hidden" id="id" th:value="${param.id}"/> 
+      <input type="hidden" id="no" th:value="${param.no}"/> 
+      <div id="mainTop">
+        <div class="title" th:text="#{markinfo.findinfo.title1}"></div>
+        <div id="head1">
+	      <div style="width:24px"></div>
+          <div style="width:40px">No</div>
+          <div style="width:155px">Start MH</div>
+          <div style="width:155px">Finish MH</div>
+          <div style="width:140px">Pipe Score</div>
+          <div style="width:140px">Item Score</div>
+          <div style="width:230px">Editorial Score</div>
+          <div style="width:230px">Operator Score</div>
+          <div style="width:70px">View</div>
+	    </div>
+        <div id="showpipe" style="width:100%;max-height:240px;overflow-y:scroll;float:left;">
+          <table id="tab1" style="width:100%;border-collapse:collapse;">
+            <tr th:each="markPipe:${markPipes}" height="30px">
+              <td width="2%"></td>
+              <td width="3%" th:text="${markPipe.pipe.no}"></td>
+              <td width="13%" th:text="${markPipe.pipe.smanholeno}"></td>
+              <td width="13%" th:text="${markPipe.pipe.fmanholeno}"></td>
+              <td width="12%" th:text="${markPipe.pipescore}"></td>
+              <td width="12%" th:text="${markPipe.itemscore}"></td>
+              <td width="20%" th:text="${markPipe.score1}"></td>
+              <td width="20%" th:text="${markPipe.score2}"></td>
+              <td width="5%"><input type="button" th:value="#{markinfo.findinfo.list.button}"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+      <div id="mainCenter">
+        <table id="maintab1">
+          <tr height="10px" style="font-size:13px">
+            <td>Survey ID</td>
+            <td>Operator</td>
+            <td>Work Order No</td>
+            <td>Pipe Length Reference</td>
+            <td>Purpose</td>
+            <td>Slope</td>
+            <td>Slope Reference No</td>
+            <td>Year Laid</td>
+            <td>Date</td>
+            <td>Time</td>
+          </tr>
+          <tr>
+            <td><input type="text" th:value="${markPipe.pipe.no}" style="width:100px"></td>
+            <td><input type="text" th:value="${markPipe.pipe.operator}" style="width:100px"></td>
+            <td><input type="text" th:value="${markPipe.pipe.workorder}" style="width:100px"></td>
+            <td><input type="text" th:value="${markPipe.pipe.reference}" style="width:150px;background-color:#EBEBE4;"></td>
+            <td><input type="text" th:value="${markPipe.pipe.purposes}" style="width:100px"></td>
+            <td><input type="text" th:value="${markPipe.pipe.slope}" style="width:100px"></td>
+            <td><input type="text" th:value="${markPipe.pipe.sloperef}" style="width:156px"></td>
+            <td><input type="text" th:value="${markPipe.pipe.yearlaid}" style="width:100px"></td>
+            <td><input type="text" th:value="${markPipe.pipe.date}" style="width:100px"></td>
+            <td><input type="text" th:value="${markPipe.pipe.time}" style="width:100px"></td>
+          </tr>
+        </table>
+        <table id="maintab2">
+          <tr height="10px" style="font-size:13px">
+            <td>District1</td>
+            <td>District2</td>
+            <td>District3</td>
+            <td>Road Name</td>
+            <td>House No</td>
+            <td>Building</td>
+            <td>division</td>
+            <td>Drainage Area Code</td>
+          </tr>
+          <tr>
+            <td><input type="text" th:value="${markPipe.pipe.district1}" style="width:100px;"/></td>
+		    <td><input type="text" th:value="${markPipe.pipe.district2}" style="width:100px;"/></td>
+		    <td><input type="text" th:value="${markPipe.pipe.district3}" style="width:100px;"/></td>
+		    <td><input type="text" th:value="${markPipe.pipe.roadname}" style="width:206px;"/></td>
+		    <td><input type="text" th:value="${markPipe.pipe.housenum}" style="width:100px;"/></td>
+		    <td><input type="text" th:value="${markPipe.pipe.building}" style="width:206px;"/></td>
+		    <td><input type="text" th:value="${markPipe.pipe.division}" style="width:100px;background-color:#EBEBE4;"/></td>
+		    <td><input type="text" th:value="${markPipe.pipe.areacode}" style="width:206px;background-color:#EBEBE4;"/></td>
+          </tr>
+        </table>
+        <table id="maintab3">
+          <tr height="10px" style="font-size:13px">
+            <td>Start MH</td>
+            <td>Finish MH</td>
+            <td>Use</td>
+            <td>Direction</td>
+            <td>Size(Dia)H</td>
+            <td>Size(Dia)W</td>
+            <td>Shape</td>
+            <td>Material</td>
+            <td>Lining</td>
+            <td>Pipe Length</td>
+            <td>Total Length</td>
+          </tr>
+          <tr>
+		    <td><input type="text" th:value="${markPipe.pipe.smanholeno}" style="width:100px"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.fmanholeno}" style="width:100px"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.use}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.direction}" style="width:100px;"></td>
+            <td><input type="text" th:value="${markPipe.pipe.hsize}" style="width:100px"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.wsize}" style="width:100px"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.shape}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.material}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.lining}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.pipelength}" style="width:100px"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.totallength}" style="width:100px"></td>
+	  	  </tr>
+	  	</table>
+        <table id="maintab4">
+          <tr height="10px" style="font-size:13px">
+            <td>Start Depth</td>
+            <td>Cover Level</td>
+            <td>Invert Level</td>
+            <td>Finish Depth</td>
+            <td>Cover Level</td>
+            <td>Invert Level</td>
+            <td>Category</td>
+            <td>Cleaned</td>
+            <td>Weather</td>
+            <td>Video No</td>
+          </tr>
+          <tr>  
+            <td><input type="text" th:value="${markPipe.pipe.sdepth}" style="width:100px"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.scoverlevel}" style="width:100px"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.sinvertlevel}" style="width:100px;background-color:#EBEBE4;"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.fdepth}" style="width:100px"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.fcoverlevel}" style="width:100px"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.finvertlevel}" style="width:100px;background-color:#EBEBE4;"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.category}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${markPipe.pipe.cleaned}" style="width:100px;"></td>
+            <td><input type="text" th:value="${markPipe.pipe.weather}" style="width:100px;"></td>
+            <td><input type="text" th:value="${markPipe.pipe.videono}" style="width:206px;"></td>
+          </tr>
+        </table>
+        <table id="maintab5">
+          <tr height="10px" style="font-size:13px">
+			<td width="130px;">Comments General:</td>
+            <td><input type="text" th:value="${markPipe.pipe.comment}" style="width:1029px;"></td>
+          </tr>
+        </table>
+      </div>
+      
+      <div id="view">
+        <div class="viewTitle" th:text="#{markinfo.findinfo.view.label1}"></div>
+        <div class="viewTitle" th:text="#{markinfo.findinfo.view.label2}"></div>
+        <video id="video" controls="controls" poster="/CCTV/img/poster1.png"></video>
+        <input id="file1" type="file" accept="video/mp4,video/avi" style="display:none"/>
+        <img id="pictures" src="/CCTV/img/blank-plus.png">
+      </div>
+      <div id="mainBottom1">
+        <div class="title" th:text="#{markinfo.findinfo.title2}"></div>
+        <div style="width:1198px;max-height:274px;overflow-y:scroll">
+		<table id="tab2" style="width:100%;background-color:#F1F1F1">
+          <thead style="background-color:#5288DA;color:#fff">
+            <tr height="24px;">
+              <th width="2.5%" rowspan="2"></th>
+              <th width="10%" rowspan="2">Video Time</th>
+              <th width="9.5%" rowspan="2">Photo No</th>
+              <th width="10%" rowspan="2">Distance</th>
+              <th width="10%" rowspan="2">Cont<br/>Def</th>
+              <th width="10%" rowspan="2">Code</th>
+              <th width="10%" rowspan="2">Dia./Dim</th>
+              <th width="10%" colspan="2">Clock</th>
+              <th width="10%" colspan="2">Intrusion</th>
+              <th width="22%" rowspan="2">Remarks</th>
+            </tr>
+            <tr height="24px;">
+              <th width="4%">At</th>
+              <th width="4%">To</th>
+              <th width="4%">%</th>
+              <th width="4%">mm</th>
+            </tr>
+          </thead>
+          <tbody style="background-color:#fff">
+            <tr th:each="item:${markPipe.pipe.items}" height="20px">
+              <td align="center"></td>
+              <td style="text-indent:8px;" th:text="${item.video}"></td>
+              <td style="text-indent:8px;" th:text="${item.photo}"></td>
+              <td style="text-indent:8px;" th:text="${item.dist}"></td>
+              <td style="text-indent:8px;" th:text="${item.cont}"></td>
+              <td style="text-indent:8px;" th:text="${item.code}"></td>
+              <td style="text-indent:8px;" th:text="${item.diam}"></td>
+              <td style="text-indent:8px;" th:text="${item.clockAt}"></td>
+              <td style="text-indent:8px;" th:text="${item.clockTo}"></td>
+              <td style="text-indent:8px;" th:text="${item.percent}"></td>
+              <td style="text-indent:8px;" th:text="${item.lengths}"></td>
+              <td style="text-indent:8px;" th:text="${item.remarks}"></td>
+              <td style="display:none" th:text="${item.picture}"></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div id="mainBottom2">
+        <div class="title" style="background-color:#5288DA;color:#fff" th:text="#{markinfo.findinfo.title3}"></div>
+        <table id="tab3">
+          <tr height="60px">
+            <td colspan="2" width="25%">
+              <div th:text="#{markinfo.findinfo.mark.span1}"></div>
+              <input type="text" name="pipescore" th:value="${markPipe.pipescore}">
+            </td>
+            <td colspan="2" width="25%">
+              <div th:text="#{markinfo.findinfo.mark.span2}"></div>
+              <input type="text" name="itemscore" th:value="${markPipe.itemscore}">
+            </td>
+            <td width="10%" th:text="#{markinfo.findinfo.mark.span3}"></td>
+            <td width="15%" id="showstar1" th:text="${markPipe.score1}"></td>
+            <td width="10%" th:text="#{markinfo.findinfo.mark.span4}"></td>
+            <td width="15%" id="showstar2" th:text="${markPipe.score2}"></td>
+          </tr>
+          <tr>
+            <td colspan="2"><textarea name="piperemark" th:text="${markPipe.piperemark}" th:placeholder="#{markinfo.findinfo.mark.remark}"></textarea></td>
+            <td colspan="2"><textarea name="itemremark" th:text="${markPipe.itemremark}" th:placeholder="#{markinfo.findinfo.mark.remark}"></textarea></td>
+            <td colspan="2"><textarea name="remark1" th:text="${markPipe.remark1}" th:placeholder="#{markinfo.findinfo.mark.remark}"></textarea></td>
+            <td colspan="2"><textarea name="remark2" th:text="${markPipe.remark2}" th:placeholder="#{markinfo.findinfo.mark.remark}"></textarea></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

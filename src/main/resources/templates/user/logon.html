@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>用户注册</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/CCTV/css/user/logon.css"/>
+    <script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/CCTV/js/user/logon.js"></script>
+  </head>
+  <body>
+    <div style="width:100%;height:80px;background-color:#fff;float:left;">
+      <div id="logo"><a href="/CCTV/user/loginview"><img src="/CCTV/img/msdi.png"/></a></div>
+    </div>
+    <div id="main">
+      <div id="mainTop" th:text="#{user.logon.title}"></div>
+      <div id="mainCenter">
+        <div id="tips" th:text="${tips}"></div>
+        <form id="form1" action="/CCTV/user/logon" method="post">
+        <table id="tab1">
+          <tr>
+            <td align="right"><a>*</a><span th:text="#{user.logon.label1}"></span></td>
+            <td><input type="text" name="nickname" th:value="${nickname}"/></td>
+          </tr>
+          <tr>
+            <td align="right"><a>*</a><span th:text="#{user.logon.label2}"></span></td>
+    	    <td><input type="text" name="username" th:value="${username}"/></td>
+       	  </tr>
+          <tr>
+       	    <td align="right"><a>*</a><span th:text="#{user.logon.label3}"></span></td>
+       	    <td><input type="password" name="password" th:value="${password}"/></td>
+          </tr>
+          <tr>
+       	    <td align="right"><a>*</a><span th:text="#{user.logon.label4}"></span></td>
+       	    <td><input type="password" th:value="${password}"/></td>
+          </tr>
+          <tr>
+            <td align="right"><a>*</a><span th:text="#{user.logon.label5}"></span></td>
+            <td><input type="text" name="company.name" th:value="${company?.name}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a>*</a><span th:text="#{user.logon.label6}"></span></td>
+            <td><input type="text" name="company.code" th:value="${company?.code}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a>*</a><span th:text="#{user.logon.label7}"></span></td>
+            <td><input type="text" name="email" th:value="${email}"></td>
+          </tr>
+          <tr>
+            <td align="right"><a>*</a><span th:text="#{user.logon.label8}"></span></td>
+            <td>
+              <input type="text" id="code" style="width:140px">
+              <input type="button" id="getBtn" th:value="#{user.logon.button1}"/>
+            </td>
+          </tr>
+          <tr>
+    	    <td></td>
+       	    <td><input type="button" th:value="#{user.logon.button2}" class="combtn"></td>
+       	  </tr>
+        </table>
+        </form>
+      </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>深圳麦斯迪埃高科技有限公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

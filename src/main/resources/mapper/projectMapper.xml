@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.ProjectDao">
+
+	<insert id="insertProject" parameterType="Project" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO project VALUES(nextval('indexID'),
+			#{name},
+			#{client},
+			#{standard},
+			#{slope},
+			#{operator},
+			#{date},
+			#{person.id},
+			#{company.id}
+		)
+	</insert>
+
+	<update id="updateProject" parameterType="Project">
+		UPDATE project SET name=#{name},
+			client=#{client},
+			standard=#{standard},
+			slope=#{slope},
+			operator=#{operator},
+			date=#{date},
+			personid=#{person.id},
+			companyid=#{company.id}
+		WHERE id=#{id}
+	</update>
+
+	<delete id="deleteProject" parameterType="Project">
+		DELETE FROM project WHERE id=#{id}
+	</delete>
+
+
+	<select id="findProjectByID" parameterType="int" resultMap="ProjectMap">
+		select * from project where id = #{id}
+	</select>
+	
+	<select id="findInfoProject" parameterType="Map" resultMap="ProjectMap">
+		select * from project
+		<where>
+			<if test="id != null">
+				id=#{id}
+			</if>
+			<if test="name != null">
+				and name like #{name}
+			</if>
+			<if test="person != null">
+				and personid = #{person.id}
+			</if>
+			<if test="company != null">
+				and companyid = #{company.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListProject" parameterType="Map" resultMap="ProjectMap">
+		select * from project
+		<where>
+			<if test="name != null">
+				and name like #{name}
+			</if>
+			<if test="person != null">
+				and personid = #{person.id}
+			</if>
+			<if test="company == null">
+				and companyid is null
+			</if>
+			<if test="company != null">
+				and companyid = #{company.id}
+			</if>
+		</where>
+		order by date desc
+		<if test="page > 0">
+			limit 15 offset (#{page}-1)*15
+		</if>
+	</select>
+	
+	<select id="getCount" parameterType="Map" resultType="int">
+		select count(*) from project
+		<where>
+			<if test="name != null">
+				and name like #{name}
+			</if>
+			<if test="person != null">
+				and personid = #{person.id}
+			</if>
+			<if test="company == null">
+				and companyid is null
+			</if>
+			<if test="company != null">
+				and companyid = #{company.id}
+			</if>
+		</where>
+	</select>
+	
+	<resultMap id="ProjectMap" type="Project">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="client" column="client"/>
+		<result property="standard" column="standard"/>
+		<result property="slope" column="slope"/>
+		<result property="operator" column="operator"/>
+		<result property="date" column="date"/>
+	 	<association property="person" column="personid" select="com.springboot.dao.PersonDao.findPersonByID"/>
+	 	<association property="company" column="companyid" select="com.springboot.dao.CompanyDao.findCompanyByID"/>
+	</resultMap>
+	
+</mapper>
+ 

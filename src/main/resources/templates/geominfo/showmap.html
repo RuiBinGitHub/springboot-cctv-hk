@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+  <head>
+    <title>项目展示</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="/CCTV/css/geomproject/showmap.css">
+    <link type="text/css" rel="stylesheet" href="/CCTV/css/comm/ol.css"/>
+	<script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="/CCTV/js/comm/jquery.jsonp.js"></script>
+	<script type="text/javascript" src="/CCTV/js/comm/proj4.js"></script>
+	<script type="text/javascript" src="/CCTV/js/comm/ol.js" ></script>
+    <script type="text/javascript" src="/CCTV/js/geomproject/showmap.js"></script>
+  </head>
+  <body>
+    <div id="Tip"></div>
+	<div id="map">
+	  <input id="text" type="text" value="香港"/>
+	  <input id="find" type="button" value="查询"/>
+      <div id="result">
+        <div style="width:100%;height:50px;float:left;">
+          <div id="tltle" style="float:left;">搜索结果</div>
+          <div id="colse" style="float:left;">X</div>
+        </div>
+        <div id="showplace">
+          <table></table>
+        </div>
+        <div style="width:100%;height:60px;float:left;">
+          <input id="colseResult" type="button" value="关闭结果"/>
+        </div>
+      </div>
+      <!-- *********************************************************** -->
+      <input id="navigbtn" type="button" value="+"/>
+      <div id="navigation">	<!-- 导航条 -->
+        <div id="senior">高级查询</div>
+        <div style="width:60px;border-right:1px solid #999;float:left;">
+          <input type="checkbox" checked="checked"/>
+          <span style="font-size:16px;">流向</span>
+        </div>
+        <input type="button" class="locaBtn" value="←" style="width:30px;"/>
+        <input type="text" class="location"/>
+        <a style="text-align:5px;float:left;">-</a>
+        <input type="text" class="location"/>
+        <input type="button" class="locaBtn" value="确定"  style="width:42px"/>
+        <div id="rule" class="A1"><img src="/img/rule.png" title="测量距离"/></div>
+      </div>
+	  <!-- *********************************************************** -->
+	  <div id="seniorBox" style="display:none">
+	    <div id="Triangle"></div>
+	    <div id="QueryBox">
+	      <div>沙井编号查询：</div>
+		  <input type="button" value="←" class="btn1"/><input type="text" value="${name1}"/><input type="button" value="查询" class="btn2"/>
+		  <div>管道直径查询：</div>
+		  <input type="button" value="←" class="btn1"/><input type="text" value="${name2}"/><input type="button" value="查询" class="btn2"/>
+		  <div>管道材质查询：</div>
+		  <input type="button" value="←" class="btn1"/><input type="text" value="${name3}"/><input type="button" value="查询" class="btn2"/>
+	    </div>
+	  </div>
+	  <!-- *********************************************************** -->
+	  <input id="showBtn" type="button" value="显示"/>
+      <div id="showBox">
+        <div style="width:100%;height:25px">
+          <div class="title">图层</div>
+          <div class="title">项目</div>
+          <div class="title">信息</div>
+        </div>
+        <div class="panel">  <!-- 图层标签 -->
+          <div class="infoTitle"><input type="radio" name="data" checked="checked"/>原始数据：</div>
+          <div style="width:200px;height:40px;line-height:40px;float:right;"><input id="checkbox1" type="checkbox" checked="checked"/>项目范围</div>
+          <div style="width:200px;height:40px;line-height:40px;float:right;"><input id="checkbox2" type="checkbox" checked="checked"/>管线数据</div>
+          <div style="width:200px;height:40px;line-height:40px;float:right;"><input id="checkbox3" type="checkbox" checked="checked"/>沙井数据</div>
+          <div class="infoTitle"><input type="radio" name="data"/>修正数据：</div>
+          <div style="width:200px;height:40px;line-height:40px;float:right;"><input id="checkbox4" type="checkbox" disabled="disabled"/>项目范围</div>
+          <div style="width:200px;height:40px;line-height:40px;float:right;"><input id="checkbox5" type="checkbox" disabled="disabled"/>管线数据</div>
+          <div style="width:200px;height:40px;line-height:40px;float:right;"><input id="checkbox6" type="checkbox" disabled="disabled"/>沙井数据</div>
+        </div>
+        
+        <div class="panel">  <!-- 信息标签 -->
+          <input id="resultText" type="text" placeholder="搜索"/>
+          <div id="resultList"></div>
+		</div>
+		<datalist id="nums">  <!-- 查询结果项目列表 -->
+          <option th:each="geomProject:${geomProjects}" id="${geomProject.extent}" class="${geomProject.center}" th:text="${geomProject.project.name}"></option>
+		</datalist>
+        <div class="panel">  <!-- 信息标签 -->
+          <select id="infoTitle">
+            <option value="1">项目信息</option>
+            <option value="2">管道信息</option>
+            <option value="3">记录信息</option>
+          </select>
+          <div id="link"><img id="compare" src="/img/compare.png" title="管道对比"></div>
+          <div id="infoList">暂无数据</div>
+        </div>
+        <div id="showImg"><img style="width:320px;height:240px"></div>
+      </div>
+      <div id="datalist" style="display:none">
+      	<th:forEach items="${pipegeoms}" var="pipegeom">
+          <a>${pipegeom.actualX1}，${pipegeom.actualY1}</a>
+        </th:forEach>
+      </div>
+      <img id="img" src="/CCTV/img/logo.png">
+      <div id="coordinate">坐标：<a>000000.000，000000.000</a></div>
+    </div>
+  </body>
+</html>

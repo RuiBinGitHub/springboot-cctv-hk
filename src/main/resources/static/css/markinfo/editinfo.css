@@ -1,0 +1,272 @@
+@CHARSET "UTF-8";
+body{
+	background-color:#f1f1f1;
+}
+#Tip{
+ 	top:40%;left:45%; 
+ 	padding:10px 20px;
+ 	position:fixed;
+ 	color:#ffffff;
+ 	font-size:18px;
+ 	font-weight:500;
+ 	text-align:center;
+ 	line-height:80px;
+ 	background-color:rgba(60,60,60,0.8);
+ 	border-radius:6px; 
+ 	display:none;
+ 	z-index:9;
+}
+#TitleMemu{
+	width:100%;
+	height:80px;
+	top:0px;left:0px;
+	background-color:rgba(102,102,110,0.9);
+	position:fixed;
+	display:none;
+	z-index:10;
+}
+#TitleMemu div img{
+	width:106px;
+	height:50px;
+	margin:15px 980px 15px 10px;
+	float:left;
+}
+#TitleMemu div input{
+	width:80px;
+	height:32px;
+	color:#ffffff;
+	font-size:15px;
+	margin:25px 0px 24px 10px;
+	background-color:#51C83D;
+	border-radius:4px;
+	border:none;
+	float:left;
+}
+#TitleMemu div input:hover{
+	cursor:pointer;
+	color:#F7C93D;
+}
+/******************************************/
+#main{
+	width:1200px;
+	margin:0px auto;
+}
+#mainTop{
+	width:1198px;
+	max-height:350px;
+	margin-top:5px;
+	background-color:#fff;
+	border:1px solid #ccc;
+	float:left;
+}
+.title{
+	width:100%;
+	height:50px;
+	line-height:50px;
+	text-indent:20px;
+	font-size:20px;
+	font-weight:700;
+	float:left;
+}
+#common{
+	width:80px;
+	height:30px;
+	margin-top:10px;
+	margin-right:20px;
+	color:#ffffff;
+	background:#51C83D;
+	border-radius:4px;
+	border:none;
+	float:right;
+}
+#common:hover{
+	color:#F7C93D;
+	cursor:pointer;
+}
+#head1{
+	width:100%;
+	height:35px;
+	background-color:#00A4FF;
+	float:left;
+}
+#head1 div{
+	height:100%;
+	color:#FFF;
+	font-size:16px;
+	font-weight:700;
+	text-align:center;
+	line-height:35px;
+	border:none;
+	float:left;
+}
+#tab1{
+	width:100%;
+	border-collapse:collapse;
+	background-color:#E3E3E3;
+}
+#tab1 tr{
+	height:24px;
+	font-size:14px;
+	text-align:center;
+	background-color:#ffffff;
+}
+#tab1 tr:nth-child(even){
+	background-color:#f0f0f0;
+}
+#tab1 tr:hover{
+	background-color:#ffd58d;
+}
+#tab1 tr td img{
+	width:24px;
+	height:24px;
+	margin-right:6px;
+}
+#tab1 tr td input{
+	width:40px;
+	height:20px;
+	color:#fff;
+	background-color:#FF9000;
+	border-radius:4px;
+	display:none;
+	border:none;
+}
+#tab1 tr td input:hover{
+	background-color:#ffaa2b;
+	cursor:pointer;
+}
+#mainCenter{
+	width:1198px;
+	margin:5px 0px;
+	background-color:#fff;
+	border:1px solid #ccc;
+	float:left;
+}
+#mainCenter table{
+	margin:0px 15px;
+	float:left;
+}
+#mainCenter table tr{
+	height: 25px;
+}
+#mainCenter table tr input{
+	text-indent:5px;
+	border:1px solid #999;
+}
+#view{
+	width:1198px;
+	background-color:#fff;
+	border:1px solid #ccc;
+	border-bottom:none;
+	float:left;
+}
+.viewTitle{
+	width:580px;
+	height:27px;
+	font-size:16px;
+	text-indent:32px;
+	line-height:25px;
+	float:left;
+}
+#video{
+	width:560px;
+	height:420px;
+	margin:0px 10px 10px 30px;
+	background-color:#fff;
+	border-radius:4px;
+	cursor:pointer;
+	float:left;
+}
+#pictures{
+	width:560px;
+	height:420px;	
+	margin:0px 20px 10px 10px;
+	background-color:#fff;
+	border-radius:4px;
+	float:left;
+}
+#mainBottom1{
+	width:1198px;
+	max-height:360px;
+	background-color:#fff;
+	border:1px solid #ccc;
+	float:left;
+}
+#mainBottom2{
+	width:1198px;
+	// height:250px;
+	margin-top:5px;
+	background-color:#fff;
+	border:1px solid #ccc;
+	float:left;
+}
+#display{
+	width:24px;
+	height:24px;
+	margin:10px 15px;
+	font-size:16px;
+	font-weight:700;
+	background-color:#fff;
+	border:1px solid #ccc;
+	border-radius:4px;
+	float:right;
+}
+#display:hover{
+	cursor:pointer;
+	color:#ff8000;
+}
+#tab2{
+	table-layout:fixed;
+}
+#tab2 tbody tr{
+	height:24px;
+	font-size:12px;
+	cursor:pointer;
+}
+#tab2 tbody tr td{
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+}
+#tab3{
+	color:#4E6794;
+	font-size:14px;
+	font-family:"Helvetica";
+	text-align:center;
+}
+#tab3 tr td div{
+	width:100%;
+	font-size:13.5px;
+	font-family:"Helvetica";
+	text-align:left;
+	text-indent:14px;
+}
+#tab3 tr td input {
+	width:286px;
+	height:30px;
+	margin-left:8px;
+	text-indent:6px;
+	border:none;
+	border-bottom:2px solid #ccc;
+}
+#tab3 tr td input:hover {
+	border-bottom:2px solid #009688;
+}
+#tab3 tr td textarea {
+	width:282px;
+	height:90px;
+	margin-top:10px;
+	margin-left:8px;
+	margin-bottom:3px;
+	font-family:"微软雅黑";
+	border:none;
+	border-bottom:2px solid #ccc;
+	resize:none;
+}
+#tab3 tr td textarea:hover {
+	border:none;
+	border-bottom:2px solid #009688;
+}
+.star{
+	margin-left:4px;
+	float:left;
+}

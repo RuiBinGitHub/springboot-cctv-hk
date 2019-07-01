@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>编辑公司</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/CCTV/css/company/update.css"/>
+    <script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/CCTV/js/company/update.js"></script>
+  </head>
+  <body>
+    <div id="Tip"></div>
+    <div id="naviMain">
+      <div id="navi">
+        <div style="width:900px;height:100%;float:left;">
+          <img id="naviLogo" src="/CCTV/img/msdi.png" title="首页">
+        </div>
+        <div class="naviItem">
+          <img src="/CCTV/img/退出1.png"/>
+          <a href="/CCTV/user/leave">退出登录</a>
+        </div>
+      </div>
+    </div>
+    <div id="main">
+      <div id="maininfo">
+        <div id="top">公司信息</div>
+        <form id="form1" action="update" method="post">
+          <input type="hidden" name="id" th:value="${company.id}"/>
+	      <table id="table1">
+	    	<tr>
+	    	  <td width="120px" align="right"><span style="color:#f00">*</span><span class="label">公司名称：</span></td>
+	    	  <td width="270px" align="left"><input type="text" name="name" th:value="${company.name}" class="textbox1" readonly style="background-color:#f0f0f0"/></td>
+	    	</tr>
+	    	<tr>
+	    	  <td align="right"><span style="color:#f00">*</span><span class="label">序列号码：</span></td>
+	    	  <td align="left"><input type="text" name="code" th:value="${company.code}" class="textbox1" readonly style="background-color:#f0f0f0"/></td>
+	    	</tr>
+	    	<tr>
+	    	  <td align="right"><span style="color:#f00">*</span><span class="label">公司规模：</span></td>
+	    	  <td align="left"><input type="text" name="cont" th:value="${company.cont}" class="textbox1"/></td>
+	    	</tr>
+	    	<tr>
+	       	  <td align="right"><span style="color:#f00">*</span><span class="label">使用期限：</span></td>
+	       	  <td align="left"><input type="text" name="term" th:value="${company.term}" class="textbox1"/></td>
+	       	</tr>
+	    	<tr>
+	       	  <td align="right"><span style="color:#f00">*</span><span class="label">注册日期：</span></td>
+	       	  <td align="left"><input type="text" name="date" th:value="${company.date}" class="textbox1" readonly style="background-color:#f0f0f0"/></td>
+	       	</tr>
+	    	<tr>
+	       	  <td align="right"></td>
+	       	  <td align="left"><input type="button" value="确定" class="combtn"></td>
+	       	</tr>
+	      </table>
+  	  	</form>
+      </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

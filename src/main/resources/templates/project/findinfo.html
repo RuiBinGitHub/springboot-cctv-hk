@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>项目浏览</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+    <link type="text/css" rel="stylesheet" href="/CCTV/css/project/findinfo.css"/>
+    <script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/CCTV/js/project/findinfo.js"></script>
+  </head>
+  <body>
+    <div th:replace="navigation::navigation"></div>
+    <div id="Tip"></div>
+    <div id="TitleMemu">
+      <div style="width:1200px;height:100%;margin:0 auto;">
+        <a href="/CCTV/project/showlist" title="首页"><img src="/CCTV/img/msdi.png"></a>
+        <input type="button" th:value="#{project.findinfo.button1}" style="background-color:#51C83D"/>
+	    <input type="button" th:value="#{project.findinfo.button2}" style="background-color:#00A3FE"/>
+      </div>
+    </div>
+    <!-- *************************************************************** -->
+    <div id="main">
+	  <div id="main1">
+	    <div id="memu1">
+	      <span id="title" th:text="#{project.findinfo.pipe.title}"></span>
+	      <!-- <input type="button" th:value="#{project.findinfo.pipe.button}"/> -->
+	    </div>
+	    <div id="head1">
+	      <div style="width:24px"></div>
+          <div style="width:40px">No</div>
+          <div style="width:108px">Start MH</div>
+          <div style="width:117px">Start Depth</div>
+          <div style="width:117px">Cover Level</div>
+          <div style="width:117px">Invert Level</div>
+          <div style="width:108px">Finish MH</div>
+          <div style="width:117px">Finish Depth</div>
+          <div style="width:117px">Cover Level</div>
+          <div style="width:117px">Invert Level</div>
+          <div style="width:150px">Video No</div>
+	    </div>
+	    <div style="width:100%;max-height:240px;overflow-y:scroll;float:left;">
+	      <table id="tab1">
+       	  	<tr th:each="pipe:${pipes}" align="center" height="24px">
+              <td width="2%"></td>
+              <td width="3%" th:text="${pipe.no}"></td>
+              <td width="9%" th:text="${pipe.smanholeno}"></td>
+              <td width="10%" th:text="${pipe.sdepth}"></td>
+              <td width="10%" th:text="${pipe.scoverlevel}"></td>
+              <td width="10%" th:text="${pipe.sinvertlevel}"></td>
+              <td width="9%" th:text="${pipe.fmanholeno}"></td>
+              <td width="10%" th:text="${pipe.fdepth}"></td>
+              <td width="10%" th:text="${pipe.fcoverlevel}"></td>
+              <td width="10%" th:text="${pipe.finvertlevel}"></td>
+              <td width="13%" th:text="${pipe.videono}"></td>
+              <td width="4%"><input type="button" th:value="#{project.findinfo.pipe.list.button}"/></td>
+            </tr>
+	      </table>
+	    </div>
+	  </div>
+	  <div id="main2">
+        <input type="hidden" name="id" th:value="${param.id}"/>  	<!-- 记录项目ID -->
+	    <input type="hidden" name="no" th:value="${param.no}"/>  	<!-- 记录管道ID -->
+	    <table>
+          <tr height="10px" style="font-size:13px">
+            <td>Survey ID</td>
+            <td>Operator</td>
+            <td>Work Order No</td>
+            <td>Pipe Length Reference</td>
+            <td>Purpose</td>
+            <td>Slope</td>
+            <td>Slope Reference No</td>
+            <td>Year Laid</td>
+            <td>Date</td>
+            <td>Time</td>
+          </tr>
+          <tr>
+            <td><input type="text" th:value="${pipe.no}" style="width:100px;"></td>
+            <td><input type="text" th:value="${pipe.operator}" style="width:100px;"/></td>
+            <td><input type="text" th:value="${pipe.workorder}" style="width:100px;"></td>
+            <td><input type="text" th:value="${pipe.reference}" style="width:150px;background-color:#EBEBE4;"></td>
+            <td><input type="text" th:value="${pipe.purposes}" style="width:100px;"></td>
+            <td><input type="text" th:value="${pipe.slope}" style="width:100px;"></td>
+            <td><input type="text" th:value="${pipe.sloperef}" style="width:156px;"></td>
+            <td><input type="text" th:value="${pipe.yearlaid}" style="width:100px;"></td>
+            <td><input type="text" th:value="${pipe.date}" style="width:100px;"></td>
+            <td><input type="text" th:value="${pipe.time}" style="width:100px;"></td>
+          </tr>
+        </table>
+        <table>
+          <tr height="10px" style="font-size:13px">
+            <td>District1</td>
+            <td>District2</td>
+            <td>District3</td>
+            <td>Road Name</td>
+            <td>House No</td>
+            <td>Building</td>
+            <td>division</td>
+            <td>Drainage Area Code</td>
+          </tr>
+          <tr>
+            <td><input type="text" th:value="${pipe.district1}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${pipe.district2}" style="width:100px"></td>
+		    <td><input type="text" th:value="${pipe.district3}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${pipe.roadname}" style="width:206px;"></td>
+		    <td><input type="text" th:value="${pipe.housenum}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${pipe.building}" style="width:206px;"/></td>
+		    <td><input type="text" th:value="${pipe.division}" style="width:100px;background-color:#EBEBE4;"></td>
+		    <td><input type="text" th:value="${pipe.areacode}" style="width:206px;background-color:#EBEBE4;"></td>
+          </tr>
+        </table>
+        <table>
+          <tr height="10px" style="font-size:13px">
+            <td>Start MH</td>
+            <td>Finish MH</td>
+            <td>Use</td>
+            <td>Direction</td>
+            <td>Size(Dia)H</td>
+            <td>Size(Dia)W</td>
+            <td>Shape</td>
+            <td>Material</td>
+            <td>Lining</td>
+            <td>Pipe Length</td>
+            <td>Total Length</td>
+          </tr>
+          <tr>
+		    <td><input type="text" th:value="${pipe.smanholeno}" style="width:100px"></td>
+		    <td><input type="text" th:value="${pipe.fmanholeno}" style="width:100px"></td>
+		    <td><input type="text" th:value="${pipe.use}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${pipe.direction}" style="width:100px;"></td>
+            <td><input type="text" th:value="${pipe.hsize}" style="width:100px"></td>
+		    <td><input type="text" th:value="${pipe.wsize}" style="width:100px"></td>
+		    <td><input type="text" th:value="${pipe.shape}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${pipe.material}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${pipe.lining}" style="width:100px;"></td>
+		    <td><input type="text" th:value="${pipe.pipelength}" style="width:100px"></td>
+		    <td><input type="text" th:value="${pipe.totallength}" style="width:100px"></td>
+	  	  </tr>
+        </table>
+        <table>
+          <tr height="10px" style="font-size:13px">
+            <td>Start Depth</td>
+            <td>Cover Level</td>
+            <td>Invert Level</td>
+            <td>Finish Depth</td>
+            <td>Cover Level</td>
+            <td>Invert Level</td>
+            <td>Category</td>
+            <td>Cleaned</td>
+            <td>Weather</td>
+            <td>Video No</td>
+          </tr>
+          <tr>  
+            <td><input type="text" th:value="${pipe.sdepth}" style="width:100px"></td>
+		    <td><input type="text" th:value="${pipe.scoverlevel}" style="width:100px"></td>
+		    <td><input type="text" th:value="${pipe.sinvertlevel}" style="width:100px;background-color:#EBEBE4;"></td>
+		    <td><input type="text" th:value="${pipe.fdepth}" style="width:100px"></td>
+		    <td><input type="text" th:value="${pipe.fcoverlevel}" style="width:100px"></td>
+		    <td><input type="text" th:value="${pipe.finvertlevel}" style="width:100px;background-color:#EBEBE4;"></td>
+            <td><input type="text" th:value="${pipe.category}" style="width:100px"></td>
+            <td><input type="text" th:value="${pipe.cleaned}" style="width:100px"></td>
+            <td><input type="text" th:value="${pipe.weather}" style="width:100px"></td>
+            <td><input type="text" th:value="${pipe.videono}" style="width:206px"></td>
+          </tr>
+        </table>
+        <table>
+          <tr height="10px" style="font-size:13px">
+            <td width="130px;">Comments General:</td>
+            <td><input type="text" th:value="${pipe.comment}" style="width:1026px"></td>
+          </tr>
+        </table>
+	  </div>
+	  
+	  <div id="main3">
+	    <canvas id="showpipeimg" width="199px" height="838px"></canvas> <!-- 画图显示管道 -->
+	    <div style="width:485px;height:25px;margin:0px 10px 0px 15px;line-height:25px;float:left;" th:text="#{project.findinfo.view.label1}"></div>
+	    <div style="width:400px;height:25px;margin:0px 15px 0px 00px;line-height:25px;float:left;" th:text="#{project.findinfo.view.label2}"></div>
+	    <video id="video" controls="controls" poster="/CCTV/img/poster1.png" title="双击打开视频"></video>
+	    <input type="file" id="file1" accept="video/mp4,video/avi" style="display:none"/>
+	    <img id="pic1" class="img" src="/CCTV/img/blank.png"/>
+        <div id="memu2" th:text="#{project.findinfo.item.title}"></div>
+        <div style="width:1000px;height:412px;background-color:#ddd;overflow-y:scroll;float:left;">
+   		  <table id="tab2">
+        	<thead>
+         	  <tr height="20px;">
+             	<th width="3%" rowspan="2"></th>
+                <th width="10%" rowspan="2">Video Time</th>
+                <th width="10%" rowspan="2">Photo No</th>
+                <th width="10%" rowspan="2">Distance</th>
+                <th width="8%" rowspan="2">Cont<br/>Def</th>
+                <th width="8%" rowspan="2">Code</th>
+                <th width="10%" rowspan="2">Dia./Dim</th>
+                <th width="10%" colspan="2">Clock</th>
+                <th width="10%" colspan="2">Intrusion</th>
+                <th width="21%" rowspan="2">Remarks</th>
+         	  </tr>
+              <tr height="20px;">
+                <th width="50px">At</th>
+                <th width="50px">To</th>
+                <th width="50px">%</th>
+                <th width="50px">mm</th>
+              </tr>
+       	    </thead>
+            <tbody>
+                <tr th:each="item:${pipe.items}">
+				  <td style="font-size:16px;"></td>
+				  <td th:text="${item.video}"></td>
+				  <td th:text="${item.photo}"></td>
+				  <td th:text="${item.dist}"></td>
+				  <td th:text="${item.cont}"></td>
+				  <td th:text="${item.code}"></td>
+				  <td th:text="${item.diam}"></td>
+				  <td th:text="${item.clockAt}"></td>
+				  <td th:text="${item.clockTo}"></td>
+				  <td th:text="${item.percent}"></td>
+				  <td th:text="${item.lengths}"></td>
+				  <td th:text="${item.remarks}"></td>
+				  <td th:text="${item.picture}"></td>
+				</tr>
+            </tbody>
+          </table>
+        </div>
+	  </div>
+	</div>
+	<div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

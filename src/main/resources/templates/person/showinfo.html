@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+  <head>
+    <title>用户统计</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/CCTV/css/person/showinfo.css"/>
+    <script type="text/javascript" src="/CCTV/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/CCTV/js/comm/highcharts.js"></script>
+    <script type="text/javascript" src="/CCTV/js/person/showinfo.js"></script>
+  </head>
+  <body>
+    <div th:replace="navigation::navigation"></div>
+    <div id="Tip"></div>
+    <div id="main">
+      <div id="mainLeft">
+        <div id="menuTitle">用户信息</div>
+        <input type="hidden" id="person" th:value="${id}"/>
+        <img id="img" width="160px" height="160px" src="/CCTV/img/portrait.png">
+        <table id="table1" style="width:180px;margin:20px 10px;">
+          <tr height="50px"><td style="color:#999">账号：</td><td align="left" style="font-weight:600" th:text="${person.username}"></td></tr>
+          <tr height="50px"><td style="color:#999">昵称：</td><td align="left" style="font-weight:600" th:text="${person.nickname}"></td></tr>
+          <tr height="50px"><td style="color:#999">职务：</td><td align="left" style="font-weight:600" th:text="${person.role}"></td></tr>
+        </table>
+      </div>
+      <div id="mainRight">
+        <div id="rightTop">项目信息</div>
+        <div style="width:980px;height:140px;margin:10px;background-color:#F0F0F0;float:left;">
+          <div class="items">
+           <img src="/CCTV/img/item1.png">
+           <div style="line-height:100px;color:#3ABDF1">创建项目</div>
+           <div class="count" style="line-height:40px;" th:text="${counts[0]}"></div>
+          </div>
+          <div class="items">
+           <img src="/CCTV/img/item2.png">
+           <div style="line-height:100px;color:#26AA56">完成项目</div>
+           <div class="count" style="line-height:40px;" th:text="${counts[1]}"></div>
+          </div>
+          <div class="items">
+           <img src="/CCTV/img/item3.png">
+           <div style="line-height:100px;color:#FB841C">评分项目</div>
+           <div class="count" style="line-height:40px;" th:text="${counts[2]}"></div>
+          </div>
+          <div class="items">
+           <img src="/CCTV/img/item4.png">
+           <div style="line-height:100px;color:#26B815">及格项目</div>
+           <div class="count" style="line-height:40px;" th:text="${counts[3]}"></div>
+          </div>
+        </div>
+        <table id="proportion">
+          <tr height="40px">
+            <td width="10%" align="right"><img src="/CCTV/img/ioc0001.png" style="width:35px;height:35px;"></td>
+            <td width="15%" align="center"><span style="font-size:20px;font-weight:600;color:#19B293">项目完成率：</span></td>
+            <td width="25%"><a id="bili1" style="font-size:20px;font-weight:600;color:#666">00%</a></td>
+            <td width="10%" align="right"><img src="/CCTV/img/ioc0002.png" style="width:35px;height:35px;"></td>
+            <td width="15%" align="center"><span style="font-size:20px;font-weight:600;color:#37C572">项目及格率：</span></td>
+            <td width="25%"><a id="bili2" style="font-size:20px;font-weight:600;color:#666">00%</a></td>
+          </tr>
+        </table>
+        <div id="rightMenu" style="display:none">
+          <span style="width:50px;margin-left:20px;">时间：</span>
+          <input type="button" id="text1" class="menuBtn" value="←"/>
+          <input class="textbox" th:value="${param.time1}" readonly="readonly"/>
+          <span style="width:12px;margin-left:5px;">-</span>
+          <input class="textbox" th:value="${param.time2}" readonly="readonly"/>
+          <input type="button" id="text2" class="menuBtn" value="立即查询"/>
+        </div>
+        
+        <div class="line"></div>
+        <div id="combox1" style="width:980px;height:400px;margin:10px;float:left;"></div>
+        <div id="title" style="display:none">
+          <span th:each="markProject:${markProjects}">
+            <a class="name" th:text="${markProject.project.name}"></a>
+            <a class="score1" th:text="${markProject.score1}"></a>
+            <a class="score2" th:text="${markProject.score2}"></a>
+          </span>
+        </div>
+        <div style="width:100%;margin:4px 12px;color:#aaa;font-size:14px;float:left;">
+          注：项目得分为项目Coding与Heading得分平均分，Coding及格分数为95%，Heading及格分数为85%。两部分分数都合格才可评为合格项目。
+        </div>
+      </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

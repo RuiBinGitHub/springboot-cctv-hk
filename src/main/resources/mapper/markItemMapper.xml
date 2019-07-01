@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.MarkItemDao">
+	
+	<insert id="insertMarkItem" parameterType="MarkItem" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO markitem VALUES(nextval('indexID'),
+			#{score},
+			#{remark},
+			#{item.id},
+			#{markPipe.id}
+		)
+	</insert>
+	
+	<update id="updateMarkItem" parameterType="MarkItem">
+		UPDATE markitem SET score=#{score},
+			remark=#{remark},
+			itemid=#{item.id},
+			markpipeid=#{markPipe.id}
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="deleteMarkItem" parameterType="MarkItem">
+		DELETE FROM markitem WHERE id=#{id}
+	</delete>
+	
+	<select id="findInfoMarkItem" parameterType="Map" resultMap="MarkItemMap">
+		select * from markitem
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+			<if test="item != null">
+				and itemid = #{item.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListMarkItem" parameterType="Map" resultMap="MarkItemMap">
+		select m.* from markitem m left join item i on m.itemid=i.id
+		<where>
+			<if test="markPipe != null">
+				markpipeid=#{markPipe.id}
+			</if>
+		</where>
+		order by i.no
+	</select>
+	
+	<resultMap id="MarkItemMap" type="MarkItem">
+		<id property="id" column="id"/>
+		<result property="score" column="score"/>
+		<result property="remark" column="remark"/>
+		<association property="item" column="itemid" select="com.springboot.dao.ItemDao.findItemByID"/>
+		<association property="markPipe" column="markpipeid" select="com.springboot.dao.MarkPipeDao.findMarkPipeByID"/>
+	</resultMap>
+</mapper>
+ 

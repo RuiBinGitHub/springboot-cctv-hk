@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.OperatorDao">
+
+	<insert id="insertOperator" parameterType="Operator" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO operator VALUES(nextval('indexID'),
+			#{title},
+			#{fullname},
+			#{sure},
+			#{name},
+			#{chianame},
+			#{nickname},
+			#{membergrades},
+			#{membernumber},
+			#{membernumber},
+			#{company.id}
+		)
+	</insert>
+
+	<update id="updateOperator" parameterType="Operator">
+		UPDATE operator SET
+			title=#{title},
+			fullname=#{fullname},
+			sure=#{sure},
+			name=#{name},
+			chianame=#{chianame},
+			nickname=#{nickname},
+			membergrades=#{membergrades},
+			membernumber=#{membernumber},
+			date=#{date},
+			companyid=#{company.id}
+		WHERE id=#{id}
+	</update>
+
+	<delete id="deleteOperator" parameterType="Operator">
+		DELETE FROM operator WHERE id=#{id}
+	</delete>
+
+	<select id="findInfoOperator" parameterType="Map" resultMap="OperatorMap">
+		select * from operator
+		<where>
+			<if test="id != null">
+				id=#{id}
+			</if>
+			<if test="fullname != null">
+				and fullname like #{fullname}
+			</if>
+			<if test="company != null">
+				and companyid = #{company.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListOperator" parameterType="Map" resultMap="OperatorMap">
+		select * from operator
+		<where>
+			<if test="fullname != null">
+				and fullname like #{fullname}
+			</if>
+			<if test="company != null">
+				and companyid = #{company.id}
+			</if>
+		</where>
+		order by date desc
+		<if test="page > 0">
+			limit 15 offset (#{page}-1)*15
+		</if>
+	</select>
+	
+	<select id="getCount" parameterType="Map" resultType="int">
+		select count(*) from operator
+		<where>
+			<if test="fullname != null">
+				and fullname like #{fullname}
+			</if>
+			<if test="company != null">
+				and companyid = #{company.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findFullName" parameterType="Company" resultType="String">
+		select fullname from operator where companyid=#{id}
+	</select>
+	
+	<resultMap id="OperatorMap" type="Operator">
+		<id property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="fullname" column="fullname"/>
+		<result property="sure" column="sure"/>
+		<result property="name" column="name"/>
+		<result property="chianame" column="chianame"/>
+		<result property="nickname" column="nickname"/>
+		<result property="membergrades" column="membergrades"/>
+		<result property="membernumber" column="membernumber"/>
+		<result property="date" column="date"/>
+	 	<association property="company" column="companyid" select="com.springboot.dao.CompanyDao.findCompanyByID"/>
+	</resultMap>
+</mapper>
+ 

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<title>首页</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/CCTV/css/company/showlist.css"/>
+	<script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="/CCTV/js/company/showlist.js"></script>
+  </head>
+  <body>
+    <div id="Tip"></div>
+    <div id="naviMain">
+      <div id="navi">
+        <div style="width:1080px;height:100%;float:left;">
+          <img id="naviLogo" src="/CCTV/img/msdi.png" title="首页">
+        </div>
+        <div class="naviItem">
+          <img src="/CCTV/img/退出1.png"/><a href="/CCTV/user/leave">退出登录</a>
+        </div>
+      </div>
+    </div>
+    <div id="main">
+      <div id="mainLeft">
+      	<div id="menuTitle">管理菜单</div>
+        <div class="menu1"><a href="showlist">公司管理</a></div>
+        <!-- 
+        <div class="menu2"><a href="showlist">项目管理</a></div>
+         -->
+      </div>
+      <div id="mainRight">
+        <div id="rightTop">公司列表</div>
+        <div id="rightMenu">
+          <span style="font-weight:600;margin-left:10px;float:left;">公司名稱：</span>
+          <input id="menuBtn1" type="button" value="←"/>
+          <input id="menuText" th:value="${param.name}"/>
+          <input id="menuBtn2"  type="button" value="立即查詢"/>
+          <div style="width:520px;height:100%;float:left;"></div>
+          <input type="button" id="append" value="新增"/>
+        </div>
+        <table id="tab1">
+	      <thead>
+	        <tr height="40px" style="background-color:#F0F0F0">
+	          <th width="4%">NO</th>
+	          <th width="22%">公司名稱</th>
+	          <th width="24%">序列碼</th>
+	          <th width="10%">使用人數</th>
+	          <th width="10%">使用天數</th>
+	          <th width="10%">註冊日期</th>
+	          <th width="10%">使用期限</th>
+	          <th width="10%">操作</th>
+	        </tr>
+	      </thead>
+	      <tbody style="font-family:宋体;">
+	        <tr th:each="company,status:${companies}">
+	          <td th:text="${status.count}"></td>
+	          <td th:text="${company.name}"></td>
+	          <td th:text="${company.code}"></td>
+	          <td th:text="${company.cont}"></td>
+	          <td th:text="${company.term}"></td>
+	          <td th:text="${company.date}"></td>
+	          <td></td>
+	          <td>
+	            <input type="button" th:name="${company.id}" value="編輯" class="tablebtn1"/>
+	            <input type="button" th:name="${company.id}" value="刪除" class="tablebtn2"/>
+	          </td>
+	        </tr>
+	      </tbody>
+	    </table>
+	    <img th:if="${#lists.isEmpty(companies)}" src="/CCTV/img/null.png" style="margin:145px 400px;float:left;">
+        <table id="tab2" th:if="${!#lists.isEmpty(companies)}">
+          <tr height="30px">
+            <td width="45%" align="right"><input type="button" value="<<上壹頁" class="pagebtn"/></td>
+            <td width="10%" align="center"><a id="page1" th:text="${page}"></a> / <a id="page2" th:text="${cont}"></a></td>
+            <td width="45%" align="left"><input type="button" value="下壹頁>>" class="pagebtn"/></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

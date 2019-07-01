@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.MarkProjectDao">
+	
+	<insert id="insertMarkProject" parameterType="MarkProject" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO markproject VALUES(nextval('indexID'),
+			#{project.id},
+			#{person.id},
+			#{date}
+		)
+	</insert>
+	
+	<delete id="deleteMarkProject" parameterType="MarkProject">
+		DELETE FROM markproject WHERE id=#{id}
+	</delete>
+	
+	<select id="findMarkProjectByID" parameterType="int" resultMap="MarkProjectMap">
+		select * from markproject where id = #{id}
+	</select>
+	
+	<select id="findInfoMarkProject" parameterType="Map" resultMap="MarkProjectMap">
+		select * from markproject
+		<where>
+			<if test="id != null">
+				id=#{id}
+			</if>
+			<if test="project != null">
+				and projectid=#{project.id}
+			</if>
+			<if test="person != null">
+				and personid=#{person.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListMarkProject" parameterType="Map" resultMap="MarkProjectMap">
+		select m.* from markproject m left join project p on m.projectid=p.id
+		<where>
+			<if test="name != null">
+				p.name like #{name}
+			</if>
+			<if test="user != null">
+				p.personid = #{user.id}
+			</if>
+			<if test="company != null">
+				and p.companyid=#{company.id}
+			</if>
+			<if test="project != null">
+				and m.projectid=#{project.id}
+			</if>
+			<if test="person != null">
+				and m.personid=#{person.id}
+			</if>
+		</where>
+		order by m.date desc
+		<if test="page > 0">
+			limit 15 offset (#{page}-1)*15
+		</if>
+	</select>
+	
+	<select id="getCount" parameterType="Map" resultType="int">
+		select count(*) from markproject m left join project p on m.projectid=p.id
+		<where>
+			<if test="name != null">
+				p.name like #{name}
+			</if>
+			<if test="user != null">
+				p.personid = #{user.id}
+			</if>
+			<if test="project != null">
+				and m.projectid=#{project.id}
+			</if>
+			<if test="person != null">
+				and m.personid=#{person.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getAverage" parameterType="MarkProject" resultMap="avgageMap">
+		select avg(pipescore) as score1, avg(itemscore) as score2 from markpipe where markprojectid = #{id}
+	</select>
+	
+	<resultMap id="MarkProjectMap" type="MarkProject">
+		<id property="id" column="id"/>
+		<result property="date" column="date"/>
+		<association property="project" column="projectid" select="com.springboot.dao.ProjectDao.findProjectByID"/>
+		<association property="person" column="personid" select="com.springboot.dao.PersonDao.findPersonByID"/>
+	</resultMap>
+	
+	<resultMap id="avgageMap" type="java.util.HashMap">
+    	<result property="score1" column="score1"/>
+    	<result property="score2" column="score2"/>
+	</resultMap>
+</mapper>
+ 
