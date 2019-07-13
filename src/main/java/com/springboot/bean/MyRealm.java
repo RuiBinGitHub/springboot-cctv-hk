@@ -15,7 +15,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.springboot.biz.PersonBiz;
@@ -23,7 +22,6 @@ import com.springboot.entity.Person;
 import com.springboot.util.AppUtils;
 
 @Component(value = "myRealm")
-@Scope(value = "prototype")
 public class MyRealm extends AuthorizingRealm {
 
 	@Resource
@@ -56,13 +54,13 @@ public class MyRealm extends AuthorizingRealm {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("username", username);
 		map.put("password", password);
-		Person person = personBiz.findInfoPerson(map);
-		if (person == null) { // 账号密码错误
+		Person user = personBiz.findInfoPerson(map);
+		if (user == null) { // 账号密码错误
 			exception = new IncorrectCredentialsException();
 			throw exception;
 		}
-		AppUtils.pushMap("user", person);
-		info = new SimpleAuthenticationInfo(person, password, "");
+		AppUtils.pushMap("user", user);
+		info = new SimpleAuthenticationInfo(user, password, "");
 		return info;
 	}
 

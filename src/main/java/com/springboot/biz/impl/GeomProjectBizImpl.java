@@ -74,10 +74,6 @@ public class GeomProjectBizImpl implements GeomProjectBiz {
 			GeomPipe geomPipe = new GeomPipe();
 			geomPipe.setSmhNo(pipe.getSmanholeno());
 			geomPipe.setFmhNo(pipe.getFmanholeno());
-			geomPipe.setPipetype(pipe.getUse());
-			geomPipe.setMaterial(pipe.getMaterial());
-			geomPipe.setDirection(pipe.getDirection());
-			geomPipe.setPipeshape(pipe.getShape());
 			geomPipe.setPipe(pipe);
 			geomPipe.setGeomProject(geomProject);
 			geomPipeBiz.appendGeomPipe(geomPipe);
@@ -96,9 +92,9 @@ public class GeomProjectBizImpl implements GeomProjectBiz {
 			XSSFRow row = sheet.getRow(i);
 			String smh = AppUtils.getString(row.getCell(0)); // 获取起始井编号
 			Coordinate coordinate = new Coordinate();
-			coordinate.setX(AppUtils.getValue(foramt1.format((AppUtils.getDouble(row.getCell(4))))));
-			coordinate.setY(AppUtils.getValue(foramt1.format((AppUtils.getDouble(row.getCell(5))))));
-			coordinate.setH(AppUtils.getValue(foramt2.format((AppUtils.getDouble(row.getCell(3))))));
+			coordinate.setX(AppUtils.getValue(foramt1.format((AppUtils.getNumeric(row.getCell(4))))));
+			coordinate.setY(AppUtils.getValue(foramt1.format((AppUtils.getNumeric(row.getCell(5))))));
+			coordinate.setH(AppUtils.getValue(foramt2.format((AppUtils.getNumeric(row.getCell(3))))));
 			map.put(smh, coordinate);
 		}
 		List<GeomPipe> geomPipeList =geomPipeBiz.findListGeomPipe(geomProject);

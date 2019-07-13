@@ -794,17 +794,20 @@
     $("#video").click(function() {
         if ($(this).attr("src") != undefined && $(this).attr("src") != "")
             this.paused ? this.play() : this.pause();
+        $(this).focus();
     });
     $("#video").dblclick(function() {
         $("#file1").click();
+        $(this).focus();
     });
     $("#pic1").dblclick(function() {
         $("#file2").click();
     });
+    // 打开按钮点击事件
     $("#videomenu .btn:eq(0)").click(function() {
         $("#file1").click();
     });
-    // 保存截屏點擊事件
+    // 截屏按钮點擊事件
     $("#videomenu .btn:eq(1)").click(function() {
         if ($("#video").attr("src") == undefined)
             return false;
@@ -833,6 +836,19 @@
         var video = $("#video")[0];
         video.playbackRate = $(this).val();
     });
+    /** ****************************************************************************** */
+	$(document).keydown(function(e) {
+		var video = $("#video")[0];
+		if (e.ctrlKey && e.which == 37)
+			video.currentTime = video.currentTime - 0.03;
+		if (e.ctrlKey && e.which == 39)
+			video.currentTime = video.currentTime + 0.03;
+		if (e.altKey && e.which == 83) {
+			$("#videomenu .btn:eq(1)").click();
+			$("#videomenu .btn:eq(2)").click();
+		}
+	});
+    /** ****************************************************************************** */
     /** 視頻文件選擇器 */
     $("#file1").change(function() {
         if (!this.files || !this.files[0])

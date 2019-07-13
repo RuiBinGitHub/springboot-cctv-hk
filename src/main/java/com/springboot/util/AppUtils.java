@@ -132,7 +132,7 @@ public class AppUtils {
 	}
 
 	/** 获取小数值 */
-	public static double getDouble(XSSFCell cell) {
+	public static double getNumeric(XSSFCell cell) {
 		try {
 			return cell.getNumericCellValue();
 		} catch (Exception e) {
@@ -140,6 +140,14 @@ public class AppUtils {
 		}
 	}
 
+	public static String getRawValue(XSSFCell cell) {
+		try {
+			return cell.getRawValue();
+		} catch (Exception e) {
+			return "--";
+		}
+	}
+	
 	public static double getValue(String text) {
 		try {
 			return Double.valueOf(text);

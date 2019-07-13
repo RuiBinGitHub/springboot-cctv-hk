@@ -80,9 +80,12 @@ public class ProjectBizImpl implements ProjectBiz {
 				XSSFRow row = sheet.getRow(i);
 				String[] values = new String[3];
 				String mh = AppUtils.getString(row.getCell(0));
-				values[0] = foramt1.format(AppUtils.getValue(row.getCell(1).getRawValue()));
-				values[1] = foramt1.format(AppUtils.getValue(row.getCell(2).getRawValue()));
-				values[2] = foramt1.format(AppUtils.getValue(row.getCell(3).getRawValue()));
+				double value1 = AppUtils.getNumeric(row.getCell(1));
+				double value2 = AppUtils.getNumeric(row.getCell(2));
+				double value3 = AppUtils.getNumeric(row.getCell(3));
+				values[0] = value1 == 0.0 ? "--" :foramt1.format(value1);
+				values[1] = value2 == 0.0 ? "--" :foramt1.format(value2);
+				values[2] = value3 == 0.0 ? "--" :foramt1.format(value3);
 				map.put(mh, values);
 			}
 			List<Pipe> pipes = pipeBiz.findListPipe(project);
@@ -127,4 +130,5 @@ public class ProjectBizImpl implements ProjectBiz {
 		pipeBiz.appendPipe(pipe);
 	}
 
+	
 }

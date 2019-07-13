@@ -21,10 +21,6 @@
 			#{smhGradeB},
 			#{fmhGradeA},
 			#{fmhGradeB},
-			#{pipetype},
-			#{material},
-			#{direction},
-			#{pipeshape},
 			#{grade},
 			#{score},
 			#{pipe.id},
@@ -51,10 +47,6 @@
 			smhGradeB = #{smhGradeB},
 			fmhGradeA = #{fmhGradeA},
 			fmhGradeB = #{fmhGradeB},
-			pipetype = #{pipetype},
-			material = #{material},
-			direction = #{direction},
-			pipeshape = #{pipeshape},
 			grade = #{grade},
 			score = #{score},
 			pipeid = #{pipe.id},
@@ -112,6 +104,9 @@
 			<if test = "geomProject != null">
 				and g.geomprojectid = #{geomProject.id}
 			</if>
+			<if test = "geom != null">
+				and g.geom is not null
+			</if>
 		</where>
 		order by p.no
 	</select>
@@ -146,11 +141,6 @@
 		<result property="smhGradeB" column="smhGradeB"/>
 		<result property="fmhGradeA" column="fmhGradeA"/>
 		<result property="fmhGradeB" column="fmhGradeB"/>
-		
-		<result property="pipetype" column="pipetype"/>
-		<result property="material" column="material"/>
-		<result property="direction" column="direction"/>
-		<result property="pipeshape" column="pipeshape"/>
 		<result property="grade" column="grade"/>
 		<result property="score" column="score"/>
 		<association property="pipe" column="pipeid" select="com.springboot.dao.PipeDao.findPipeByID"/>

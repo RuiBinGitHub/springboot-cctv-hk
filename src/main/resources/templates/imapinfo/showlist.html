@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>地图展示</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="/CCTV/js/cesium/Widgets/widgets.css"/>
+    <link rel="stylesheet" type="text/css" href="/CCTV/css/imapinfo/showlist.css"/>
+    <script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/CCTV/js/cesium/Cesium.js"></script>
+    <script type="text/javascript" src="/CCTV/js/comm/proj4.js"></script>
+    <script type="text/javascript" src="/CCTV/js/comm/ol.js"></script>
+    <script type="text/javascript" src="/CCTV/js/imapinfo/showlist.js"></script>
+  </head>
+  <body>
+  	<div id="cesiumContainer" class="fullSize"></div>
+  	<div id="toolbar"></div>
+  	<a id="showdata"></a>
+  	<div id="list" style="display:none;">
+  	  <span th:each="geomPipe:${geomPipes}">
+  	    <a th:text="${geomPipe.id}"></a>
+  	    <a th:text="${geomPipe.actualX1}"></a>
+  	    <a th:text="${geomPipe.actualY1}"></a>
+  	    <a th:text="${geomPipe.actualX2}"></a>
+  	    <a th:text="${geomPipe.actualY2}"></a>
+  	  </span>
+  	</div>
+  </body>
+</html>
