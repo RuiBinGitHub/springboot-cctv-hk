@@ -13,9 +13,10 @@
     <script type="text/javascript" src="/CCTV/js/imapinfo/showlist.js"></script>
   </head>
   <body>
-  	<div id="cesiumContainer" class="fullSize"></div>
-  	<div id="toolbar"></div>
-  	<a id="showdata"></a>
+  	<div id="cesiumContainer" class="fullSize">
+  	  <a id="showdata">坐标：000000.000, 000000.000</a>
+  	</div>
+  	<div id="toolbar" style="display:none"></div>
   	<div id="list" style="display:none;">
   	  <span th:each="geomPipe:${geomPipes}">
   	    <a th:text="${geomPipe.id}"></a>
@@ -23,6 +24,7 @@
   	    <a th:text="${geomPipe.actualY1}"></a>
   	    <a th:text="${geomPipe.actualX2}"></a>
   	    <a th:text="${geomPipe.actualY2}"></a>
+  	    <a th:text="${geomPipe.grade}"></a>
   	  </span>
   	</div>
   </body>

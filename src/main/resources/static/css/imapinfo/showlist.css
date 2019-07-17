@@ -1,4 +1,8 @@
 @CHARSET "UTF-8";
-c {
-	text-align: 
+#cesiumContainer {
+}
+#showdata {
+	bottom:1.5%;left:0.8%;
+	position:fixed;
+	z-index:10;
 }

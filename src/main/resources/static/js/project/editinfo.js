@@ -798,7 +798,6 @@
     });
     $("#video").dblclick(function() {
         $("#file1").click();
-        $(this).focus();
     });
     $("#pic1").dblclick(function() {
         $("#file2").click();
@@ -837,7 +836,7 @@
         video.playbackRate = $(this).val();
     });
     /** ****************************************************************************** */
-	$(document).keydown(function(e) {
+	$(document, "#video").keydown(function(e) {
 		var video = $("#video")[0];
 		if (e.ctrlKey && e.which == 37)
 			video.currentTime = video.currentTime - 0.03;

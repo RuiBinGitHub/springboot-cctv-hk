@@ -65,7 +65,9 @@ $(document).ready(function() {
         var y2 = $(this).find("a:eq(4)").text();
         var center1 = ol.proj.transform([x1, y1], "EPSG:2326", "EPSG:4326");
         var center2 = ol.proj.transform([x2, y2], "EPSG:2326", "EPSG:4326");
-        drawPipe(id, "", [center1[0], center1[1], 0, center2[0], center2[1], 0], 0.8, Cesium.Color.RED);
+        var grade = $(this).find("a:eq(5)").text();
+        
+        drawPipe(id, "", [center1[0], center1[1], 0, center2[0], center2[1], 0], 0.8, grade);
         if (mhList.indexOf(center1) == -1)
             mhList.push(center1);
         if (mhList.indexOf(center2) == -1)
@@ -79,15 +81,13 @@ $(document).ready(function() {
     //鼠标左键单击事件
     var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
     handler.setInputAction(function(movement) {
-    	
-    	
         var pick = viewer.scene.pick(movement.position);
         if (Cesium.defined(pick) && pick.id.name == "管道") {
             var geomPipe = Ajax("findinfo", {id: pick.id.id});
             if (geomPipe == null)
             	return false;
             var context = "";
-            context += "<table id='tab1' style='width:100%;font-size:14px;background-color:#E0E0E0;'>";
+            context += "<table id='tab1' style='width:100%;font-size:14px;font-family:'宋体';background-color:#E0E0E0;'>";
             context += "  <tr style='height:30px;background-color:#545454;'>";
             context += "    <td align='right'>开始井号：</td>";
             context += "    <td align='center'>" + geomPipe.smhNo + "</td>";
@@ -95,15 +95,15 @@ $(document).ready(function() {
             context += "    <td align='center'>" + geomPipe.fmhNo + "</td>";
             context += "  </tr>";
             context += "  <tr style='height:30px;background-color:#545454;'>";
-            context += "    <td align='right'>开始井号坐标X：</td>";
+            context += "    <td align='right'>起始井坐标X：</td>";
             context += "    <td align='center'>" + geomPipe.actualX1 + "</td>";
-            context += "    <td align='right'>开始井号坐标Y：</td>";
+            context += "    <td align='right'>起始井坐标Y：</td>";
             context += "    <td align='center'>" + geomPipe.actualY1 + "</td>";
             context += "  </tr>";
             context += "  <tr style='height:30px;background-color:#545454;'>";
-            context += "    <td align='right'>结束井号坐标X：</td>";
+            context += "    <td align='right'>终止井坐标X：</td>";
             context += "    <td align='center'>" + geomPipe.actualX2 + "</td>";
-            context += "    <td align='right'>结束井号坐标Y：</td>";
+            context += "    <td align='right'>终止井坐标Y：</td>";
             context += "    <td align='center'>" + geomPipe.actualY2 + "</td>";
             context += "  </tr>";
             context += "  <tr style='height:30px;background-color:#545454;'>";
@@ -114,26 +114,30 @@ $(document).ready(function() {
             context += "  </tr>";
             context += "  <tr style='height:30px;background-color:#545454;'>";
             context += "    <td align='right'>管道尺寸：</td>";
-            context += "    <td align='center'>" + geomPipe.pipe.hsize + "(mm)</td>";
+            context += "    <td align='center'>" + geomPipe.pipe.hsize + " (mm)</td>";
             context += "    <td align='right'>管道长度：</td>";
-            context += "    <td align='center'>" + geomPipe.pipe.totallength + "(m)</td>";
+            context += "    <td align='center'>" + geomPipe.pipe.totallength + " (m)</td>";
             context += "  </tr>";
             context += "</table>";
-            context += "<table id='tab2' style='width:100%;font-size:14px;background-color:#E0E0E0;'>";
+            context += "<table id='tab2' style='width:100%;margin-top:5px;font-size:14px;font-family:'宋体';background-color:#E0E0E0;'>";
             context += "  <tr style='height:30px;background-color:#545454;'>";
             context += "    <td colspan='10'>记录信息</td>";
             context += "  </tr>";
-            context += "  <tr style='height:25px;background-color:#545454;'>";
-            context += "    <td width='10%' align='center'>dist</td>";
-            context += "    <td width='10%' align='center'>Cont</td>";
-            context += "    <td width='10%' align='center'>Code</td>";
+            context += "  <tr style='height:20px;background-color:#545454;'>";
+            context += "    <td width='10%' rowspan='2' align='center'>dist</td>";
+            context += "    <td width='10%' rowspan='2' align='center'>Cont</td>";
+            context += "    <td width='10%' rowspan='2' align='center'>Code</td>";
+            context += "    <td colspan='2' align='center'>Clock</td>";
+            context += "    <td colspan='2' align='center'>Intrusion</td>";
+            context += "    <td width='10%' rowspan='2' align='center'>分数</td>";
+            context += "    <td width='10%' rowspan='2' align='center'>等级</td>";
+            context += "    <td width='10%' rowspan='2' align='center'>图片</td>";
+            context += "  </tr>";
+            context += "  <tr style='height:20px;background-color:#545454;'>";
             context += "    <td width='10%' align='center'>At</td>";
             context += "    <td width='10%' align='center'>To</td>";
             context += "    <td width='10%' align='center'>%</td>";
             context += "    <td width='10%' align='center'>mm</td>";
-            context += "    <td width='10%' align='center'>分数</td>";
-            context += "    <td width='10%' align='center'>等级</td>";
-            context += "    <td width='10%' align='center'>图片</td>";
             context += "  </tr>";
             for (var i = 0; i < geomPipe.pipe.items.length; i++) {
             	var item = geomPipe.pipe.items[i];
@@ -147,20 +151,17 @@ $(document).ready(function() {
 	            context += "    <td align='center'>" + item.lengths + "</td>";
 	            context += "    <td align='center'>" + item.score + "</td>";
 	            context += "    <td align='center'>" + item.grade + "</td>";
-	            context += "    <td align='center'><a onclick='showimg(this)' id='" + item.picture+ "' href='javascript:void(0)'>图片</a></td>";
+	            if (item.picture.length > 0)
+	            	context += "    <td align='center'><a onmouseenter='showimg(this, event)' onmouseleave='hideimg(this)' id='" + item.picture+ "'>图片</a></td>";
+	            else
+	            	context += "    <td align='center'><a></a></td>";
 	            context += "  </tr>";
 			}
-            context += "  <tr style='height:350px;background-color:#545454;'>";
-            context += "    <td colspan='10' align='center'><img style='width:435px;' src='/CCTV/img/100000.png'></td>";
-            context += "  </tr>";
             context += "</table>";
+            context += "<img id='img'/>";
             pick.id.description = context;
-            
-      
         }
     }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
-
-
     
     handler.setInputAction(function(movement) {
     	var ellipsoid = scene.globe.ellipsoid;
@@ -169,11 +170,8 @@ $(document).ready(function() {
 		lon = Cesium.Math.toDegrees(cartographic.longitude);
 		lat = Cesium.Math.toDegrees(cartographic.latitude);
 		var center1 = ol.proj.transform([lon, lat], "EPSG:4326", "EPSG:2326");
-		var x = center1[0].toFixed(3);
-		var y = center1[1].toFixed(3);
+		var x = center1[0].toFixed(3), y = center1[1].toFixed(3);
 		$("#showdata").text("坐标：" + x + "，" + y);
-		
-		
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
     
     /** 画井函数 */
@@ -202,8 +200,17 @@ $(document).ready(function() {
         });
     }
 
-    function drawPipe(id, description, positionArr, circle, color) {
-        viewer.entities.add({
+    function drawPipe(id, description, positionArr, circle, i) {
+    	var color = null;
+        if (i == 1.0) 
+        	color = Cesium.Color.GREEN;
+        else if (i == 2.0) 
+        	color = Cesium.Color.ORANGE;
+        else if (i == 3.0) 
+        	color = Cesium.Color.YELLOW;
+        else if (i == 4.0 || i == 5.0) 
+        	color = Cesium.Color.RED;
+    	viewer.entities.add({
             id: id,
             name: "管道",
             polylineVolume: {
