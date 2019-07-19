@@ -129,6 +129,4 @@ public class ProjectBizImpl implements ProjectBiz {
 		pipe.setProject(project);
 		pipeBiz.appendPipe(pipe);
 	}
-
-	
 }

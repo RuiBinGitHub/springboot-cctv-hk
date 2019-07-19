@@ -92,9 +92,9 @@ public class GeomProjectBizImpl implements GeomProjectBiz {
 			XSSFRow row = sheet.getRow(i);
 			String smh = AppUtils.getString(row.getCell(0)); // 获取起始井编号
 			Coordinate coordinate = new Coordinate();
-			coordinate.setX(AppUtils.getValue(foramt1.format((AppUtils.getNumeric(row.getCell(4))))));
-			coordinate.setY(AppUtils.getValue(foramt1.format((AppUtils.getNumeric(row.getCell(5))))));
-			coordinate.setH(AppUtils.getValue(foramt2.format((AppUtils.getNumeric(row.getCell(3))))));
+			coordinate.setX(AppUtils.getValue(foramt1.format((AppUtils.getDouble(row.getCell(3))))));
+			coordinate.setY(AppUtils.getValue(foramt1.format((AppUtils.getDouble(row.getCell(4))))));
+			coordinate.setH(AppUtils.getValue(foramt2.format((AppUtils.getDouble(row.getCell(5))))));
 			map.put(smh, coordinate);
 		}
 		List<GeomPipe> geomPipeList =geomPipeBiz.findListGeomPipe(geomProject);

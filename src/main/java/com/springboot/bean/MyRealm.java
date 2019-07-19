@@ -65,5 +65,4 @@ public class MyRealm extends AuthorizingRealm {
 		info = new SimpleAuthenticationInfo(user, password, "");
 		return info;
 	}
-
 }
