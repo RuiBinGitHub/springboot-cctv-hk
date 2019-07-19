@@ -275,14 +275,15 @@ public class ProjectController {
 	}
 
 	/** 导入项目 */
-	@RequestMapping(value = "/import", method = RequestMethod.POST)
-	public ModelAndView inport(MultipartFile file) {
+	@RequestMapping(value = "/importitems", method = RequestMethod.POST)
+	public ModelAndView inportItems(MultipartFile file) {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("redirect:showlist");
-		importItem.importMode(file);
+		if (!StringUtils.isEmpty(file))
+			importItem.importMode(file);
 		return view;
 	}
-	
+
 	/** 导入深度 */
 	@RequestMapping(value = "/importdepth", method = RequestMethod.POST)
 	public boolean importDepth(int id, MultipartFile file) {

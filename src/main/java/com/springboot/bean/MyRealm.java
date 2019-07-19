@@ -41,6 +41,8 @@ public class MyRealm extends AuthorizingRealm {
 			info.addRole("role4");
 		} else if ("Role4".equals(person.getRole()))
 			info.addRole("role4");
+		if ("version1.2".equals(person.getCompany().getVersion())) 
+			info.addRole("vrole");
 		return info;
 	}
 

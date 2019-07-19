@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+  <head>
+    <title>用户统计</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/CCTV/css/person/statisuser.css"/>
+    <script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+    <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+    <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com.cn/highcharts/modules/variable-pie.js"></script>
+    <script type="text/javascript" src="/CCTV/js/person/statisuser.js"></script>
+  </head>
+  <body>
+    <div th:replace="navigation::navigation"></div>
+    <div id="Tip"></div>
+    <div id="main">
+      <div id="mainTop">个人用户数据统计</div>
+      <div id="mainInfo">
+        <div id="main1">
+          <div style="width:25%" class="titel1">创建项目数量</div>
+          <div style="width:25%" class="titel1">编辑管道数量</div>
+          <div style="width:25%" class="titel1">完成项目百分比</div>
+          <div style="width:25%" class="titel1">及格管道百分比</div>
+          <div class="value1">30 (个)</div>
+          <div class="value1">180 (段)</div>
+          <div id="show1" class="value2" style="margin-left:27px;"></div>
+          <div id="show2" class="value2" style="margin-left:160px;"></div>
+        </div>
+        <div id="main2"></div>
+        <div id="main3">
+          <div id="main3Title"><div></div><span>最近完成项目</span></div>
+          <div class="main3Value"><span>1</span><a>排水管道示范工程</a></div>
+          <div class="main3Value"><span>1</span><a>排水管道示范工程</a></div>
+          <div class="main3Value"><span>1</span><a>排水管道示范工程</a></div>
+          <div class="main3Value"><span>1</span><a>排水管道示范工程</a></div>
+          <div class="main3Value"><span>1</span><a>排水管道示范工程</a></div>
+        </div>
+        <div id="main4"></div>
+        <div id="main5"></div>
+      </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

@@ -163,4 +163,18 @@ public class PersonController {
 		view.setViewName("person/showinfo");
 		return view;
 	}
+	
+	@RequestMapping(value = "/statistics")
+	public ModelAndView statistics() {
+		ModelAndView view = new ModelAndView("person/statistics");
+		
+		return view;
+	}
+	
+	@RequestMapping(value = "/statisuser")
+	public ModelAndView statisuser(@RequestParam(defaultValue = "0") int id) {
+		ModelAndView view = new ModelAndView("person/statisuser");
+		
+		return view;
+	}
 }

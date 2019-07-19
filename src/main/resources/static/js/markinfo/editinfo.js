@@ -173,9 +173,6 @@ $(document).ready(function() {
     $("#tab3 input[type=number]").focus(function() {
         $(this).css("border-color", "#CCC");
     });
-    $("#tab3 input[type=number]").on("focus:hover", function() {
-        $(this).css("border-color", "#CCC");
-    });
     /********************************************************************/
     function showTips(text) {
         $("#Tip").show().delay(1800).hide(200);

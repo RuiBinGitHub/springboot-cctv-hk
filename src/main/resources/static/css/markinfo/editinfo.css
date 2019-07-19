@@ -248,7 +248,8 @@ body{
 	border:none;
 	border-bottom:2px solid #ccc;
 }
-#tab3 tr td input:hover {
+#tab3 tr td input:focus,#tab3 tr td input:hover {
+	outline:none;
 	border-bottom:2px solid #009688;
 }
 #tab3 tr td textarea {
@@ -262,8 +263,8 @@ body{
 	border-bottom:2px solid #ccc;
 	resize:none;
 }
-#tab3 tr td textarea:hover {
-	border:none;
+#tab3 tr td textarea:focus,#tab3 tr td textarea:hover {
+	outline:none;
 	border-bottom:2px solid #009688;
 }
 .star{

@@ -33,6 +33,11 @@ $(document).ready(function() {
         var count = $(this).find("td:eq(4)").text();
         var idate = $(this).find("td:eq(5)").text();
         $(this).find("td:eq(6)").html(getDate(idate, count));
+        
+        if ($(this).find("td:eq(7)").text() == "version1.1")
+        	$(this).find("td:eq(7)").text("版本 1.1");
+        else
+        	$(this).find("td:eq(7)").text("版本 1.2");
         /****************************************************************/
         $(this).find("input:eq(0)").click(function() {
             var id = $(this).attr("name");

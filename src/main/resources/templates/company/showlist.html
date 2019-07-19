@@ -42,12 +42,13 @@
 	      <thead>
 	        <tr height="40px" style="background-color:#F0F0F0">
 	          <th width="4%">NO</th>
-	          <th width="22%">公司名稱</th>
-	          <th width="24%">序列碼</th>
-	          <th width="10%">使用人數</th>
-	          <th width="10%">使用天數</th>
-	          <th width="10%">註冊日期</th>
+	          <th width="20%">公司名稱</th>
+	          <th width="20%">序列碼</th>
+	          <th width="8%">人數</th>
+	          <th width="8%">期限</th>
+	          <th width="10%">注册日期</th>
 	          <th width="10%">使用期限</th>
+	          <th width="10%">使用版本</th>
 	          <th width="10%">操作</th>
 	        </tr>
 	      </thead>
@@ -60,6 +61,7 @@
 	          <td th:text="${company.term}"></td>
 	          <td th:text="${company.date}"></td>
 	          <td></td>
+	          <td th:text="${company.version}"></td>
 	          <td>
 	            <input type="button" th:name="${company.id}" value="編輯" class="tablebtn1"/>
 	            <input type="button" th:name="${company.id}" value="刪除" class="tablebtn2"/>

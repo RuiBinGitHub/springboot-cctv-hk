@@ -10,7 +10,8 @@
 			#{code},
 			#{cont},
 			#{term},
-			#{date}
+			#{date},
+			#{version}
 		)
 	</insert>
 
@@ -20,7 +21,8 @@
 			code=#{code},
 			cont=#{cont},
 			term=#{term},
-			date=#{date}
+			date=#{date},
+			version=#{version}
 		WHERE id=#{id}
 	</update>
 	
@@ -58,12 +60,10 @@
 	</select>
 	
 	<select id="getCount" parameterType="Map" resultType="int">
-		select count(*) from company
-		<where>
-			<if test="name != null">
-				name like #{name}
-			</if>
-		</where>
+		select count(*) from company where id != 0
+		<if test="name != null">
+			and name like #{name}
+		</if>
 	</select>
 	
 </mapper>

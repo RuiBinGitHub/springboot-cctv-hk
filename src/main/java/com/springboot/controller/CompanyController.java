@@ -77,10 +77,10 @@ public class CompanyController {
 	public ModelAndView updateView(@RequestParam(defaultValue = "0") int id) {
 		ModelAndView view = new ModelAndView("user/failure");
 		Company company = companyBiz.findInfoCompany(id);
-		if (company == null)
-			return view;
-		view.setViewName("company/update");
-		view.addObject("company", company);
+		if (!StringUtils.isEmpty(company)) {
+			view.setViewName("company/update");
+			view.addObject("company", company);
+		}
 		return view;
 	}
 

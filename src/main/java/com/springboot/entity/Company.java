@@ -8,6 +8,7 @@ public class Company {
 	private int cont;
 	private int term;
 	private String date;
+	private String version;
 
 	public int getId() {
 		return id;
@@ -15,22 +16,6 @@ public class Company {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getCont() {
-		return cont;
-	}
-
-	public void setCont(int cont) {
-		this.cont = cont;
-	}
-
-	public int getTerm() {
-		return term;
-	}
-
-	public void setTerm(int term) {
-		this.term = term;
 	}
 
 	public String getName() {
@@ -49,11 +34,35 @@ public class Company {
 		this.code = code;
 	}
 
+	public int getCont() {
+		return cont;
+	}
+
+	public void setCont(int cont) {
+		this.cont = cont;
+	}
+
+	public int getTerm() {
+		return term;
+	}
+
+	public void setTerm(int term) {
+		this.term = term;
+	}
+
 	public String getDate() {
 		return date;
 	}
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
 	}
 }

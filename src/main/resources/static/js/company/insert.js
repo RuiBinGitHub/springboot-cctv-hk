@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	
+	$("#table1 input[type=radio]:eq(0)").prop("checked", true);
 	$("#table2 .textbox1:eq(2)").attr("type", "password");
 	/***************************************************************/
 	/** 提交数据 */
