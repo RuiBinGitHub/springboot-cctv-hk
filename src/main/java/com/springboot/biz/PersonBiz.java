@@ -14,12 +14,12 @@ public interface PersonBiz {
 	public void deletePerson(Person person);
 
 	public void removePerson(Person person);
+	
+	public Person likeInfoPerson(Map<String, Object> map);
 
 	public Person findInfoPerson(Map<String, Object> map);
 
 	public List<Person> findListPerson(Map<String, Object> map);
-
-	// public List<Person> findListPerson(String name, int page);
 
 	public int getPageCount(Map<String, Object> map, int size);
 

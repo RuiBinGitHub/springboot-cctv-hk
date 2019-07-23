@@ -1,5 +1,7 @@
 package com.springboot.biz.impl;
 
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +24,7 @@ public class CompanyBizImpl implements CompanyBiz {
 	private CompanyDao companyDao;
 	@Resource
 	private PersonBiz personBiz;
-	
+
 	private Map<String, Object> map = null;
 
 	/** 插入数据 */
@@ -67,10 +69,29 @@ public class CompanyBizImpl implements CompanyBiz {
 		person.setRole("Role2");
 		person.setCompany(company);
 		person.setDate(AppUtils.getDate(null));
-		company.setCode(AppUtils.findCode());
-		company.setDate(AppUtils.getDate(null));
+
 		companyDao.insertCompany(company);
 		personBiz.insertPerson(person);
 	}
 
+	public void appendCompany(Company company, String user) {
+		String date = AppUtils.getDate(null);
+		Format foramt1 = new DecimalFormat("#0000");
+		
+		company.setDate(date);
+		company.setCode(AppUtils.findCode());
+		companyDao.insertCompany(company);
+		for (int i = 0; i < company.getCont(); i++) {
+			Person person = new Person();
+			String role = i == 0 ? "Role2" : "Role4";
+			person.setNickname("No：" + foramt1.format(i + 1));
+			person.setUsername(user + foramt1.format(i));
+			person.setPassword(AppUtils.findPass());
+			person.setPhone("--");
+			person.setRole(role);
+			person.setDate(date);
+			person.setCompany(company);
+			personBiz.insertPerson(person);
+		}
+	}
 }

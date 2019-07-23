@@ -63,18 +63,19 @@ body{
 	border-radius:40px;
 	float:left;
 }
+/** ********************************************************* */
 #main{
 	width:1000px;
 	margin:0px auto;
 }
-#maininfo{
+#mainInfo{
 	width:100%;
-	height:740px;
+	height:625px;
 	margin-top:10px;
 	background-color:#fff;
 	float:left;
 }
-#top{
+#mainTop{
 	width:100%;
 	height:48px;
 	font-size:20px;
@@ -89,10 +90,11 @@ body{
 	// height:200px;
 	margin-top:40px;
 	margin-left:135px;
+	margin-bottom:20px;
 	border-radius:6px;
 	float:left;
 }
-#table1 tr,#table2 tr{
+#table1 tr{
 	height:60px;
 	font-family:"宋体";
 	font-size:18px;
@@ -106,10 +108,14 @@ body{
 	border:1px solid #999;
 	border-radius:3px;
 }
+#table1 a {
+	color:#666;
+	font-size:14px;
+	font-weight:500;
+}
 .combtn{
 	width:120px;
 	height:32px;
-	margin-left:55px;
 	color:#ffffff;
 	font-size:15px;
 	font-weight:600;

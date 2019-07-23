@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.springboot.biz.CompanyBiz;
 import com.springboot.biz.PersonBiz;
 import com.springboot.entity.Company;
-import com.springboot.entity.Person;
 import com.springboot.util.AppUtils;
 
 @RestController
@@ -31,8 +30,6 @@ public class CompanyController {
 	private PersonBiz personBiz;
 
 	private Map<String, Object> map = null;
-	private Company tempCompany = null;
-	private Person tempPerson = null;
 
 	@RequestMapping(value = "/showlist")
 	public ModelAndView showlist(String name, @RequestParam(defaultValue = "1") int page) {
@@ -51,25 +48,23 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/showinfo")
-	public ModelAndView showInfo() {
-		ModelAndView view = new ModelAndView();
-		view.setViewName("compang/showinfo");
-		view.addObject("company", tempCompany);
-		view.addObject("person", tempPerson);
+	public ModelAndView showInfo(@RequestParam(defaultValue = "0") int id) {
+		ModelAndView view = new ModelAndView("company/showinfo");
+		Company company = companyBiz.findInfoCompany(id);
+		view.addObject("company", company);
 		return view;
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public ModelAndView insert(Company company, Person person) {
+	public ModelAndView insert(Company company, String user) {
 		ModelAndView view = new ModelAndView("company/insert");
-		if (company == null || person == null)
+		if (company == null || user == null)
 			return view;
-		if (userController.isExistName(person.getUsername()))
+		map = AppUtils.getMap("username", user);
+		if (personBiz.likeInfoPerson(map) != null)
 			return view;
-		companyBiz.appendCompany(company, person);
-		view.setViewName("redirect:showinfo");
-		tempCompany = company;
-		tempPerson = person;
+		companyBiz.appendCompany(company, user);
+		view.setViewName("redirect:showinfo?id=" + company.getId());
 		return view;
 	}
 

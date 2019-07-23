@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	
 	$("#table1 input[type=radio]:eq(0)").prop("checked", true);
-	$("#table2 .textbox1:eq(2)").attr("type", "password");
 	/***************************************************************/
 	/** 提交数据 */
 	$(".combtn").click(function() {
@@ -25,29 +24,6 @@ $(document).ready(function() {
 			return false;
 		}
 		/** ********************************************************* */
-		var name = $("#table2 .textbox1:eq(0)").val();
-		var username = $("#table2 .textbox1:eq(1)").val();
-		var password = $("#table2 .textbox1:eq(2)").val();
-		if (name.length < 1 || name.length > 9) {
-			$("#table2 .textbox1:eq(0)").css("border-color", "#ff3300");
-			showTips("用户名称格式不正确!");
-			return false;
-		}
-		if (username.length < 6 || username.length > 16) {
-			$("#table2 .textbox1:eq(1)").css("border-color", "#ff3300");
-			showTips("登录账号格式不正确!");
-			return false;
-		}
-		if (Ajax("/CCTV/user/isexistname", {name : username})) {
-			$("#table2 .textbox1:eq(1)").css("border-color", "#ff3300");
-			showTips("账号已被使用，请重新输入");
-			return false;
-		}
-		if (password.length < 6 || password.length > 16) {
-			$("#table2 .textbox1:eq(2)").css("border-color", "#ff3300");
-			showTips("登录密码格式不正确!");
-			return false;
-		}
 		$("#form1").submit();
 	});
 

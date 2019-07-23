@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.springboot.entity.Company;
-import com.springboot.entity.Person;
 
 public interface CompanyBiz {
 
@@ -22,6 +21,6 @@ public interface CompanyBiz {
 
 	public int getCountPage(Map<String, Object> map, int size);
 
-	public void appendCompany(Company company, Person person);
+	public void appendCompany(Company company, String user);
 
 }

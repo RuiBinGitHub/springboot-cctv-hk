@@ -55,6 +55,17 @@ public class AppUtils {
 		return code;
 	}
 
+	/** 创建公司人员密码 */
+	public static String findPass() {
+		String code = "", list = "1,2,3,4,5,6,7,8,9,0";
+		for (char c = 'A'; c <= 'Z'; c++)
+			list += String.valueOf("," + c);
+		String codeArray[] = list.split(",");
+		for (int i = 0; i < 12; i++)
+			code += codeArray[(int) (Math.random() * 35)];
+		return code;
+	}
+	
 	/** 创建图片序列码 */
 	public static String UUIDCode() {
 		UUID uuid = UUID.randomUUID();

@@ -53,6 +53,12 @@ public class PersonBizImpl implements PersonBiz {
 		personDao.deletePerson(person);
 	}
 
+	public Person likeInfoPerson(Map<String, Object> map) {
+		if (!StringUtils.isEmpty(map.get("username")))
+			map.put("username", "%" + map.get("username") + "%");
+		return personDao.likeInfoPerson(map);
+	}
+	
 	public Person findInfoPerson(Map<String, Object> map) {
 		return personDao.findInfoPerson(map);
 	}
@@ -76,4 +82,5 @@ public class PersonBizImpl implements PersonBiz {
 		int count = personDao.getCount(map);
 		return (int) Math.ceil((double) count / size);
 	}
+
 }

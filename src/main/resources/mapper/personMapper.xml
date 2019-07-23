@@ -36,6 +36,10 @@
 		select * from person where id = #{id}
 	</select>
 	
+	<select id="likeInfoPerson" parameterType="Map" resultMap="PersonMap">
+		select * from person where username like #{username}
+	</select>
+	
 	<select id="findInfoPerson" parameterType="Map" resultMap="PersonMap">
 		select * from person
 		<where>

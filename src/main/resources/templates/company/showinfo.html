@@ -18,47 +18,47 @@
       </div>
     </div>
     <div id="main">
-      <div id="maininfo">
-        <div id="top">新建完成</div>
+      <div id="mainInfo">
+        <div id="mainTop">公司信息</div>
         <fieldset id="field1" class="field">
 	      <legend><span style="font-size:18px;font-weight:700">公司信息</span></legend>
 	      <table id="table1">
 	    	<tr>
-	    	  <td width="140px" align="right"><span class="label">公司名称：</span></td>
-	    	  <td width="220px" align="left" th:text="${company?.name}"></td>
+	    	  <td width="120px" align="right"><span class="label">公司名称：</span></td>
+	    	  <td width="240px" align="left" th:text="${company?.name}"></td>
+	    	  <td width="120px" align="right"><span class="label">使用版本：</span></td>
+	    	  <td width="240px" align="left" th:text="${company?.version}"></td>
 	    	</tr>
 	    	<tr>
-	    	  <td align="right"><span class="label">序列号码：</span></td>
-	    	  <td align="left" th:text="${company?.code}"></td>
-	    	</tr> 
-	    	 <tr> 
 	    	  <td align="right"><span class="label">使用人数：</span></td>
 	    	  <td align="left"><span th:text="${company?.cont}"></span>人</td>
-	    	</tr> 
-	    	 <tr> 
 	    	  <td align="right"><span class="label">使用天数：</span></td>
 	    	  <td align="left"><span th:text="${company?.term}"></span>天</td>
 	    	</tr>
 	      </table>
 	  	</fieldset>
-	  	<fieldset id="field2" class="field">
-	      <legend><span style="font-size:18px;font-weight:700">人员信息</span></legend>
-	      <table id="table2">
-	    	<tr height="40px">
-	    	  <td width="140px" align="right"><span class="label">用户姓名：</span></td>
-	    	  <td width="220px" align="left" th:text="${person?.nickname}"></td>
-	       	</tr>
-	    	<tr height="40px">
-	    	  <td align="right"><span class="label">登录账号：</span></td>
-	    	  <td align="left" th:text="${person?.username}"></td>
-	       	</tr>
-	    	<tr height="40px">
-	    	  <td align="right"><span class="label">登录密码：</span></td>
-	    	  <td align="left" th:text="${person?.password}"></td>
-	       	</tr>
+	  	<div id="mainlist">
+	  	  <div id="infoTop">
+	  	    <div style="width:39px;">No</div>
+	  	    <div style="width:139px;">用户名称</div>
+	  	    <div style="width:184px;">登录账号</div>
+	  	    <div style="width:184px;">登录密码</div>
+	  	    <div style="width:107px;">用户职务</div>
+	  	    <div style="width:115px;">注册日期</div>
+	  	  </div>
+	  	  <div id="infoBody" style="width:100%;max-height:240px;overflow-y:scroll;float:left;">
+	  	    <table id="tab1">
+       	  	<tr th:each="i:${#numbers.sequence(1,10)}" align="center" height="24px">
+              <td width="5%" th:text="${i}"></td>
+              <td width="18%">No：0001</td>
+              <td width="24%">MSDI160005123456</td>
+              <td width="24%">MFKJVHF1515F</td>
+              <td width="14%">管理人员</td>
+              <td width="15%">2018-05-06</td>
+            </tr>
 	      </table>
-	  	</fieldset> 
-	  	<div style="width:100%;height:30px;float:left;"></div>
+	  	  </div>
+	  	</div>
   	  	<div style="width:720px;margin-left:132px;color:#999;font-size:14px;float:left;">
   	  	  注：请注意保存公司序列号码，人员注册时需要输入正确验证码完成验证。
   	  	</div>
