@@ -58,6 +58,10 @@ public class PipeBizImpl implements PipeBiz {
 		return pipeDao.findListPipe(map);
 	}
 
+	public int getCount(Map<String, Object> map) {
+		return pipeDao.getCount(map);
+	}
+	
 	public void appendPipe(Pipe pipe) {
 		this.insertPipe(pipe);
 		if ("HKCCEC 2009".equals(pipe.getProject().getStandard())) {
@@ -84,4 +88,5 @@ public class PipeBizImpl implements PipeBiz {
 			itemBiz.insertItem(item3);
 		}
 	}
+	
 }

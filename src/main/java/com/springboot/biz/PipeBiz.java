@@ -23,6 +23,9 @@ public interface PipeBiz {
 
 	public List<Pipe> findListPipe(Map<String, Object> map);
 
+	public int getCount(Map<String, Object> map);
+
 	public void appendPipe(Pipe pipe);
+	
 
 }

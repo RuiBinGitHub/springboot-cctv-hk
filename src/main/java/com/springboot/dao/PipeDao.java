@@ -17,8 +17,10 @@ public interface PipeDao {
 	public void deletePipe(Pipe pipe);
 
 	public Pipe findPipeByID(int id);
-	
+
 	public Pipe findInfoPipe(Map<String, Object> map);
 
 	public List<Pipe> findListPipe(Map<String, Object> map);
+
+	public int getCount(Map<String, Object> map);
 }

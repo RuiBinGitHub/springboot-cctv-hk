@@ -18,6 +18,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
 import com.springboot.biz.PersonBiz;
+import com.springboot.entity.Company;
 import com.springboot.entity.Person;
 import com.springboot.util.AppUtils;
 
@@ -31,9 +32,9 @@ public class MyRealm extends AuthorizingRealm {
 	public AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection collection) {
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		Person person = (Person) collection.getPrimaryPrincipal();
-		if ("Role1".equals(person.getRole()))
+		if ("Role1".equals(person.getRole())) {
 			info.addRole("role1");
-		else if ("Role2".equals(person.getRole())) {
+		} else if ("Role2".equals(person.getRole())) {
 			info.addRole("role2");
 			info.addRole("role4");
 		} else if ("Role3".equals(person.getRole())) {
@@ -41,7 +42,8 @@ public class MyRealm extends AuthorizingRealm {
 			info.addRole("role4");
 		} else if ("Role4".equals(person.getRole()))
 			info.addRole("role4");
-		if ("version1.2".equals(person.getCompany().getVersion())) 
+		Company company = person.getCompany();
+		if ("版本 1.2".equals(company.getVersion())) 
 			info.addRole("vrole");
 		return info;
 	}

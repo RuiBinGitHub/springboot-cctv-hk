@@ -68,7 +68,8 @@ body{
 	height:300px;
 	margin-left:10px;
 	margin-top:10px;
-	background-color:#2F2F30;
+	// background-color:#2F2F30;
+	background-color:#fff;
 	border:1px solid #ccc;
 	border-radius:3px;
 	float:left;
@@ -116,15 +117,20 @@ body{
 	height:25px;
 	text-align:center;
 	line-height:24px;
-	background-color:#ff6600;
+	background-color:#878787;
 	border-radius:4px;
 	float:left;
 }
 .main3Value a {
 	height:25px;
+	color:#fff;
 	text-indent:10px;
 	line-height:24px;
+	text-decoration:none;
 	float:left;
+}
+.main3Value a:hover {
+	text-decoration:underline;
 }
 #main4 {
 	width:850px;

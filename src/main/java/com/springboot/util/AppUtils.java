@@ -155,13 +155,5 @@ public class AppUtils {
 			return 0;
 		}
 	}
-
-	public static String getDouble(XSSFCell cell) {
-		try {
-			return cell.getRawValue();
-		} catch (Exception e) {
-			return "0.0";
-		}
-	}
 	
 }

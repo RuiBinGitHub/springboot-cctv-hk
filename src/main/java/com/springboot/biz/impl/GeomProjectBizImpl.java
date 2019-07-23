@@ -88,13 +88,16 @@ public class GeomProjectBizImpl implements GeomProjectBiz {
 		Map<String, Coordinate> map = new HashMap<>();
 		DecimalFormat foramt1 = new DecimalFormat("#0.000");
 		DecimalFormat foramt2 = new DecimalFormat("#0.00");
+		
+		System.out.println("------");
+		
 		for (int i = 1; i < sheet.getLastRowNum() + 1; i++) {
 			XSSFRow row = sheet.getRow(i);
 			String smh = AppUtils.getString(row.getCell(0)); // 获取起始井编号
 			Coordinate coordinate = new Coordinate();
-			coordinate.setX(AppUtils.getValue(foramt1.format((AppUtils.getDouble(row.getCell(3))))));
-			coordinate.setY(AppUtils.getValue(foramt1.format((AppUtils.getDouble(row.getCell(4))))));
-			coordinate.setH(AppUtils.getValue(foramt2.format((AppUtils.getDouble(row.getCell(5))))));
+			coordinate.setX(AppUtils.getValue(foramt1.format((AppUtils.getNumeric(row.getCell(4))))));
+			coordinate.setY(AppUtils.getValue(foramt1.format((AppUtils.getNumeric(row.getCell(5))))));
+			coordinate.setH(AppUtils.getValue(foramt2.format((AppUtils.getNumeric(row.getCell(3))))));
 			map.put(smh, coordinate);
 		}
 		List<GeomPipe> geomPipeList =geomPipeBiz.findListGeomPipe(geomProject);

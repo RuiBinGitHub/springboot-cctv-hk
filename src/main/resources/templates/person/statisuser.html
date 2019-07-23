@@ -15,29 +15,46 @@
     <div th:replace="navigation::navigation"></div>
     <div id="Tip"></div>
     <div id="main">
-      <div id="mainTop">个人用户数据统计</div>
+      <div id="mainTop" th:text="${person.nickname + ' - 数据统计'}"></div>
       <div id="mainInfo">
         <div id="main1">
           <div style="width:25%" class="titel1">创建项目数量</div>
           <div style="width:25%" class="titel1">编辑管道数量</div>
           <div style="width:25%" class="titel1">完成项目百分比</div>
-          <div style="width:25%" class="titel1">及格管道百分比</div>
-          <div class="value1">30 (个)</div>
-          <div class="value1">180 (段)</div>
-          <div id="show1" class="value2" style="margin-left:27px;"></div>
+          <div style="width:25%" class="titel1">及格项目百分比</div>
+          <div class="value1"></div>
+          <div class="value1" th:text="${pipeSize + '（段）'}"></div>
+          <div id="show1" class="value2" style="margin-left:30px;"></div>
           <div id="show2" class="value2" style="margin-left:160px;"></div>
         </div>
         <div id="main2"></div>
         <div id="main3">
           <div id="main3Title"><div></div><span>最近完成项目</span></div>
-          <div class="main3Value"><span>1</span><a>排水管道示范工程</a></div>
-          <div class="main3Value"><span>1</span><a>排水管道示范工程</a></div>
-          <div class="main3Value"><span>1</span><a>排水管道示范工程</a></div>
-          <div class="main3Value"><span>1</span><a>排水管道示范工程</a></div>
-          <div class="main3Value"><span>1</span><a>排水管道示范工程</a></div>
+          <div th:each="project,state:${projects2}" th:if="${state.index < 5}">
+            <div class="main3Value">
+              <span th:text="${state.count}"></span>
+              <a th:href="@{/project/findinfo(id=${project.id})}" th:text=${project.name}></a></div>
+          </div>
         </div>
         <div id="main4"></div>
         <div id="main5"></div>
+      </div>
+      <div id="data" style="display:none">
+        <a th:text="${#lists.size(projects1)}"></a>
+        <a th:text="${#lists.size(projects2)}"></a>
+        <a th:text="${#lists.size(markProjects)}"></a>
+        <a th:text="${count}"></a>
+      </div>
+      <div id="items1" style="display:none">
+        <div th:each="project:${projects1}" th:text="${project.date}"></div>
+        <div th:each="project:${projects2}" th:text="${project.date}"></div>
+      </div>
+      <div id="items2" style="display:none">
+        <span th:each="markProject:${markProjects}">
+          <a class="name" th:text="${markProject.project.name}"></a>
+          <a class="score1" th:text="${markProject.score1}"></a> <!-- 管道分数 -->
+          <a class="score2" th:text="${markProject.score2}"></a> <!-- 记录分数 -->
+        </span>
       </div>
     </div>
     <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">

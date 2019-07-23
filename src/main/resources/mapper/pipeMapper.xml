@@ -136,6 +136,18 @@
 		</if>
 	</select>
 	
+	<select id="getCount" parameterType="Map" resultType="int">
+		select count(*) from pipe p1 left join project p2 on p1.projectid=p2.id
+		<where>
+			<if test="project != null">
+				and p2.id=#{project.id}
+			</if>
+			<if test="person != null">
+				and p2.personid=#{person.id}
+			</if>
+		</where>
+	</select>
+	
 	<resultMap id="PipeMap" type="pipe">
 		<id property="id" column="id"/>
 		<result property="no" column="no"/>

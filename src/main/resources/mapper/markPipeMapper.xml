@@ -43,7 +43,7 @@
 		select * from markpipe m1 left join markproject m2 on m1.markprojectid=m2.id
 		<where>
 			<if test="id != null">
-				m1.id = #{id}
+				and m1.id = #{id}
 			</if>
 			<if test="person != null">
 				and m2.personid = #{person.id}
@@ -55,7 +55,7 @@
 		select * from markpipe m left join pipe p on m.pipeid=p.id
 		<where>
 			<if test="markProject != null">
-				 m.markprojectid=#{markProject.id}
+				m.markprojectid=#{markProject.id}
 			</if>
 		</where>
 		order by p.no

@@ -1,19 +1,25 @@
 $(document).ready(function() {
-
     var list1 = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    /** ***************************************************************** */
-    var charShow1 = new Highcharts.chart("show1",{
+    /** *************************************************************** */
+    var value1 = Number($("#data a:eq(0)").text()); // 未完成项目
+    var value2 = Number($("#data a:eq(1)").text()); // 已完成项目
+    var value3 = value1 + value2 == 0 ? 1 : value1 + value2;
+    var loop1 = (value2 / value3 * 100).toFixed(0);
+    $(".value1:eq(0)").text(value1 + value2 + "（个）");
+    /** *************************************************************** */
+ // 完成项目百分比
+    var show1 = new Highcharts.chart("show1",{
         chart: {
             spacing: [0, 0, 0, 0]
         },
         title: {
-            text: "20%",
+            text: loop1 + "%",
             floating: true
         },
         plotOptions: {
             pie: {
-                dataLabels: {
-                    enabled: false
+                dataLabels: {  
+                    enabled: false // 不显示标签
                 }
             }
         },
@@ -28,11 +34,11 @@ $(document).ready(function() {
             innerSize: "40%",  // 内心圆大小
             data: [{
                 name: "已完成项目",
-                y: 10.5,
+                y: value2,
                 color: "#FC851D"
             }, {
                 name: "未完成项目",
-                y: 12.5,
+                y: value1,
                 color: "#DADADA"
             }]
         }]
@@ -42,14 +48,19 @@ $(document).ready(function() {
         c.setTitle({
             y: centerY + titleHeight / 2
         });
-    }
-    );
-    var charShow2 = new Highcharts.chart("show2",{
+    });
+    /** ************************************************************ */
+    // 及格项目百分比
+    var value4 = Number($("#data a:eq(2)").text()); // 全部项目
+    var value5 = Number($("#data a:eq(3)").text()); // 及格项目
+    var value6 = value4 == 0 ? 1 : value4;
+    var loop2 = (value5 / value6 * 100).toFixed(0);
+    var show2 = new Highcharts.chart("show2",{
         chart: {
             spacing: [0, 0, 0, 0]
         },
         title: {
-            text: "20%",
+        	text: loop2 + "%",
             floating: true
         },
         plotOptions: {
@@ -69,12 +80,12 @@ $(document).ready(function() {
             type: "pie",
             innerSize: "40%",
             data: [{
-                name: "已完成项目",
-                y: 10.5,
+                name: "及格数量",
+                y: value5,
                 color: "#90ED7D"
             }, {
-                name: "未完成项目",
-                y: 12.5,
+                name: "不及格数量",
+                y: value4 - value5,
                 color: "#DADADA"
             }]
         }]
@@ -84,10 +95,26 @@ $(document).ready(function() {
         c.setTitle({
             y: centerY + titleHeight / 2
         });
-    }
-    );
+    });
     /** ***************************************************************** */
-    var charMain2 = new Highcharts.Chart({
+    // 统计项目数量
+    var index = 0;
+    var tArray = new Array();
+    
+    var map = new Map();
+    $("#items1 div").each(function(i){
+    	var text = $(this).text().substring(0, 4);
+    	if (!map.has(text))
+    		map.set(text, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    	var array = map.get(text);
+    	text = $(this).text().substring(5, 7);
+    	array[Number(text - 1)]++;
+    });
+	var list = new Array();
+	map.forEach(function(value, key) {
+		 list.push({name: key, data: value});
+	});
+    var main2 = new Highcharts.Chart({
         chart: {
             renderTo: "main2",
             type: "column"
@@ -114,13 +141,10 @@ $(document).ready(function() {
             layout: "vertical",
             verticalAlign: "middle"
         },
-        series: [{
-            name: "2018年",
-            data: [10, 15, 26, 35, 10, 36, 12, 14, 15, 10, 14, 15]
-        }, {
-            name: "2019年",
-            data: [15, 23, 25, 10, 20, 16, 18, 15, 16, 10, 12, 13]
-        }],
+        credits: {
+            enabled: false // 不显示官网链接
+        },
+        series: list,
         tooltip: {
             formatter: function() {
                 return this.x + "：" + this.y + "个";
@@ -128,6 +152,17 @@ $(document).ready(function() {
         }
     });
     /** ***************************************************************** */
+    // 统计项目分数
+    var list1 = new Array();
+	var list2 = new Array();
+	var list3 = new Array();
+	for (var i = 0; i < $("#items2 a").length; i = i + 3) {
+		list1.push($("#items2 a").eq(i).text());
+		var value1 = Number($("#items2 a").eq(i + 1).text()).toFixed(2);
+		var value2 = Number($("#items2 a").eq(i + 2).text()).toFixed(2);
+		list2.push(Number(value1));
+		list3.push(Number(value2));
+	}
     var charMain4 = new Highcharts.Chart({
         chart: {
             renderTo: "main4",
@@ -144,6 +179,7 @@ $(document).ready(function() {
         },
         yAxis: {
             min: 0,
+            max: 100,
             lineWidth: 2,
             title: {
                 text: "数量"
@@ -154,21 +190,38 @@ $(document).ready(function() {
             layout: "vertical",
             verticalAlign: "middle"
         },
-        series: [{
-            name: "项目",
-            data: [10, 15, 26, 35, 10, 36, 12, 14, 15, 10, 14, 15]
-        }, {
-            name: "记录",
-            data: [15, 23, 25, 10, 20, 16, 18, 15, 16, 10, 12, 13]
-        }],
+        credits: {
+            enabled: false // 不显示官网链接
+        },
+        series : [ {
+			name : "管线",
+			data : list2
+		}, {
+			name : "记录",
+			data : list3
+		} ],
         tooltip: {
             formatter: function() {
-                // 格式化鼠标滑向图表数据点时显示的提示框
                 return this.x + "：" + this.y + "分";
             }
         }
     });
     /** ***************************************************************** */
+    var map = new Map();
+    $("#items2 .score1").each(function(i) {
+    	var score1 = Number($(this).text());
+    	var score2 = Number($("#items2 .score2").eq(i).text());
+		var text = ((score1 + score2) / 2).toFixed(0);
+		if (map.has(text)) 
+			map.set(text, map.get(text) + 1);
+		else
+			map.set(text, 1);
+	});
+    var list = new Array();
+    var mapIter = map.keys();
+    while((value = mapIter.next().value) != undefined) {
+    	list.push({name: value + "分", y: map.get(value), z: 100});
+    }
     Highcharts.chart("main5", {
         chart: {
             type: "variablepie"
@@ -178,44 +231,20 @@ $(document).ready(function() {
         },
         tooltip: {
             formatter: function() {
-                // 格式化鼠标滑向图表数据点时显示的提示框
-                return this.y + "段";
+                return this.y + "个";
             }
         },
         series: [{
             innerSize: "20%",
             minPointSize: 10,
-            zMin: 0,
-            data: [{
-                name: "94分",
-                y: 20,
-                z: 100
-            }, {
-                name: "95分",
-                y: 30,
-                z: 100
-            }, {
-                name: "96分",
-                y: 21,
-                z: 100
-            }, {
-                name: "97分",
-                y: 17,
-                z: 100
-            }, {
-                name: "98分",
-                y: 18,
-                z: 100
-            }, {
-                name: "99分",
-                y: 25,
-                z: 100
-            }, {
-                name: "100分",
-                y: 24,
-                z: 100
-            }]
+            data: list,
+            zMin: 0
         }]
     });
+    /** ***************************************************************** */
+    $(".main3Value:eq(0) span").css("background-color", "#F54545");
+    $(".main3Value:eq(1) span").css("background-color", "#FF8547");
+    $(".main3Value:eq(2) span").css("background-color", "#49BCF7");
+    $(".main3Value a").attr("target", "_blank");
     /** ***************************************************************** */
 });

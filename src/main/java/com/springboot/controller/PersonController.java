@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springboot.biz.CompanyBiz;
+import com.springboot.biz.MarkPipeBiz;
 import com.springboot.biz.MarkProjectBiz;
 import com.springboot.biz.PersonBiz;
+import com.springboot.biz.PipeBiz;
 import com.springboot.biz.ProjectBiz;
 import com.springboot.entity.MarkProject;
 import com.springboot.entity.Person;
+import com.springboot.entity.Project;
 import com.springboot.util.AppUtils;
 
 @RestController
@@ -32,8 +35,11 @@ public class PersonController {
 	@Resource
 	private ProjectBiz projectBiz;
 	@Resource
+	private PipeBiz pipeBiz;
+	@Resource
 	private MarkProjectBiz markProjectBiz;
-
+	@Resource
+	private MarkPipeBiz markPipeBiz;
 	public static String validate; // 验证码
 	private Map<String, Object> map = null;
 
@@ -163,18 +169,42 @@ public class PersonController {
 		view.setViewName("person/showinfo");
 		return view;
 	}
-	
+
 	@RequestMapping(value = "/statistics")
-	public ModelAndView statistics() {
-		ModelAndView view = new ModelAndView("person/statistics");
-		
+	public ModelAndView statistics(@RequestParam(defaultValue = "0") int id) {
+		ModelAndView view = new ModelAndView("user/failure");
 		return view;
 	}
-	
+
 	@RequestMapping(value = "/statisuser")
 	public ModelAndView statisuser(@RequestParam(defaultValue = "0") int id) {
 		ModelAndView view = new ModelAndView("person/statisuser");
+		Person user = (Person) AppUtils.findMap("user");
+		map = AppUtils.getMap("id", id, "company", user.getCompany());
+		Person person = personBiz.findInfoPerson(map);
+		if (StringUtils.isEmpty(person))
+			return view;
+		map = AppUtils.getMap("person", person);
+		List<Project> projects1 = projectBiz.findListProject(map);
+		map = AppUtils.getMap("person", person, "company", person.getCompany());
+		List<Project> projects2 = projectBiz.findListProject(map);
+		int pipeSize = pipeBiz.getCount(map); // 编辑管道数量
 		
+		int count = 0;  
+		map = AppUtils.getMap("user", person);
+		List<MarkProject> markProjects = markProjectBiz.findListMarkProject(map);
+		for (int i = 0; markProjects != null && i < markProjects.size(); i++) {
+			MarkProject markProject = markProjects.get(i);
+			markProjectBiz.setAverage(markProject);
+			if (markProject.getScore1() >= 95 && markProject.getScore2() >= 85)
+				count++;
+		}
+		view.addObject("person", person);
+		view.addObject("pipeSize", pipeSize);
+		view.addObject("projects1", projects1);  // 未完成项目
+		view.addObject("projects2", projects2);  // 已完成项目
+		view.addObject("markProjects", markProjects);
+		view.addObject("count", count);  // 及格项目
 		return view;
 	}
 }
