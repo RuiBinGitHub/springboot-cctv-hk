@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.springboot.biz.CompanyBiz;
@@ -17,6 +18,7 @@ import com.springboot.entity.Company;
 import com.springboot.entity.Person;
 import com.springboot.util.AppUtils;
 
+@Transactional
 @Service(value = "companyBiz")
 public class CompanyBizImpl implements CompanyBiz {
 
@@ -64,34 +66,66 @@ public class CompanyBizImpl implements CompanyBiz {
 		return (int) Math.ceil((double) count / size);
 	}
 
-	public void appendCompany(Company company, Person person) {
-		person.setPhone("--");
-		person.setRole("Role2");
-		person.setCompany(company);
-		person.setDate(AppUtils.getDate(null));
-
-		companyDao.insertCompany(company);
-		personBiz.insertPerson(person);
-	}
-
-	public void appendCompany(Company company, String user) {
+	public void appendCompany(Company company) {
 		String date = AppUtils.getDate(null);
 		Format foramt1 = new DecimalFormat("#0000");
-		
-		company.setDate(date);
 		company.setCode(AppUtils.findCode());
+		company.setDate(date);
 		companyDao.insertCompany(company);
 		for (int i = 0; i < company.getCont(); i++) {
 			Person person = new Person();
 			String role = i == 0 ? "Role2" : "Role4";
-			person.setNickname("No：" + foramt1.format(i + 1));
-			person.setUsername(user + foramt1.format(i));
+			String name = foramt1.format(i + 1);
+			person.setNickname("No：" + name);
+			person.setUsername(company.getDefine() + name);
 			person.setPassword(AppUtils.findPass());
 			person.setPhone("--");
 			person.setRole(role);
 			person.setDate(date);
+			person.setState("1");
 			person.setCompany(company);
 			personBiz.insertPerson(person);
+		}
+	}
+
+	public void repeatCompany(Company company) {
+		Company temp = findInfoCompany(company.getId());
+		company.setDefine(temp.getDefine());
+		company.setDate(temp.getDate());
+		this.updateCompany(company);
+		if (company.getCont() < temp.getCont()) {
+			map = AppUtils.getMap("company", company);
+			List<Person> persons = personBiz.findListPerson(map);
+			for (int i = persons.size(); i > company.getCont(); i--) {
+				persons.get(i - 1).setState("0");
+				personBiz.updatePerson(persons.get(i - 1));
+			}
+		} else if (company.getCont() > temp.getCont()) {
+			map = AppUtils.getMap("state", "0", "company", company);
+			List<Person> persons = personBiz.findListPerson(map);
+			System.out.println(persons.size());
+			int count = company.getCont() - temp.getCont();
+			for (int i = 0; i < count && i < persons.size(); i++) {
+				persons.get(i).setState("1");
+				personBiz.updatePerson(persons.get(i));
+			}
+			String date = AppUtils.getDate(null);
+			Format foramt1 = new DecimalFormat("#0000");
+			map = AppUtils.getMap("company", company);
+			count = personBiz.getPageCount(map, 1);
+			for (int i = count; i < company.getCont(); i++) {
+				Person person = new Person();
+				String name = foramt1.format(i + 1);
+				person.setNickname("No：" + name);
+				person.setUsername(company.getDefine() + name);
+				person.setPassword(AppUtils.findPass());
+				person.setPhone("--");
+				person.setRole("Role4");
+				person.setDate(date);
+				person.setState("1");
+				person.setCompany(company);
+				personBiz.insertPerson(person);
+			}
 		}
 	}
 }

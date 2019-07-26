@@ -7,8 +7,9 @@ public class Company {
 	private String code;
 	private int cont;
 	private int term;
-	private String date;
 	private String version;
+	private String define;
+	private String date;
 
 	public int getId() {
 		return id;
@@ -50,6 +51,22 @@ public class Company {
 		this.term = term;
 	}
 
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public String getDefine() {
+		return define;
+	}
+
+	public void setDefine(String define) {
+		this.define = define;
+	}
+
 	public String getDate() {
 		return date;
 	}
@@ -58,11 +75,4 @@ public class Company {
 		this.date = date;
 	}
 
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
 }

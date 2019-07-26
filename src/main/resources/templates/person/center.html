@@ -16,14 +16,16 @@
         <div id="menuTitle" th:text="#{menu.title.text}"></div>
         <div class="menu2"><a href="/CCTV/project/showlist" th:text="#{menu.div.text1}"></a></div>
         <shiro:hasRole name="role2">
-          <div class="menu2"><a href="/CCTV/manage/project/showlist" th:text="#{menu.div.text2}"></a></div>
+          <div class="menu2"><a href="/CCTV/project/findlist" th:text="#{menu.div.text2}"></a></div>
         </shiro:hasRole>
-        <shiro:hasRole name="role3">
-          <div class="menu2"><a href="/CCTV/mark/markview" th:text="#{menu.div.text3}"></a></div>
-          <div class="menu2"><a href="/CCTV/mark/marklist" th:text="#{menu.div.text4}"></a></div>
+        <shiro:hasRole name="role3,vrole">
+          <div class="menu2"><a href="/CCTV/markinfo/markview" th:text="#{menu.div.text3}"></a></div>
+          <div class="menu2"><a href="/CCTV/markinfo/marklist" th:text="#{menu.div.text4}"></a></div>
+        </shiro:hasRole>
+        <shiro:hasRole name="role2,vrole">
+          <div class="menu2"><a href="/CCTV/markinfo/findlist" th:text="#{menu.div.text5}"></a></div>
         </shiro:hasRole>
         <shiro:hasRole name="role2">
-          <div class="menu2"><a href="/CCTV/manage/mark/showlist" th:text="#{menu.div.text5}"></a></div>
           <div class="menu2"><a href="/CCTV/operator/showlist" th:text="#{menu.div.text6}"></a></div>
           <div class="menu2"><a href="/CCTV/person/showlist" th:text="#{menu.div.text7}"></a></div>
         </shiro:hasRole>
@@ -35,54 +37,29 @@
         <!-- 
         <div style="width:160px;height:200px;margin:30px 10px 0px 20px;float:left;"><img id="img" src="/CCTV/img/portrait.png"></div>
          -->
-        <table class="table" style="width:400px;margin:10px 10px;font-family:'Helvetica';float:left;">
-          <tr><td colspan="2" align="center"><a style="font-size:20px;font-weight:700" th:text="#{person.center.title1}"></a></td></tr>
-          <tr>
-            <td width="160px" align="right"><a style="font-weight:700" th:text="#{person.center.user.label1}"></a></td>
-            <td width="240px" th:text="${person.nickname}"></td>
+        <table class="table">
+          <tr><td colspan="4"><a style="font-size:24px;font-weight:700" th:text="${person.nickname}"></a></td></tr>
+          <tr style="border-top:1px solid #ccc;">
+            <td width="20%" align="right"><a style="font-weight:700" th:text="#{person.center.user.label1}"></a></td>
+            <td width="30%"><input type="text" class="nameBox" th:value="${person.nickname}"/><a class="link">修改</a></td> 
+            <td width="20%" align="right"><a style="font-weight:700" th:text="#{person.center.user.label2}"></a></td>
+            <td width="30%"  th:if="${person.role == 'Role2'}">管理人员</td>
+            <td width="30%"  th:if="${person.role == 'Role3'}">评分人员</td>
+            <td width="30%"  th:if="${person.role == 'Role4'}">编辑人员</td>
           </tr>
-          <tr>
-            <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label2}"></a></td>
-            <td th:text="${person.role}"></td>
-          </tr>
-          <tr>
+          <tr style="border-top:1px solid #ccc;">
             <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label3}"></a></td>
             <td th:text="${person.email}"></td>
-          </tr>
-          <tr>
             <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label4}"></a></td>
             <td th:text="${person.phone}"></td>
           </tr>
-          <tr>
+          <tr style="border-top:1px solid #ccc;">
             <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label5}"></a></td>
-            <td th:text="${person.date}"></td>
-          </tr>
-        </table>
-        <shiro:hasRole name="role2">
-        <table class="table" style="width:440px;margin:10px 10px;font-family:'Helvetica';float:left;">
-          <tr><td colspan="2" align="center"><a style="font-size:20px;font-weight:700" th:text="#{person.center.title2}"></a></td></tr>
-          <tr>
-            <td width="160px" align="right"><a style="font-weight:700" th:text="#{person.center.company.label1}"></a></td>
-            <td width="280px" th:text="${person.company.name}"></td>
-          </tr>
-          <tr>
-            <td align="right"><a style="font-weight:700" th:text="#{person.center.company.label2}"></a></td>
-            <td th:text="${person.company.code}"></td>
-          </tr>
-          <tr>
-            <td align="right"><a style="font-weight:700" th:text="#{person.center.company.label3}"></a></td>
-            <td th:text="${person.company.cont}"></td>
-          </tr>
-          <tr>
-            <td align="right"><a style="font-weight:700" th:text="#{person.center.company.label4}"></a></td>
             <td th:text="${person.company.date}"></td>
-          </tr>
-          <tr>
-            <td align="right"><a style="font-weight:700" th:text="#{person.center.company.label5}"></a></td>
+            <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label5}"></a></td>
             <td th:text="${person.company.term}"></td>
           </tr>
         </table>
-        </shiro:hasRole>
         
         <table id="tab1">
           <tr>

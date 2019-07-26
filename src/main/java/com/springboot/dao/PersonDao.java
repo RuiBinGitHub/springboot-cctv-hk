@@ -18,9 +18,9 @@ public interface PersonDao {
 
 	public Person findPersonByID(int id);
 	
-	public Person likeInfoPerson(Map<String, Object> map);
-	
 	public Person findInfoPerson(Map<String, Object> map);
+	
+	public List<Person> likeInfoPerson(Map<String, Object> map);
 
 	public List<Person> findListPerson(Map<String, Object> map);
 

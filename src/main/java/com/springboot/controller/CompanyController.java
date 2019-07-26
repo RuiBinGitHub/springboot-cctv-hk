@@ -16,14 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.springboot.biz.CompanyBiz;
 import com.springboot.biz.PersonBiz;
 import com.springboot.entity.Company;
+import com.springboot.entity.Person;
 import com.springboot.util.AppUtils;
 
 @RestController
 @RequestMapping(value = "/company")
 public class CompanyController {
 
-	@Resource
-	private UserController userController;
 	@Resource
 	private CompanyBiz companyBiz;
 	@Resource
@@ -49,21 +48,31 @@ public class CompanyController {
 
 	@RequestMapping(value = "/showinfo")
 	public ModelAndView showInfo(@RequestParam(defaultValue = "0") int id) {
-		ModelAndView view = new ModelAndView("company/showinfo");
+		ModelAndView view = new ModelAndView("user/failure");
 		Company company = companyBiz.findInfoCompany(id);
+		if (StringUtils.isEmpty(company))
+			return view;
+		map = AppUtils.getMap("company", company);
+		List<Person> persons = personBiz.findListPerson(map);
+		view.setViewName("company/showinfo");
 		view.addObject("company", company);
+		view.addObject("persons", persons);
 		return view;
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public ModelAndView insert(Company company, String user) {
+	public ModelAndView insert(Company company) {
 		ModelAndView view = new ModelAndView("company/insert");
-		if (company == null || user == null)
+		if (company.getName() == null)
 			return view;
-		map = AppUtils.getMap("username", user);
-		if (personBiz.likeInfoPerson(map) != null)
+		map = AppUtils.getMap("username", company.getDefine());
+		List<Person> persons = personBiz.likeInfoPerson(map);
+		if (persons != null && persons.size() != 0) {
+			view.addObject("tips", "*账号前缀已被使用！");
+			view.addObject("company", company);
 			return view;
-		companyBiz.appendCompany(company, user);
+		}
+		companyBiz.appendCompany(company);
 		view.setViewName("redirect:showinfo?id=" + company.getId());
 		return view;
 	}
@@ -81,8 +90,9 @@ public class CompanyController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView update(Company company) {
-		ModelAndView view = new ModelAndView("redirect:/success");
-		companyBiz.updateCompany(company);
+		ModelAndView view = new ModelAndView();
+		view.setViewName("redirect:/success");
+		companyBiz.repeatCompany(company);
 		return view;
 	}
 

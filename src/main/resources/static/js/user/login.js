@@ -5,16 +5,19 @@ $(document).ready(function() {
     $("#pass").attr("placeholder", "Please enter your password");
     /********************************************************************/
     $("#btn").click(function() {
-        var name = $("#name").val(); //获取输入账号
         var pass = $("#pass").val(); //获取输入密码
-        if (name == "" || pass == "")
-        	$("#tips").text("*Please enter your username or password!");
-        else {
-            $(this).css("background-color", "#ccc");
-            $(this).attr("disable", true);
-            $(this).val("Sign In...");
-            $("#form1").submit();
+        if ($("#name").val() == "") {
+        	$("#tips").text("*Please enter your username!");
+        	return false;
         }
+        if ($("#pass").val() == "") {
+        	$("#tips").text("*Please enter your password!");
+        	return false;
+        }
+        $(this).css("background-color", "#ccc");
+        $(this).attr("disable", true);
+        $(this).val("Sign In...");
+        $("#form1").submit();
     });
 
     /** 输入框获取焦点事件 */

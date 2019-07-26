@@ -2,18 +2,20 @@ $(document).ready(function() {
     var code = null;
     var language = $("#rightTop").text() == "個人中心" ? "zh" : "en";
     /********************************************************************/
-    var role = $(".table:eq(0) tr:eq(2) td:eq(1)").text();
-    if (role == "Role2") 
-    	$(".table:eq(0) tr:eq(2) td:eq(1)").text("管理人员");
-    else if (role == "Role3") 
-    	$(".table:eq(0) tr:eq(2) td:eq(1)").text("评分人员");
-    else if (role == "Role4") 
-    	$(".table:eq(0) tr:eq(2) td:eq(1)").text("操作人员");
-    /********************************************************************/
+    $(".link").click(function(){
+    	var name = $(".nameBox").val();
+    	if (name != "" && Ajax("updatename", {name: name})) {
+    		if (language == "zh")
+            	showTips("名称修改成功！");
+            else
+            	showTips("Operating successfully!");
+            setTimeout("location.reload()", 2000);	
+    	}
+    });
     //获取使用期限
-    var idate = $(".table:eq(1) tr:eq(4) td:eq(1)").text();
-    var count = $(".table:eq(1) tr:eq(5) td:eq(1)").text();
-    $(".table:eq(1) tr:eq(5) td:eq(1)").text(getDate(idate, count));
+    var idate = $(".table:eq(0) tr:eq(3) td:eq(1)").text();
+    var count = $(".table:eq(0) tr:eq(3) td:eq(3)").text();
+    $(".table:eq(0) tr:eq(3) td:eq(3)").text(getDate(idate, count));
     /********************************************************************/
     $("#link1").click(function() {
         $("#page").show();
@@ -78,6 +80,7 @@ $(document).ready(function() {
             $("#pageTab1 input:eq(2)").css("border-color", "#f00");
             return;
         }
+        
         if (Ajax("updatepass", {name: iname, pass: pass1})) {
             if (language == "zh")
             	showTips("密碼修改成功！");
@@ -89,6 +92,8 @@ $(document).ready(function() {
     /** 修改邮箱 */
     $(".btn:eq(1)").click(function() {
         if (checkMail() && checkCode()) {
+        	$(this).attr("disabled", true);
+            $(this).css("border-color", "#CCC");
             var mail = $("#pageTab2 input[type=text]:eq(0)").val();
             var code = $("#pageTab2 input[type=text]:eq(1)").val();
             if (Ajax("updatemail", {mail: mail, code: code})) {
@@ -147,8 +152,7 @@ $(document).ready(function() {
             setTimeout(ChangeTime, 1000);
             $("#pageTab2 input[type]:eq(1)").focus();
             var mail = $("#pageTab2 input[type]:eq(0)").val();
-            var data = Ajax("/CCTV/user/sendmail", {"mail": mail});
-            code = data.result;
+            code = Ajax("/CCTV/user/sendmail", {"mail": mail});
         }
     });
     var value = $("#getCode").val();

@@ -1,8 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-  	<title>新建信息</title>
+  	<title>公司信息</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
 	<link rel="stylesheet" type="text/css" href="/CCTV/css/company/showinfo.css"/>
   </head>
   <body>
@@ -37,6 +38,7 @@
 	    	</tr>
 	      </table>
 	  	</fieldset>
+	  	<div id="infoTitle">用户信息</div>
 	  	<div id="mainlist">
 	  	  <div id="infoTop">
 	  	    <div style="width:39px;">No</div>
@@ -47,20 +49,22 @@
 	  	    <div style="width:115px;">注册日期</div>
 	  	  </div>
 	  	  <div id="infoBody" style="width:100%;max-height:240px;overflow-y:scroll;float:left;">
-	  	    <table id="tab1">
-       	  	<tr th:each="i:${#numbers.sequence(1,10)}" align="center" height="24px">
-              <td width="5%" th:text="${i}"></td>
-              <td width="18%">No：0001</td>
-              <td width="24%">MSDI160005123456</td>
-              <td width="24%">MFKJVHF1515F</td>
-              <td width="14%">管理人员</td>
-              <td width="15%">2018-05-06</td>
+	  	  <table id="tab1" style="font-size:18px;">
+       	  	<tr th:each="person,status:${persons}" align="center" height="24px">
+              <td width="5%" th:text="${status.count}"></td>
+              <td width="18%" th:text="${person.nickname}"></td>
+              <td width="24%" th:text="${person.username}"></td>
+              <td width="24%" th:text="${person.password}"></td>
+              <td width="14%" th:if="${person.role == 'Role2'}">管理人员</td>
+              <td width="14%" th:if="${person.role == 'Role3'}">评分人员</td>
+              <td width="14%" th:if="${person.role == 'Role4'}">操作人员</td>
+              <td width="15%" th:text="${person.date}"></td>
             </tr>
 	      </table>
 	  	  </div>
 	  	</div>
-  	  	<div style="width:720px;margin-left:132px;color:#999;font-size:14px;float:left;">
-  	  	  注：请注意保存公司序列号码，人员注册时需要输入正确验证码完成验证。
+  	  	<div style="width:785px;margin-left:105px;font-size:14px;float:left;">
+  	  	  <a id="link" th:href="@{/export/userlist(id=${param.id})}" style="float:right;">导出</a>
   	  	</div>
       </div>
     </div>

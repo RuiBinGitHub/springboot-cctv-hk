@@ -9,6 +9,8 @@
     $("#link1").attr("target", "_bank");
     $("#link1").attr("href", "http://www1.slope.landsd.gov.hk/smris/map");
     $("#main2 table:eq(0) tr:eq(1) input:eq(7)").attr("placeholder", "HH:MM");
+    if ($("#memu1 input").length == 3)
+    	$("#title").css("width", "910px");
     /***********************************************************************/
     $("#main2 table:eq(1) select:eq(0)").change(function() {
         var context = "";

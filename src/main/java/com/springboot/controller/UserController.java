@@ -95,7 +95,7 @@ public class UserController {
 	}
 
 	/** 用户登录 */
-	@RequestMapping(value = "login")
+	@RequestMapping(value = "/login")
 	public ModelAndView login(HttpServletRequest request, String username, String password) {
 		try {
 			ModelAndView view = new ModelAndView("user/login");
@@ -107,6 +107,10 @@ public class UserController {
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			SecurityUtils.getSubject().login(token);
 			Person user = (Person) AppUtils.findMap("user");
+			if ("0".equals(user.getState())) {
+				view.addObject("tips", "*This account is frozen!");
+				return view;
+			}
 			Company company = user.getCompany();
 			Calendar calendar = Calendar.getInstance();
 			Date date = new Date();

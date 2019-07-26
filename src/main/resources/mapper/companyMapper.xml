@@ -4,14 +4,15 @@
 <mapper namespace="com.springboot.dao.CompanyDao">
 
 	<!-- 插入数据 -->
-	<insert id="insertCompany" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertCompany" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO company VALUES(nextval('indexID'),
 			#{name},
 			#{code},
 			#{cont},
 			#{term},
-			#{date},
-			#{version}
+			#{version},
+			#{define},
+			#{date}
 		)
 	</insert>
 
@@ -21,8 +22,9 @@
 			code=#{code},
 			cont=#{cont},
 			term=#{term},
-			date=#{date},
-			version=#{version}
+			version=#{version},
+			define=#{define},
+			date=#{date}
 		WHERE id=#{id}
 	</update>
 	

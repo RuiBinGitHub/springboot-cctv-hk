@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-	<title>首页</title>
+	<title>公司管理</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
 	<link rel="stylesheet" type="text/css" href="/CCTV/css/company/showlist.css"/>
@@ -42,23 +42,21 @@
 	      <thead>
 	        <tr height="40px" style="background-color:#F0F0F0">
 	          <th width="4%">NO</th>
-	          <th width="20%">公司名稱</th>
-	          <th width="20%">序列碼</th>
-	          <th width="8%">人數</th>
-	          <th width="8%">期限</th>
-	          <th width="10%">注册日期</th>
-	          <th width="10%">使用期限</th>
-	          <th width="10%">使用版本</th>
-	          <th width="10%">操作</th>
+	          <th width="24%">公司名稱</th>
+	          <th width="12%">人數</th>
+	          <th width="12%">期限</th>
+	          <th width="12%">注册日期</th>
+	          <th width="12%">使用期限</th>
+	          <th width="12%">使用版本</th>
+	          <th width="12%">操作</th>
 	        </tr>
 	      </thead>
 	      <tbody style="font-family:宋体;">
 	        <tr th:each="company,status:${companies}">
 	          <td th:text="${status.count}"></td>
 	          <td th:text="${company.name}"></td>
-	          <td th:text="${company.code}"></td>
-	          <td th:text="${company.cont}"></td>
-	          <td th:text="${company.term}"></td>
+	          <td th:text="${company.cont + ' 人'}"></td>
+	          <td th:text="${company.term + ' 天'}"></td>
 	          <td th:text="${company.date}"></td>
 	          <td></td>
 	          <td th:text="${company.version}"></td>

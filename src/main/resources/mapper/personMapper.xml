@@ -12,6 +12,7 @@
 			#{phone},
 			#{role},
 			#{date},
+			#{state},
 			#{company.id}
 		)
 	</insert>
@@ -24,6 +25,7 @@
 			phone=#{phone},
 			role=#{role},
 			date=#{date},
+			state=#{state},
 			companyid=#{company.id}
 		WHERE id=#{id}
 	</update>
@@ -70,11 +72,14 @@
 			<if test="nickname != null">
 				and nickname like #{nickname}
 			</if>
+			<if test="state != null">
+				and state = #{state}
+			</if>
 			<if test="company != null">
 				and companyid = #{company.id}
 			</if>
 		</where>
-		order by date desc
+		order by username
 		<if test="page > 0">
 			limit 15 offset (#{page}-1)*15
 		</if>  
@@ -102,6 +107,7 @@
 		<result property="role" column="role"/>
 		<result property="role" column="role"/>
 		<result property="date" column="date"/>
+		<result property="state" column="state"/>
 	 	<association property="company" column="companyid" select="com.springboot.dao.CompanyDao.findCompanyByID"/>
 	</resultMap>
 </mapper>

@@ -65,11 +65,11 @@
           <a href="/CCTV/message/showlist" th:text="#{navigation.item.text2}"></a>
         </div>
         <div th:if="${session.i18n=='zh_CN'}" class="naviItem">
-          <img src="/CCTV/img/zh_CN.png"/>
+          <img src="/CCTV/img/en_US.png"/>
           <a id="link" class="en_US" th:text="#{navigation.item.text3}"></a>
         </div>
         <div th:if="${session.i18n!='zh_CN'}" class="naviItem">
-          <img src="/CCTV/img/en_US.png"/>
+          <img src="/CCTV/img/zh_CN.png"/>
           <a id="link" class="zh_CN" th:text="#{navigation.item.text3}"></a>
         </div>
         <div class="naviItem">

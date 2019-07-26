@@ -1,5 +1,8 @@
 package com.springboot;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -7,42 +10,31 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.springboot.biz.PipeBiz;
-import com.springboot.entity.Pipe;
-import com.springboot.util.Computes;
-import com.springboot.util.CreateDOC;
-import com.springboot.util.CreatePDF;
+import com.springboot.biz.CompanyBiz;
+import com.springboot.biz.PersonBiz;
+import com.springboot.entity.Company;
+import com.springboot.entity.Person;
+import com.springboot.util.AppUtils;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class MainApplicationTests {
 
 	@Resource
-	public CreatePDF createPDF;
+	private CompanyBiz companyBiz;
 	@Resource
-	public CreateDOC createDOC;
-	@Resource
-	public Computes compute;
-	@Resource
-	public PipeBiz pipeBiz;
+	private PersonBiz personBiz;
+
 	
-	@Test
-	public void contextLoads() {
-		createPDF.initPDF(11802, "D:\\");
-		System.out.println("---");
-	}
+	private Map<String, Object> map = null;
 	
 	@Test
 	public void test1(){
-		Pipe pipe = pipeBiz.findInfoPipe(21666, null);
-		pipe = compute.computePipe(pipe, "HKCCEC 2009");
-		for (double value : pipe.getGrade()) {
-			System.out.print(value + "    ");
-		}
-		System.out.println("--");
-		for (double value : pipe.getScore()) {
-			System.out.print(value + "    ");
-		}
+		Company company = new Company();
+		company.setId(1);
+		map = AppUtils.getMap("stauts", "0", "company", company);
+		List<Person> persons = personBiz.findListPerson(map);
+		System.out.println(persons.size());
 	}
 }
 

@@ -40,7 +40,7 @@ public class PersonController {
 	private MarkProjectBiz markProjectBiz;
 	@Resource
 	private MarkPipeBiz markPipeBiz;
-	public static String validate; // 验证码
+	
 	private Map<String, Object> map = null;
 
 	/** 获取人员列表 */
@@ -111,6 +111,15 @@ public class PersonController {
 		return view;
 	}
 
+	/** 修改用户昵称 */
+	@RequestMapping(value = "/updatename")
+	public boolean updatename(String name) {
+		Person user = (Person) AppUtils.findMap("user");
+		user.setNickname(name);
+		personBiz.updatePerson(user);
+		return true;
+	}
+	
 	/** 修改用户密码 */
 	@RequestMapping(value = "/updatepass", method = RequestMethod.POST)
 	public boolean updatepass(String name, String pass) {
@@ -127,7 +136,7 @@ public class PersonController {
 	@RequestMapping(value = "/updatemail", method = RequestMethod.POST)
 	public boolean updatemail(String mail, String code) {
 		Person user = (Person) AppUtils.findMap("user");
-		if (code != null && code.equals(validate)) {
+		if (!StringUtils.isEmpty(code)) {
 			user.setEmail(mail);
 			personBiz.updatePerson(user);
 		}

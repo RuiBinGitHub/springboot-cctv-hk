@@ -13,17 +13,19 @@
     <div id="Tip"></div>
     <div id="main">
       <div id="mainLeft">
-        <div id="menuTitle" th:text="#{menu.title.text}"></div>
+       <div id="menuTitle" th:text="#{menu.title.text}"></div>
         <div class="menu2"><a href="/CCTV/project/showlist" th:text="#{menu.div.text1}"></a></div>
         <shiro:hasRole name="role2">
           <div class="menu1"><a href="/CCTV/project/findlist" th:text="#{menu.div.text2}"></a></div>
         </shiro:hasRole>
-        <shiro:hasRole name="role3">
+        <shiro:hasRole name="role3,vrole">
           <div class="menu2"><a href="/CCTV/markinfo/markview" th:text="#{menu.div.text3}"></a></div>
           <div class="menu2"><a href="/CCTV/markinfo/marklist" th:text="#{menu.div.text4}"></a></div>
         </shiro:hasRole>
-        <shiro:hasRole name="role2">
+        <shiro:hasRole name="role2,vrole">
           <div class="menu2"><a href="/CCTV/markinfo/findlist" th:text="#{menu.div.text5}"></a></div>
+        </shiro:hasRole>
+        <shiro:hasRole name="role2">
           <div class="menu2"><a href="/CCTV/operator/showlist" th:text="#{menu.div.text6}"></a></div>
           <div class="menu2"><a href="/CCTV/person/showlist" th:text="#{menu.div.text7}"></a></div>
         </shiro:hasRole>

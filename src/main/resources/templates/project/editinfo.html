@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
   <head>
     <title>项目编辑</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -27,7 +27,9 @@
 	      <div id="title" style="text-indent:20px" th:text="#{project.editinmfo.pipe.title}"></div>
 	      <input type="button" th:value="#{project.editinmfo.pipe.button1}" style="background-color:#51C83D"/>
 	      <input type="button" th:value="#{project.editinmfo.pipe.button2}" style="background-color:#00A3FE"/>
+	      <shiro:hasRole name="rolev">
 	      <input type="button" th:value="#{project.editinmfo.pipe.button3}" style="background-color:#F47E40"/>
+	      </shiro:hasRole>
 	      <input type="button" th:value="#{project.editinmfo.pipe.button4}" style="background-color:#FF5D23"/>
 	    </div>
 	    <div id="head1">

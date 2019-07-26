@@ -30,13 +30,10 @@ $(document).ready(function() {
             var cont = text.replace(exp, "<font color='#f00'>" + name + "</font>");
             $(this).find("td:eq(1)").html(cont);
         }
-        var count = $(this).find("td:eq(4)").text();
-        var idate = $(this).find("td:eq(5)").text();
-        $(this).find("td:eq(6)").html(getDate(idate, count));
-        if ($(this).find("td:eq(7)").text() == "version1.1")
-        	$(this).find("td:eq(7)").text("版本 1.1");
-        else
-        	$(this).find("td:eq(7)").text("版本 1.2");
+        var count = $(this).find("td:eq(3)").text();
+        var cont = count.substring(0, count.length - 1);
+        var date = $(this).find("td:eq(4)").text();
+        $(this).find("td:eq(5)").html(getDate(date, cont));
         /****************************************************************/
         $(this).find("input:eq(0)").click(function() {
             var id = $(this).attr("name");
