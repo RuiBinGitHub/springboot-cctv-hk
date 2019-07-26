@@ -4,8 +4,8 @@ $(document).ready(function() {
 	var language = $("#rightTop").text() == "信息列表" ? "zh" : "en";
 	/** ********************************************** */
 	$("#tab1 tr").each(function(i) {
+		var id = $(this).attr("id");
 		$(this).find("a").click(function() {
-			var id = $(this).attr("name");
 			var data = Ajax("findinfo", {id : id});
 			if (data == null)
 				return null;
@@ -49,7 +49,6 @@ $(document).ready(function() {
             if (confirm(tipsText)) {
             	$(this).css("background-color", "#CCC");
                 $(this).attr("disabled", true);
-                var id = $(this).attr("name");
                 if (Ajax("delete", {id: id}))
                 	showTips(showText);
                 setTimeout("location.reload()", 2000);

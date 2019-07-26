@@ -60,7 +60,7 @@
 			</tr>       
           </thead>
           <tbody>
-            <tr th:each="project,status:${projects}">
+            <tr th:each="project,status:${projects}" th:id="${project.id}">
               <td th:text="${status.count+(page-1)*15}"></td>
               <td><a th:href="@{editinfo(id=${project.id})}" th:text="${project.name}"></a></td>
           	  <td th:text="${project.client}"></td>
@@ -69,9 +69,9 @@
           	  <td th:text="${project.operator}"></td>
           	  <td th:text="${project.date}"></td>
 		      <td>
-		        <input type="button" th:name="${project.id}" th:value="#{project.showlist.table.button1}" class="tablebtn1">
-		        <input type="button" th:name="${project.id}" th:value="#{project.showlist.table.button2}" class="tablebtn2">
-		        <input type="button" th:name="${project.id}" th:value="#{project.showlist.table.button3}" class="tablebtn3">
+		        <input type="button" th:value="#{project.showlist.table.button1}" class="tablebtn1">
+		        <input type="button" th:value="#{project.showlist.table.button2}" class="tablebtn2">
+		        <input type="button" th:value="#{project.showlist.table.button3}" class="tablebtn3">
 		      </td>
           	</tr>
           </tbody>

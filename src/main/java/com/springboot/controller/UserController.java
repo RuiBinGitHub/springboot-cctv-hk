@@ -3,7 +3,6 @@ package com.springboot.controller;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -43,54 +42,12 @@ public class UserController {
 	private JavaMailSender sender;
 
 	private Map<String, Object> map = null;
+	private UsernamePasswordToken token = null;
 
 	/** 用户注册 */
 	@RequestMapping(value = "/logon", method = RequestMethod.POST)
 	public ModelAndView logon(Person person) {
-		ModelAndView view = new ModelAndView("user/logon");
-		String tips1 = "*The UserName already exists！";
-		String tips2 = "*The E-mail has been used！";
-		String tips3 = "*The company name and serial number mismatch!";
-		String tips4 = "*Maximum number of company users!";
-		String i18n = (String) AppUtils.findMap("i18n");
-		if (i18n != null && !"zh_CN".equals(i18n)) {
-			tips1 = "*登錄賬號已存在，請重新輸入！";
-			tips2 = "*電子郵箱已註冊，請重新輸入！";
-			tips3 = "*公司名稱與序列號不匹配！";
-			tips4 = "*公司用戶已經達人數上限！";
-		}
-		/** 验证登录账号 */
-		if (isExistName(person.getUsername())) {
-			view.addObject("tips", tips1);
-			return view;
-		}
-		/** 验证电子邮箱 */
-		if (isExistMail(person.getEmail())) {
-			view.addObject("tips", tips2);
-			return view;
-		}
-		/** 验证公司名称 */
-		map = new HashMap<String, Object>();
-		map.put("name", person.getCompany().getName());
-		map.put("code", person.getCompany().getCode());
-		Company company = companyBiz.findInfoCompany(map);
-		if (StringUtils.isEmpty(company)) {
-			view.addObject("tips", tips3);
-			return view;
-		}
-		map = AppUtils.getMap("company", company);
-		int count = personBiz.getPageCount(map, 1);
-		if (count >= company.getCont()) {
-			view.addObject("tips", tips4);
-			return view;
-		}
-		/** 提交数据，完成注册 */
-		person.setPhone("--");
-		person.setRole("Role2");
-		person.setDate(AppUtils.getDate(null));
-		person.setCompany(company);
-		personBiz.insertPerson(person);
-		view.setViewName("redirect:/user/completes");
+		ModelAndView view = new ModelAndView();
 		return view;
 	}
 
@@ -99,29 +56,32 @@ public class UserController {
 	public ModelAndView login(HttpServletRequest request, String username, String password) {
 		try {
 			ModelAndView view = new ModelAndView("user/login");
+			// 账号或密码为空
 			if (username == null || password == null) {
 				view.addObject("username", username);
 				view.addObject("password", password);
 				return view;
 			}
-			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			token = new UsernamePasswordToken(username, password);
 			SecurityUtils.getSubject().login(token);
 			Person user = (Person) AppUtils.findMap("user");
+			// 账号已经被冻结
 			if ("0".equals(user.getState())) {
 				view.addObject("tips", "*This account is frozen!");
 				return view;
 			}
+			// 已超过使用期限
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Company company = user.getCompany();
 			Calendar calendar = Calendar.getInstance();
-			Date date = new Date();
-			calendar.setTime(date);
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			calendar.setTime(new Date());
 			calendar.add(Calendar.DATE, -company.getTerm());
 			String time = format.format(calendar.getTime());
 			if (company.getDate().compareTo(time) <= 0) {
 				view.addObject("tips", "The Company has expired!");
 				return view;
 			}
+			// 登录成功
 			SecurityUtils.getSubject().getSession().setTimeout(-2000);
 			SavedRequest location = WebUtils.getSavedRequest(request);
 			if (!StringUtils.isEmpty(location)) {
@@ -221,11 +181,29 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping(value = "/index")
+	public ModelAndView index() {
+		try {
+			ModelAndView view = new ModelAndView();
+			Person user = (Person) AppUtils.findMap("user");
+			if (user.getRole().equals("Role1"))
+				view.setViewName("redirect:/company/showlist");
+			else
+				view.setViewName("redirect:/project/showlist");
+			return view;
+		} catch (Exception e) {
+			ModelAndView view = new ModelAndView();
+			view.setViewName("redirect:/company/showlist");
+			return view;
+		}
+
+	}
+
 	/** 切换语言 */
 	@RequestMapping(value = "/change")
 	public boolean change(String l, HttpServletRequest request) {
 		AppUtils.pushMap("i18n", l);
 		return true;
 	}
-	
+
 }

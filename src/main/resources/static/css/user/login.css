@@ -1,65 +1,75 @@
 @CHARSET "UTF-8";
-body{
-	background-image:url("/CCTV/img/001.png");
-	background-position:0px 60px;
-	background-repeat:no-repeat;
-	background-size:100%;
-}
-#img {
-	margin:40px auto; 
-}
-#main{
-	width:300px;
-	height:400px;
-	margin:240px auto; 
-	background-color:#fff;
-	border:1px solid #ccc;
-	border-radius:4px;
-}
-#tab1{
-	width:260px;
-	height:320px;
-	margin:40px 18px; 
-	float:left;
-}
-#tips{
-	color:#f00;
-	font-size:15px;
-	font-weight:600;
-	font-family:'仿宋';
-}
-#tab1 img{
-	width:40px;
-	height:40px;
-	float:left;
+
+body {
+	background-image: url("/CCTV/img/001.png");
+	background-position: 0px 60px;
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
-#name, #pass{
-	width:218px;
-	height:35.5px;
-	font-size:14px;
-	text-indent:10px;
-	border:1px solid #AAABAB;
-	float:left;
+#img {
+	margin: 40px auto;
 }
-#tab1 a{
-	color:#666666;
-	font-size:14px;
-	text-decoration:none;
+
+#main {
+	width: 300px;
+	height: 400px;
+	margin: 240px auto;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
-#tab1 a:hover{
-	color:#019BE1;
-	text-decoration:underline;
+
+#tab1 {
+	width: 260px;
+	height: 320px;
+	margin: 40px 18px;
+	float: left;
 }
-#btn{
-	width:260px;
-	height:40px;
-	font-size:20px;
-	background-color:#5EA500;
-	border:none;
-	color:#fff;
+
+#tips {
+	color: #f00;
+	font-size: 15px;
+	font-weight: 600;
+	font-family: '仿宋';
 }
-#btn:hover{
-	background-color:#7ad500;
-	cursor:pointer;
+
+#tab1 img {
+	width: 40px;
+	height: 40px;
+	float: left;
+}
+
+#name, #pass {
+	width: 218px;
+	height: 35.5px;
+	font-size: 14px;
+	text-indent: 10px;
+	border: 1px solid #AAABAB;
+	float: left;
+}
+
+#tab1 a {
+	color: #666666;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+#tab1 a:hover {
+	color: #019BE1;
+	text-decoration: underline;
+}
+
+#btn {
+	width: 260px;
+	height: 40px;
+	font-size: 20px;
+	background-color: #5EA500;
+	border: none;
+	color: #fff;
+}
+
+#btn:hover {
+	background-color: #7ad500;
+	cursor: pointer;
 }

@@ -47,8 +47,8 @@ $(document).ready(function() {
         $(this).find("td:eq(4)").attr("title", "及格分數：95.00");
         $(this).find("td:eq(5)").attr("title", "及格分數：85.00");
         /*************************************************/
+        var id = $(this).attr("id");
         $(this).find("input:eq(0)").click(function() {
-        	var id = $(this).attr("name");
         	window.open("findinfo?id=" + id);
         });
         $(this).find("input:eq(1)").click(function() {
@@ -61,7 +61,6 @@ $(document).ready(function() {
             if (confirm(tipsText)) {
             	$(this).css("background-color", "#CCC");
                 $(this).attr("disabled", true);
-                var id = $(this).attr("name");
                 if (Ajax("remove", {id: id}))
                 	showTips(showText);
                 setTimeout("location.reload()", 2000);

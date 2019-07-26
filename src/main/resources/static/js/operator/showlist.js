@@ -37,8 +37,8 @@ $(document).ready(function() {
             $(this).find("td:eq(1) a").html(text);
         }
         /*********************************************/
+        var id = $(this).attr("id");
         $(this).find(".tablebtn1").click(function() {
-            var id = $(this).attr("name");
             window.open("updateview?id=" + id);
         });
         $(this).find(".tablebtn2").click(function() {
@@ -51,7 +51,6 @@ $(document).ready(function() {
             if (confirm(tipsText)) {
             	$(this).css("background-color", "#CCC");
                 $(this).attr("disabled", true);
-                var id = $(this).attr("name");
                 if (Ajax("delete", {id: id}))
                 	showTips(showText);
                 setTimeout("location.reload()", 2000);

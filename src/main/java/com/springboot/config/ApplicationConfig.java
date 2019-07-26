@@ -97,7 +97,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		// user 操作
 		registry.addViewController("*/loginview").setViewName("user/login");
-		registry.addViewController("*/logonview").setViewName("user/logon");
+		// registry.addViewController("*/logonview").setViewName("user/logon");
 		registry.addViewController("*/resetview").setViewName("user/resetpass");
 		registry.addViewController("*/completes").setViewName("user/completes");
 
@@ -106,8 +106,8 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		registry.addViewController("/authoriz").setViewName("authoriz");
 
 		registry.addViewController("/company/insertview").setViewName("company/insert");
-		registry.addViewController("/operator/insertview").setViewName("operator/insert");
 		registry.addViewController("/project/combineview").setViewName("project/combine");
+		registry.addViewController("/operator/insertview").setViewName("operator/insert");
 
 		registry.addViewController("showmap").setViewName("showmap");
 	}

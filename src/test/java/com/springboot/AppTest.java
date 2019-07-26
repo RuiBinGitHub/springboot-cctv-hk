@@ -1,14 +1,18 @@
 package com.springboot;
 
-import java.text.DecimalFormat;
-import java.text.Format;
+import java.util.Map;
+
+import org.springframework.util.StringUtils;
 
 import com.springboot.util.AppUtils;
 
 public class AppTest {
 
 	public static void main(String[] args) {
-		Format foramt1 = new DecimalFormat("#0000");
-		System.out.println(foramt1.format(1));
+		Map<String, Object> map = AppUtils.getMap("id", 10 ,"name", "name");
+		if (!StringUtils.isEmpty(map.get("name")))
+			map.put("name", "%" + map.get("name") + "%");
+		System.out.println(map);
+		
 	}
 }

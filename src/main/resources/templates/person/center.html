@@ -34,14 +34,11 @@
       </div>
       <div id="mainRight">
         <div id="rightTop" th:text="#{person.center.title}"></div>
-        <!-- 
-        <div style="width:160px;height:200px;margin:30px 10px 0px 20px;float:left;"><img id="img" src="/CCTV/img/portrait.png"></div>
-         -->
         <table class="table">
           <tr><td colspan="4"><a style="font-size:24px;font-weight:700" th:text="${person.nickname}"></a></td></tr>
           <tr style="border-top:1px solid #ccc;">
             <td width="20%" align="right"><a style="font-weight:700" th:text="#{person.center.user.label1}"></a></td>
-            <td width="30%"><input type="text" class="nameBox" th:value="${person.nickname}"/><a class="link">修改</a></td> 
+            <td width="30%"><input type="text" class="nameBox" th:value="${person.nickname}"/><a class="link">Edit</a></td> 
             <td width="20%" align="right"><a style="font-weight:700" th:text="#{person.center.user.label2}"></a></td>
             <td width="30%"  th:if="${person.role == 'Role2'}">管理人员</td>
             <td width="30%"  th:if="${person.role == 'Role3'}">评分人员</td>

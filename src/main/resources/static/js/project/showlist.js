@@ -1,11 +1,10 @@
 $(document).ready(function() {
-	// 获取当前语言
-	var language = $("#rightTop").text() == "項目列表" ? "zh" : "en";
+    // 获取当前语言
+    var language = $("#rightTop").text() == "項目列表" ? "zh" : "en";
     var width = $("#rightMenu span:eq(0)").css("width");
     var length = width.substring(0, width.length - 2);
     $("#rightMenu div:eq(0)").css("width", 530 - length);
     /********************************************************************/
-    $("#file1").attr("accept", ".mdb");
     if ($("#menuText").val().trim() == "") {
         $("#menuBtn1").css("background-color", "#CCC");
         $("#menuBtn1").attr("disabled", true);
@@ -28,7 +27,20 @@ $(document).ready(function() {
         window.open("insertview");
     });
     $("#import").click(function() {
-    	$("#file1").click();
+        $("#file1").click();
+    });
+    $("#file1").attr("accept", ".mdb");
+    $("#file1").change(function() {
+        if (this.files.length == 0)
+            return false;
+        var showText = "數據正在上傳中...";
+        if (language == "en")
+            showText = "Data uploading...";
+        $("#Tip").text(showText);
+        $("#form1").submit();
+        $("#page").show();
+        $("#Tip").show();
+        this.value = "";
     });
     /********************************************************************/
     /** 初始化表格 */
@@ -37,45 +49,43 @@ $(document).ready(function() {
         /*********************************************/
         var name = $("#menuText").val();
         if (name.trim() != "") {
-        	var exp = new RegExp(name,"gm")
+            var exp = new RegExp(name,"gm")
             var text = $(this).find("td:eq(1)").text();
-        	text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
+            text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
             $(this).find("td:eq(1) a").html(text);
         }
         /*********************************************/
+        var id = $(this).attr("id");
         $(this).find(".tablebtn1").click(function() {
-            var id = $(this).attr("name");
             window.open("updateview?id=" + id);
         });
         $(this).find(".tablebtn2").click(function() {
-        	var tipsText = "確定要提交該數據嗎？";
-        	var showText = "提交數據成功！";
-        	if (language == "en") {
-        		tipsText = "Are you sure you want to submit this data?";
-        		showText = "Operating successfully!";
-        	}
-    		if (confirm(tipsText)) {
-            	$(this).css("background-color", "#CCC");
-            	$(this).attr("disabled", true);
-                var id = $(this).attr("name");
+            var tipsText = "確定要提交該數據嗎？";
+            var showText = "提交數據成功！";
+            if (language == "en") {
+                tipsText = "Are you sure you want to submit this data?";
+                showText = "Operating successfully!";
+            }
+            if (confirm(tipsText)) {
+                $(this).css("background-color", "#CCC");
+                $(this).attr("disabled", true);
                 if (Ajax("submit", {id: id}))
-        			showTips(showText);
+                    showTips(showText);
                 setTimeout("location.reload()", 2000);
             }
         });
         $(this).find(".tablebtn3").click(function() {
-        	var tipsText = "確定要刪除該數據嗎？";
-        	var showText = "刪除數據成功！";
-        	if (language == "en") {
-        		tipsText = "Are you sure you want to delete this data?";
-        		showText = "Operating successfully!";
-        	}
+            var tipsText = "確定要刪除該數據嗎？";
+            var showText = "刪除數據成功！";
+            if (language == "en") {
+                tipsText = "Are you sure you want to delete this data?";
+                showText = "Operating successfully!";
+            }
             if (confirm(tipsText)) {
-            	$(this).css("background-color", "#CCC");
+                $(this).css("background-color", "#CCC");
                 $(this).attr("disabled", true);
-                var id = $(this).attr("name");
                 if (Ajax("delete", {id: id}))
-                	showTips(showText);
+                    showTips(showText);
                 setTimeout("location.reload()", 2000);
             }
         });
@@ -99,18 +109,6 @@ $(document).ready(function() {
         window.location.href = "showlist?name=" + name + "&page=" + page;
     });
     /********************************************************************/
-    $("#file1").change(function() {
-        if (this.files.length == 0) 
-        	return false;
-        var showText = "數據正在上傳中...";
-        if (language == "en")
-        	showText = "Data uploading...";
-        $("#Tip").text(showText);
-        $("#form1").submit();
-        $("#page").show();
-        $("#Tip").show();
-    });
-    /********************************************************************/
     var page1 = $("#page1").text();
     var page2 = $("#page2").text();
     if (page1 <= 1) {
@@ -130,12 +128,12 @@ $(document).ready(function() {
     function Ajax(url, data) {
         var result = null;
         $.ajax({
-            url:url,
-            data:data,
-            type:"post",
-            async:false,
-            datatype:"json",
-            success:function(data) {
+            url: url,
+            data: data,
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function(data) {
                 result = data;
             }
         });

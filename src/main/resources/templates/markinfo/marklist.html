@@ -55,7 +55,7 @@
 			</tr>       
           </thead>
           <tbody>
-            <tr th:each="markProject,status:${markProjects}">
+            <tr th:each="markProject,status:${markProjects}" th:id="${markProject.id}">
               <td th:text="${status.count+(page-1)*15}"></td>
               <td><a th:name="${markProject.project.id}" th:text="${markProject.project.name}"></a></td>
           	  <td th:text="${markProject.project.client}"></td>
@@ -65,8 +65,8 @@
           	  <td th:text="${markProject.score2}"></td>
           	  <td th:text="${markProject.date}"></td>
 		      <td>
-		        <input type="button" th:name="${markProject.id}" th:value="#{markinfo.marklist.table.button1}" class="tablebtn1">
-		        <input type="button" th:name="${markProject.id}" th:value="#{markinfo.marklist.table.button2}" class="tablebtn2">
+		        <input type="button" class="tablebtn1" th:value="#{markinfo.marklist.table.button1}">
+		        <input type="button" class="tablebtn2" th:value="#{markinfo.marklist.table.button2}">
 		      </td>
           	</tr>
           </tbody>

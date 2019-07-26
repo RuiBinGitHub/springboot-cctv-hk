@@ -76,7 +76,7 @@ $(document).ready(function() {
         return url;
     }
     /** ******************************************************************** */
-    var path = "http://192.168.0.125:8080/ItemImage/";
+    var path = "http://192.168.0.103:8080/ItemImage/";
     $("#tab2 tbody tr:eq(0) td:eq(0)").text("▶");
     $("#tab2 tbody tr").each(function(i) {
         $(this).unbind("click");

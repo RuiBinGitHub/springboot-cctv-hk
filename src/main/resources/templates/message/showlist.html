@@ -52,13 +52,13 @@
             </tr>
           </thead>
         </table>
-        <table id="tab1" style="">
-          <tr th:each="message:${messages}" style="background-color:#FDFDFD" height="40px" align="center">
-            <td width="50%" align="left"><a th:name="${message.id}" th:text="${message.title}"></a></td>
+        <table id="tab1">
+          <tr th:each="message:${messages}" align="center" th:id="${message.id}">
+            <td width="50%" align="left"><a th:text="${message.title}"></a></td>
             <td width="15%" th:text="${message.sender.nickname}"></td>
             <td width="15%" th:text="${message.date}"></td>
             <td width="10%" th:text="${message.type}"></td>
-            <td width="10%"><input type="button" th:name="${message.id}" th:value="#{message.showlist.list.button}"/></td>
+            <td width="10%"><input type="button" th:value="#{message.showlist.list.button}"/></td>
           </tr>
         </table>
         <img th:if="${#lists.isEmpty(messages)}" src="/CCTV/img/null.png" style="margin:145px 400px;float:left;">

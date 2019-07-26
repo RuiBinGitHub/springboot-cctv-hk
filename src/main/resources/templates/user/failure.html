@@ -13,12 +13,7 @@
         <div id="h1"><h3 th:text="#{user.failure.label1}"></h3></div>
         <div id="h2"><a style="color:#999" th:text="#{user.failure.label2}"></a></div>
         
-        <shiro:hasRole name="role1">
-          <div id="h3">点击链接<a href="/CCTV/company/showlist" th:text="#{user.failure.label3}"></a></div>
-      	</shiro:hasRole>
-      	<shiro:hasRole name="role4">
-          <div id="h3">点击链接<a href="/CCTV/project/showlist" th:text="#{user.failure.label3}"></a></div>
-      	</shiro:hasRole>
+        <div id="h3">点击链接<a href="/CCTV/user/index" th:text="#{user.failure.label3}"></a></div>
       	<!-- 
       	<div id="h3">点击链接<a href="/CCTV/project/showlist" th:text="#{user.failure.label3}"></a></div>
       	 -->

@@ -3,7 +3,10 @@ $(document).ready(function() {
 	var language = $("#rightTop").text() == "項目列表" ? "zh" : "en";
 	var width = $("#rightMenu span:eq(0)").css("width");
     var length = width.substring(0, width.length - 2);
-    $("#rightMenu div:eq(0)").css("width", 604 - length);
+    if ($("#rightMenu input[button]").length == 3)
+    	$("#rightMenu div:eq(0)").css("width", 530 - length);
+    else
+    	$("#rightMenu div:eq(0)").css("width", 604 - length);
     /********************************************************************/
     if ($("#menuText").val() == "") {
         $("#menuBtn1").css("background-color", "#CCC");
@@ -25,6 +28,9 @@ $(document).ready(function() {
     $("#combin").click(function() {
         window.open("combineview");
     });
+    $("#commap").click(function() {
+    	window.open("/CCTV/iampinfo/showlist");
+    });
     /********************************************************************/
     /** 初始化表格 */
     $("#tab1 tbody tr").each(function(i) {
@@ -38,8 +44,8 @@ $(document).ready(function() {
             $(this).find("td:eq(1) a").html(text);
         }
         /*********************************************/
+        var id = $(this).attr("id");
         $(this).find(".tablebtn1").click(function() {
-            var id = $(this).attr("name");
             window.open("/CCTV/download?id=" + id);
         });
         $(this).find(".tablebtn2").click(function() {
@@ -52,7 +58,6 @@ $(document).ready(function() {
             if (confirm(tipsText)) {
             	$(this).css("background-color", "#CCC");
                 $(this).attr("disabled", true);
-                var id = $(this).attr("name");
                 if (Ajax("revoke", {id: id}))
                 	showTips(showText);
                 setTimeout("location.reload()", 2000);
@@ -68,7 +73,6 @@ $(document).ready(function() {
             if (confirm(tipsText)) {
             	$(this).css("background-color", "#CCC");
                 $(this).attr("disabled", true);
-                var id = $(this).attr("name");
                 if (Ajax("remove", {id: id}))
                 	showTips(showText);
                 setTimeout("location.reload()", 2000);

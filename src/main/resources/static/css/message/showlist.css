@@ -86,7 +86,8 @@ body{
 	border-collapse:collapse;
 }
 #tab1 tr{
-	height:36px;
+	height:40px;
+	background-color:#FDFDFD;
 	border-bottom:1px dashed #ccc;
 }
 #tab1 tr td a{

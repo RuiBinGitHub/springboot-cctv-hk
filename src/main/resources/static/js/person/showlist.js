@@ -1,9 +1,9 @@
 $(document).ready(function() {
-	
-	// 获取当前语言
-	var language = $("#rightTop").text() == "用戶列表" ? "zh" : "en";
-	/********************************************************************/
-	if ($("#menuText").val().trim() == "") {
+
+    // 获取当前语言
+    var language = $("#rightTop").text() == "用戶列表" ? "zh" : "en";
+    /********************************************************************/
+    if ($("#menuText").val().trim() == "") {
         $("#menuBtn1").css("background-color", "#CCC");
         $("#menuBtn1").attr("disabled", true);
     }
@@ -26,22 +26,22 @@ $(document).ready(function() {
         /*********************************************/
         var name = $("#menuText").val();
         if (name.trim() != "") {
-        	var exp = new RegExp(name,"gm")
+            var exp = new RegExp(name,"gm")
             var text = $(this).find("td:eq(1)").text();
-        	text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
+            text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
             $(this).find("td:eq(1) a").html(text);
         }
         /*********************************************/
         var pass = $(this).find("td:eq(3)").text();
         var cont = getrRepeats("", pass.length - 4);
         var text = pass.replace(/(.{2}).*(.{2})/, cont);
-    	$(this).find("td:eq(3)").text(text);
+        $(this).find("td:eq(3)").text(text);
         /*********************************************/
-    	var mail = $(this).find("td:eq(4)").text();
+        var mail = $(this).find("td:eq(4)").text();
         var cont = getrRepeats("", mail.length - 13);
         var text = mail.replace(/(.{3}).*(.{10})/, cont);
-    	$(this).find("td:eq(4)").text(text);
-    	/*********************************************/
+        $(this).find("td:eq(4)").text(text);
+        /*********************************************/
         var role = $(this).find("td:eq(6)").text();
         if (role == "Role2")
             $(this).find("td:eq(6)").text("管理人員");
@@ -50,23 +50,22 @@ $(document).ready(function() {
         else if (role == "Role4")
             $(this).find("td:eq(6)").text("操作人員");
         /*********************************************/
+        var id = $(this).attr("id");
         $(this).find(".tablebtn1").click(function() {
-            var id = $(this).attr("name");
             window.open("updateview?id=" + id);
         });
         $(this).find(".tablebtn2").click(function() {
-        	var tipsText = "確定要刪除該數據嗎？";
-        	var showText = "刪除數據成功！";
-        	if (language == "en") {
-        		tipsText = "Are you sure you want to delete this data?";
-        		showText = "Operating successfully!";
-        	}
+            var tipsText = "確定要刪除該數據嗎？";
+            var showText = "刪除數據成功！";
+            if (language == "en") {
+                tipsText = "Are you sure you want to delete this data?";
+                showText = "Operating successfully!";
+            }
             if (confirm(tipsText)) {
-            	$(this).css("background-color", "#CCC");
+                $(this).css("background-color", "#CCC");
                 $(this).attr("disabled", true);
-                var id = $(this).attr("name");
                 if (Ajax("delete", {id: id}))
-                	showTips(showText);
+                    showTips(showText);
                 setTimeout("location.reload()", 2000);
             }
         });
@@ -76,9 +75,9 @@ $(document).ready(function() {
             $(this).find("td:eq(0)").css("background-color", "#FFD58D");
         });
     });
-    function getrRepeats(str, length){
-    	str += "$1";
-        for(var i=0; i<length; ++i)
+    function getrRepeats(str, length) {
+        str += "$1";
+        for (var i = 0; i < length; ++i)
             str += "*";
         str += "$2";
         return str;
@@ -116,12 +115,12 @@ $(document).ready(function() {
     function Ajax(url, data) {
         var result = null;
         $.ajax({
-            url:url,
-            data:data,
-            type:"post",
-            async:false,
-            datatype:"json",
-            success:function(data) {
+            url: url,
+            data: data,
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function(data) {
                 result = data;
             }
         });

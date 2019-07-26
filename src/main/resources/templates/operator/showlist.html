@@ -57,7 +57,7 @@
 			</tr>       
           </thead>
           <tbody>
-            <tr th:each="operator,status:${operators}" th:title="${operator.title}">
+            <tr th:each="operator,status:${operators}" th:id="${operator.id}" th:title="${operator.title}">
               <td th:text="${status.count+(page-1)*15}"></td>
               <td th:text="${operator.fullname}"></td>
               <td th:text="${operator.sure}"></td>
@@ -67,8 +67,8 @@
           	  <td th:text="${operator.membergrades}"></td>
           	  <td th:text="${operator.membernumber}"></td>
 		      <td>
-		        <input type="button" th:name="${operator.id}" th:value="#{operator.showlist.table.button1}" class="tablebtn1">
-		        <input type="button" th:name="${operator.id}" th:value="#{operator.showlist.table.button2}" class="tablebtn2">
+		        <input type="button" th:value="#{operator.showlist.table.button1}" class="tablebtn1">
+		        <input type="button" th:value="#{operator.showlist.table.button2}" class="tablebtn2">
 		      </td>
           	</tr>
           </tbody>

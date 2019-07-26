@@ -28,10 +28,10 @@ $(document).ready(function() {
             $(this).find("td:eq(1) a").html(text);
         }
         /*************************************************/
+        var id = $(this).attr("id");
         var btnText = language == "zh" ? "編輯" : "Edit";
         /*************************************************/
         $(this).find("td:eq(6)").mouseenter(function(e) {
-        	var id = $(this).parents("tr").attr("id");
             $(this).css("background-color", "#FFE793");
             if ($(this).text() == 0) 
             	return false;
@@ -63,11 +63,9 @@ $(document).ready(function() {
         });
         /*************************************************/
         $(this).find("input:eq(0)").click(function() {
-        	var id = $(this).parents("tr").attr("id");
             window.open("/CCTV/project/findinfo?id=" + id);
         });
         $(this).find("input:eq(1)").click(function() {
-        	var id = $(this).parents("tr").attr("id");
             window.open("insert?id=" + id);
         });
         $(this).click(function() {

@@ -56,10 +56,9 @@
 			</tr>       
           </thead>
           <tbody>
-            <tr th:each="person,status:${persons}">
+            <tr th:each="person,status:${persons}" th:id="${person.id}">
               <td th:text="${status.count+(page-1)*15}"></td>
-              <!-- <td><a th:href="@{showinfo(id=${person.id})}" th:text="${person.nickname}"></a></td> -->
-              <td><a th:text="${person.nickname}"></a></td>
+              <td><a th:href="@{statisuser(id=${person.id})}" th:text="${person.nickname}"></a></td>
           	  <td th:text="${person.username}"></td>
           	  <td th:text="${person.password}"></td>
           	  <td th:text="${person.email}"></td>
@@ -67,8 +66,8 @@
           	  <td th:text="${person.role}"></td>
           	  <td th:text="${person.date}"></td>
 		      <td>
-		        <input type="button" th:name="${person.id}" th:value="#{person.showlist.table.button1}" class="tablebtn1">
-		        <input type="button" th:name="${person.id}" th:value="#{person.showlist.table.button2}" class="tablebtn2">
+		        <input type="button" th:value="#{person.showlist.table.button1}" class="tablebtn1">
+		        <input type="button" th:value="#{person.showlist.table.button2}" class="tablebtn2">
 		      </td>
           	</tr>
           </tbody>

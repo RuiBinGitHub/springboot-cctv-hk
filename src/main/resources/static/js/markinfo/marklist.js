@@ -51,8 +51,9 @@ $(document).ready(function() {
         if (date != null && date.length > 10)
             $(this).find("td:eq(7)").text(date.substring(0, 10));
         /*************************************************/
+        var id = $(this).attr("id");
         $(this).find("input:eq(0)").click(function() {
-            window.open("editinfo?id=" + $(this).attr("name"));
+            window.open("editinfo?id=" + id);
         });
         $(this).find("input:eq(1)").click(function() {
         	var tipsText = "確定要刪除該數據嗎？";
@@ -64,7 +65,6 @@ $(document).ready(function() {
             if (confirm(tipsText)) {
             	$(this).css("background-color", "#CCC");
                 $(this).attr("disabled", true);
-                var id = $(this).attr("name");
                 if (Ajax("delete", {id: id}))
                 	showTips(showText);
                 setTimeout("location.reload()", 2000);
