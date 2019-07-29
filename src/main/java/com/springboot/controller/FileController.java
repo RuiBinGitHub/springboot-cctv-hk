@@ -58,11 +58,11 @@ public class FileController {
 		createPDF.initPDF(id, srcPath + name + "\\");
 		createDOC.initDOC(id, srcPath + name + "\\");
 
-		String fileName = project.getDate() + "_" + project.getName() + ".zip";
+		String fileName = project.getDate() + "_" + project.getName();
 		File zipFile = this.toZip(srcPath + name, zipPath, fileName);
-		response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
+		response.addHeader("Content-Disposition", "attachment;fileName=" + fileName + ".zip");
 		response.setContentType("application/force-download");
-		
+
 		int len = -1;
 		byte[] buffer = new byte[1024];
 		InputStream fstream = new FileInputStream(zipFile.getPath());

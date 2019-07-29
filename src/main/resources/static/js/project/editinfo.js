@@ -567,10 +567,10 @@
         setTimeout("location.reload()", 2000);
     });
     $("#memu1 input:eq(2)").click(function() {
-        window.open("/CCTV/geominfo/input?id=" + Pid);
+        window.open("/CCTV/download?id=" + Pid);
     });
     $("#memu1 input:eq(3)").click(function() {
-        window.open("/CCTV/download?id=" + Pid);
+        window.open("/CCTV/geominfo/input?id=" + Pid);
     });
     /** ******************************************************************** */
     /** 管道列表初始化事件 */
