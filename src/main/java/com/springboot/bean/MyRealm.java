@@ -1,10 +1,10 @@
 package com.springboot.bean;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,6 +14,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,10 @@ public class MyRealm extends AuthorizingRealm {
 
 	@Resource
 	private PersonBiz personBiz;
+	@Resource
+	private ApplicationContext applicationContext;
+	
+	private Map<String, Object> map = null;
 
 	/** 执行授权逻辑 */
 	public AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection collection) {
@@ -43,7 +48,7 @@ public class MyRealm extends AuthorizingRealm {
 		} else if ("Role4".equals(person.getRole()))
 			info.addRole("role4");
 		Company company = person.getCompany();
-		if ("版本 1.2".equals(company.getVersion())) 
+		if ("版本 1.2".equals(company.getVersion()))
 			info.addRole("vrole");
 		return info;
 	}
@@ -55,15 +60,15 @@ public class MyRealm extends AuthorizingRealm {
 		UsernamePasswordToken tempToken = (UsernamePasswordToken) token;
 		String username = tempToken.getUsername();
 		String password = new String((char[]) tempToken.getCredentials());
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("username", username);
-		map.put("password", password);
+		map = AppUtils.getMap("username", username, "password", password);
 		Person user = personBiz.findInfoPerson(map);
 		if (user == null) { // 账号密码错误
 			exception = new IncorrectCredentialsException();
 			throw exception;
 		}
 		AppUtils.pushMap("user", user);
+		Session session = SecurityUtils.getSubject().getSession();
+		applicationContext.pushMap(username, session);
 		info = new SimpleAuthenticationInfo(user, password, "");
 		return info;
 	}

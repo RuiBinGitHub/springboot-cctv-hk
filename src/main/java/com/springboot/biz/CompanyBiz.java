@@ -21,7 +21,7 @@ public interface CompanyBiz {
 
 	public int getCountPage(Map<String, Object> map, int size);
 
-	public void appendCompany(Company company);
+	public int appendCompany(Company company);
 	
 	public void repeatCompany(Company company);
 

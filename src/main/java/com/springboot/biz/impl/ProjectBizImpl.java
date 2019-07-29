@@ -70,6 +70,28 @@ public class ProjectBizImpl implements ProjectBiz {
 		return (int) Math.ceil((double) count / size);
 	}
 
+	/** 新建项目 */
+	public int appendProject(Project project) {
+		this.insertProject(project);
+		Pipe pipe = new Pipe();
+		pipe.setNo(1);
+		pipe.setOperator(project.getOperator());
+		pipe.setPurposes("Structural defects");
+		pipe.setSlope(project.getSlope());
+		if ("N".equals(project.getSlope()))
+			pipe.setSloperef("N/A");
+		pipe.setDate(project.getDate());
+		pipe.setTime("");
+		pipe.setDivision("--");
+		pipe.setAreacode("--");
+		pipe.setCategory("Z");
+		pipe.setCleaned("N");
+		pipe.setWeather("1");
+		pipe.setProject(project);
+		pipeBiz.appendPipe(pipe);
+		return project.getId();
+	}
+
 	public void importDepth(Project project, MultipartFile file) {
 		try {
 			XSSFWorkbook workbook = AppUtils.getWorkbook(file);
@@ -83,9 +105,9 @@ public class ProjectBizImpl implements ProjectBiz {
 				double value1 = AppUtils.getNumeric(row.getCell(1));
 				double value2 = AppUtils.getNumeric(row.getCell(2));
 				double value3 = AppUtils.getNumeric(row.getCell(3));
-				values[0] = value1 == 0.0 ? "--" :foramt1.format(value1);
-				values[1] = value2 == 0.0 ? "--" :foramt1.format(value2);
-				values[2] = value3 == 0.0 ? "--" :foramt1.format(value3);
+				values[0] = value1 == 0.0 ? "--" : foramt1.format(value1);
+				values[1] = value2 == 0.0 ? "--" : foramt1.format(value2);
+				values[2] = value3 == 0.0 ? "--" : foramt1.format(value3);
 				map.put(mh, values);
 			}
 			List<Pipe> pipes = pipeBiz.findListPipe(project);
@@ -107,26 +129,5 @@ public class ProjectBizImpl implements ProjectBiz {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/** 新建项目 */
-	public void appendProject(Project project) {
-		this.insertProject(project);
-		Pipe pipe = new Pipe();
-		pipe.setNo(1);
-		pipe.setOperator(project.getOperator());
-		pipe.setPurposes("Structural defects");
-		pipe.setSlope(project.getSlope());
-		if ("N".equals(project.getSlope()))
-			pipe.setSloperef("N/A");
-		pipe.setDate(project.getDate());
-		pipe.setTime("");
-		pipe.setDivision("--");
-		pipe.setAreacode("--");
-		pipe.setCategory("Z");
-		pipe.setCleaned("N");
-		pipe.setWeather("1");
-		pipe.setProject(project);
-		pipeBiz.appendPipe(pipe);
 	}
 }

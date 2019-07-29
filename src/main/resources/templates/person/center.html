@@ -29,7 +29,9 @@
           <div class="menu2"><a href="/CCTV/operator/showlist" th:text="#{menu.div.text6}"></a></div>
           <div class="menu2"><a href="/CCTV/person/showlist" th:text="#{menu.div.text7}"></a></div>
         </shiro:hasRole>
-        <div class="menu2"><a href="/CCTV/message/showlist" th:text="#{menu.div.text8}"></a></div>
+        <shiro:hasRole name="vrole">
+          <div class="menu2"><a href="/CCTV/message/showlist" th:text="#{menu.div.text8}"></a></div>
+        </shiro:hasRole>
         <div class="menu1"><a href="/CCTV/person/center" th:text="#{menu.div.text9}"></a></div>
       </div>
       <div id="mainRight">
@@ -53,7 +55,7 @@
           <tr style="border-top:1px solid #ccc;">
             <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label5}"></a></td>
             <td th:text="${person.company.date}"></td>
-            <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label5}"></a></td>
+            <td align="right"><a style="font-weight:700" th:text="#{person.center.user.label6}"></a></td>
             <td th:text="${person.company.term}"></td>
           </tr>
         </table>

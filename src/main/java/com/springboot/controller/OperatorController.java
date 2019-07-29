@@ -47,7 +47,7 @@ public class OperatorController {
 	/** 插入数据 */
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public ModelAndView insert(Operator operator) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
+		ModelAndView view = new ModelAndView("user/failure");
 		if (StringUtils.isEmpty(operator.getName()))
 			return view;
 		Person user = (Person) AppUtils.findMap("user");
@@ -61,7 +61,7 @@ public class OperatorController {
 	/** 获取人员信息 */
 	@RequestMapping(value = "/updateview")
 	public ModelAndView updateView(@RequestParam(defaultValue = "0") int id) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
+		ModelAndView view = new ModelAndView("user/failure");
 		Person user = (Person) AppUtils.findMap("user");
 		map = AppUtils.getMap("id", id, "company", user.getCompany());
 		Operator operator = operatorBiz.findInfoOperator(map);
@@ -71,11 +71,11 @@ public class OperatorController {
 		view.addObject("operator", operator);
 		return view;
 	}
-	
+
 	/** 更新数据 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView update(Operator operator) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
+		ModelAndView view = new ModelAndView("user/failure");
 		if (StringUtils.isEmpty(operator))
 			return view;
 		Person user = (Person) AppUtils.findMap("user");
@@ -111,4 +111,5 @@ public class OperatorController {
 			return false;
 		return true;
 	}
+
 }

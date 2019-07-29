@@ -35,8 +35,9 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		factoryBean.setSecurityManager(manager);
 		Map<String, String> filterMap = new HashMap<>();
 		filterMap.put("/user/**", "anon");
+		filterMap.put("/export/**", "roles[role1]"); // 导出用户
 		filterMap.put("/company/**", "roles[role1]"); // 公司操作
-		filterMap.put("/message/**", "roles[role4]"); // 消息操作
+		filterMap.put("/message/**", "roles[vrole]"); // 消息操作
 		filterMap.put("/operator/**", "roles[role2]"); // 人员管理
 
 		filterMap.put("/project/showlist", "roles[role4]"); // 个人列表
@@ -54,9 +55,9 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		filterMap.put("/project/combine", "roles[role2]"); // 项目合并
 		filterMap.put("/project/editinfo", "roles[role4]"); // 编辑项目
 		filterMap.put("/project/findinfo", "roles[role4]"); // 浏览项目
-		
-		filterMap.put("/project/importdepth", "roles[role4]"); // 导入项目
-		filterMap.put("/project/import", "roles[role4]"); // 坐标导入
+
+		filterMap.put("/project/importitems", "roles[role4]"); // 导入项目
+		filterMap.put("/project/importdepth", "roles[role4]"); // 坐标深度
 
 		filterMap.put("/pipe/**", "roles[role4]"); // 管道操作
 		filterMap.put("/item/**", "roles[role4]"); // 记录操作
@@ -82,8 +83,8 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		filterMap.put("/person/update", "roles[role2]"); // 更新人员
 		filterMap.put("/person/delete", "roles[role2]"); // 删除人员
 		filterMap.put("/person/center", "roles[role4]"); // 个人中心
-		filterMap.put("/person/statistics", "roles[role2]"); // 
-		filterMap.put("/person/statisuser", "roles[role2]"); // 
+		filterMap.put("/person/statistics", "roles[vrole,role2]"); //
+		filterMap.put("/person/statisuser", "roles[vrole,role2]"); //
 
 		factoryBean.setFilterChainDefinitionMap(filterMap);
 		// 配置跳转的登录页面
@@ -95,7 +96,6 @@ public class ApplicationConfig implements WebMvcConfigurer {
 
 	/** 定义识图控制器 */
 	public void addViewControllers(ViewControllerRegistry registry) {
-		// user 操作
 		registry.addViewController("*/loginview").setViewName("user/login");
 		// registry.addViewController("*/logonview").setViewName("user/logon");
 		registry.addViewController("*/resetview").setViewName("user/resetpass");

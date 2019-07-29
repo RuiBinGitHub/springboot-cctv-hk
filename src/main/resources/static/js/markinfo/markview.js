@@ -51,8 +51,7 @@ $(document).ready(function() {
             $("#show table tbody tr").each(function() {
                 $(this).find("input").attr("value", btnText);
                 $(this).find("input").click(function() {
-                    var pid = $(this).attr("name");
-                    window.open("editinfo?id=" + pid);
+                    window.open("editinfo?id=" + $(this).attr("name"));
                 });
             });
             $("#show").show();

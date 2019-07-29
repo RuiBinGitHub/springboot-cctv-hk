@@ -78,7 +78,7 @@ $(document).ready(function() {
     $("#showstar2").html(getImg(value2));
     $("#tab3 input").attr("readonly", true);
     /********************************************************************/
-    var path = "http://192.168.0.125:8080/ItemIamge/";
+    var path = $("#path").val();
     $("#tab2 tbody tr").each(function(i) {
         $(this).find("td:eq(3)").css("text-align", "right");
         $(this).find("td:eq(3)").css("padding-right", "10px");

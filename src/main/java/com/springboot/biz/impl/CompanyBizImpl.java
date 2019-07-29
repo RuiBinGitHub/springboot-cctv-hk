@@ -66,7 +66,7 @@ public class CompanyBizImpl implements CompanyBiz {
 		return (int) Math.ceil((double) count / size);
 	}
 
-	public void appendCompany(Company company) {
+	public int appendCompany(Company company) {
 		String date = AppUtils.getDate(null);
 		Format foramt1 = new DecimalFormat("#0000");
 		company.setCode(AppUtils.findCode());
@@ -86,6 +86,7 @@ public class CompanyBizImpl implements CompanyBiz {
 			person.setCompany(company);
 			personBiz.insertPerson(person);
 		}
+		return company.getId();
 	}
 
 	public void repeatCompany(Company company) {

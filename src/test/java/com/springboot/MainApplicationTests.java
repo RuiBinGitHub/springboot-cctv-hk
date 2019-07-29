@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.StringUtils;
 
 import com.springboot.biz.CompanyBiz;
 import com.springboot.biz.PersonBiz;
@@ -26,13 +27,14 @@ public class MainApplicationTests {
 	private PersonBiz personBiz;
 
 	
-	private Map<String, Object> map = null;
 	
 	@Test
 	public void test1(){
 		Company company = new Company();
-		company.setId(1);
-		map = AppUtils.getMap("stauts", "0", "company", company);
+		company.setId(64);
+		Map<String, Object> map = AppUtils.getMap("company", company, "nickname", "");
+		if (!StringUtils.isEmpty(map.get("name")))
+			map.put("name", "%" + map.get("name") + "%");
 		List<Person> persons = personBiz.findListPerson(map);
 		System.out.println(persons.size());
 	}

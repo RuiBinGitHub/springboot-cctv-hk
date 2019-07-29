@@ -29,7 +29,9 @@
           <div class="menu1"><a href="/CCTV/operator/showlist" th:text="#{menu.div.text6}"></a></div>
           <div class="menu2"><a href="/CCTV/person/showlist" th:text="#{menu.div.text7}"></a></div>
         </shiro:hasRole>
-        <div class="menu2"><a href="/CCTV/message/showlist" th:text="#{menu.div.text8}"></a></div>
+        <shiro:hasRole name="vrole">
+          <div class="menu2"><a href="/CCTV/message/showlist" th:text="#{menu.div.text8}"></a></div>
+        </shiro:hasRole>
         <div class="menu2"><a href="/CCTV/person/center" th:text="#{menu.div.text9}"></a></div>
       </div>
       <div id="mainRight">

@@ -29,7 +29,9 @@
           <div class="menu2"><a href="/CCTV/operator/showlist" th:text="#{menu.div.text6}"></a></div>
           <div class="menu1"><a href="/CCTV/person/showlist" th:text="#{menu.div.text7}"></a></div>
         </shiro:hasRole>
-        <div class="menu2"><a href="/CCTV/message/showlist" th:text="#{menu.div.text8}"></a></div>
+        <shiro:hasRole name="vrole">
+          <div class="menu2"><a href="/CCTV/message/showlist" th:text="#{menu.div.text8}"></a></div>
+        </shiro:hasRole>
         <div class="menu2"><a href="/CCTV/person/center" th:text="#{menu.div.text9}"></a></div>
       </div>
       <div id="mainRight">
@@ -58,7 +60,12 @@
           <tbody>
             <tr th:each="person,status:${persons}" th:id="${person.id}">
               <td th:text="${status.count+(page-1)*15}"></td>
-              <td><a th:href="@{statisuser(id=${person.id})}" th:text="${person.nickname}"></a></td>
+              <shiro:hasRole name="vrole">
+                <td><a th:href="@{statisuser(id=${person.id})}" th:text="${person.nickname}"></a></td>
+              </shiro:hasRole>
+              <shiro:lacksRole name="vrole">
+                <td><a th:text="${person.nickname}"></a></td>
+              </shiro:lacksRole>
           	  <td th:text="${person.username}"></td>
           	  <td th:text="${person.password}"></td>
           	  <td th:text="${person.email}"></td>

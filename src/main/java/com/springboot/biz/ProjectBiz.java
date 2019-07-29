@@ -24,8 +24,8 @@ public interface ProjectBiz {
 
 	public int getCountPage(Map<String, Object> map, int size);
 
-	public void importDepth(Project project, MultipartFile file);
+	public int appendProject(Project project);
 
-	public void appendProject(Project project);
+	public void importDepth(Project project, MultipartFile file);
 
 }

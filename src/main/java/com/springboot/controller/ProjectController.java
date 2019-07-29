@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,10 @@ public class ProjectController {
 	@Resource
 	private SiteBiz siteBiz;
 
+	@Value(value = "${ImgPath}")
+	private String path;
+	
+	
 	private Map<String, Object> map = null;
 	private List<String> fullnames = null;
 
@@ -100,25 +105,25 @@ public class ProjectController {
 	/** 新建项目 */
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public ModelAndView insert(Project project) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
+		ModelAndView view = new ModelAndView("user/failure");
 		if (StringUtils.isEmpty(project.getName()))
 			return view;
 		project.setPerson((Person) AppUtils.findMap("user"));
-		projectBiz.appendProject(project);
-		view.setViewName("redirect:editinfo?id=" + project.getId());
+		int id = projectBiz.appendProject(project);
+		view.setViewName("redirect:editinfo?id=" + id);
 		return view;
 	}
 
 	/** 更新项目信息 */
 	@RequestMapping(value = "/updateview")
 	public ModelAndView updateView(@RequestParam(defaultValue = "0") int id) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
+		ModelAndView view = new ModelAndView("user/failure");
 		Person user = (Person) AppUtils.findMap("user");
 		Project project = projectBiz.findInfoProject(id, user);
 		if (StringUtils.isEmpty(project))
 			return view;
-		view.setViewName("project/update");
 		fullnames = operatorBiz.findFullName(user.getCompany());
+		view.setViewName("project/update");
 		view.addObject("fullnames", fullnames);
 		view.addObject("project", project);
 		return view;
@@ -127,7 +132,7 @@ public class ProjectController {
 	/** 更新项目 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView update(Project project) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
+		ModelAndView view = new ModelAndView("user/failure");
 		if (StringUtils.isEmpty(project.getName()))
 			return view;
 		Person user = (Person) AppUtils.findMap("user");
@@ -200,6 +205,7 @@ public class ProjectController {
 		return projects;
 	}
 
+	/** 合并项目 */
 	@Transactional
 	@RequestMapping(value = "/combine", method = RequestMethod.POST)
 	public boolean combin(String list) {
@@ -250,6 +256,7 @@ public class ProjectController {
 		view.addObject("project", project);
 		view.addObject("sites", sites);
 		view.addObject("codes", codes);
+		view.addObject("path", path);
 		return view;
 	}
 
@@ -271,6 +278,7 @@ public class ProjectController {
 			pipe.setItems(itemBiz.findListItem(pipe));
 			view.addObject("pipe", pipe);
 		}
+		view.addObject("path", path);
 		return view;
 	}
 
@@ -283,6 +291,7 @@ public class ProjectController {
 			importItem.importMode(file);
 		return view;
 	}
+
 	/** 导入深度 */
 	@RequestMapping(value = "/importdepth", method = RequestMethod.POST)
 	public boolean importDepth(int id, MultipartFile file) {

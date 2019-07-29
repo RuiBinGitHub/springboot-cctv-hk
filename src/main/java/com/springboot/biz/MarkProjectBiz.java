@@ -18,9 +18,9 @@ public interface MarkProjectBiz {
 	
 	public List<MarkProject> findListMarkProject(Map<String, Object> map);
 
-	public void appendMarkProject(MarkProject markProject);
-
 	public int getCount(Map<String, Object> map, int size);
+
+	public int appendMarkProject(MarkProject markProject);
 	
 	public void setAverage(MarkProject markProject);
 	

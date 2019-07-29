@@ -46,9 +46,10 @@ public class ItemController {
 		if (StringUtils.isEmpty(item))
 			return false;
 		itemBiz.deleteItem(item);
-		Project project = item.getPipe().getProject();
-		if (!StringUtils.isEmpty(item.getPhoto()))
+		if (!StringUtils.isEmpty(item.getPhoto())) {
+			Project project = item.getPipe().getProject();
 			itemBiz.sortItemImg(project);
+		}
 		return true;
 	}
 

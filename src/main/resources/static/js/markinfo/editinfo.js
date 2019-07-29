@@ -49,7 +49,7 @@ $(document).ready(function() {
     /********************************************************************/
     $("#mainCenter table[id*=main] input").attr("readonly", "true");
     /********************************************************************/
-    var path = "http://192.168.0.125:8080/ItemImage/";
+    var path = $("#path").val();
     $("#tab2 tbody tr").each(function(i) {
         $(this).click(function() {
             $("#tab2 tbody tr").find("td:eq(0)").text("");

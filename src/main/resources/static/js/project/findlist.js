@@ -3,7 +3,8 @@ $(document).ready(function() {
 	var language = $("#rightTop").text() == "項目列表" ? "zh" : "en";
 	var width = $("#rightMenu span:eq(0)").css("width");
     var length = width.substring(0, width.length - 2);
-    if ($("#rightMenu input[button]").length == 3)
+    console.log($("#rightMenu input[type=button]").length);
+    if ($("#rightMenu input[type=button]").length == 4)
     	$("#rightMenu div:eq(0)").css("width", 530 - length);
     else
     	$("#rightMenu div:eq(0)").css("width", 604 - length);

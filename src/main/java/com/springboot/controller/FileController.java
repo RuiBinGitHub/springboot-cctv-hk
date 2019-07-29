@@ -60,8 +60,9 @@ public class FileController {
 
 		String fileName = project.getDate() + "_" + project.getName() + ".zip";
 		File zipFile = this.toZip(srcPath + name, zipPath, fileName);
-		response.setContentType("application/force-download");
 		response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
+		response.setContentType("application/force-download");
+		
 		int len = -1;
 		byte[] buffer = new byte[1024];
 		InputStream fstream = new FileInputStream(zipFile.getPath());

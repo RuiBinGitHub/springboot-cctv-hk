@@ -65,8 +65,8 @@ public class ExportController {
 			row.createCell(5).setCellValue(person.getDate());
 
 		}
-		response.setContentType("application/octet-stream");
 		response.setHeader("Content-disposition", "attachment;filename=user.xls");
+		response.setContentType("application/octet-stream");
 		workbook.write(response.getOutputStream());
 		response.flushBuffer(); // 刷新缓冲区
 	}

@@ -1007,7 +1007,7 @@
     $("#codes option").each(function(i) {
         codelist.push($(this).val());
     });
-    var path = "http://192.168.0.103:8080/ItemImage/"
+    var path = $("#path").val();
     function initItemList(index) {
         itemindex = -1;
         $("#tab2 tbody tr").each(function(i) {

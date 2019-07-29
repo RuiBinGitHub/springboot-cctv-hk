@@ -68,15 +68,7 @@ public class MarkProjectBizImpl implements MarkProjectBiz {
 		return (int) Math.ceil((double) count / size);
 	}
 
-	public void setAverage(MarkProject markProject) {
-		Map<String, Double> iMap = markProjectDao.getAverage(markProject);
-		if (!StringUtils.isEmpty(iMap)) {
-			markProject.setScore1(iMap.get("score1"));
-			markProject.setScore2(iMap.get("score2"));
-		}
-	}
-
-	public void appendMarkProject(MarkProject markProject) {
+	public int appendMarkProject(MarkProject markProject) {
 		this.insertMarkProject(markProject);
 		Project project = markProject.getProject();
 		List<Pipe> pipes = pipeBiz.findListPipe(project);
@@ -100,5 +92,15 @@ public class MarkProjectBizImpl implements MarkProjectBiz {
 		text.append("<p style='text-align:right'>" + AppUtils.getDate("yyyy-MM-dd HH:mm:ss") + "</p>");
 		text.append("<p style='color:#999'>提示：此邮件为系统提示邮件，查阅完毕可删除该信息。</p>");
 		messageBiz.sendMessage(title, text.toString(), accept);
+		return markProject.getId();
 	}
+
+	public void setAverage(MarkProject markProject) {
+		Map<String, Double> iMap = markProjectDao.getAverage(markProject);
+		if (!StringUtils.isEmpty(iMap)) {
+			markProject.setScore1(iMap.get("score1"));
+			markProject.setScore2(iMap.get("score2"));
+		}
+	}
+
 }

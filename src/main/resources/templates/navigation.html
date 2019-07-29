@@ -5,25 +5,21 @@
   	<script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
   	<script type="text/javascript">
   		$(document).ready(function(){
-  			$.ajax({
-  				url:"/CCTV/message/getcount",
-  				data:{type:"未读"},
-  				type:"post",
-  				datatype:"json",
-  				success:function(data){
-  					var text = $(".naviItem:eq(2) a").text();
-  					if (text.length > 10)
-  						$(".naviItem:eq(2) a").text("消息(0)");
-  					else
-  						$(".naviItem:eq(2) a").text(text + "(" + data + ")");
-  				}
-  			});
+  			var text = $(".naviItem:eq(2) a").text();
+  			if ($(".naviItem:eq(2) a").attr("href") != undefined) {
+  				var data = Ajax("/CCTV/message/getcount", {type:"未读"});
+				if (data.length > 10)
+					$(".naviItem:eq(2) a").text(text + "(0)");
+				else
+					$(".naviItem:eq(2) a").text(text + "(" + data + ")");
+  			} else
+  				$(".naviItem:eq(2) a").text(text + "(0)");
   			$("#naviLogo").click(function(){
   				window.location.href="/CCTV/project/showlist";
   			});
   			$("#link").click(function(){
-  				var className = $(this).attr("class");
-  				Ajax("/CCTV/user/change", {l:className});
+  				var name = $(this).attr("class");
+  				Ajax("/CCTV/user/change", {l: name});
   				window.location.reload();
   			});
   			 /** 执行AJAX操作 */
@@ -60,10 +56,18 @@
           <img src="/CCTV/img/个人1.png"/>
           <a href="/CCTV/person/center" th:text="#{navigation.item.text1}"></a>
         </div>
+        <shiro:hasRole name="vrole">
         <div class="naviItem">
           <img src="/CCTV/img/消息1.png"/>
           <a href="/CCTV/message/showlist" th:text="#{navigation.item.text2}"></a>
         </div>
+        </shiro:hasRole>
+        <shiro:lacksRole name="vrole">
+        <div class="naviItem">
+          <img src="/CCTV/img/消息1.png"/>
+          <a th:text="#{navigation.item.text2}"></a>
+        </div>
+        </shiro:lacksRole>
         <div th:if="${session.i18n=='zh_CN'}" class="naviItem">
           <img src="/CCTV/img/en_US.png"/>
           <a id="link" class="en_US" th:text="#{navigation.item.text3}"></a>

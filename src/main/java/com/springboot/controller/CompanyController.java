@@ -72,8 +72,8 @@ public class CompanyController {
 			view.addObject("company", company);
 			return view;
 		}
-		companyBiz.appendCompany(company);
-		view.setViewName("redirect:showinfo?id=" + company.getId());
+		int id = companyBiz.appendCompany(company);
+		view.setViewName("redirect:showinfo?id=" + id);
 		return view;
 	}
 
@@ -81,10 +81,10 @@ public class CompanyController {
 	public ModelAndView updateView(@RequestParam(defaultValue = "0") int id) {
 		ModelAndView view = new ModelAndView("user/failure");
 		Company company = companyBiz.findInfoCompany(id);
-		if (!StringUtils.isEmpty(company)) {
-			view.setViewName("company/update");
-			view.addObject("company", company);
-		}
+		if (StringUtils.isEmpty(company))
+			return view;
+		view.setViewName("company/update");
+		view.addObject("company", company);
 		return view;
 	}
 

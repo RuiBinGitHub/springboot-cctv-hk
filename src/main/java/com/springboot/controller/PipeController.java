@@ -89,7 +89,6 @@ public class PipeController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public boolean updatePipe(Pipe pipe) {
 		Person user = (Person) AppUtils.findMap("user");
-		Pipe temp = pipeBiz.findInfoPipe(pipe.getId(), user);
 		if (pipeBiz.findInfoPipe(pipe.getId(), user) == null)
 			return false;
 		pipeBiz.updatePipe(pipe);
@@ -119,7 +118,7 @@ public class PipeController {
 			else
 				itemBiz.updateItem(item);
 		}
-		itemBiz.sortItemImg(temp.getProject());
+		itemBiz.sortItemImg(pipe.getProject());
 		return true;
 	}
 

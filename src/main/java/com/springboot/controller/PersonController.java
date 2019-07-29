@@ -64,7 +64,7 @@ public class PersonController {
 	/** 跳转编辑页面 */
 	@RequestMapping(value = "/updateview")
 	public ModelAndView updateView(@RequestParam(defaultValue = "0") int id) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
+		ModelAndView view = new ModelAndView("user/failure");
 		Person user = (Person) AppUtils.findMap("user");
 		map = AppUtils.getMap("id", id, "company", user.getCompany());
 		Person person = personBiz.findInfoPerson(map);
@@ -78,7 +78,7 @@ public class PersonController {
 	/** 编辑人员 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView update(int id, String role) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
+		ModelAndView view = new ModelAndView("user/failure");
 		Person user = (Person) AppUtils.findMap("user");
 		map = AppUtils.getMap("id", id, "company", user.getCompany());
 		Person person = personBiz.findInfoPerson(map);
@@ -112,7 +112,7 @@ public class PersonController {
 	}
 
 	/** 修改用户昵称 */
-	@RequestMapping(value = "/updatename")
+	@RequestMapping(value = "/updatename", method = RequestMethod.POST)
 	public boolean updatename(String name) {
 		Person user = (Person) AppUtils.findMap("user");
 		user.setNickname(name);

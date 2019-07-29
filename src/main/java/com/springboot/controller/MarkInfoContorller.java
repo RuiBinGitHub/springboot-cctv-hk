@@ -1,11 +1,11 @@
 package com.springboot.controller;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +37,9 @@ public class MarkInfoContorller {
 	@Resource
 	private ItemBiz itemBiz;
 
+	@Value(value = "${ImgPath}")
+	private String path;
+	
 	private Map<String, Object> map = null;
 	private MarkProject markProject = null;
 	private List<MarkProject> markProjects = null;
@@ -123,7 +126,7 @@ public class MarkInfoContorller {
 	/** 创建项目评分 */
 	@RequestMapping(value = "/insert")
 	public ModelAndView insert(@RequestParam(defaultValue = "0") int id) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
+		ModelAndView view = new ModelAndView("user/failure");
 		Person user = (Person) AppUtils.findMap("user");
 		map = AppUtils.getMap("id", id, "company", user.getCompany());
 		Project project = projectBiz.findInfoProject(map);
@@ -133,18 +136,17 @@ public class MarkInfoContorller {
 		markProject.setProject(project);
 		markProject.setPerson(user);
 		markProject.setDate(AppUtils.getDate(null));
-		markProjectBiz.appendMarkProject(markProject);
-		view.setViewName("redirect:editinfo?id=" + markProject.getId());
+		id = markProjectBiz.appendMarkProject(markProject);
+		view.setViewName("redirect:editinfo?id=" + id);
 		return view;
 	}
 
 	/** 项目评分 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public boolean update(MarkPipe markPipe) throws ParseException {
+	public boolean update(MarkPipe markPipe) {
 		Person person = (Person) AppUtils.findMap("user");
 		map = AppUtils.getMap("id", markPipe.getId(), "person", person);
-		MarkPipe temp = markPipeBiz.findInfoMarkPipe(map);
-		if (StringUtils.isEmpty(temp))
+		if (markPipeBiz.findInfoMarkPipe(map) == null)
 			return false;
 		markPipeBiz.updateMarkPipe(markPipe);
 		return true;
@@ -190,6 +192,7 @@ public class MarkInfoContorller {
 		}
 		view.setViewName("markinfo/editinfo");
 		view.addObject("markPipes", markPipes);
+		view.addObject("path", path);
 		return view;
 	}
 
@@ -211,6 +214,7 @@ public class MarkInfoContorller {
 		}
 		view.setViewName("markinfo/findinfo");
 		view.addObject("markPipes", markPipes);
+		view.addObject("path", path);
 		return view;
 	}
 }

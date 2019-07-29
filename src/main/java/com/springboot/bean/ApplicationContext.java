@@ -3,19 +3,25 @@ package com.springboot.bean;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
+import org.apache.shiro.session.Session;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component(value = "applicationContext")
 @Scope(value = "singleton")
+@Component(value = "applicationContext")
 public class ApplicationContext {
 
-	public Map<String, HttpSession> map = new HashMap<>();
-	
-	public void pushMap(HttpSession session) {
-		
+	private Session tempSession = null;
+	public Map<String, Session> map = new HashMap<>();
+
+	public void pushMap(String name, Session session) {
+		try {
+			if ((tempSession = map.get(name)) != null)
+				tempSession.stop();
+		} catch (Exception e) {
+			// 结束异常
+		}
+		map.put(name, session);
 	}
-	
+
 }

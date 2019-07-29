@@ -23,7 +23,7 @@
           <tr>
             <td align="right"><a>*</a><span th:text="#{person.update.label2}"></span></td>
             <td>
-              <select name="role" th:field="${person.role}">
+              <select name="role" th:field="${person.role}" th:disabled="${#strings.contains(person.username,'0001')}">
             	<option value='Role2'>管理人員</option>
 				<option value='Role3'>評分人員</option>
 				<option value='Role4'>操作人員</option>
