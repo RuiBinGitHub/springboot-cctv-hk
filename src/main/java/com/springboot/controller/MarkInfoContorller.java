@@ -56,6 +56,7 @@ public class MarkInfoContorller {
 		page = page > cont ? cont : page;
 		map.put("page", page);
 		List<Project> projects = projectBiz.findListProject(map);
+		// 查询每个项目评分次数
 		for (Project project : projects) {
 			map = AppUtils.getMap("project", project, "person", user);
 			project.setCount(markProjectBiz.getCount(map, 1));
@@ -89,12 +90,12 @@ public class MarkInfoContorller {
 	/** 获取指定项目评分列表 */
 	@RequestMapping(value = "/showlist")
 	public List<MarkProject> showList(@RequestParam(defaultValue = "0") int id) {
-		Person person = (Person) AppUtils.findMap("user");
-		map = AppUtils.getMap("id", id, "company", person.getCompany());
+		Person user = (Person) AppUtils.findMap("user");
+		map = AppUtils.getMap("id", id, "company", user.getCompany());
 		Project project = projectBiz.findInfoProject(map);
 		if (StringUtils.isEmpty(project))
 			return null;
-		map = AppUtils.getMap("project", project, "person", person);
+		map = AppUtils.getMap("project", project, "person", user);
 		markProjects = markProjectBiz.findListMarkProject(map);
 		for (MarkProject markProject : markProjects) {
 			markProjectBiz.setAverage(markProject);
@@ -144,8 +145,8 @@ public class MarkInfoContorller {
 	/** 项目评分 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public boolean update(MarkPipe markPipe) {
-		Person person = (Person) AppUtils.findMap("user");
-		map = AppUtils.getMap("id", markPipe.getId(), "person", person);
+		Person user = (Person) AppUtils.findMap("user");
+		map = AppUtils.getMap("id", markPipe.getId(), "person", user);
 		if (markPipeBiz.findInfoMarkPipe(map) == null)
 			return false;
 		markPipeBiz.updateMarkPipe(markPipe);
@@ -176,9 +177,9 @@ public class MarkInfoContorller {
 	/** 编辑项目评分 */
 	@RequestMapping(value = "/editinfo")
 	public ModelAndView editinfo(int id, @RequestParam(defaultValue = "0") int no) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
-		Person person = (Person) AppUtils.findMap("user");
-		map = AppUtils.getMap("id", id, "person", person);
+		ModelAndView view = new ModelAndView("user/failure");
+		Person user = (Person) AppUtils.findMap("user");
+		map = AppUtils.getMap("id", id, "person", user);
 		markProject = markProjectBiz.findInfoMarkProject(map);
 		if (StringUtils.isEmpty(markProject))
 			return view;
@@ -199,8 +200,9 @@ public class MarkInfoContorller {
 	/** 查看项目评分 */
 	@RequestMapping(value = "/findinfo")
 	public ModelAndView findinfo(int id, @RequestParam(defaultValue = "0") int no) {
-		ModelAndView view = new ModelAndView("redirect:/failure");
-		map = AppUtils.getMap("id", id);
+		ModelAndView view = new ModelAndView("user/failure");
+		Person user = (Person) AppUtils.findMap("user");
+		map = AppUtils.getMap("id", id, "company", user.getCompany());
 		markProject = markProjectBiz.findInfoMarkProject(map);
 		if (StringUtils.isEmpty(markProject))
 			return view;

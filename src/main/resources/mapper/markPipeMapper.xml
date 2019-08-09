@@ -27,7 +27,7 @@
 			remark1=#{remark1},
 			remark2=#{remark2},
 			pipeid=#{pipe.id},
-			markprojectid=#{markProject.id}
+			markid=#{markProject.id}
 		where id=#{id}
 	</update>
 	
@@ -40,7 +40,7 @@
 	</select>
 	
 	<select id="findInfoMarkPipe" parameterType="Map" resultMap="MarkPipeMap">
-		select * from markpipe m1 left join markproject m2 on m1.markprojectid=m2.id
+		select * from markpipe m1 left join markproject m2 on m1.markid=m2.id
 		<where>
 			<if test="id != null">
 				and m1.id = #{id}
@@ -55,7 +55,7 @@
 		select * from markpipe m left join pipe p on m.pipeid=p.id
 		<where>
 			<if test="markProject != null">
-				m.markprojectid=#{markProject.id}
+				m.markid=#{markProject.id}
 			</if>
 		</where>
 		order by p.no
@@ -72,7 +72,7 @@
 		<result property="remark1" column="remark1"/>
 		<result property="remark2" column="remark2"/>
 		<association property="pipe" column="pipeid" select="com.springboot.dao.PipeDao.findPipeByID"/>
-		<association property="markProject" column="markprojectid" select="com.springboot.dao.MarkProjectDao.findMarkProjectByID"/>
+		<association property="markProject" column="markid" select="com.springboot.dao.MarkProjectDao.findMarkProjectByID"/>
 	</resultMap>
 </mapper>
  

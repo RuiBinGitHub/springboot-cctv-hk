@@ -35,10 +35,11 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		factoryBean.setSecurityManager(manager);
 		Map<String, String> filterMap = new HashMap<>();
 		filterMap.put("/user/**", "anon");
-		filterMap.put("/export/**", "roles[role1]"); // 导出用户
 		filterMap.put("/company/**", "roles[role1]"); // 公司操作
 		filterMap.put("/message/**", "roles[vrole]"); // 消息操作
 		filterMap.put("/operator/**", "roles[role2]"); // 人员管理
+		filterMap.put("/download/user", "roles[role1]"); // 下载项目
+		filterMap.put("/download/file", "roles[role4]"); // 导出用户
 
 		filterMap.put("/project/showlist", "roles[role4]"); // 个人列表
 		filterMap.put("/project/findlist", "roles[role2]"); // 项目管理
@@ -50,14 +51,13 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		filterMap.put("/project/remove", "roles[role2]"); // 移除项目
 		filterMap.put("/project/submit", "roles[role4]"); // 提交项目
 		filterMap.put("/project/revoke", "roles[role2]"); // 撤回项目
+		filterMap.put("/project/editinfo", "roles[role4]"); // 编辑项目
+		filterMap.put("/project/findinfo", "roles[role4]"); // 浏览项目
+		filterMap.put("/project/importitems", "roles[role4]"); // 导入项目
+		filterMap.put("/project/importdepth", "roles[role4]"); // 坐标深度
 		filterMap.put("/project/combineview", "roles[role2]"); // 合并项目
 		filterMap.put("/project/combinelist", "roles[role2]"); // 合并列表
 		filterMap.put("/project/combine", "roles[role2]"); // 项目合并
-		filterMap.put("/project/editinfo", "roles[role4]"); // 编辑项目
-		filterMap.put("/project/findinfo", "roles[role4]"); // 浏览项目
-
-		filterMap.put("/project/importitems", "roles[role4]"); // 导入项目
-		filterMap.put("/project/importdepth", "roles[role4]"); // 坐标深度
 
 		filterMap.put("/pipe/**", "roles[role4]"); // 管道操作
 		filterMap.put("/item/**", "roles[role4]"); // 记录操作

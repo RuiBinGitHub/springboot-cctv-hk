@@ -30,7 +30,7 @@ $(document).ready(function() {
         window.open("combineview");
     });
     $("#commap").click(function() {
-    	window.open("/CCTV/iampinfo/showlist");
+    	window.open("/CCTV/imapinfo/showlist");
     });
     /********************************************************************/
     /** 初始化表格 */
@@ -47,7 +47,7 @@ $(document).ready(function() {
         /*********************************************/
         var id = $(this).attr("id");
         $(this).find(".tablebtn1").click(function() {
-            window.open("/CCTV/download?id=" + id);
+            window.open("/CCTV/download/file?id=" + id);
         });
         $(this).find(".tablebtn2").click(function() {
         	var tipsText = "確定要撤回該項目嗎？";

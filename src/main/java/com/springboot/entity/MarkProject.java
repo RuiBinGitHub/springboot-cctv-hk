@@ -14,7 +14,6 @@ public class MarkProject {
 	
 	private List<MarkPipe> markPipes;
 	
-	
 	public int getId() {
 		return id;
 	}

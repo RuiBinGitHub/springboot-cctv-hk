@@ -567,7 +567,7 @@
         setTimeout("location.reload()", 2000);
     });
     $("#memu1 input:eq(2)").click(function() {
-        window.open("/CCTV/download?id=" + Pid);
+        window.open("/CCTV/download/file?id=" + Pid);
     });
     $("#memu1 input:eq(3)").click(function() {
         window.open("/CCTV/geominfo/input?id=" + Pid);

@@ -127,6 +127,8 @@ body{
 }
 #mainCenter table{
 	margin:0px 15px;
+	font-size:14px;
+	font-family:宋体;
 	float:left;
 }
 #mainCenter table tr{
@@ -170,7 +172,7 @@ body{
 }
 #mainBottom1{
 	width:1198px;
-	max-height:360px;
+	max-height:368px;
 	background-color:#fff;
 	border:1px solid #ccc;
 	float:left;

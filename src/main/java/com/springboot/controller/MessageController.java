@@ -36,8 +36,8 @@ public class MessageController {
 		map.put("page", page);
 		List<Message> messages = messageBiz.findListMessage(map);
 		view.addObject("messages", messages);
-		view.addObject("count1", getCount("未读"));
-		view.addObject("count2", getCount("已读"));
+		view.addObject("count1", getCount("已读"));
+		view.addObject("count2", getCount("未读"));
 		view.addObject("page", page);
 		view.addObject("cont", cont);
 		return view;

@@ -43,7 +43,7 @@ $(document).ready(function() {
     viewer._cesiumWidget._creditContainer.style.display = "none";
     // 设置地图的默认显示中心点和俯瞰高度
     viewer.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(113.970, 22.382, 600)
+        destination: Cesium.Cartesian3.fromDegrees(114.0226, 22.4469, 600)
     });
     /** ************************************************************************ */
     // 设置弹出框内元素可以执行操作
@@ -201,6 +201,7 @@ $(document).ready(function() {
     }
 
     function drawPipe(id, description, positionArr, circle, i) {
+    	console.log(positionArr);
     	var color = null;
         if (i == 1.0) 
         	color = Cesium.Color.GREEN;

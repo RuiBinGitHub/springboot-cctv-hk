@@ -42,7 +42,7 @@ public class MapInfoController {
 	@RequestMapping(value = "/showlist")
 	public ModelAndView showlist(String option, String name) {
 		ModelAndView view = new ModelAndView("imapinfo/showlist");
-		map = AppUtils.getMap("geom", "null");
+		map = AppUtils.getMap("actualX1", "null", "actualX2", "null");
 		geomPipes = geomPipeBiz.findListGeomPipe(map);
 		for (int i = 0; geomPipes != null && i < geomPipes.size(); i++) {
 			Pipe pipe = geomPipes.get(i).getPipe();

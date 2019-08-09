@@ -54,6 +54,8 @@ public class CreateDOC {
 					pipe.setSmanholeno("");
 				if (pipe.getFmanholeno() == null)
 					pipe.setFmanholeno("");
+				if (pipe.getHsize() == null)
+					pipe.setHsize("");
 				if (pipe.getShape() == null)
 					pipe.setShape("");
 				if (pipe.getMaterial() == null)

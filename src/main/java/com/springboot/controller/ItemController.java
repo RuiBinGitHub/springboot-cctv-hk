@@ -65,7 +65,7 @@ public class ItemController {
 		List<Item> items = itemBiz.findListItem(map);
 		if (items == null || files == null || items.size() != files.length)
 			return AppUtils.getMap("result", false, "count", items.size());
-		Arrays.sort(files, (file1, file2) -> {
+		Arrays.sort(files, (file1, file2) -> { // 图片排序
 			String name1 = file1.getOriginalFilename();
 			String name2 = file2.getOriginalFilename();
 			if (name1.length() < name2.length())

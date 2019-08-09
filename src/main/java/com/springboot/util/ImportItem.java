@@ -101,15 +101,15 @@ public class ImportItem {
 
 				pipe.setSmanholeno(rs2.getString(11));
 				pipe.setFmanholeno(rs2.getString(12));
-				pipe.setUse(rs2.getString(28).substring(0, 1));
-				pipe.setDirection(rs2.getString(32).substring(0, 1));
+				pipe.setUse(getString(rs2.getString(28), 0, 1));
+				pipe.setDirection(getString(rs2.getString(32), 0, 1));
 				pipe.setHsize(rs2.getString(39));
 				pipe.setWsize(rs2.getString(13));
 				pipe.setShape(cameBiz.getCameName(rs2.getString(14), "shape"));
 				pipe.setMaterial(cameBiz.getCameName(rs2.getString(15), "material"));
 				pipe.setLining(cameBiz.getCameName(rs2.getString(21), "lining"));
-				pipe.setPipelength(getValue(rs2.getString(29)));
-				pipe.setTotallength(getValue(rs2.getString(3)));
+				pipe.setPipelength(getDouble(rs2.getString(29)));
+				pipe.setTotallength(getDouble(rs2.getString(3)));
 
 				pipe.setSdepth(rs2.getString(16));
 				pipe.setScoverlevel(rs2.getString(26));
@@ -182,8 +182,9 @@ public class ImportItem {
 			return null;
 		}
 	}
-	public void close(){
-		
+
+	public void close() {
+
 	}
 
 	/** 将文件流转换为图片 */
@@ -202,7 +203,7 @@ public class ImportItem {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String getYear(String text) {
 		if ("<30".equals(text))
 			return "10";
@@ -213,24 +214,35 @@ public class ImportItem {
 		else
 			return "0";
 	}
-	public String getDate(String text) {
-		if (!StringUtils.isEmpty(text))
-			return text.replace("/", "-");
-		else
-			return "";
+
+	public int getInt(String text) {
+		try {
+			return Integer.valueOf(text);
+		} catch (Exception e) {
+			return 0;
+		}
 	}
-	public double getValue(String text) {
+
+	public double getDouble(String text) {
 		try {
 			return Double.valueOf(text);
 		} catch (Exception e) {
 			return 0;
 		}
 	}
-	public int getInt(String text){
+
+	public String getString(String text, int start, int end) {
 		try {
-			return Integer.valueOf(text);
+			return text.substring(start, end);
 		} catch (Exception e) {
-			return 0;
+			return "";
 		}
+	}
+
+	public String getDate(String text) {
+		if (!StringUtils.isEmpty(text))
+			return text.replace("/", "-");
+		else
+			return "";
 	}
 }

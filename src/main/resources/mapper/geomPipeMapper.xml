@@ -21,11 +21,8 @@
 			#{smhGradeB},
 			#{fmhGradeA},
 			#{fmhGradeB},
-			#{grade},
-			#{score},
 			#{pipe.id},
-			#{geomProject.id},
-			null
+			#{geomProject.id}
 		)
 	</insert>
 
@@ -47,16 +44,8 @@
 			smhGradeB = #{smhGradeB},
 			fmhGradeA = #{fmhGradeA},
 			fmhGradeB = #{fmhGradeB},
-			grade = #{grade},
-			score = #{score},
 			pipeid = #{pipe.id},
-			geomprojectid = #{geomProject.id},
-			<if test = "actualX1 == 0 or actualY1 == 0 or actualX2 == 0 or actualY2 == 0">
-				geom = null
-			</if>
-			<if test = "actualX1 != 0 and actualY1 != 0 and actualX2 != 0 and actualY2 != 0">
-				geom = ST_GeomFromText('linestring(${actualX1} ${actualY1},${actualX2} ${actualY2})')
-			</if>
+			geomid = #{geomProject.id}
 		WHERE id = #{id}
 	</update>
 
@@ -69,7 +58,7 @@
 	</select>
 	
 	<select id = "findInfoGeomPipe" parameterType = "Map" resultMap = "GeomPipeMap">
-		select g1.* from geompipe g1 left join geomproject g2 on g1.geomprojectid = g2.id left join project p on g2.projectid = p.id
+		select g1.* from geompipe g1 left join geomproject g2 on g1.geomid = g2.id left join project p on g2.projectid = p.id
 		<where>
 			<if test = "id != null">
 				g1.id = #{id}
@@ -101,11 +90,14 @@
 			<if test = "fmhGradeA != null">
 				and g.fmhGradeA = #{fmhGradeA}
 			</if>
-			<if test = "geomProject != null">
-				and g.geomprojectid = #{geomProject.id}
+			<if test = "actualX1 != null">
+				and g.actualX1 != 0.0
 			</if>
-			<if test = "geom != null">
-				and g.geom is not null
+			<if test = "actualX2 != null">
+				and g.actualX2 != 0.0
+			</if>
+			<if test = "geomProject != null">
+				and g.geomid = #{geomProject.id}
 			</if>
 		</where>
 		order by p.no
@@ -141,10 +133,8 @@
 		<result property="smhGradeB" column="smhGradeB"/>
 		<result property="fmhGradeA" column="fmhGradeA"/>
 		<result property="fmhGradeB" column="fmhGradeB"/>
-		<result property="grade" column="grade"/>
-		<result property="score" column="score"/>
 		<association property="pipe" column="pipeid" select="com.springboot.dao.PipeDao.findPipeByID"/>
-		<association property="geomProject" column="geomprojectid" select="com.springboot.dao.GeomProjectDao.findGeomProjectByID"/>
+		<association property="geomProject" column="geomid" select="com.springboot.dao.GeomProjectDao.findGeomProjectByID"/>
 	</resultMap>
 </mapper>
  

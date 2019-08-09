@@ -23,8 +23,6 @@ public interface GeomPipeBiz {
 
 	public GeomPipe findInfoGeomPipe(int id, Person person);
 
-	public void appendGeomPipe(GeomPipe geomPipe);
-	
 	public Map<String, Double> findSMHGradeA(String smhGradeA);
 
 	public Map<String, Double> findFMHGradeA(String fmhGradeA);

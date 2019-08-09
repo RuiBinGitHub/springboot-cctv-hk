@@ -1,7 +1,5 @@
 package com.springboot.entity;
 
-import java.util.List;
-
 public class GeomPipe {
 
 	private int id;
@@ -27,7 +25,6 @@ public class GeomPipe {
 	private double score; // 管道评分
 	private Pipe pipe;
 	private GeomProject geomProject;
-	private List<GeomItem> geomItems;
 
 	public int getId() {
 		return id;
@@ -195,13 +192,5 @@ public class GeomPipe {
 
 	public void setGeomProject(GeomProject geomProject) {
 		this.geomProject = geomProject;
-	}
-
-	public List<GeomItem> getGeomItems() {
-		return geomItems;
-	}
-
-	public void setGeomItems(List<GeomItem> geomItems) {
-		this.geomItems = geomItems;
 	}
 }

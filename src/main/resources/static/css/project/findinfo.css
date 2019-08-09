@@ -166,9 +166,9 @@ body{
 	font-size:15px;
 	font-weight:700;
 	text-indent:10px;
-	line-height:33px;
+	line-height:32px;
 	border-top:1px solid #DADADA;
-	border-bottom:none;
+	border-bottom:1px solid #DADADA;
 	float: left;
 }
 #tab2{
@@ -183,7 +183,7 @@ body{
 	background-color:#5288DA;
 }
 #tab2 tbody tr{
-	height:25px;
+	height:24px;
 	background-color:#fff;
 	cursor: pointer;
 }

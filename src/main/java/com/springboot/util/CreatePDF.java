@@ -34,6 +34,7 @@ import com.springboot.biz.OperatorBiz;
 import com.springboot.biz.PipeBiz;
 import com.springboot.biz.ProjectBiz;
 import com.springboot.entity.Code;
+import com.springboot.entity.Company;
 import com.springboot.entity.Item;
 import com.springboot.entity.Operator;
 import com.springboot.entity.Pipe;
@@ -552,7 +553,10 @@ public class CreatePDF {
 	}
 
 	private PdfPTable getTableFormA(Pipe pipe) {
-		map = AppUtils.getMap("fullname", pipe.getOperator());
+		Company company = project.getCompany();
+		if (StringUtils.isEmpty(company))
+			company = project.getPerson().getCompany();
+		map = AppUtils.getMap("fullname", pipe.getOperator(), "company", company);
 		Operator operator = operatorBiz.findInfoOperator(map);
 		String operator1 = "", operator2 = "";
 		if (!StringUtils.isEmpty(operator)) {

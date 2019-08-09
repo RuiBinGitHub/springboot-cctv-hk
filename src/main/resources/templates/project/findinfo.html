@@ -24,7 +24,9 @@
 	  <div id="main1">
 	    <div id="memu1">
 	      <span id="title" th:text="#{project.findinfo.pipe.title}"></span>
-	      <!-- <input type="button" th:value="#{project.findinfo.pipe.button}"/> -->
+	      <!-- 
+	      <input type="button" th:value="#{project.findinfo.pipe.button}"/>
+	       -->
 	    </div>
 	    <div id="head1">
 	      <div style="width:24px"></div>
@@ -203,7 +205,7 @@
        	    </thead>
             <tbody>
                 <tr th:each="item:${pipe.items}">
-				  <td style="font-size:16px;"></td>
+				  <td style="font-size:14px;"></td>
 				  <td th:text="${item.video}"></td>
 				  <td th:text="${item.photo}"></td>
 				  <td th:text="${item.dist}"></td>

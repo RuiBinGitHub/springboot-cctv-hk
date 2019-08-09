@@ -9,11 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.biz.ItemBiz;
-import com.springboot.biz.MarkItemBiz;
 import com.springboot.biz.MarkPipeBiz;
 import com.springboot.dao.MarkPipeDao;
-import com.springboot.entity.Item;
-import com.springboot.entity.MarkItem;
 import com.springboot.entity.MarkPipe;
 import com.springboot.entity.Person;
 import com.springboot.util.AppUtils;
@@ -24,8 +21,6 @@ public class MarkPipeBizImpl implements MarkPipeBiz {
 
 	@Resource
 	private MarkPipeDao markPipeDao;
-	@Resource
-	private MarkItemBiz markItemBiz;
 	@Resource
 	private ItemBiz itemBiz;
 
@@ -54,16 +49,5 @@ public class MarkPipeBizImpl implements MarkPipeBiz {
 
 	public List<MarkPipe> findListMarkPipe(Map<String, Object> map) {
 		return markPipeDao.findListMarkPipe(map);
-	}
-
-	public void appendMarkPipe(MarkPipe markPipe) {
-		this.insertMarkPipe(markPipe);
-		List<Item> items = itemBiz.findListItem(markPipe.getPipe());
-		for (int i = 0; items != null && i < items.size(); i++) {
-			MarkItem markItem = new MarkItem();
-			markItem.setItem(items.get(i));
-			markItem.setMarkPipe(markPipe);
-			markItemBiz.insertMarkItem(markItem);
-		}
 	}
 }

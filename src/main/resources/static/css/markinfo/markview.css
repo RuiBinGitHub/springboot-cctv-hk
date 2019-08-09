@@ -26,12 +26,17 @@ body{
 }
 #show table{
 	width:240px;
-	font-size:13px;
+	font-size:14px;
 	background-color:#EAEAEA;
 	float:left;
 }
+#show table thead tr{
+	font-size:15px;
+	font-family:宋体;
+}
 #show table tbody tr{
 	height:30px;
+	font-size:13px;
 	text-align:center;
 	background-color:#ffffff;
 }

@@ -76,7 +76,7 @@ public class GeomProjectBizImpl implements GeomProjectBiz {
 			geomPipe.setFmhNo(pipe.getFmanholeno());
 			geomPipe.setPipe(pipe);
 			geomPipe.setGeomProject(geomProject);
-			geomPipeBiz.appendGeomPipe(geomPipe);
+			geomPipeBiz.insertGeomPipe(geomPipe);
 			geomPipes.add(geomPipe);
 		}
 		geomProject.setGeomPipes(geomPipes);
@@ -88,9 +88,7 @@ public class GeomProjectBizImpl implements GeomProjectBiz {
 		Map<String, Coordinate> map = new HashMap<>();
 		DecimalFormat foramt1 = new DecimalFormat("#0.000");
 		DecimalFormat foramt2 = new DecimalFormat("#0.00");
-		
-		System.out.println("------");
-		
+
 		for (int i = 1; i < sheet.getLastRowNum() + 1; i++) {
 			XSSFRow row = sheet.getRow(i);
 			String smh = AppUtils.getString(row.getCell(0)); // 获取起始井编号
@@ -100,7 +98,7 @@ public class GeomProjectBizImpl implements GeomProjectBiz {
 			coordinate.setH(AppUtils.getValue(foramt2.format((AppUtils.getNumeric(row.getCell(3))))));
 			map.put(smh, coordinate);
 		}
-		List<GeomPipe> geomPipeList =geomPipeBiz.findListGeomPipe(geomProject);
+		List<GeomPipe> geomPipeList = geomPipeBiz.findListGeomPipe(geomProject);
 		for (GeomPipe geomPipe : geomPipeList) {
 			if (map.containsKey(geomPipe.getSmhNo())) {
 				Coordinate coordinate = map.get(geomPipe.getSmhNo());

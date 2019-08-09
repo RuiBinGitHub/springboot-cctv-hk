@@ -14,12 +14,11 @@ public interface MarkPipeBiz {
 
 	public void deleteMarkPipe(MarkPipe markPipe);
 
+	public MarkPipe findInfoMarkPipe(int id, Person person);
+
 	public MarkPipe findInfoMarkPipe(Map<String, Object> map);
 
-	public MarkPipe findInfoMarkPipe(int id, Person person);
-	
 	public List<MarkPipe> findListMarkPipe(Map<String, Object> map);
 
-	public void appendMarkPipe(MarkPipe markPipe);
 
 }

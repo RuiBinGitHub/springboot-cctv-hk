@@ -5,32 +5,15 @@
 	<insert id="insertGeomProject" parameterType="GeomProject" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO geomproject VALUES(nextval('indexID'),
 			#{extent},
-			#{appertain},
-			#{coveshape},
-			#{covesize},
-			#{sandshape},
-			#{sanddeep},
 			#{surveyer},
-			#{project.id},
-			null
+			#{project.id}
 		)
 	</insert>
 	
 	<update id="updateGeomProject" parameterType="GeomProject">
 		UPDATE geomproject SET extent=#{extent},
-			appertain=#{appertain},
-			coveshape=#{coveshape},
-			covesize=#{covesize},
-			sandshape=#{sandshape},
-			sanddeep=#{sanddeep},
 			surveyer=#{surveyer},
 			projectid=#{project.id},
-			<if test="extent == '' or extent == null">
-				geom=null
-			</if>
-			<if test="extent != '' and extent != null">
-				geom=ST_GeomFromText('polygon((${extent}))')
-			</if>
 		WHERE id=#{id}
 	</update>
 	
@@ -78,11 +61,6 @@
 	<resultMap id="GeomProjectMap" type="GeomProject">
 		<id property="id" column="id"/>
 		<result property="extent" column="extent"/>
-		<result property="appertain" column="appertain"/>
-		<result property="coveshape" column="coveshape"/>
-		<result property="covesize" column="covesize"/>
-		<result property="sandshape" column="sandshape"/>
-		<result property="sanddeep" column="sanddeep"/>
 		<result property="surveyer" column="surveyer"/>
 		<association property="project" column="projectid" select="com.springboot.dao.ProjectDao.findProjectByID"/>
 	</resultMap>

@@ -20,16 +20,19 @@
 	</select>
 	
 	<select id="findInfoMarkProject" parameterType="Map" resultMap="MarkProjectMap">
-		select * from markproject
+		select m.* from markproject m left join project p on m.projectid=p.id
 		<where>
 			<if test="id != null">
-				id=#{id}
-			</if>
-			<if test="project != null">
-				and projectid=#{project.id}
+				and m.id = #{id}
 			</if>
 			<if test="person != null">
-				and personid=#{person.id}
+				and m.personid=#{person.id}
+			</if>
+			<if test="project != null">
+				and p.id = #{project.id}
+			</if>
+			<if test="company != null">
+				and p.companyid=#{company.id}
 			</if>
 		</where>
 	</select>
@@ -38,10 +41,10 @@
 		select m.* from markproject m left join project p on m.projectid=p.id
 		<where>
 			<if test="name != null">
-				p.name like #{name}
+				and p.name like #{name}
 			</if>
 			<if test="user != null">
-				p.personid = #{user.id}
+				and p.personid = #{user.id}
 			</if>
 			<if test="company != null">
 				and p.companyid=#{company.id}
@@ -63,10 +66,10 @@
 		select count(*) from markproject m left join project p on m.projectid=p.id
 		<where>
 			<if test="name != null">
-				p.name like #{name}
+				and p.name like #{name}
 			</if>
 			<if test="user != null">
-				p.personid = #{user.id}
+				and p.personid = #{user.id}
 			</if>
 			<if test="project != null">
 				and m.projectid=#{project.id}
@@ -78,7 +81,7 @@
 	</select>
 	
 	<select id="getAverage" parameterType="MarkProject" resultMap="avgageMap">
-		select avg(pipescore) as score1, avg(itemscore) as score2 from markpipe where markprojectid = #{id}
+		select avg(pipescore) as score1, avg(itemscore) as score2 from markpipe where markid = #{id}
 	</select>
 	
 	<resultMap id="MarkProjectMap" type="MarkProject">

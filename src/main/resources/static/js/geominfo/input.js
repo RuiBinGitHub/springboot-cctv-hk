@@ -82,11 +82,12 @@ $(document).ready(function() {
         $(this).css("background-color", "#CDCDCD");
         $(this).attr("disabled", true);
         $("#extent").append(context);
-        if (Ajax("inputextents", $("#extent").serialize()))
+        if (Ajax("inputextents", $("#extent").serialize())) {
 	        if (language == "zh")
 	    		showTips("数据保存成功！");
 	    	else
 	    		showTips("Operating successfully!");
+        }
         setTimeout("location.reload()", 2000);
     });
     /********************************************************************/
@@ -173,11 +174,12 @@ $(document).ready(function() {
                 return false;
             }
         }
-        if (Ajax("inputvalue", $("#form1").serialize()))
+        if (Ajax("inputvalue", $("#form1").serialize())) {
         	if (language == "zh")
         		showTips("数据保存成功！");
         	else
         		showTips("Operating successfully!");
+        }
         setTimeout("location.reload()", 2000);
     });
     /********************************************************************/
@@ -188,11 +190,12 @@ $(document).ready(function() {
         $("#page").hide();
     });
     $("#form input[type=button]").click(function() {
-        if (Ajax("updategrade", $("#form2").serialize()))
+        if (Ajax("updategrade", $("#form2").serialize())) {
         	if (language == "zh")
         		showTips("数据保存成功！");
         	else
         		showTips("Operating successfully!");
+        }
         setTimeout("location.reload()", 2000);
     });
     /********************************************************************/

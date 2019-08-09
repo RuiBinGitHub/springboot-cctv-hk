@@ -50,7 +50,7 @@ $(document).ready(function() {
             if (language == "zh")
                 $("#tips").text("*登錄密碼格式不正確！");
             else
-                $("#tips").text("*Please check the input username");
+                $("#tips").text("*Please check the input password!");
             return false;
         }
         if (password1 != password2) {
@@ -87,7 +87,7 @@ $(document).ready(function() {
             if (language == "zh")
                 $("#tips").text("*登錄賬號與郵箱不匹配！");
             else
-                $("#tips").text("*The UserName does not match the E-Mail!!");
+                $("#tips").text("*The UserName does not match the E-Mail!");
             return false;
         }
         return true;

@@ -4,7 +4,6 @@ package com.springboot.entity;
 public class MarkPipe {
 
 	private int id;
-
 	private double pipescore;
 	private double itemscore;
 	private double score1;

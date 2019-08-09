@@ -19,6 +19,20 @@ $(document).ready(function() {
 				showTips("Please enter the Project No!");
 			return false;
 		}
+		if ($(".textbox:eq(0)").val().indexOf("/") != -1) {
+			if (language == "zh")
+				showTips("项目名称不能包含'/'字符！");
+			else
+				showTips("The project name cannot contain the '/' !");
+			return false;
+		}
+		if ($(".textbox:eq(0)").val().indexOf("\\") != -1) {
+			if (language == "zh")
+				showTips("项目名称不能包含'\\'字符！");
+			else
+				showTips("The project name cannot contain the '\\' !");
+			return false;
+		}
 		if ($(".textbox:eq(1)").val() == "") {
 			$(".textbox:eq(1)").css("border-color", "#f00");
 			if (language == "zh")
