@@ -4,6 +4,7 @@
 	<title>评分列表</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/CCTV/css/comm/itemlist.css"/>
 	<link rel="stylesheet" type="text/css" href="/CCTV/css/markinfo/marklist.css"/>
 	<script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="/CCTV/js/markinfo/marklist.js"></script>
@@ -12,7 +13,7 @@
     <div th:replace="navigation::navigation"></div>
     <div id="Tip"></div>
     <div id="main">
-      <div id="mainLeft">
+      <div id="mainMenu">
         <div id="menuTitle" th:text="#{menu.title.text}"></div>
         <div class="menu2"><a href="/CCTV/project/showlist" th:text="#{menu.div.text1}"></a></div>
         <shiro:hasRole name="role2">
@@ -34,17 +35,18 @@
         </shiro:hasRole>
         <div class="menu2"><a href="/CCTV/person/center" th:text="#{menu.div.text9}"></a></div>
       </div>
-      <div id="mainRight">
-        <div id="rightTop" th:text="#{markinfo.marklist.title1}">项目列表</div>
-        <div id="rightMenu">
-          <span style="font-weight:600;margin-left:10px;float:left;" th:text="#{markinfo.marklist.menu1}"></span>
+      
+      <div id="mainInfo">
+        <div id="infoTop" th:text="#{markinfo.marklist.title1}"></div>
+        <div id="infoMenu">
+          <span th:text="#{markinfo.marklist.menu1}"></span>
           <input id="menuBtn1" type="button" value="←"/>
           <input id="menuText" th:value="${param.name}"/>
           <input id="menuBtn2"  type="button" th:value="#{markinfo.marklist.menu2}"/>
         </div>
         <table id="tab1">
           <thead>
-            <tr height="40px" style="font-size:18px;background-color:#F0F0F0">
+            <tr height="40px" style="color:#fff;font-size:16px;background-color:#3CB44B;">
               <th width="4%">NO</th>           
 			  <th width="14%" th:text="#{markinfo.marklist.table.title1}"></th>   
 			  <th width="20%" th:text="#{markinfo.marklist.table.title2}"></th> 
@@ -56,10 +58,10 @@
 			  <th width="10%" th:text="#{markinfo.marklist.table.title8}"></th>   
 			</tr>       
           </thead>
-          <tbody>
+          <tbody style="font-family:等线">
             <tr th:each="markProject,status:${markProjects}" th:id="${markProject.id}">
               <td th:text="${status.count+(page-1)*15}"></td>
-              <td><a th:name="${markProject.project.id}" th:text="${markProject.project.name}"></a></td>
+              <td><a th:id="${markProject.project.id}" th:text="${markProject.project.name}"></a></td>
           	  <td th:text="${markProject.project.client}"></td>
           	  <td th:text="${markProject.project.standard}"></td>
           	  <td th:text="${markProject.project.person.nickname}"></td>
@@ -67,15 +69,15 @@
           	  <td th:text="${markProject.score2}"></td>
           	  <td th:text="${markProject.date}"></td>
 		      <td>
-		        <input type="button" class="tablebtn1" th:value="#{markinfo.marklist.table.button1}">
-		        <input type="button" class="tablebtn2" th:value="#{markinfo.marklist.table.button2}">
+		        <input type="button" th:value="#{markinfo.marklist.table.button1}" style="background-color:#2CACF1;">
+		        <input type="button" th:value="#{markinfo.marklist.table.button2}" style="background-color:#DB5651;">
 		      </td>
           	</tr>
           </tbody>
         </table>
         <img th:if="${#lists.isEmpty(markProjects)}" src="/CCTV/img/null.png" style="margin:145px 400px;float:left;">
         <table id="tab2" th:if="${!#lists.isEmpty(markProjects)}">
-          <tr height="30px">
+          <tr height="65px">
             <td width="45%" align="right"><input type="button" th:value="#{showlit.page.button1}" class="pagebtn"/></td>
             <td width="10%" align="center"><a id="page1" th:text="${page}"></a> / <a id="page2" th:text="${cont}"></a></td>
             <td width="45%" align="left"><input type="button" th:value="#{showlit.page.button2}" class="pagebtn"/></td>

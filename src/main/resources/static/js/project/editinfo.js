@@ -5,14 +5,26 @@
     drawPipe();
     // 获取当前语言
 	var language = $("#title").text() == "管線數據" ? "zh" : "en";
+	
+	var tipsText1 = "數據修改成功！";
+	var tipsText2 = "確定要删除該數據嗎？";
+	var tipsText3 = "删除數據成功！";
+	var tipsText4 = "數據上傳中...";
+	var tipsText5 = "數據修改成功！";
+	var tipsText6 = "數據上傳異常！";
+	var tipsText7 = "請檢查輸入數據！";
+	var tipsText8 = "確定移除全部圖片？";
+	var tipsText9 = "移除圖片成功！";
+	
+	var tipsText10 = "文件格式僅限於：PNG和JPG！";
+	var tipsText11 = "圖片正在上傳中...";
+	var tipsText12 = "圖片上傳成功！";
+    var tipsText13 = "上傳圖片失敗，所需圖片數量：";
     /***********************************************************************/
-    $("#link1").attr("target", "_bank");
-    $("#link1").attr("href", "http://www1.slope.landsd.gov.hk/smris/map");
-    $("#main2 table:eq(0) tr:eq(1) input:eq(7)").attr("placeholder", "HH:MM");
     if ($("#memu1 input").length == 3)
     	$("#title").css("width", "910px");
     /***********************************************************************/
-    $("#main2 table:eq(1) select:eq(0)").change(function() {
+    $("#input2 select:eq(0)").change(function() {
         var context = "";
         if ($(this).val() == "Kowloon") {
             context += "<option>Kowloon City District</option>";
@@ -36,13 +48,13 @@
             context += "<option>Tuen Mun District</option>";
             context += "<option>Yuen Long District</option>";
         }
-        $("#main2 table:eq(1) select:eq(1)").html(context);
-        $("#main2 table:eq(1) select:eq(1) option").each(function() {
+        $("#input2 select:eq(1)").html(context);
+        $("#input2 select:eq(1) option").each(function() {
             $(this).val($(this).text());
         });
-        $("#main2 table:eq(1) select:eq(1)").change();
+        $("#input2 select:eq(1)").change();
     });
-    $("#main2 table:eq(1) select:eq(1)").change(function() {
+    $("#input2 select:eq(1)").change(function() {
         var context = "";
         if ($(this).val() == "North District") {
             context += "<option>Luen Wo Hui</option>";
@@ -515,8 +527,8 @@
             context += "<option>Southorn</option>";
             context += "<option>Tai Fat Hau</option>";
         }
-        $("#main2 table:eq(1) select:eq(2)").html(context);
-        $("#main2 table:eq(1) select:eq(2) option").each(function() {
+        $("#input2 select:eq(2)").html(context);
+        $("#input2 select:eq(2) option").each(function() {
             $(this).val($(this).text());
         });
     });
@@ -524,21 +536,22 @@
     context += "<option>Kowloon</option>";
     context += "<option>Hong Kong Island</option>";
     context += "<option>New Territories</option>";
-    $("#main2 table:eq(1) select:eq(0)").html(context);
-    $("#main2 table:eq(1) select:eq(0) option").each(function() {
+    $("#input2 select:eq(0)").html(context);
+    $("#input2 select:eq(0) option").each(function() {
         $(this).val($(this).text());
     });
-    var dist1 = $("#main2 table:eq(1) select:eq(0)").attr("id");
-    $("#main2 table:eq(1) select:eq(0) option[value='" + dist1 + "']").prop("selected", true);
-    $("#main2 table:eq(1) select:eq(0)").change();
-    var dist2 = $("#main2 table:eq(1) select:eq(1)").attr("id");
-    $("#main2 table:eq(1) select:eq(1) option[value='" + dist2 + "']").prop("selected", true);
-    $("#main2 table:eq(1) select:eq(1)").change();
-    var dist3 = $("#main2 table:eq(1) select:eq(2)").attr("id");
-    $("#main2 table:eq(1) select:eq(2) option[value='" + dist3 + "']").prop("selected", true);
+    var dist1 = $("#input2 select:eq(0)").attr("id");
+    $("#input2 select:eq(0) option[value='" + dist1 + "']").prop("selected", true);
+    $("#input2 select:eq(0)").change();
+    var dist2 = $("#input2 select:eq(1)").attr("id");
+    $("#input2 select:eq(1) option[value='" + dist2 + "']").prop("selected", true);
+    $("#input2 select:eq(1)").change();
+    var dist3 = $("#input2 select:eq(2)").attr("id");
+    $("#input2 select:eq(2) option[value='" + dist3 + "']").prop("selected", true);
     /***********************************************************************/
     var Pid = $("#id2").val();
     /** ******************************************************************** */
+    // 是否显示菜单
     $(document).scroll(function(e) {
         if ($(document).scrollTop() >= 150)
             $("#TitleMemu").show();
@@ -547,7 +560,7 @@
     });
     /** ******************************************************************** */
     /** 管道按鈕事件 */
-    $("#memu1 input:eq(0),#TitleMemu input:eq(0)").click(function() {
+    $("#memu1 input:eq(0), #TitleMemu input:eq(0)").click(function() {
     	var value = $("#tab1 tbody tr:last").attr("id");
         var index = value == undefined ? 0 : value;
         var length = $("#tab1 tbody tr").length;
@@ -557,13 +570,10 @@
     $("#memu1 input:eq(1),#TitleMemu input:eq(1)").click(function() {
         if (!checkPipe() || !checkItem())
             return false;
-        var showText = "數據修改成功！";
-        if (language == "en")
-        	showText = "Operating successfully!";
         $("#memu1 input:eq(1),#TitleMemu input:eq(1)").attr("disabled", true);
         $("#memu1 input:eq(1),#TitleMemu input:eq(1)").css("background-color", "#CCC");
         if (Ajax("/CCTV/pipe/update", $("#form1").serialize()))
-        	showTips(showText);
+        	showTips(tipsText1);
         setTimeout("location.reload()", 2000);
     });
     $("#memu1 input:eq(2)").click(function() {
@@ -579,6 +589,7 @@
     var index = on >= $("#tab1 tr").length ? $("#tab1 tr").length - 1 : on;
     $("#tab1 tr").eq(index).find("td:eq(0)").css("background-color", "#FFD58D");
     $("#tab1 tr").eq(index).find("td:eq(0)").text("▶");
+    // 管理列表初始化事件
     $("#tab1 tr").each(function(no) {
     	var id = $(this).attr("id");
         $(this).mouseenter(function() {
@@ -593,24 +604,20 @@
         });
         $(this).find("input:eq(1)").css("background-color", "#ee4200");
         $(this).find("input:eq(1)").click(function() {
-        	var tipsText = "確定要删除該數據嗎？";
-        	var showText = "删除數據成功！";
-        	if (language == "en") {
-        		tipsText = "Are you sure you want to delete this data?";
-        		showText = "Operating successfully!";
-        	}
-            if (confirm(tipsText)) {
-            	$(this).css("background-color", "#CCC");
-                $(this).attr("disabled", true);
-                if (Ajax("/CCTV/pipe/delete", {id: id}))
-                	showTips(showText);
-                setTimeout("location.reload()", 2000);
-            }
+            if (!confirm(tipsText2))
+            	return false;
+        	$(this).css("background-color", "#CCC");
+            $(this).attr("disabled", true);
+            if (Ajax("/CCTV/pipe/delete", {id: id}))
+            	showTips(tipsText3);
+            setTimeout("location.reload()", 2000);
         });
     });
     /** 列表滾動至當前數據 */
     $("#showpipe").scrollTop(index * 24);
     /** ******************************************************************** */
+    $("#link1").attr("target", "_bank");
+    $("#link1").attr("href", "http://www1.slope.landsd.gov.hk/smris/map");
     $("#link2").click(function(){
     	$("input[name=xfile]").click();
     });
@@ -620,63 +627,65 @@
     	var formFile=new FormData();
     	formFile.append("id", Pid); 
     	formFile.append("file",this.files[0]); 
-    	if (language == "zh")
-        	$("#Tip").text("數據上傳中...");
-        else
-        	$("#Tip").text("Data uploading...");
+        $("#Tip").text(tipsText4);
     	$("#Tip").show();
-    	var showText1 = "數據修改成功！";
-    	var showText2 = "上傳數據異常！";
-        if (language == "en") {
-        	showText1 = "Operating successfully!";
-        	showText2 = "Operating exceptioning!";
-        }
     	if(FileAjax("importdepth", formFile))
-        	showTips(showText1);
+        	showTips(tipsText5);
     	else
-    		showTips(showText2);
+    		showTips(tipsText6);
     	setTimeout("location.reload()", 2000);
     });
+    $("#input1 input:eq(7)").attr("placeholder", "HH:MM");
     /** ******************************************************************** */
     var reg = /^[+]{0,1}(\d+)$/;
-    $("#main2 table:eq(0) tr:eq(1) td:eq(3) input").css("background-color", "#EBEBE4");
+    $("#input1 input:eq(2)").css("background-color", "#EBEBE4");
     /** 數據第壹行第四行必須輸入 */
-    $("#main2 table:eq(0) input, #main2 table:eq(3) input").on("input", function() {
+    $("#input1 input, #input4 input").on("input", function() {
         if ($(this).val() == "")
             $(this).css("background-color", "#FF0000");
         else
             $(this).css("background-color", "#FFFFFF");
     });
-    $("#main2 table:eq(0) tr:eq(1) td:eq(7) input").keypress(function(event) {
+    $("#input4 input:eq(2), #input4 input:eq(5)").on("input", function() {
+    	$(this).css("background-color", "#EBEBE4");
+    });
+    // Pipe Length Reference
+    $("#input1 input:eq(2)").on("input", function() {
+    	if ($(this).val() == "")
+            $(this).css("background-color", "#FF0000");
+        else
+            $(this).css("background-color", "#EBEBE4");
+    });
+    // Survey ID和Year Laid只能輸入數字
+    $("#input1 input:eq(0), #input1 input:eq(5)").keypress(function(event) {
         if (event.which >= 48 && event.which <= 57)
             return true;
         return false;
     });
-    // Survey ID和Year Laid只能輸入數字
-    $("#main2 table:eq(0) tr:eq(1) td:eq(0) input,#main2 table:eq(0) tr:eq(1) td:eq(7) input").on("input", function() {
+    $("#input1 input:eq(0), #input1 input:eq(5)").on("input", function() {
         if ($(this).val() == '' || !reg.test($(this).val()))
             $(this).css("background-color", "#FF0000");
         else
             $(this).css("background-color", "#FFFFFF");
     });
     // Slope改變事件
-    $("#main2 table:eq(0) tr:eq(1) td:eq(5) select").change(function() {
+    $("#input1 select:eq(1)").change(function() {
         if ($(this).val() == "N") {
-            $("#main2 table:eq(0) tr:eq(1) td:eq(6) input").val("N/A");
-            $("#main2 table:eq(0) tr:eq(1) td:eq(6) input").css("background-color", "#FFFFFF");
+            $("#input1 input:eq(4)").val("N/A");
+            $("#input1 input:eq(4)").css("background-color", "#FFFFFF");
         } else {
-            $("#main2 table:eq(0) tr:eq(1) td:eq(6) input").val("");
-            $("#main2 table:eq(0) tr:eq(1) td:eq(6) input").css("background-color", "#FF0000");
+            $("#input1 input:eq(4)").val("");
+            $("#input1 input:eq(4)").css("background-color", "#FF0000");
         }
     });
     // 啟用日期控件
-    $("#main2 table:eq(0) tr:eq(1) td:eq(8) input").attr("readonly", true);
-    $("#main2 table:eq(0) tr:eq(1) td:eq(8) input").click(function() {
+    $("#input1 input:eq(6)").attr("readonly", true);
+    $("#input1 input:eq(6)").click(function() {
         $(this).css("background-color", "#FFFFFF");
         laydate();
     });
     // 限制時間輸入格式
-    $("#main2 table:eq(0) tr:eq(1) td:eq(9) input").on("input", function() {
+    $("#input1 input:eq(7)").on("input", function() {
     	if ($(this).val().length == 2)
     		$(this).val($(this).val()+":");
         var timeReg = /^(([0-1][0-9])|2[0-3]):([0-5][0-9])$/;
@@ -685,92 +694,122 @@
         else
             $(this).css("background-color", "#FF0000");
     });
+    
     // Start MH
-    $("#main2 table:eq(2) tr:eq(1) td:eq(0) input").attr("title", "*建議字符長度<10，長度過長可能會造成數據丟失！");
-    $("#main2 table:eq(2) tr:eq(1) td:eq(0) input").bind("input", function() {
+    $("#input3 input:eq(0)").attr("title", "*建議字符長度<10，長度過長可能會造成數據丟失！");
+    $("#input3 input:eq(0)").bind("input", function() {
         $(this).val($(this).val().toUpperCase());
-        if ($("#main2 table:eq(2) tr:eq(1) td:eq(3) select").val() == "D" && $(this).val() != "") {
-        	 $("#main2 table:eq(0) tr:eq(1) td:eq(3) input").css("background-color", "#EBEBE4");
-             $("#main2 table:eq(0) tr:eq(1) td:eq(3) input").val($(this).val() + "X");
+        if ($(this).val() == "") 
+        	$(this).css("background-color", "#f00");
+        else
+        	$(this).css("background-color", "#fff");
+        if ($("#input3 select:eq(1)").val() == "D" && $(this).val() != "") {
+        	 $("#input1 input:eq(2)").css("background-color", "#EBEBE4");
+             $("#input1 input:eq(2)").val($(this).val() + "X");
+        }
+        if ($("#input3 select:eq(1)").val() == "D" && $(this).val() == "") {
+        	$("#input1 input:eq(2)").css("background-color", "#FF0000");
+            $("#input1 input:eq(2)").val("");
         }
     });
     // Finish MH
-    $("#main2 table:eq(2) tr:eq(1) td:eq(1) input").attr("title", "*建議字符長度<10，長度過長可能會造成數據丟失！");
-    $("#main2 table:eq(2) tr:eq(1) td:eq(1) input").bind("input", function() {
+    $("#input3 input:eq(1)").attr("title", "*建議字符長度<10，長度過長可能會造成數據丟失！");
+    $("#input3 input:eq(1)").bind("input", function() {
         $(this).val($(this).val().toUpperCase());
-        if ($("#main2 table:eq(2) tr:eq(1) td:eq(3) select").val() == "U" && $(this).val() != "") {
-            $("#main2 table:eq(0) tr:eq(1) td:eq(3) input").css("background-color", "#EBEBE4");
-            $("#main2 table:eq(0) tr:eq(1) td:eq(3) input").val($(this).val() + "X");
+        if ($(this).val() == "") 
+        	$(this).css("background-color", "#f00");
+        else
+        	$(this).css("background-color", "#fff");
+        if ($("#input3 select:eq(1)").val() == "U" && $(this).val() != "") {
+        	$("#input1 input:eq(2)").css("background-color", "#EBEBE4");
+            $("#input1 input:eq(2)").val($(this).val() + "X");
+        }
+        if ($("#input3 select:eq(1)").val() == "U" && $(this).val() == "") {
+        	$("#input1 input:eq(2)").css("background-color", "#FF0000");
+            $("#input1 input:eq(2)").val("");
         }
     });
+    
     // 流向改變事件
-    $("#main2 table:eq(2) tr:eq(1) td:eq(3) select").change(function() {
+    $("#input3 select:eq(1)").change(function() {
         if ($(this).val() == "D")
-            $("#main2 table:eq(2) tr:eq(1) td:eq(0) input").trigger("input");
+            $("#input3 input:eq(0)").trigger("input");
         if ($(this).val() == "U")
-            $("#main2 table:eq(2) tr:eq(1) td:eq(1) input").trigger("input");
+            $("#input3 input:eq(1)").trigger("input");
     });
+    
     // Size(Dia)H
-    $("#main2 table:eq(2) tr:eq(1) td:eq(4) input").bind("input", function() {
+    $("#input3 input:eq(2)").bind("input", function() {
         if ($(this).val() == "" || isNaN($(this).val()))
             $(this).css("background-color", "#FF0000");
         else
             $(this).css("background-color", "#FFFFFF");
     });
-  
+    $("#input3 input:eq(2)").keypress(function(event) {
+    	console.log(event.which);
+        if (event.which >= 48 && event.which <= 57 || event.which == 46)
+            return true;
+        return false;
+    });
     // Pipe Length和Total Length
-    $("#main2 table:eq(2) tr:eq(1) td:eq(9) input,#main2 table:eq(2) tr:eq(1) td:eq(10) input").bind("input", function() {
+    $("#input3 input:eq(4),#input3 input:eq(5)").bind("input", function() {
         if ($(this).val() == "" || isNaN($(this).val()))
             $(this).css("background-color", "#FF0000");
         else
             $(this).css("background-color", "#FFFFFF");
     });
+    $("#input3 input:eq(4),#input3 input:eq(5)").keypress(function(event) {
+        if (event.which >= 48 && event.which <= 57 || event.which == 46)
+            return true;
+        return false;
+    });
+    
     // Invert Level=Cover Level-Start Depth
-    $("#main2 table:eq(3) tr:eq(1) td:eq(0) input,#main2 table:eq(3) tr:eq(1) td:eq(1) input").attr("title", "*不確定具體數值時請輸入：--");
-    $("#main2 table:eq(3) tr:eq(1) td:eq(0) input,#main2 table:eq(3) tr:eq(1) td:eq(1) input").bind("input ", function() {
+    $("#input4 input:eq(0),#input4 input:eq(1)").attr("title", "*不確定具體數值時請輸入：--");
+    $("#input4 input:eq(0),#input4 input:eq(1)").bind("input ", function() {
     	if ($(this).val() != "" && (!isNaN($(this).val()) || $(this).val() == "--"))
             $(this).css("background-color", "#FFFFFF");
         else
             $(this).css("background-color", "#FF0000");
-        var num1 = $("#main2 table:eq(3) tr:eq(1) td:eq(0) input").val();
-        var num2 = $("#main2 table:eq(3) tr:eq(1) td:eq(1) input").val();
+        var num1 = $("#input4 input:eq(0)").val();
+        var num2 = $("#input4 input:eq(1)").val();
         if (!isNaN(num1) && !isNaN(num2)) {
-            $("#main2 table:eq(3) tr:eq(1) td:eq(2) input").val((num2 - num1).toFixed(2));
-            $("#main2 table:eq(3) tr:eq(1) td:eq(2) input").css("background-color", "#EBEBE4");
+            $("#input4 input:eq(2)").val((num2 - num1).toFixed(2));
+            $("#input4 input:eq(2)").css("background-color", "#EBEBE4");
         }
-        if (num1 == "" || num2 == "" || num1 == "--" || num2 == "--")
-            $("#main2 table:eq(3) tr:eq(1) td:eq(2) input").val("--");
+        if (num1 == "" || num2 == "" || num1 == "--" || num2 == "--") {
+        	$("#input4 input:eq(2)").css("background-color", "#EBEBE4");        	
+        	$("#input4 input:eq(2)").val("--");
+        }
     });
     // Invert Level=Cover Level-Finish Depth
-    $("#main2 table:eq(3) tr:eq(1) td:eq(3) input,#main2 table:eq(3) tr:eq(1) td:eq(4) input").attr("title", "*不確定具體數值時請輸入：--");
-    $("#main2 table:eq(3) tr:eq(1) td:eq(3) input,#main2 table:eq(3) tr:eq(1) td:eq(4) input").bind("input ", function() {
+    $("#input4 input:eq(3),#input4 input:eq(4)").attr("title", "*不確定具體數值時請輸入：--");
+    $("#input4 input:eq(3),#input4 input:eq(4)").bind("input ", function() {
     	if ($(this).val() != "" && (!isNaN($(this).val()) || $(this).val() == "--"))
             $(this).css("background-color", "#FFFFFF");
         else
             $(this).css("background-color", "#FF0000");
-        var num1 = $("#main2 table:eq(3) tr:eq(1) td:eq(3) input").val();
-        var num2 = $("#main2 table:eq(3) tr:eq(1) td:eq(4) input").val();
+        var num1 = $("#input4 input:eq(3)").val();
+        var num2 = $("#input4 input:eq(4)").val();
         if (!isNaN(num1) && !isNaN(num2)) {
-            $("#main2 table:eq(3) tr:eq(1) td:eq(5) input").val((num2 - num1).toFixed(2));
-            $("#main2 table:eq(3) tr:eq(1) td:eq(5) input").css("background-color", "#EBEBE4");
+            $("#input4 input:eq(5)").val((num2 - num1).toFixed(2));
+            $("#input4 input:eq(5)").css("background-color", "#EBEBE4");
         }
-        if (num1 == "" || num2 == "" || num1 == "--" || num2 == "--")
-            $("#main2 table:eq(3) tr:eq(1) td:eq(5) input").val("--");
+        if (num1 == "" || num2 == "" || num1 == "--" || num2 == "--") {
+        	$("#input4 input:eq(5)").css("background-color", "#EBEBE4");   	
+        	$("#input4 input:eq(5)").val("--");
+        }
     });
     /** ******************************************************************** */
     function checkPipe() {
         var result = true;
-        $("#main2 table input").trigger("input");
-        $("#main2 table input").each(function() {
-        	var color = $(this).css("background-color");
-            if (color == "rgb(255, 0, 0)")
+        $("#main2 input").trigger("input");
+        $("#main2 input").each(function() {
+            if ($(this).css("background-color") == "rgb(255, 0, 0)")
                 result = false;
         });
-        var showText = "請檢查輸入數據！";
-        if (language == "en")
-        	showText = "Please check the input data!";
         if (result == false)
-        	showTips(showText);
+        	showTips(tipsText7);
         return result;
     }
     /** ******************************************************************** */
@@ -805,52 +844,43 @@
         $("#file2").click();
     });
     // 打开按钮点击事件
-    $("#videomenu .btn:eq(0)").click(function() {
+    $("#videoMenu .btn:eq(0)").click(function() {
         $("#file1").click();
     });
-    // 截屏按钮點擊事件
-    $("#videomenu .btn:eq(1)").click(function() {
-        if ($("#video").attr("src") == undefined)
-            return false;
-        var video = $("#video")[0];
-        var canvas1 = $("#canvas1")[0];
-        var context1 = canvas1.getContext("2d");
-        $(canvas1).attr("width", video.videoWidth);
-        $(canvas1).attr("height", video.videoHeight);
-        context1.drawImage(video, 0, 0);
-        $("#pic1").attr("src", canvas1.toDataURL("image/png"));
-    });
-    // 保存按鈕點擊事件
-    $("#videomenu .btn:eq(2)").click(function() {
-        if (itemindex == -1 || $("#pic1").attr("src") == undefined)
-            return false;
-        var canvas1 = $("#canvas1")[0];
-        var context1 = canvas1.getContext("2d");
-        var ImageData = canvas1.toDataURL("image/png");
-        ImageData = ImageData.substring(22, ImageData.length);
-        $("#pic2").attr("src", $("#pic1").attr("src"));
-        $("#tab2 tbody tr").eq(itemindex).find("td:eq(2) input").val("#待保存#");
-        $("#tab2 tbody tr").eq(itemindex).find("td:eq(12) input").val(ImageData);
-    });
-    // 修改視頻播放速度
-    $("#speed").change(function() {
-        var video = $("#video")[0];
-        video.playbackRate = $(this).val();
-    });
+    $(document, "#video").keydown(function(e) {
+		if (e.altKey && e.which == 65) {
+			if ($("#video").attr("src") == undefined)
+	            return false;
+	        var video = $("#video")[0];
+	        var canvas1 = $("#canvas1")[0];
+	        var context1 = canvas1.getContext("2d");
+	        $(canvas1).attr("width", video.videoWidth);
+	        $(canvas1).attr("height", video.videoHeight);
+	        context1.drawImage(video, 0, 0);
+	        $("#pic1").attr("src", canvas1.toDataURL("image/png"));
+		}
+		if (e.altKey && e.which == 83) {
+			if (itemindex == -1 || $("#pic1").attr("src") == undefined)
+	            return false;
+	        var canvas1 = $("#canvas1")[0];
+	        var context1 = canvas1.getContext("2d");
+	        var ImageData = canvas1.toDataURL("image/png");
+	        ImageData = ImageData.substring(22, ImageData.length);
+	        $("#pic2").attr("src", $("#pic1").attr("src"));
+	        $("#tab2 tr").eq(itemindex).find("td:eq(2) input").val("#待保存#");
+	        $("#tab2 tr").eq(itemindex).find("td:eq(12) input").val(ImageData);
+		}
+	});
     /** ****************************************************************************** */
-	$(document, "#video").keydown(function(e) {
+	// 快捷键控制视频播放
+    $(document, "#video").keydown(function(e) {
 		var video = $("#video")[0];
 		if (e.ctrlKey && e.which == 37)
 			video.currentTime = video.currentTime - 0.03;
 		if (e.ctrlKey && e.which == 39)
 			video.currentTime = video.currentTime + 0.03;
-		if (e.altKey && e.which == 83) {
-			$("#videomenu .btn:eq(1)").click();
-			$("#videomenu .btn:eq(2)").click();
-		}
 	});
     /** ****************************************************************************** */
-
     /** 視頻文件選擇器 */
     $("#file1").change(function() {
         if (!this.files || !this.files[0])
@@ -893,26 +923,23 @@
     }
     /** ******************************************************************** */
     $("#memu2 input[type=button]:eq(0)").click(function() {
-        $("#tab2 tbody").append(getContext());
-        var length = $("#tab2 tbody tr").length - 1;
+        $("#tab2").append(getContext());
+        var length = $("#tab2 tr").length - 1;
         initItemList(length);
     });
     $("#memu2 input[type=button]:eq(1)").click(function() {
         if (itemindex == -1)
             return false;
-        $("#tab2 tbody tr").eq(itemindex).before(getContext());
+        $("#tab2 tr").eq(itemindex).before(getContext());
         initItemList(itemindex);
     });
     $("#memu2 input[type=button]:eq(2)").click(function() {
-    	var tipsText = "確定刪除該數據嗎?";
-    	if (language == "en")
-    		tipsText = "Are you sure you want to delete this data?";
-        if (itemindex == -1 || !confirm(tipsText))
+        if (itemindex == -1 || !confirm(tipsText2))
             return false;
-        var id = $("#tab2 tbody tr").eq(itemindex).find("[type=hidden]").val();
+        var id = $("#tab2 tr").eq(itemindex).find("[type=hidden]").val();
         if (id != "" && id != "0")
         	Ajax("/CCTV/item/delete", {id: id});
-        $("#tab2 tbody tr").eq(itemindex).remove();
+        $("#tab2 tr").eq(itemindex).remove();
         initItemList(itemindex);
         var list = new Array();
         $("#tab2 tbody tr").each(function() {
@@ -920,22 +947,16 @@
         });
         var max = Math.max.apply(null, list);
         var length = max == "-Infinity" ? 0.0 : max;
-        $("#main2 table:eq(2) input[type=text]:eq(5)").val(length);
+        $("input[name=totallength]").val(length);
     });
 
     $("#memu2 input[type=button]:eq(3)").click(function() {
         $("input[name=files]").click();
     });
     $("#memu2 input[type=button]:eq(4)").click(function() {
-    	var tipsText = "確定移除全部圖片？";
-    	var showText = "移除圖片成功！";
-    	if (language == "en") {
-    		tipsText = "Are you sure you want to remove all pictures?";
-    		showText = "Operating successfully!";
-    	}
-    	if (confirm(tipsText)) {
+    	if (confirm(tipsText8)) {
     		if (Ajax("/CCTV/item/removeimage", {id: Pid}))
-	    		showTips(showText);
+	    		showTips(tipsText9);
 	        setTimeout("location.reload()", 2000);
     	}
     });
@@ -943,9 +964,6 @@
     $("input[name=files]").change(function() {
         if (this.files.length == 0)
             return false;
-        var tipsText = "文件格式僅限於：PNG和JPG！";
-    	if (language == "en")
-    		tipsText = "File format：PNG and JPG!";
         var formFile = new FormData();
         for (var i = 0; i < this.files.length; i++) {
             var name = this.files[i].name;
@@ -954,45 +972,36 @@
             if (type == "PNG" || type == "JPG")
                 formFile.append("files", this.files[i]);
             else {
-            	showTips(tipsText);
+            	showTips(tipsText10);
                 return false;
             }
         }
         formFile.append("id", Pid);
         var data = FileAjax("/CCTV/item/inputimages", formFile);
-        if (language == "zh")
-        	showTips("圖片正在上傳中...");
-        else
-        	showTips("Data uploading...");
-        var tipsText1 = "圖片上傳成功！";
-        var tipsText2 = "上傳圖片失敗，所需圖片數量：";
-    	if (language == "en"){
-    		tipsText1 = "Operating successfully!";
-    		tipsText2 = "Operating unsuccessful,pictures count：";
-    	}
-        if (!data.result) 
-        	showTips(tipsText2 + data.count);
-        else {
-	        showTips(tipsText1);
-	    	setTimeout("location.reload()", 2000);
+        showTips(tipsText11);
+        if (data.result) {
+        	showTips(tipsText12);
+        	setTimeout("location.reload()", 2000);
         }
+        else 
+        	showTips(tipsText13 + data.count);
         this.value = "";
     });
     /***********************************************************************/
     /** 獲取Context */
     function getContext() {
         var context = "<tr>";
-        context += "  <td><input type='hidden' value='0'/><a></a></td>";
-        context += "  <td><input type='text'/></td>";
-        context += "  <td><input type='text'/><img/></td>";
-        context += "  <td><input type='text'/></td>";
-        context += "  <td><input type='text'/></td>";
-        context += "  <td><input type='text'/></td>";
-        context += "  <td><input type='text'/></td>";
-        context += "  <td><input type='text'/></td>";
-        context += "  <td><input type='text'/></td>";
-        context += "  <td><input type='text'/></td>";
-        context += "  <td><input type='text'/></td>";
+        context += "  <td width='3%'><input type='hidden' value='0'/><a></a></td>";
+        context += "  <td width='10%'><input type='text'/></td>";
+        context += "  <td width='10%'><input type='text'/><img/></td>";
+        context += "  <td width='10%'><input type='text'/></td>";
+        context += "  <td width='8%'><input type='text'/></td>";
+        context += "  <td width='8%'><input type='text'/></td>";
+        context += "  <td width='10%'><input type='text'/></td>";
+        context += "  <td width='5%'><input type='text'/></td>";
+        context += "  <td width='5%'><input type='text'/></td>";
+        context += "  <td width='5%'><input type='text'/></td>";
+        context += "  <td width='5%'><input type='text'/></td>";
         context += "  <td><input type='text'/></td>";
         context += "  <td><input type='text'/></td>";
         context += "</tr>";
@@ -1010,6 +1019,7 @@
     var path = $("#path").val();
     function initItemList(index) {
         itemindex = -1;
+        // 表格初始化
         $("#tab2 tbody tr").each(function(i) {
             $(this).find("td:eq(2) input[type=text]").css("width", "75%");
             $(this).find("td:eq(2) input[type=text]").css("float", "left");
@@ -1021,7 +1031,6 @@
             $(this).find("td:eq(2) input[type=text]").css("cursor", "pointer");
             $(this).find("td:eq(4) input[type=text]").attr("list", "conts");
             $(this).find("td:eq(5) input[type=text]").attr("list", "codes");
-            $(this).find("td:last").css("display", "none");
             /***************************************************************************/
             $(this).find("td:eq(0) input").attr("name", "items[" + i + "].id");
             $(this).find("td:eq(1) input").attr("name", "items[" + i + "].video");
@@ -1036,6 +1045,7 @@
             $(this).find("td:eq(10) input").attr("name", "items[" + i + "].lengths");
             $(this).find("td:eq(11) input").attr("name", "items[" + i + "].remarks");
             $(this).find("td:eq(12) input").attr("name", "items[" + i + "].picture");
+            $(this).find("td:eq(12) ").css("display", "none");
             /***************************************************************************/
             $(this).unbind("click");
             $(this).click(function() {
@@ -1051,12 +1061,14 @@
             $(this).find("td").each(function(j) {
             	$(this).attr("tabindex", i * 12 + j + 1);
             });
+            
             $(this).find("td").unbind();
             $(this).find("td").focus(function(){
             	$(this).parents("tr").click();
             	$(this).css("background-color", "#FFFFFF");
             	$(this).children().css("background-color", "#FFFFFF");
             });
+            
             $(this).find("td").keydown(function(event) {
             	var index = $(this).parents("tr").find("td").index($(this));
             	if (event.keyCode == 9) {
@@ -1077,12 +1089,14 @@
             	} else 
                 	$(this).find("input").focus();
             });
+            
             $(this).find("td input").unbind();
             $(this).find("td input").focus(function(){
             	$(this).css("background-color", "#fff");
             	$(this).find("input").css("background-color", "#fff");
             	$(this).select();
             });
+            
             $(this).find("td input").keydown(function(event) {
             	event.stopPropagation();
             	if (event.keyCode == 9){
@@ -1126,10 +1140,12 @@
                 }
                 $(this).find("img").show();
             });
+            
             $(this).find("td:eq(2)").unbind("mouseleave");
             $(this).find("td:eq(2)").mouseleave(function() {
                 $(this).find("img").hide();
             });
+            
             var value = $(this).find("td:eq(3) input").val();
             if (value != "")
                 $(this).find("td:eq(3) input").val(parseFloat(value).toFixed(1));
@@ -1147,11 +1163,13 @@
                     $("#main2 table:eq(2) tr:eq(1) td:eq(10) input").val(value);
                 }
             });
+            
             $(this).find("td:eq(3) input").unbind("blur");
             $(this).find("td:eq(3) input").bind("blur", function() {
             	var value = Number($(this).val()).toFixed(1);
             	$(this).val(value);
             });
+            
             $(this).find("td:eq(4) input").unbind("input");
             $(this).find("td:eq(4) input").bind("input", function() {
                 if ($(this).val() != "" && contlist.indexOf($(this).val()) == -1)
@@ -1159,6 +1177,7 @@
                 else
                     $(this).css("background-color", "#FFFFFF");
             });
+            
             $(this).find("td:eq(5) input").unbind("input");
             $(this).find("td:eq(5) input").bind("input", function() {
                 $(this).val($(this).val().toUpperCase());
@@ -1169,16 +1188,18 @@
                     $(this).css("background-color", "#FFFFFF");
                     $(this).find("td:eq(11) input").attr("list", $(this).val());
                 }
+                
                 if ($("#tab2 tbody tr").eq(i).find("td:eq(11) input").val() != "")
                 	return true;
+                
                 var dist = $(this).parents("tr").find("td:eq(3) input").val();
-                var length = $("#main2 table:eq(2) tr:eq(1) td:eq(10) input").val();
-                console.log(length);
+                var length = $("input[name=totallength]").val();
+                
                 if ($(this).val() == "MH" && Number(dist) == 0.0) {
-                    var smh = $("#main2 table:eq(2) tr:eq(1) td:eq(0) input").val();
+                    var smh = $("input[name=smanholeno]").val();
                     $("#tab2 tbody tr").eq(i).find("td:eq(11) input").val(smh);
                 } else if ($(this).val() == "MH" && Number(dist) == length) {
-                    var fmh = $("#main2 table:eq(2) tr:eq(1) td:eq(1) input").val();
+                    var fmh = $("input[name=smanholeno]").val();
                     $("#tab2 tbody tr").eq(i).find("td:eq(11) input").val(fmh);
                 }
             });
@@ -1320,7 +1341,6 @@
         }
         for (var i = 0; i < $("#tab2 tbody tr").length; i++) {
             var row = $("#tab2 tbody tr").eq(i);
-            
             var dist = row.find("td:eq(3) input").val();
             var cont = row.find("td:eq(4) input").val();
             var code = row.find("td:eq(5) input").val();
@@ -1506,7 +1526,7 @@
     });
     var value = Math.max.apply(null, list);
     var length = value == "-Infinity" ? 0 : value;
-    $("#form1 table:eq(2) input[type=text]:eq(5)").val(length);
+    $("input[name=totallength]").val(length);
     /** ***************************************************************************** */
     function drawPipe() {
         var canvas = $("#showpipeimg")[0];
@@ -1537,7 +1557,7 @@
         });
         // var tl=Math.max.apply(null,distlist);
         tl = (tl == 0.0 ? 1 : tl);
-        var use = $("#main2 table:eq(2) select:eq(0)").val();
+        var use = $("#input3 select:eq(0)").val();
         for (var i = 0; i < distlist.length; i++) {
             if (use == "F") {
                 var distance = i > 0 ? 100 : 40;

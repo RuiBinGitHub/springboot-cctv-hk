@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 body {
-	background-color: #f1f1f1;
+	background-color: #F5F5F5;
 }
 
 #Tip {
@@ -21,11 +21,11 @@ body {
 }
 
 #TitleMemu {
-	width: 100%;
-	height: 80px;
 	top: 0px;
 	left: 0px;
-	background-color: rgba(102, 102, 110, 0.9);
+	width: 100%;
+	height: 80px;
+	background-color: rgba(102, 102, 102, 0.9);
 	position: fixed;
 	display: none;
 	z-index: 10;
@@ -45,7 +45,7 @@ body {
 	font-size: 15px;
 	margin: 25px 0px 24px 10px;
 	background-color: #51C83D;
-	border-radius: 4px;
+	border-radius: 2px;
 	border: none;
 	float: left;
 }
@@ -56,76 +56,94 @@ body {
 }
 /******************************************/
 #main {
-	width: 1200px;
-	margin: 0px auto;
+	width: 1240px;
+	margin: 20px auto;
 }
 
-#mainTop {
-	width: 1198px;
-	max-height: 350px;
-	margin-top: 5px;
+#main1 {
+	width: 1238px;
 	background-color: #fff;
-	border: 1px solid #ccc;
+	border: 1px solid #ddd;
 	float: left;
 }
 
-.title {
-	width: 100%;
-	height: 50px;
-	line-height: 50px;
-	text-indent: 20px;
-	font-size: 20px;
+#memu1 {
+	width: 1200px;
+	height: 69px;
+	margin-left: 20px;
+	font-family: "宋体";
+	border-bottom: 1px dashed #ccc;
+	float: left;
+}
+
+#memu1 div {
+	width: 1100px;
+	height: 100%;
+	font-size: 24px;
 	font-weight: 700;
+	line-height: 70px;
+	text-indent: 20px;
 	float: left;
 }
 
-#common {
-	width: 80px;
-	height: 30px;
-	margin-top: 10px;
-	margin-right: 20px;
+#memu1 input {
+	width: 70px;
+	height: 25px;
+	margin: 24px 5px;
 	color: #ffffff;
-	background: #51C83D;
-	border-radius: 4px;
+	font-size: 15px;
+	font-family: "宋体";
+	font-weight: 600;
+	background-color: #51C83D;
+	border-radius: 2px;
 	border: none;
-	float: right;
+	float: left;
+	border-radius: 2px;
 }
 
-#common:hover {
-	color: #F7C93D;
+#memu1 input:hover {
 	cursor: pointer;
+	color: #F7C93D;
 }
 
 #head1 {
-	width: 100%;
+	width: 1200px;
 	height: 35px;
-	background-color: #00A4FF;
+	color: #ffffff;
+	margin-top: 12px;
+	margin-left: 20px;
+	background-color: #505984;
 	float: left;
 }
 
 #head1 div {
 	height: 100%;
-	color: #FFF;
-	font-size: 16px;
-	font-weight: 700;
 	text-align: center;
 	line-height: 35px;
 	border: none;
 	float: left;
 }
 
+#showpipe {
+	width: 1200px;
+	max-height: 240px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	overflow-y: scroll;
+	float: left;
+}
+
 #tab1 {
 	width: 100%;
 	border-collapse: collapse;
-	background-color: #E3E3E3;
+	table-layout: fixed;
 }
 
 #tab1 tr {
 	height: 24px;
-	font-size: 14px; //
-	font-family: 宋体; text-align : center;
-	background-color: #ffffff;
+	font-size: 14px;
 	text-align: center;
+	background-color: #ffffff;
 }
 
 #tab1 tr:nth-child(even) {
@@ -133,7 +151,7 @@ body {
 }
 
 #tab1 tr:hover {
-	background-color: #ffd58d;
+	background-color: #FFD58D;
 }
 
 #tab1 tr td img {
@@ -145,93 +163,169 @@ body {
 #tab1 tr td input {
 	width: 40px;
 	height: 20px;
-	color: #fff;
-	background-color: #FF9000;
-	border-radius: 4px;
+	color: #ffffff;
+	background-color: #FF7E00;
+	border-radius: 2px;
 	display: none;
 	border: none;
 }
 
 #tab1 tr td input:hover {
-	background-color: #ffaa2b;
 	cursor: pointer;
+	color: #ff9f40;
 }
 
-#mainCenter {
-	width: 1198px;
-	margin: 5px 0px;
+#main2 {
+	width: 1238px;
+	height: 278px;
+	margin: 10px 0px;
 	background-color: #fff;
-	border: 1px solid #ccc;
+	border: 1px solid #ddd;
 	float: left;
 }
 
-#mainCenter table {
-	margin: 0px 15px;
-	font-size: 14px;
-	font-family: 宋体;
+#main2 div {
+	width: 1215px;
+	margin-left: 20px;
+	font-size: 13px;
 	float: left;
 }
 
-#mainCenter table tr {
-	height: 25px;
+#main2 div span {
+	line-height: 30px;
+	float: left;
 }
 
-#mainCenter table tr input {
+#main2 div input {
+	height: 20px;
 	text-indent: 5px;
-	border: 1px solid #999;
-}
-
-#view {
-	width: 1198px;
-	background-color: #fff;
+	margin-right: 5px;
 	border: 1px solid #ccc;
-	border-bottom: none;
 	float: left;
 }
 
-.viewTitle {
-	width: 580px;
-	height: 27px;
-	font-size: 16px;
-	text-indent: 32px;
-	line-height: 25px;
+#showpipeimg {
+	width: 208px;
+	height: 840px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	float: left;
+}
+
+#showvideo {
+	width: 1018px;
+	height: 840px;
+	margin-left: 10px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	float: left;
+}
+
+.videoTitle {
+	width: 50%;
+	height: 40px;
+	font-size: 24px;
+	font-family: 宋体;
+	font-weight: 600;
+	text-align: center;
+	line-height: 40px;
 	float: left;
 }
 
 #video {
-	width: 560px;
-	height: 420px;
-	margin: 0px 10px 10px 30px;
-	background-color: #fff;
+	width: 500px;;
+	height: 375px;
+	margin-left: 6px;
+	background-color: #000;
 	border-radius: 4px;
 	cursor: pointer;
 	float: left;
 }
 
-#pictures {
-	width: 560px;
-	height: 420px;
-	margin: 0px 20px 10px 10px;
-	background-color: #fff;
-	border-radius: 4px;
+#image {
+	width: 500px;;
+	height: 375px;
+	margin-left: 6px;
+	background-color: #fafafa;
+	border-radius: 2px;
 	float: left;
+}
+
+#menu2 {
+	width: 100%;
+	height: 32px;
+	font-size: 20px;
+	font-weight: 700;
+	font-family: "宋体";
+	line-height: 32px;
+	text-indent: 20px;
+	margin-top: 4px;
+	border-top: 1px solid #ccc;
+	float: left;
+}
+
+#title {
+	width: 100%;
+	table-layout: fixed;
+	float: left;
+}
+
+#title tr {
+	color: #fff;
+	font-size: 14px;
+	text-align: center;
+}
+
+#showItem {
+	width: 100%;
+	height: 340px;
+	overflow-y: scroll;
+	float: left;
+}
+
+#tab2 {
+	width: 100%;
+	background-color: #F1F1F1;
+	table-layout: fixed;
+}
+
+#tab2  tr {
+	height: 24px;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+#tab2 tr td {
+	font-size: 12px;
+	text-indent: 3px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden
 }
 
 #mainBottom1 {
-	width: 1198px;
-	max-height: 368px;
+	width: 1238px; //
+	height: 250px;
+	margin-top: 10px;
 	background-color: #fff;
 	border: 1px solid #ccc;
 	float: left;
 }
 
-#mainBottom2 {
-	width: 1198px; //
-	height: 250px;
-	margin-top: 5px;
-	background-color: #fff;
-	border: 1px solid #ccc;
+#bTitle {
+	width: 100%;
+	height: 40px;
+	color: #fff;
+	font-size: 20px;
+	font-family: 宋体;
+	font-weight: 600;
+	text-align: center;
+	line-height: 40px;
+	background-color: #505984;
 	float: left;
+	background-color: #505984;
+	line-height: 40px;
 }
 
 #display {
@@ -251,27 +345,13 @@ body {
 	color: #ff8000;
 }
 
-#tab2 {
-	table-layout: fixed;
-}
-
-#tab2 tbody tr {
-	height: 24px;
-	font-size: 12px;
-	cursor: pointer;
-}
-
-#tab2 tbody tr td {
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
 #tab3 {
 	color: #4E6794;
 	font-size: 14px;
 	font-family: "Helvetica";
 	text-align: center;
+	margin-left: 18px;
+	float: left;
 }
 
 #tab3 tr td div {
@@ -287,13 +367,14 @@ body {
 	height: 30px;
 	margin-left: 8px;
 	text-indent: 6px;
+	font-family: "微软雅黑";
 	border: none;
 	border-bottom: 2px solid #ccc;
+	outline: none;
 }
 
-#tab3 tr td input:focus, #tab3 tr td input:hover {
-	outline: none;
-	border-bottom: 2px solid #009688;
+#tab3 tr td input:hover {
+	border-bottom: 2px solid #4E6794;
 }
 
 #tab3 tr td textarea {
@@ -305,15 +386,16 @@ body {
 	font-family: "微软雅黑";
 	border: none;
 	border-bottom: 2px solid #ccc;
+	outline: none;
 	resize: none;
 }
 
-#tab3 tr td textarea:focus, #tab3 tr td textarea:hover {
-	border-bottom: 2px solid #009688;
-	outline: none;
+#tab3 tr td textarea:hover {
+	border-bottom: 2px solid #4E6794;
 }
 
 .star {
 	margin-left: 4px;
+	cursor: pointer;
 	float: left;
 }

@@ -1,17 +1,15 @@
 $(document).ready(function() {
+	
 	var language = $("#top").text() == "項目合並" ? "zh" : "en"; 
 	/********************************************************************/
     initlist(Ajax("combinelist", null));
+    
     $("#menuBtn1").attr("disabled", true);
-    $("#menuBtn1").css("background-color", "#CCCCCC");
-    $("#menuText").bind("input", function() {
-    	if ($(this).val() == "") {
-            $("#menuBtn1").css("background-color", "#CCCCCC");
-            $("#menuBtn1").attr("disabled", true);
-    	} else {
-            $("#menuBtn1").css("background-color", "#2AB673");
-            $("#menuBtn1").attr("disabled", false);
-    	}
+    $("#menuText").on("input",function() {
+    	if ($(this).val() == "")
+    		$("#menuBtn1").attr("disabled", true);
+    	else
+    		$("#menuBtn1").attr("disabled", false);
     });
     $("#menuText").keydown(function() {
         if (event.keyCode == 13)
@@ -19,8 +17,7 @@ $(document).ready(function() {
     });
     $("#menuBtn1").click(function() {
         $("#menuText").val("");
-        var result = Ajax("combinelist", null);
-        initlist(result);
+        initlist(Ajax("combinelist", null));
 
     });
     $("#menuBtn2").click(function() {
@@ -37,7 +34,7 @@ $(document).ready(function() {
             context += "<tr align='center'>";
             context += "  <td width='50px'><input type='checkbox' value=" + data[i].id + "></td>";
             context += "  <td width='30px'>" + (i + 1) + "</td>";
-            context += "  <td width='200px'><a name='" + data[i].id + "'>" + data[i].name + "</a></td>";
+            context += "  <td width='200px'><a>" + data[i].name + "</a></td>";
             context += "  <td width='240px'>" + data[i].client + "</td>";
             context += "  <td width='120px'>" + data[i].standard + "</td>";
             context += "  <td width='100px'>" + data[i].slope + "</td>";
@@ -48,13 +45,13 @@ $(document).ready(function() {
         $("#tab1").html(context);
         /****************************************************************/
         var list = new Array();
-        $("#fieldset .text").each(function(i) {
-            list.push(Number($(this).attr("name")));
+        $("#fieldset .label").each(function(i) {
+            list.push(Number($(this).attr("id")));
         });
         $("#tab1 tr").each(function(i) {
-        	 var id = $(this).find("a").attr("name");
+        	 var id = $(this).find("input").attr("value");
              $(this).find("a").attr("target", "_blank");
-             $(this).find("a").attr("href", "/CCTV/project/findinfo?id=" + id);
+             $(this).find("a").attr("href", "findinfo?id=" + id);
              /*********************************************/
             if ($("#menuText").val() != "") {
                 var name = $("#menuText").val();
@@ -70,36 +67,39 @@ $(document).ready(function() {
             $(this).find("input[type=checkbox]").click(function() {
                 if ($(this).is(":checked") && $("#fieldset .label").length < 20) {
                     var value = $(this).val();
-                    var line = $("#tab1 tr").eq(i).find("td:eq(1)").text();
-                    var name = $("#tab1 tr").eq(i).find("td:eq(2)").text();
-                    var text = "<div class='label'>";
-                    text += "  <div class='num'>" + line + "</div>";
-                    text += "  <a class='text' name='" + value + "'>" + name + "</a>";
-                    text += "  <div class='btn'>X</div>";
-                    text += "</div>";
+                    var text = "<div id='" + value + "' class='label'>";
+                    text += $("#tab1 tr").eq(i).find("td:eq(2)").text();
+                    text += "<div class='delete'>x</div></div>";
                     $("#fieldset").append(text);
-                    initBtn();
+                    initRemoveBtn();
                 } else {
-                    var id = $(this).val();
-                    $(".text[name=" + id + "]").parents(".label").remove();
-                    $(this).attr("checked", false);
+                    var value = $(this).val();
+                    $(".label[id=" + value + "]").remove();
                 }
             });
         });
     }
     /********************************************************************/
-    function initBtn() {
-        $("#fieldset .btn").click(function() {
-            var id = $(this).prev().attr("name");
-            $(this).parents(".label").remove();
-            $("#tab1 input[value=" + id + "]").attr("checked", false);
+    function initRemoveBtn() {
+        $("#fieldset .label").each(function() {
+        	$(this).mouseenter(function() {
+        		$(this).find("div").show();
+        	});
+        	$(this).mouseleave(function() {
+        		$(this).find("div").hide();
+        	});
+        	var id = $(this).attr("id");
+        	$(this).find("div").click(function() {
+        		$(this).parent().remove();
+        		$("#tab1 input[value=" + id + "]").attr("checked", false);
+        	});
         });
     }
     /********************************************************************/
     $(".combtn").click(function() {
         var list = new Array();
-        $("#fieldset .text").each(function(i) {
-            list.push(Number($(this).attr("name")));
+        $("#fieldset .label").each(function(i) {
+            list.push(Number($(this).attr("id")));
         });
         if (list.length < 2) {
             if (language == "zh")
@@ -115,8 +115,8 @@ $(document).ready(function() {
     		showText = "Operating successfully!";
     	}
         if (confirm(tipsText)) {
+        	$(this).attr("disabled", true);
             $(this).css("background-color", "#CCC");
-            $(this).attr("disabled", true);
             if (Ajax("combine", {list: list}))
             	showTips(showText);
             setTimeout("location.reload()", 2000);

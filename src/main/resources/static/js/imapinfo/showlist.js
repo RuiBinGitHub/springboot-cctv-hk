@@ -42,8 +42,9 @@ $(document).ready(function() {
     // 不显示版权声明
     viewer._cesiumWidget._creditContainer.style.display = "none";
     // 设置地图的默认显示中心点和俯瞰高度
+    var center = ol.proj.transform([831800.000, 830400.000], "EPSG:2326", "EPSG:4326");
     viewer.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(114.0226, 22.4469, 600)
+        destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 40000)
     });
     /** ************************************************************************ */
     // 设置弹出框内元素可以执行操作
@@ -67,15 +68,15 @@ $(document).ready(function() {
         var center2 = ol.proj.transform([x2, y2], "EPSG:2326", "EPSG:4326");
         var grade = $(this).find("a:eq(5)").text();
         
-        drawPipe(id, "", [center1[0], center1[1], 0, center2[0], center2[1], 0], 0.8, grade);
+        drawPipe(id, "", [center1[0], center1[1], 0, center2[0], center2[1], 0], 0.1, grade);
         if (mhList.indexOf(center1) == -1)
             mhList.push(center1);
         if (mhList.indexOf(center2) == -1)
             mhList.push(center2);
     });
-    var h = -0.00004;
+    var h = 0.000004;
     for (var i = 0; i < mhList.length; i++) {
-        drawManhole(i, "", mhList[i][0] - h, mhList[i][1], 2);
+        drawManhole(i, "", mhList[i][0] - 0, mhList[i][1], -0.5);
     }
 
     //鼠标左键单击事件
@@ -178,19 +179,16 @@ $(document).ready(function() {
     function drawManhole(id, description, lon, lat, heght) {
     	// 确定元素的经纬度和在高度（m）。
         var degree = Cesium.Cartesian3.fromDegrees(lon, lat, heght);
-        var pitchRoll = new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(180), 0, 0);
-        var orientation = Cesium.Transforms.headingPitchRollQuaternion(degree, pitchRoll);
         var color = Cesium.Color.LIME;
         var model = viewer.entities.add({
             id: id,
             name: "沙井",
             position: degree,
-            orientation: orientation,
             model: {
-                uri: "/CCTV/model/manhole.glb",
-                minimumPixelSize: 8,
-                maximumSize: 8,
-                maximumScale: 8,
+                uri: "/CCTV/model/F(1).glb",
+                minimumPixelSize: 1,
+                maximumSize: 2,
+                maximumScale: 2,
                 silhouetteColor: Cesium.Color.WHITE,
                 debugWireframe: false,
                 debugShowBoundingVolume: false,
@@ -201,7 +199,6 @@ $(document).ready(function() {
     }
 
     function drawPipe(id, description, positionArr, circle, i) {
-    	console.log(positionArr);
     	var color = null;
         if (i == 1.0) 
         	color = Cesium.Color.GREEN;

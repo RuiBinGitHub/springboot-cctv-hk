@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
@@ -15,8 +13,6 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.springboot.bean.AppBean;
 import com.springboot.biz.CompanyBiz;
 import com.springboot.biz.PersonBiz;
 import com.springboot.entity.Company;
@@ -39,7 +36,7 @@ public class UserController {
 	@Resource
 	private PersonBiz personBiz;
 	@Resource
-	private JavaMailSender sender;
+	private AppBean appBean;
 
 	private Map<String, Object> map = null;
 	private UsernamePasswordToken token = null;
@@ -143,14 +140,14 @@ public class UserController {
 
 	/** 重置密码 */
 	@RequestMapping(value = "/resetpass", method = RequestMethod.POST)
-	public ModelAndView resetpass(String username, String password, String email) {
+	public ModelAndView resetpass(String username, String password, String mail) {
 		ModelAndView view = new ModelAndView("user/resetpass");
-		map = AppUtils.getMap("username", username, "email", email);
+		map = AppUtils.getMap("username", username, "email", mail);
 		Person person = personBiz.findInfoPerson(map);
 		if (StringUtils.isEmpty(person)) {
 			view.addObject("tips", "*UserName and E-Mail mismatch!");
 			view.addObject("username", username);
-			view.addObject("email", email);
+			view.addObject("email", mail);
 			return view;
 		}
 		person.setPassword(password);
@@ -162,23 +159,10 @@ public class UserController {
 	/** 发送电子邮件 */
 	@RequestMapping(value = "/sendmail")
 	public String sendmail(String mail) {
-		try {
-			MimeMessage mimeMessage = sender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-			helper.setFrom("SZMSDI@126.com");
-			helper.setTo(mail);
-			StringBuffer text = new StringBuffer("【深圳麦斯迪埃】");
-			String code = String.valueOf(100000 + (int) (Math.random() * 899999));
-			text.append("您正在使用邮箱进行校验，效验码：<a href='#'>" + code + "</a>。");
-			text.append("有效时间10分钟，超时请重新获取。(如非本人操作，请忽略该信息)");
-			text.append("<p style='color:#999999'>该信息为系统自动发件，请勿回复!</p>");
-			helper.setSubject("信息验证");
-			helper.setText(text.toString(), true);
-			sender.send(mimeMessage);
-			return code;
-		} catch (MessagingException e) {
-			return "";
-		}
+		int random = (int) (Math.random() * 899999);
+		String code = String.valueOf(100000 + random);
+		appBean.sendMail(mail, code);
+		return code;
 	}
 
 	@RequestMapping(value = "/index")

@@ -20,8 +20,8 @@ public interface MarkProjectDao {
 	
 	public List<MarkProject> findListMarkProject(Map<String, Object> map);
 	
+	public List<MarkProject> markListMarkProject(Map<String, Object> map);
+	
 	public int getCount(Map<String, Object> map);
 	
-	public Map<String, Double> getAverage(MarkProject markProject);
-
 }

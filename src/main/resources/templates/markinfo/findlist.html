@@ -4,6 +4,7 @@
 	<title>评分管理</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/CCTV/css/comm/itemlist.css"/>
 	<link rel="stylesheet" type="text/css" href="/CCTV/css/markinfo/findlist.css"/>
 	<script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="/CCTV/js/markinfo/findlist.js"></script>
@@ -12,7 +13,7 @@
     <div th:replace="navigation::navigation"></div>
     <div id="Tip"></div>
     <div id="main">
-      <div id="mainLeft">
+      <div id="mainMenu">
         <div id="menuTitle" th:text="#{menu.title.text}"></div>
         <div class="menu2"><a href="/CCTV/project/showlist" th:text="#{menu.div.text1}"></a></div>
         <shiro:hasRole name="role2">
@@ -34,17 +35,18 @@
         </shiro:hasRole>
         <div class="menu2"><a href="/CCTV/person/center" th:text="#{menu.div.text9}"></a></div>
       </div>
-      <div id="mainRight">
-        <div id="rightTop" th:text="#{markinfo.findlist.title1}"></div>
-        <div id="rightMenu">
-          <span style="font-weight:600;margin-left:10px;float:left;" th:text="#{markinfo.findlist.menu1}"></span>
+      
+      <div id="mainInfo">
+        <div id="infoTop" th:text="#{markinfo.findlist.title1}"></div>
+        <div id="infoMenu">
+          <span style="font-weight:600;float:left;" th:text="#{markinfo.findlist.menu1}"></span>
           <input id="menuBtn1" type="button" value="←"/>
           <input id="menuText" th:value="${param.name}"/>
           <input id="menuBtn2" type="button" th:value="#{markinfo.findlist.menu2}"/>
         </div>
         <table id="tab1">
           <thead>
-            <tr height="40px" style="font-size:18px;background-color:#F0F0F0">
+            <tr height="40px" style="color:#fff;font-size:16px;background-color:#3CB44B">
               <th width="4%">NO</th>           
 			  <th width="16%" th:text="#{markinfo.findlist.table.title1}"></th>   
 			  <th width="24%" th:text="#{markinfo.findlist.table.title2}"></th> 
@@ -65,15 +67,15 @@
           	  <td th:text="${markProject.score2}"></td>
               <td th:text="${markProject.date}"></td>
 		      <td>
-		        <input type="button" th:value="#{markinfo.findlist.table.button1}" class="tablebtn1">
-		        <input type="button" th:value="#{markinfo.findlist.table.button2}" class="tablebtn2">
+		        <input type="button" th:value="#{markinfo.findlist.table.button1}" style="background-color:#23ADDF;">
+		        <input type="button" th:value="#{markinfo.findlist.table.button2}" style="background-color:#DB5651;">
 		      </td>
           	</tr>
           </tbody>
         </table>
         <img th:if="${#lists.isEmpty(markProjects)}" src="/CCTV/img/null.png" style="margin:145px 400px;float:left;">
         <table id="tab2" th:if="${!#lists.isEmpty(markProjects)}">
-          <tr height="30px">
+          <tr height="65px">
             <td width="45%" align="right"><input type="button" th:value="#{showlit.page.button1}" class="pagebtn"/></td>
             <td width="10%" align="center"><a id="page1" th:text="${page}"></a> / <a id="page2" th:text="${cont}"></a></td>
             <td width="45%" align="left"><input type="button" th:value="#{showlit.page.button2}" class="pagebtn"/></td>

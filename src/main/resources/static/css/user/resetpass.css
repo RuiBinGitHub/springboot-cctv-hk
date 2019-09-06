@@ -1,98 +1,121 @@
 @CHARSET "UTF-8";
+
 body {
 	background-color: #f1f1f1;
 }
-#logo {
-	width:1000px;
-	height:80px;
-	margin:0px auto;
-}
-#logo img {
-	width:106px;
-	height:50px;
-	margin:15px 10px;
-	float:left;
-}
+
 #main {
-	width:1000px;
-	margin:10px auto;
-}
-#mainTop {
-	width:100%;
-	height:48px;
-	margin-top:10px;
-	font-size:20px;
-	font-weight:700;
-	text-indent:20px;
-	line-height:48px;
-	background-color:#fff;
-	border-bottom:2px solid #5EA500;
-	float:left;
-}
-#mainCenter {
-	width:100%;
-	height:640px;
-	background-color:#fff;
-	float:left;
-}
-#tips {
-	width:100%;
-	height:30px;
-	margin-top:45px;
-	color:#f00;
-	font-size:18px;
-	font-family:"宋体";
-	font-weight:600;
-	text-align:center;
-	float:left;
-}
-#tab1 {
-	width:500px;
-	margin-top:10px;
-	margin-left:240px;
-	float:left;
+	width: 1200px;
+	margin: 120px auto;
+	background-color: #fff;
 }
 
-#tab1 tr {
-	height:80px;
-	font-size:18px;
-	font-family:"宋体";
-	font-weight:600;
+#logo {
+	width: 800px;
+	height: 600px;
+	float: left;
 }
-#tab1 a {
+
+#mainInfo {
+	width: 400px;
+	height: 600px;
+	background-color: #fff;
+	float: left;
+}
+
+#icon {
+	width: 106px;
+	height: 50px;
+	margin: 50px 24px 15px 30px;
+	float: left;
+}
+
+#title {
+	width: 200px;
+	height: 50px;
+	color: #00953E;
+	font-size: 20px;
+	font-weight: 700;
+	font-family: "宋体";
+	text-align: right;
+	line-height: 50px;
+	margin: 50px 30px 15px 0px;
+	float: left;
+}
+
+#tips {
+	width: 350px;
+	height: 25px;
+	color: #f00;
+	font-size: 15px;
+	font-family: "宋体";
+	font-weight: 600;
+	line-height: 25px;
+	margin: 0px 20px 0px 30px;
+	float: left;
+}
+
+#tab1 {
+	width: 360px;
+	margin-left: 30px;
+	float: left;
+}
+
+#tab1 span {
 	color: #f00;
 }
-#tab1 input[type=text], #tab1 input[type=password] {
-	width:280px;
-	height:28px;
-	font-size:15px;
-	font-family:"宋体";
-	text-indent:10px;
-	border:1px solid #999;
-	border-radius:3px;
-	float:left;
+
+#tab1 .row1 {
+	height: 30px;
+	color: #00953E;
+	font-size: 16px;
+	font-family: "宋体";
+	font-weight: 600;
+	font-size: 16px;
 }
-#getBtn {
-	width:140px;
-	height:32px;
-	color:#28B779;
-	background-color:#fff;
-	border:1px solid #999;
-	border-radius:3px;
-	cursor:pointer;
-	float:left;
+
+#tab1 .row2 {
+	height: 35px;
 }
-.combtn {
-	width:284px;
-	height:32px;
-	color:#ffffff;
-	font-size:15px;
-	font-weight:600;
-	background-color:#5EA500;
-	border-radius:3px;
-	border:none;
+
+.textbox {
+	width: 328px;
+	height: 28px;
+	font-size: 15px;
+	font-family: "宋体";
+	text-indent: 5px;
+	border: none;
+	border-bottom: 2px solid #00953E;
+	outline: 0px;
+	float: left;
 }
-.combtn:hover {
-	background-color: #7bd700;
-	cursor:pointer;
+
+#btn1 {
+	width: 100px;
+	height: 30px;
+	color: #00953E;
+	font-weight: 600;
+	margin-left: 10px;
+	background-color: #fff;
+	border: 2px solid #00953E;
+	border-radius: 3px;
+	cursor: pointer;
+	float: left;
+}
+
+#btn2 {
+	width: 150px;
+	height: 30px;
+	color: #ffffff;
+	font-size: 15px;
+	font-weight: 600;
+	background-color: #00953E;
+	border-radius: 30px;
+	border: none;
+	float: left;
+}
+
+#btn2:hover {
+	background-color: #00bd50;
+	cursor: pointer;
 }

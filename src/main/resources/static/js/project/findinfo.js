@@ -89,15 +89,7 @@ $(document).ready(function() {
             else
                 $("#pic1").attr("src", "/CCTV/img/blank.png");
         });
-        $(this).find("td:eq(3) input").css("align", "right");
-        var text = $(this).find("td:eq(11)").text();
-        $(this).find("td:eq(3)").css("text-align", "right");
-    	$(this).find("td:eq(9)").css("text-align", "right");
-    	$(this).find("td:eq(10)").css("text-align", "right");
-    	$(this).find("td:eq(3)").css("padding-right", "10px");
-    	$(this).find("td:eq(9)").css("padding-right", "10px");
-    	$(this).find("td:eq(10)").css("padding-right", "10px");
-    	$(this).find("td:last").css("display", "none");
+    	$(this).find("td:eq(12)").css("display", "none");
     });
     /** ***************************************************************************** */
     function drawPipe() {
@@ -128,7 +120,7 @@ $(document).ready(function() {
                 joinlist.push($(this).find("td:eq(3)").text());
         });
         tl = tl <= 0.0 ? 1 : tl;
-        var use = $("#main2 table:eq(2) input:eq(2)").val();
+        var use = $("#input3 input:eq(2)").val();
         for (var i = 0; i < distlist.length; i++) {
             if (use == "Foul") {
                 var distance = i > 0 ? 100 : 40;

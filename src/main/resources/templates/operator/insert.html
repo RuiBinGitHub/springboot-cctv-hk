@@ -12,61 +12,60 @@
     <div th:replace="navigation::navigation"></div>
     <div id="Tip"></div>
     <div id="main">
-      <div id="mainInfo">
-        <div id="top" th:text="#{operator.insert.title}"></div>
-        <form id="form1" action="insert" method="post">
-        <table id="tab1">
-          <tr>
-            <td width="180px" align="right"><a>*</a><span th:text="#{operator.insert.label1}"></span></td>
-            <td width="300px">
-              <select class="select" name="title">
-                <option value="Mr.">Mr.</option>
-                <option value="Ms.">Ms.</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td align="right"><a>*</a><span th:text="#{operator.insert.label2}"></span></td>
-            <td><input type="text" class="textbox" name="fullname"/></td>
-          </tr>
-          <tr>
-            <td align="right"><a>*</a><span th:text="#{operator.insert.label3}"></span></td>
-    	    <td><input type="text" class="textbox" name="sure"/></td>
-       	  </tr>
-          <tr>
-       	    <td align="right"><a>*</a><span th:text="#{operator.insert.label4}"></span></td>
-       	    <td><input type="text" class="textbox" name="name"/></td>
-          </tr>
-          <tr>
-    	    <td align="right"><span th:text="#{operator.insert.label5}"></span></td>
-    	    <td><input type="text" class="textbox" name="chianame" value="--"/></td>
-    	  </tr>
-          <tr>
-    	    <td align="right"><span th:text="#{operator.insert.label6}"></span></td>
-    	    <td><input type="text" class="textbox" name="nickname" value="--"/></td>
-    	  </tr>
-          <tr>
-       	    <td align="right"><a>*</a><span th:text="#{operator.insert.label7}"></span></td>
-       	    <td><input type="text" class="textbox" name="membergrades" list="list"/></td>
-       	  </tr>
-          <tr>
-       	    <td align="right"><a>*</a><span th:text="#{operator.insert.label8}"></span></td>
-       	    <td><input type="text" class="textbox" name="membernumber"/></td>
-       	  </tr>
-          <tr>
-    	    <td align="left"></td>
-       	    <td><input type="button" th:value="#{operator.insert.button}" class="combtn"></td>
-       	  </tr>
-        </table>
-        </form>
-      </div>
-      <datalist id="list">
-        <option value="Associate">Associate</option>
-        <option value="Fellow">Fellow</option>
-        <option value="Manager">Manager</option>
-        <option value="Operative">Operative</option>
-      </datalist>
+      <img id="img" src="/CCTV/img/picture/02.png">
+      <form id="form1" action="insert" method="post">
+      <table id="tab1">
+        <tr style="height:15px;"><td align="center" colspan="2"></td></tr>
+        <tr>
+          <td width="175px" align="right"><a>*</a><span th:text="#{operator.insert.label1}"></span></td>
+          <td width="300px">
+            <select class="select" name="title">
+              <option value="Mr.">Mr.</option>
+              <option value="Ms.">Ms.</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td align="right"><a>*</a><span th:text="#{operator.insert.label2}"></span></td>
+          <td><input type="text" class="textbox" name="fullname"/></td>
+        </tr>
+        <tr>
+          <td align="right"><a>*</a><span th:text="#{operator.insert.label3}"></span></td>
+    	  <td><input type="text" class="textbox" name="sure"/></td>
+       	</tr>
+        <tr>
+       	  <td align="right"><a>*</a><span th:text="#{operator.insert.label4}"></span></td>
+       	  <td><input type="text" class="textbox" name="name"/></td>
+        </tr>
+        <tr>
+    	  <td align="right"><span th:text="#{operator.insert.label5}"></span></td>
+    	  <td><input type="text" class="textbox" name="chianame" value="--"/></td>
+    	</tr>
+        <tr>
+    	  <td align="right"><span th:text="#{operator.insert.label6}"></span></td>
+    	  <td><input type="text" class="textbox" name="nickname" value="--"/></td>
+    	</tr>
+        <tr>
+       	  <td align="right"><a>*</a><span th:text="#{operator.insert.label7}"></span></td>
+       	  <td><input type="text" class="textbox" name="membergrades" list="list"/></td>
+       	</tr>
+        <tr>
+       	  <td align="right"><a>*</a><span th:text="#{operator.insert.label8}"></span></td>
+       	  <td><input type="text" class="textbox" name="membernumber"/></td>
+       	</tr>
+        <tr>
+    	  <td align="left"></td>
+       	  <td><input type="button" th:value="#{operator.insert.button}" class="combtn"></td>
+       	</tr>
+      </table>
+      </form>
     </div>
+    <datalist id="list">
+      <option value="Associate">Associate</option>
+      <option value="Fellow">Fellow</option>
+      <option value="Manager">Manager</option>
+      <option value="Operative">Operative</option>
+    </datalist>
     <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
       <p>香港麦斯迪埃高科技有限责任公司</p>
       <p>Copyright © 2017 All Rights Reserved</p>	

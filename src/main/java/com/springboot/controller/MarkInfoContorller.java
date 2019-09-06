@@ -55,12 +55,8 @@ public class MarkInfoContorller {
 		int cont = projectBiz.getCountPage(map, 15);
 		page = page > cont ? cont : page;
 		map.put("page", page);
-		List<Project> projects = projectBiz.findListProject(map);
-		// 查询每个项目评分次数
-		for (Project project : projects) {
-			map = AppUtils.getMap("project", project, "person", user);
-			project.setCount(markProjectBiz.getCount(map, 1));
-		}
+		map.put("person", user);
+		List<Project> projects = projectBiz.markListProject(map);
 		view.addObject("projects", projects);
 		view.addObject("page", page);
 		view.addObject("cont", cont);
@@ -78,9 +74,7 @@ public class MarkInfoContorller {
 		int cont = markProjectBiz.getCount(map, 15);
 		page = page > cont ? cont : page;
 		map.put("page", page);
-		markProjects = markProjectBiz.findListMarkProject(map);
-		for (MarkProject markProject : markProjects)
-			markProjectBiz.setAverage(markProject);
+		markProjects = markProjectBiz.markListMarkProject(map);
 		view.addObject("markProjects", markProjects);
 		view.addObject("page", page);
 		view.addObject("cont", cont);
@@ -96,11 +90,9 @@ public class MarkInfoContorller {
 		if (StringUtils.isEmpty(project))
 			return null;
 		map = AppUtils.getMap("project", project, "person", user);
-		markProjects = markProjectBiz.findListMarkProject(map);
-		for (MarkProject markProject : markProjects) {
-			markProjectBiz.setAverage(markProject);
+		markProjects = markProjectBiz.markListMarkProject(map);
+		for (MarkProject markProject : markProjects)
 			markProject.setPerson(null);
-		}
 		return markProjects;
 	}
 
@@ -115,9 +107,7 @@ public class MarkInfoContorller {
 		int cont = markProjectBiz.getCount(map, 15);
 		page = page > cont ? cont : page;
 		map.put("page", page);
-		markProjects = markProjectBiz.findListMarkProject(map);
-		for (MarkProject markProject : markProjects)
-			markProjectBiz.setAverage(markProject);
+		markProjects = markProjectBiz.markListMarkProject(map);
 		view.addObject("markProjects", markProjects);
 		view.addObject("page", page);
 		view.addObject("cont", cont);

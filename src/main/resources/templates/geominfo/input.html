@@ -5,41 +5,41 @@
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   	<link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
   	<link type="text/css" rel="stylesheet" href="/CCTV/css/geominfo/input.css"/>
-  	<link type="text/css" rel="stylesheet" href="/CCTV/css/comm/ol.css"/>
 	<script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="/CCTV/js/comm/proj4.js"></script>
-	<script type="text/javascript" src="/CCTV/js/comm/ol.js" ></script>
   	<script type="text/javascript" src="/CCTV/js/geominfo/input.js"></script>
   </head>
   <body>
     <div th:replace="navigation::navigation"></div>
 	<div id="Tip"></div>
     <div id="main">
-      <div id="mainTop">
-        <div id="topMenu">
-          <span th:text="#{geominfo.input.menu1}"></span>
-          <input type="button" th:value="#{geominfo.input.button}"/></div>
-        <div id="topBody">
-        <form id="extent" method="post">
-          <input type="hidden" name="id" th:value="${geomProject.id}"/>
-		  <div th:each="coordnate,status:${extent}" th:if="${status.count < #lists.size(extent)}">
-			<a>坐標：</a><input type="text" name="extent" th:value="${coordnate}"/><img/>
-	      </div>
-        </form>
-        <input id="append" type="button" value="+"/>
-        </div>
-        <div id="topFoot">
-          <input id="commit" type="button" th:value="#{geominfo.input.button1}"/>
-          <span th:text="#{geominfo.input.tips}"></span>
-        </div>
-      </div>
-      
-	  <div id="main1">
-	    <div id="memu1">
-	      <a th:text="#{geominfo.input.menu2}"></a> 
-	      <input type="button" th:value="#{geominfo.input.button2}"/>
-	      <input id="xfile" type="file" accept=".xlsx" style="display:none"/>
+      <div id="main1">
+        <div class="title">
+	      <font color="#009344">---   </font>
+	      <span th:text="#{geominfo.input.menu1}"></span>
+	      <font color="#009344">   ---</font>
+	      <input type="button" th:value="#{geominfo.input.button}"/>
 	    </div>
+	    
+        <form id="form1" method="post">
+          <input type="hidden" name="id" th:value="${geomProject.id}"/>
+          <div id="scope">
+          <input th:each="coordnate,status:${extent}" th:if="${status.count < #lists.size(extent)}" type="text" name="extent" th:value="${coordnate}"/>
+          <input id="append" type="button" value="+"/>
+          </div>
+        </form>
+        <input id="commit" type="button" th:value="#{geominfo.input.button1}"/>
+        <span id="tips" th:text="#{geominfo.input.tips}"></span>
+      </div>
+	  <div id="main2">
+	    <div class="title">
+	      <font color="#009344">---   </font>
+	      <span th:text="#{geominfo.input.menu2}"></span>
+	      <font color="#009344">   ---</font>
+	      <input type="button" th:value="#{geominfo.input.button2}"/>
+	      <input id="file" type="file" accept=".xlsx" style="display:none"/>
+	    </div>
+	    <div class="line"></div>
+	    
 	    <div id="head1">
 	      <div style="width:32px"></div>
           <div style="width:31px">No</div>
@@ -53,7 +53,7 @@
           <div style="width:117px">H</div>
           <div style="width:77px" th:text="#{geominfo.input.list.title}"></div>
 	    </div>
-	    <div style="width:100%;max-height:262px;overflow-y:scroll;float:left;">
+	    <div id="showpipe" style="margin-bottom:10px;">
 	      <table id="tab1" style="width:100%;background-color:#E3E3E3">
        	  	<tr th:each="geomPipe:${geomProject.geomPipes}" align="center" height="24px">
               <td width="3%"></td>
@@ -66,7 +66,7 @@
               <td width="12%" th:text="${geomPipe.fmhX}"></td>
               <td width="12%" th:text="${geomPipe.fmhY}"></td>
               <td width="12%" th:text="${geomPipe.fmhH}"></td>
-              <td width="6%"><input type="button" th:name="${geomPipe.id}" th:value="#{geominfo.input.list.button}"/></td>
+              <td width="6%"><input type="button" th:id="${geomPipe.id}" th:value="#{geominfo.input.list.button}"/></td>
               <td style="display:none" th:text="${geomPipe.smhGradeA}"></td>
               <td style="display:none" th:text="${geomPipe.smhGradeB}"></td>
               <td style="display:none" th:text="${geomPipe.fmhGradeA}"></td>
@@ -76,17 +76,17 @@
 	    </div>
 	  </div>
 	  
-	  <div id="main2">
-	  <form id="form1" method="post">
-	    <input type="hidden" name="id" th:value="${geomPipe?.id}"/>
-	    <div id="memu2" th:text="#{geominfo.input.menu3}"></div>
+	  <form id="form2" method="post">
+	  <input type="hidden" name="id" value=""/>
+	  <div id="main3">
+	    <div class="title">
+	      <font color="#009344">---   </font>
+	      <span>Pipeline Coordinates</span>
+	      <font color="#009344">   ---</font>
+	    </div>
+	    <div class="line"></div>
+	    <div class="mhTitle">Start MH：</div>
 	    <table id="ftable1">
-	      <tr height="36px" style="color:#fff;background-color:#505984;">
-	        <td colspan="7" style="font-size:16px;font-weight:600;">
-	          <div style="width:150px;text-align:right;float:left;">Start MH：</div>
-	          <span></span>
-	        </td>
-	      </tr>
 	      <tr height="70px">
 	        <td width="12%" align="right">X：</td>
 	        <td width="20%"><input type="text" name="smhX"/></td>
@@ -94,40 +94,37 @@
 	        <td width="20%"><input type="text" name="smhY"/></td>
 	        <td width="12%" align="right">H：</td>
 	        <td width="20%"><input type="text" name="smhH"/></td>
-	        <td width="4%"><a id="link1" href="javascript:void(0);" style="font-size:14px;" th:text="#{geominfo.input.link1}"></a></td>
-	      </tr>
-	      <tr height="36px" style="color:#fff;background-color:#505984;">
-	        <td colspan="7" style="font-size:16px;font-weight:600;">
-	          <div style="width:150px;text-align:right;float:left;">Finish MH：</div>
-	          <span></span>
-	        </td>
-	      </tr>
-	      <tr height="70px">
-	        <td align="right">X：</td>
-	        <td><input type="text" name="fmhX"/></td>
-	        <td align="right">Y：</td>
-	        <td><input type="text" name="fmhY"/></td>
-	        <td align="right">H：</td>
-	        <td><input type="text" name="fmhH"/></td>
-	        <td width="4%"><a id="link2" href="javascript:void(0);" style="font-size:14px;" th:text="#{geominfo.input.link1}"></a></td>
+	        <td width="4%"><a id="link1" href="javascript:void(0);"></a></td>
 	      </tr>
 	    </table>
-	    <div style="width:100%;height:50px;float:left;">
+	    <div class="mhTitle">Finish MH：</div>
+	    <table id="ftable2">
+	      <tr height="70px">
+	        <td width="12%" align="right">X：</td>
+	        <td width="20%"><input type="text" name="fmhX"/></td>
+	        <td width="12%" align="right">Y：</td>
+	        <td width="20%"><input type="text" name="fmhY"/></td>
+	        <td width="12%" align="right">H：</td>
+	        <td width="20%"><input type="text" name="fmhH"/></td>
+	        <td width="4%"><a id="link2" href="javascript:void(0);"></a></td>
+	      </tr>
+	    </table>
+	    <div style="width:100%;height:60px;float:left;">
 	      <input id="common" type="button" th:value="#{geominfo.input.button3}"/>
 	      <a id="editlink" href="javascript:void(0)" th:text="#{geominfo.input.link2}"></a>
 	    </div>
-	  </form>
 	  </div>
+	  </form>
 	</div>
 	
 	<div id="page">
-	  <div id="form">
+	  <div id="webform">
 	    <div id="bar"><a th:text="#{geominfo.input.link2}"></a><span>X</span></div>
-	    <form id="form2" action="updategrade" method="post">
-	    <input type="hidden" name="id"/>
+	    <form id="form3" action="updategrade" method="post">
+	    <input type="hidden" name="id" value=""/>
 	    <fieldset style="font-size:16px;font-family:宋体">
-	      <legend>Start MH</legend>
-	      <table class="GradeTab">
+	      <legend style="font-weight:600;">Start MH</legend>
+	      <table class="gtab">
 	        <tr>
 	          <td style="text-indent:10px;">Grade A:</td>
 	          <td><input type="text" name="smhGradeA"/></td>
@@ -137,8 +134,8 @@
 	      </table>
 	    </fieldset>
 	    <fieldset style="font-size:16px;font-family:宋体">
-	      <legend>Finish MH</legend>
-	      <table class="GradeTab">
+	      <legend style="font-weight:600;">Finish MH</legend>
+	      <table class="gtab">
 	        <tr>
 	          <td style="text-indent:10px;">Grade A:</td>
 	          <td><input type="text" name="fmhGradeA"/></td>
@@ -150,12 +147,6 @@
 	    </form>
 	    <input type="button" th:value="#{geominfo.input.page.button}"/>
 	  </div>
-	</div>
-	
-	<div id="map">
-	  <input id="close" type="button" value="X"/>
-	  <div id="coordinate">坐标：<a>0000000.000，0000000,000</a></div>
-	  <input id="value" type="button" value="确定"/>
 	</div>
 	<div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
       <p>香港麦斯迪埃高科技有限责任公司</p>

@@ -62,6 +62,23 @@
 		</if>
 	</select>
 	
+	<select id="markListMarkProject" parameterType="Map" resultMap="MarkMap">
+		select m1.*, avg(m2.pipescore) as score1, avg(m2.itemscore) as score2 from markproject m1 
+		left join markpipe m2 on m1.id = m2.markid left join project p on m1.projectid = p.id 
+		<where>
+			<if test="name != null">
+				and p.name like #{name}
+			</if>
+			<if test="company != null">
+				and p.companyid = #{company.id}		
+			</if>
+		</where>
+		group by m1.id order by m1.date desc
+		<if test="page > 0">
+			limit 15 offset (#{page}-1)*15
+		</if> 
+	</select>
+	
 	<select id="getCount" parameterType="Map" resultType="int">
 		select count(*) from markproject m left join project p on m.projectid=p.id
 		<where>
@@ -80,10 +97,6 @@
 		</where>
 	</select>
 	
-	<select id="getAverage" parameterType="MarkProject" resultMap="avgageMap">
-		select avg(pipescore) as score1, avg(itemscore) as score2 from markpipe where markid = #{id}
-	</select>
-	
 	<resultMap id="MarkProjectMap" type="MarkProject">
 		<id property="id" column="id"/>
 		<result property="date" column="date"/>
@@ -91,9 +104,13 @@
 		<association property="person" column="personid" select="com.springboot.dao.PersonDao.findPersonByID"/>
 	</resultMap>
 	
-	<resultMap id="avgageMap" type="java.util.HashMap">
-    	<result property="score1" column="score1"/>
+	<resultMap id="MarkMap" type="MarkProject">
+		<id property="id" column="id"/>
+		<result property="score1" column="score1"/>
     	<result property="score2" column="score2"/>
+		<result property="date" column="date"/>
+		<association property="project" column="projectid" select="com.springboot.dao.ProjectDao.findProjectByID"/>
+		<association property="person" column="personid" select="com.springboot.dao.PersonDao.findPersonByID"/>
 	</resultMap>
 </mapper>
  

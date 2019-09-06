@@ -1,16 +1,21 @@
 $(document).ready(function() {
-	
-	var language = $("#rightTop").text() == "項目列表" ? "zh" : "en";
-	/********************************************************************/
+
+    var language = $("#infoTop").text() == "項目列表" ? "zh" : "en";
+    
+    var tipsText1 = "確定要移除該數據嗎？";
+    var tipsText2 = "數據移除成功！";
+    if (language == "en") {
+        tipsText1 = "Are you sure you want to remove this data?";
+        tipsText2 = "Operating successfully!";
+    }
+    /********************************************************************/
     if ($("#menuText").val() == "") {
-        $("#menuBtn1").css("background-color", "#CCC");
         $("#menuBtn1").attr("disabled", true);
     }
     $("#menuText").keydown(function() {
         if (event.keyCode == 13)
             $("#menuBtn2").click();
     });
-    /********************************************************************/
     $("#menuBtn1").click(function() {
         window.location.href = "findlist";
     });
@@ -25,9 +30,9 @@ $(document).ready(function() {
         /*************************************************/
         var name = $("#menuText").val();
         if (name.trim() != "") {
-        	var exp = new RegExp(name,"gm")
+            var exp = new RegExp(name,"gm")
             var text = $(this).find("td:eq(1)").text();
-        	text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
+            text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
             $(this).find("td:eq(1) a").html(text);
         }
         /*************************************************/
@@ -49,22 +54,16 @@ $(document).ready(function() {
         /*************************************************/
         var id = $(this).attr("id");
         $(this).find("input:eq(0)").click(function() {
-        	window.open("findinfo?id=" + id);
+            window.open("findinfo?id=" + id);
         });
         $(this).find("input:eq(1)").click(function() {
-        	var tipsText = "確定要移除該數據嗎？";
-        	var showText = "移除數據成功！";
-        	if (language == "en") {
-        		tipsText = "Are you sure you want to remove this data?";
-        		showText = "Operating successfully!";
-        	}
-            if (confirm(tipsText)) {
-            	$(this).css("background-color", "#CCC");
-                $(this).attr("disabled", true);
-                if (Ajax("remove", {id: id}))
-                	showTips(showText);
-                setTimeout("location.reload()", 2000);
-            }
+            if (!confirm(tipsText1))
+            	return false;
+            $(this).css("background-color", "#CCC");
+            $(this).attr("disabled", true);
+            if (Ajax("remove", {id: id}))
+                showTips(tipsText2);
+            setTimeout("location.reload()", 2000);
         });
         $(this).click(function() {
             $("#tab1 tbody tr:even").find("td:eq(0)").css("background-color", "#FFFFFF");
@@ -105,12 +104,12 @@ $(document).ready(function() {
     function Ajax(url, data) {
         var result = null;
         $.ajax({
-            url:url,
-            data:data,
-            type:"post",
-            async:false,
-            datatype:"json",
-            success:function(data) {
+            url: url,
+            data: data,
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function(data) {
                 result = data;
             }
         });

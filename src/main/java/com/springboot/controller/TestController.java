@@ -41,7 +41,7 @@ public class TestController {
 
 	@RequestMapping("/index")
 	public ModelAndView index() {
-		ModelAndView view = new ModelAndView("index");
+		ModelAndView view = new ModelAndView("test/index");
 		return view;
 	}
 

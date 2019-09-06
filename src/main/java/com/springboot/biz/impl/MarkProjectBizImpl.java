@@ -60,6 +60,12 @@ public class MarkProjectBizImpl implements MarkProjectBiz {
 			map.put("name", "%" + map.get("name") + "%");
 		return markProjectDao.findListMarkProject(map);
 	}
+	
+	public List<MarkProject> markListMarkProject(Map<String, Object> map){
+		if (!StringUtils.isEmpty(map.get("name")))
+			map.put("name", "%" + map.get("name") + "%");
+		return markProjectDao.markListMarkProject(map);
+	}
 
 	public int getCount(Map<String, Object> map, int size) {
 		if (!StringUtils.isEmpty(map.get("name")))
@@ -93,14 +99,6 @@ public class MarkProjectBizImpl implements MarkProjectBiz {
 		text.append("<p style='color:#999'>提示：此邮件为系统提示邮件，查阅完毕可删除该信息。</p>");
 		messageBiz.sendMessage(title, text.toString(), accept);
 		return markProject.getId();
-	}
-
-	public void setAverage(MarkProject markProject) {
-		Map<String, Double> iMap = markProjectDao.getAverage(markProject);
-		if (!StringUtils.isEmpty(iMap)) {
-			markProject.setScore1(iMap.get("score1"));
-			markProject.setScore2(iMap.get("score2"));
-		}
 	}
 
 }

@@ -5,15 +5,15 @@
   	<script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
   	<script type="text/javascript">
   		$(document).ready(function(){
-  			var text = $(".naviItem:eq(2) a").text();
-  			if ($(".naviItem:eq(2) a").attr("href") != undefined) {
+  			var text = $(".naviItem:eq(1) a").text();
+  			if ($(".naviItem:eq(1) a").attr("href") != undefined) {
   				var data = Ajax("/CCTV/message/getcount", {type:"未读"});
 				if (data.length > 10)
-					$(".naviItem:eq(2) a").text(text + "(0)");
+					$(".naviItem:eq(1) a").text(text + "(0)");
 				else
-					$(".naviItem:eq(2) a").text(text + "(" + data + ")");
+					$(".naviItem:eq(1) a").text(text + "(" + data + ")");
   			} else
-  				$(".naviItem:eq(2) a").text(text + "(0)");
+  				$(".naviItem:eq(1) a").text(text + "(0)");
   			$("#naviLogo").click(function(){
   				window.location.href="/CCTV/project/showlist";
   			});
@@ -43,41 +43,40 @@
   <body>
     <div id="naviMain">
       <div id="navi">
-        <div style="width:680px;height:100%;float:left;">
+        <div style="width:780px;height:100%;float:left;">
           <img id="naviLogo" src="/CCTV/img/msdi.png" title="首页">
         </div>
         <div class="naviItem" style="width:120px">
-          <img id="naviImg" src="/CCTV/img/头像.png"/>
+          <img src="/CCTV/img/picture/navi1.png"/>
           <shiro:authenticated> 
-            <a><shiro:principal property="nickname"/></a>
+            <a href="/CCTV/person/center"><shiro:principal property="nickname"/></a>
           </shiro:authenticated>
         </div>
-        <div class="naviItem">
-          <img src="/CCTV/img/个人1.png"/>
-          <a href="/CCTV/person/center" th:text="#{navigation.item.text1}"></a>
-        </div>
+        
         <shiro:hasRole name="vrole">
         <div class="naviItem">
-          <img src="/CCTV/img/消息1.png"/>
+          <img src="/CCTV/img/picture/navi2.png"/>
           <a href="/CCTV/message/showlist" th:text="#{navigation.item.text2}"></a>
         </div>
         </shiro:hasRole>
+        
         <shiro:lacksRole name="vrole">
         <div class="naviItem">
-          <img src="/CCTV/img/消息1.png"/>
+          <img src="/CCTV/img/picture/navi2.png"/>
           <a th:text="#{navigation.item.text2}"></a>
         </div>
+        
         </shiro:lacksRole>
-        <div th:if="${session.i18n=='zh_CN'}" class="naviItem">
-          <img src="/CCTV/img/en_US.png"/>
+        <div th:if="${session.i18n == 'zh_CN'}" class="naviItem">
+          <img src="/CCTV/img/picture/navi3.png"/>
           <a id="link" class="en_US" th:text="#{navigation.item.text3}"></a>
         </div>
-        <div th:if="${session.i18n!='zh_CN'}" class="naviItem">
-          <img src="/CCTV/img/zh_CN.png"/>
+        <div th:if="${session.i18n != 'zh_CN'}" class="naviItem">
+          <img src="/CCTV/img/picture/navi4.png"/>
           <a id="link" class="zh_CN" th:text="#{navigation.item.text3}"></a>
         </div>
         <div class="naviItem">
-          <img src="/CCTV/img/退出1.png"/>
+          <img src="/CCTV/img/picture/navi5.png"/>
           <a href="/CCTV/user/leave" th:text="#{navigation.item.text4}"></a>
         </div>
       </div>

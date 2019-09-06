@@ -13,7 +13,7 @@
 	<update id="updateGeomProject" parameterType="GeomProject">
 		UPDATE geomproject SET extent=#{extent},
 			surveyer=#{surveyer},
-			projectid=#{project.id},
+			projectid=#{project.id}
 		WHERE id=#{id}
 	</update>
 	

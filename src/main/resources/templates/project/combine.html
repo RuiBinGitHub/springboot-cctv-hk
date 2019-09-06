@@ -13,9 +13,9 @@
     <div id="Tip"></div>
     <div id="main">
       <div id="mainInfo">
-        <div id="top" th:text="#{project.combine.title}"></div>
+        <div id="mainTop" th:text="#{project.combine.title}"></div>
         <div id="Menu">
-          <span style="font-weight:600;margin-left:10px;float:left;" th:text="#{project.combine.title1}"></span>
+          <span th:text="#{project.combine.title1}"></span>
           <input id="menuBtn1" type="button" value="←"/>
           <input id="menuText" th:value="${param.name}"/>
           <input id="menuBtn2" type="button" th:value="#{project.combine.title2}"/>
@@ -30,16 +30,16 @@
           <div style="width:115px;" th:text="#{project.combine.list.label5}"></div>
           <div style="width:120px;" th:text="#{project.combine.list.label6}"></div>
         </div>
-        <div style="width:980px;max-height:300px;margin:0px 10px;overflow-y:scroll;border-bottom:1px solid #F1F1F1;float:left;">
+        <div id="showlist">
           <table id="tab1"></table>
         </div>
         <form id="form1" action="combinproject" method="post">
-          <fieldset id="fieldset">
-            <legend><span style="font-size:18px;font-weight:700" th:text="#{project.combine.legend}"></span></legend>
-          </fieldset>
-          <input type="button" th:value="#{project.combine.button}" class="combtn"/>
+        <fieldset id="fieldset">
+          <legend><span th:text="#{project.combine.legend}"></span></legend>
+        </fieldset>
+        <input type="button" th:value="#{project.combine.button}" class="combtn"/>
         </form>
-        <div style="width:95%;margin:12px;font-size:15px;color:#999;float:left;">
+        <div style="width:96%;margin:12px;font-size:15px;color:#999;float:left;">
 	  	  註：註意項目選擇順序，合並後管道將重新排序且原項目將被刪除。操作無法撤銷，請慎重操作！(每次最多選擇20個項目)
 	  	</div>
       </div>

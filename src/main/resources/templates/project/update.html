@@ -13,49 +13,48 @@
     <div th:replace="navigation::navigation"></div>
     <div id="Tip"></div>
     <div id="main">
-      <div id="mainInfo">
-        <div id="top" th:text="#{project.update.title}"></div>
-        <form id="form1" action="update" method="post">
-        <input type="hidden" name="id" th:value="${project.id}"/>
-        <table id="tab1">
-          <tr>
-            <td width="150px" align="right"><a>*</a><span th:text="#{project.update.label1}"></span></td>
-            <td width="300px" ><input type="text" class="textbox" name="name" th:value="${project.name}"/></td>
-          </tr>
-          <tr>
-            <td align="right"><a>*</a><span th:text="#{project.update.label2}"></span></td>
-            <td><input type="text" class="textbox"  name="client" th:value="${project.client}"/></td>
-          </tr>
-          <tr>
-            <td align="right"><a>*</a><span th:text="#{project.update.label3}"></span></td>
-    	    <td><input type="text" class="textbox"  name="standard" th:value="${project.standard}"/></td>
-       	  </tr>
-          <tr>
-       	    <td align="right"><a>*</a><span th:text="#{project.update.label4}"></span></td>
-       	    <td align="left">
-       	      <input type="radio" name="slope" value="Y" th:checked="${project.slope=='Y'}"/>YES
-			  <input type="radio" name="slope" value="N" th:checked="${project.slope=='N'}"/>NO
-       	    </td>
-          </tr>
-          <tr>
-       	    <td align="right"><a>*</a><span th:text="#{project.update.label5}"></span></td>
-       	    <td>
-       	      <select name="operator" class="select" th:field="${project.operator}">
-       	        <option th:each="fullname:${fullnames}" th:value="${fullname}" th:text="${fullname}"/>
-       	      </select>
-       	    </td>
-       	  </tr>
-    	  <tr>
-    	    <td align="right"><a>*</a><span th:text="#{project.update.label6}"></span></td>
-    	    <td><input type="text" class="textbox" name="date" th:value="${project.date}"/></td>
-    	  </tr>
-          <tr>
-    	    <td align="left"></td>
-       	    <td><input type="button" class="combtn" th:value="#{project.update.button}"></td>
-       	  </tr>
-        </table>
-        </form>
-      </div>
+      <img id="img" src="/CCTV/img/picture/02.png">
+      <form id="form1" action="update" method="post">
+      <input type="hidden" name="id" th:value="${project.id}"/>
+      <table id="tab1">
+        <tr style="height:15px;"><td align="center" colspan="2"></td></tr>
+        <tr>
+          <td width="175px" align="right"><a>*</a><span th:text="#{project.update.label1}"></span></td>
+          <td width="325px" ><input type="text" class="textbox" name="name" th:value="${project.name}"/></td>
+        </tr>
+        <tr>
+          <td align="right"><a>*</a><span th:text="#{project.update.label2}"></span></td>
+          <td><input type="text" class="textbox"  name="client" th:value="${project.client}"/></td>
+        </tr>
+        <tr>
+          <td align="right"><a>*</a><span th:text="#{project.update.label3}"></span></td>
+    	  <td><input type="text" class="textbox"  name="standard" th:value="${project.standard}"/></td>
+       	</tr>
+        <tr>
+       	  <td align="right"><a>*</a><span th:text="#{project.update.label4}"></span></td>
+       	  <td>
+       	    <input type="radio" name="slope" value="Y" th:checked="${project.slope=='Y'}"/>YES
+		    <input type="radio" name="slope" value="N" th:checked="${project.slope=='N'}"/>NO
+       	  </td>
+        </tr>
+        <tr>
+       	  <td align="right"><a>*</a><span th:text="#{project.update.label5}"></span></td>
+       	  <td>
+       	    <select name="operator" class="select" th:field="${project.operator}">
+       	      <option th:each="fullname:${fullnames}" th:value="${fullname}" th:text="${fullname}"/>
+       	    </select>
+       	  </td>
+       	</tr>
+    	<tr>
+    	  <td align="right"><a>*</a><span th:text="#{project.update.label6}"></span></td>
+    	  <td><input type="text" class="textbox" name="date" th:value="${project.date}"/></td>
+    	</tr>
+        <tr>
+    	  <td align="right"></td>
+       	  <td><input type="button" class="combtn" th:value="#{project.update.button}"></td>
+       	</tr>
+      </table>
+      </form>
     </div>
     <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
       <p>香港麦斯迪埃高科技有限责任公司</p>

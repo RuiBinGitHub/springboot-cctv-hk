@@ -17,10 +17,12 @@ public interface ProjectDao {
 	public void deleteProject(Project project);
 
 	public Project findProjectByID(int id);
-	
+
 	public Project findInfoProject(Map<String, Object> map);
 
 	public List<Project> findListProject(Map<String, Object> map);
-	
+
+	public List<Project> markListProject(Map<String, Object> map);
+
 	public int getCount(Map<String, Object> map);
 }

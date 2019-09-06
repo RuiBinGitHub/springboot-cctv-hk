@@ -1,19 +1,21 @@
 $(document).ready(function() {
-	// 获取当前语言
-	var language = $("#rightTop").text() == "項目列表" ? "zh" : "en";
-	var width = $("#rightMenu span:eq(0)").css("width");
-	var length = width.substring(0, width.length - 2);
-	$("#rightMenu div:eq(0)").css("width", 604 - length);
-	/********************************************************************/
-	if ($("#menuText").val().trim() == "") {
-        $("#menuBtn1").css("background-color", "#CCC");
+    // 获取当前语言
+    var language = $("#rightTop").text() == "項目列表" ? "zh" : "en";
+    
+    var tipsText1 = "確定要删除該數據嗎？";
+    var tipsText2 = "数据删除成功？";
+    if (language == "en") {
+        tipsText1 = "Are you sure you want to delete this data?";
+        tipsText2 = "Operating successfully!";
+    }
+    /********************************************************************/
+    if ($("#menuText").val().trim() == "") {
         $("#menuBtn1").attr("disabled", true);
     }
     $("#menuText").keydown(function() {
         if (event.keyCode == 13)
             $("#menuBtn2").click();
     });
-    /********************************************************************/
     $("#menuBtn1").click(function() {
         window.location.href = "showlist";
     });
@@ -29,36 +31,30 @@ $(document).ready(function() {
     /********************************************************************/
     /** 初始化表格 */
     $("#tab1 tbody tr").each(function(i) {
-    	var name = $("#menuText").val();
+        var name = $("#menuText").val();
         if (name.trim() != "") {
-        	var exp = new RegExp(name,"gm")
+            var exp = new RegExp(name,"gm")
             var text = $(this).find("td:eq(1)").text();
-        	text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
+            text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
             $(this).find("td:eq(1) a").html(text);
         }
         /*********************************************/
         var id = $(this).attr("id");
-        $(this).find(".tablebtn1").click(function() {
+        $(this).find("input[type=button]:eq(0)").click(function() {
             window.open("updateview?id=" + id);
         });
-        $(this).find(".tablebtn2").click(function() {
-        	var tipsText = "確定要刪除該數據嗎？";
-        	var showText = "刪除數據成功！";
-        	if (language == "en") {
-        		tipsText = "Are you sure you want to delete this data?";
-        		showText = "Operating successfully!";
-        	}
-            if (confirm(tipsText)) {
-            	$(this).css("background-color", "#CCC");
-                $(this).attr("disabled", true);
-                if (Ajax("delete", {id: id}))
-                	showTips(showText);
-                setTimeout("location.reload()", 2000);
-            }
+        $(this).find("input[type=button]:eq(1)").click(function() {
+            if (!confirm(tipsText1)) 
+            	return false;
+            $(this).css("background-color", "#CCC");
+            $(this).attr("disabled", true);
+            if (Ajax("delete", {id: id}))
+                showTips(tipsText2);
+            setTimeout("location.reload()", 2000);
         });
         $(this).click(function() {
-            $("#tab1 tbody tr:even").find("td:eq(0)").css("background-color", "#FFFFFF");
-            $("#tab1 tbody tr:odd").find("td:eq(0)").css("background-color", "#FAFAFA");
+            $("#tab1 tbody tr:even").find("td:eq(0)").css("background-color", "#FAFAFA");
+            $("#tab1 tbody tr:odd").find("td:eq(0)").css("background-color", "#EEEEEE");
             $(this).find("td:eq(0)").css("background-color", "#FFD58D");
         });
     });
@@ -95,12 +91,12 @@ $(document).ready(function() {
     function Ajax(url, data) {
         var result = null;
         $.ajax({
-            url:url,
-            data:data,
-            type:"post",
-            async:false,
-            datatype:"json",
-            success:function(data) {
+            url: url,
+            data: data,
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function(data) {
                 result = data;
             }
         });

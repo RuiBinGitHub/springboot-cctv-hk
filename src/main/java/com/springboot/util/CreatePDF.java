@@ -147,7 +147,6 @@ public class CreatePDF {
 					tableHeightA = 0;
 				}
 			}
-			System.out.println("*****位置*****");
 			/*****************************************************************/
 			// 输出FormB
 			int heightB = 14, surve[] = new int[20];

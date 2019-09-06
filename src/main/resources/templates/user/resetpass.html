@@ -9,43 +9,41 @@
     <script type="text/javascript" src="/CCTV/js/user/resetpass.js"></script>
   </head>
   <body>
-    <div style="width:100%;height:80px;background-color:#fff;float:left;">
-      <div id="logo"><a href="/CCTV/user/loginview"><img src="/CCTV/img/msdi.png"/></a></div>
-    </div>
     <div id="main">
-      <div id="mainTop" th:text="#{user.resetpass.title}"></div>
-      <div id="mainCenter">
-        <div id="tips" th:text="${tips}"></div>
+      <img id="logo" src="/CCTV/img/picture/01.png"/>
+      <div id="mainInfo">
+        <a href="loginview"><img id="icon"src="/CCTV/img/msdi.png"/></a>
+        <div id="title">Reset Password</div>
+        <div id="tips"></div>
         <form id="form1" action="/CCTV/user/resetpass" method="post">
-          <table id="tab1">
-            <tr>
-              <td align="right"><a>*</a><span th:text="#{user.resetpass.label1}"></span></td>
-              <td><input type="text" name="username" th:value="${username}"/></td>
-            </tr>
-            <tr>
-              <td align="right"><a>*</a><span th:text="#{user.resetpass.label2}"></span></td>
-              <td><input type="text" name="email" th:value="${email}"></td>
-            </tr>
-            <tr>
-              <td align="right"><a>*</a><span th:text="#{user.resetpass.label3}"></span></td>
-              <td>
-                <input type="text" id="code" name="code" style="width:140px">
-                <input type="button" id="getBtn" th:value="#{user.logon.button1}"/>
-              </td>
-            </tr>
-            <tr>
-       	      <td align="right"><a>*</a><span th:text="#{user.resetpass.label4}"></span></td>
-       	      <td><input type="password" name="password" th:value="${password}"/></td>
-            </tr>
-            <tr>
-       	      <td align="right"><a>*</a><span th:text="#{user.resetpass.label5}"></span></td>
-       	      <td><input type="password" th:value="${password}"/></td>
-            </tr>
-            <tr>
-    	      <td align="left"></td>
-       	      <td><input type="button" th:value="#{user.logon.button2}" class="combtn"></td>
-       	    </tr>
-          </table>
+        <table id="tab1">
+          <tr class="row1"><td><span>*</span> User Name：</td></tr>
+          <tr class="row2">
+            <td><input type="text" name="username" class="textbox"/></td>
+          </tr>
+          <tr class="row1"><td><span>*</span> E-Mail：</td></tr>
+          <tr class="row2">
+            <td><input type="text" name="mail" class="textbox"/></td>
+          </tr>
+          <tr class="row1"><td><span>*</span> Code：</td></tr>
+          <tr class="row2">
+            <td>
+              <input type="text" class="textbox" style="width:218px"/>
+              <input type="button" id="btn1" value="Get Code"/>
+            </td>
+          </tr>
+          <tr class="row1"><td><span>*</span> New Password：</td></tr>
+          <tr class="row2">
+            <td><input type="password" class="textbox"/></td>
+          </tr>
+          <tr class="row1"><td><span>*</span> Repeat Password：</td></tr>
+          <tr class="row2">
+            <td><input type="password" class="textbox"/></td>
+          </tr>
+          <tr height="100px">
+            <td><input type="button" id="btn2" th:value="#{user.logon.button2}"></td>
+          </tr>
+        </table>
         </form>
       </div>
     </div>

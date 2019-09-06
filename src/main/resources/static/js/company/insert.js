@@ -26,7 +26,7 @@ $(document).ready(function() {
 			return false;
 		}
 		var define = $(".textbox1:eq(3)").val();
-		if (name.length < 2 || name.length > 12) {
+		if (define.length < 2 || define.length > 12) {
 			$(".textbox1:eq(3)").css("border-color", "#ff3300");
 			showTips("请输入正确的账号前缀!");
 			return false;

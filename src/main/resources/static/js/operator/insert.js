@@ -14,55 +14,43 @@ $(document).ready(function() {
         $(".textbox:eq(1)").attr("placeholder", "Operator Last Name,1-6 place");
         $(".textbox:eq(2)").attr("placeholder", "Operator First Name,1-6 place");
     }
+    var tipsText1 = "請輸入人員全名！";
+    var tipsText2 = "人員名稱已經存在！";
+    var tipsText3 = "請輸入人員姓氏！";
+    var tipsText4 = "請輸入人員名字！";
+    var tipsText5 = "請輸入會員等級！";
+    var tipsText6 = "請輸入會員編號！";
     /********************************************************************/
     /** 提交数据 */
     $(".combtn").click(function() {
         if ($(".textbox:eq(0)").val() == "") {
-            $(".textbox:eq(0)").css("border-color", "#F00");
-            if (language == "zh")
-                showTips("請輸入人員全名！");
-            else
-                showTips("Please enter the Full Name!");
+            $(".textbox:eq(0)").css("background-color", "#f00");
+            showTips(tipsText1);
             return false;
         }
         if (Ajax("isexistname", {id: 0, name: $(".textbox:eq(0)").val()})) {
-        	$(".textbox:eq(0)").css("border-color", "#F00");
-        	if (language == "zh")
-                showTips("人員名稱已經存在！");
-            else
-                showTips("The Full Name already exists!");
-        	return false;
+            $(".textbox:eq(0)").css("background-color", "#f00");
+            showTips(tipsText2);
+            return false;
         }
         if ($(".textbox:eq(1)").val() == "") {
-            $(".textbox:eq(1)").css("border-color", "#F00");
-            if (language == "zh")
-                showTips("請輸入人員姓氏！");
-            else
-                showTips("Please enter the Last Name!");
+            $(".textbox:eq(1)").css("background-color", "#f00");
+            showTips(tipsText3);
             return false;
         }
         if ($(".textbox:eq(2)").val() == "") {
-            $(".textbox:eq(2)").css("border-color", "#F00");
-            if (language == "zh")
-                showTips("請輸入人員名字！");
-            else
-                showTips("Please enter the First Name!");
+            $(".textbox:eq(2)").css("background-color", "#f00");
+            showTips(tipsText4);
             return false;
         }
         if ($(".textbox:eq(5)").val() == "") {
-            $(".textbox:eq(5)").css("border-color", "#F00");
-            if (language == "zh")
-                showTips("請輸入會員等級！");
-            else
-                showTips("Please enter the Member Level!");
+            $(".textbox:eq(5)").css("background-color", "#f00");
+            showTips(tipsText5);
             return false;
         }
         if ($(".textbox:eq(6)").val() == "") {
-            $(".textbox:eq(6)").css("border-color", "#F00");
-            if (language == "zh")
-                showTips("請輸入會員編號！");
-            else
-                showTips("Please enter the Member Number!");
+            $(".textbox:eq(6)").css("background-color", "#f00");
+            showTips(tipsText5);
             return false;
         }
         /** 提交数据 */
@@ -72,7 +60,7 @@ $(document).ready(function() {
     });
     /** 输入框获取焦点事件 */
     $("#tab1 input[type=text]").focus(function() {
-        $(this).css("border-color", "#999");
+        $(this).css("background-color", "#F2F2F2");
     });
     /** 显示提示信息 */
     function showTips(text) {
@@ -82,12 +70,12 @@ $(document).ready(function() {
     function Ajax(url, data) {
         var result = null;
         $.ajax({
-            url:url,
-            data:data,
-            type:"post",
-            async:false,
-            datatype:"json",
-            success:function(data) {
+            url: url,
+            data: data,
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function(data) {
                 result = data;
             }
         });

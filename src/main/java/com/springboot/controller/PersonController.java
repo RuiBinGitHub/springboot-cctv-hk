@@ -162,10 +162,9 @@ public class PersonController {
 		// 统计评分
 		int count = 0;
 		map = AppUtils.getMap("user", person);
-		List<MarkProject> markProjects = markProjectBiz.findListMarkProject(map);
+		List<MarkProject> markProjects = markProjectBiz.markListMarkProject(map);
 		for (int i = 0; markProjects != null && i < markProjects.size(); i++) {
 			MarkProject markProject = markProjects.get(i);
-			markProjectBiz.setAverage(markProject);
 			if (markProject.getScore1() >= 95 && markProject.getScore2() >= 85)
 				count++;
 		}
@@ -201,10 +200,9 @@ public class PersonController {
 		
 		int count = 0;  
 		map = AppUtils.getMap("user", person);
-		List<MarkProject> markProjects = markProjectBiz.findListMarkProject(map);
+		List<MarkProject> markProjects = markProjectBiz.markListMarkProject(map);
 		for (int i = 0; markProjects != null && i < markProjects.size(); i++) {
 			MarkProject markProject = markProjects.get(i);
-			markProjectBiz.setAverage(markProject);
 			if (markProject.getScore1() >= 95 && markProject.getScore2() >= 85)
 				count++;
 		}

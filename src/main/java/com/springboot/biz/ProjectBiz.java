@@ -22,6 +22,8 @@ public interface ProjectBiz {
 
 	public List<Project> findListProject(Map<String, Object> map);
 
+	public List<Project> markListProject(Map<String, Object> map);
+	
 	public int getCountPage(Map<String, Object> map, int size);
 
 	public int appendProject(Project project);

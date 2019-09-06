@@ -14,9 +14,27 @@
   </head>
   <body>
   	<div id="cesiumContainer" class="fullSize">
+  	  <div id="showlist">
+  	    <div id="title">
+  	      <input type="text" id="textbox" value=""/>
+  	      <input type="button" id="btn1" value="-"/>
+  	    </div>
+  	    <div id="data">
+  	      <div>Y19-P011-002</div>
+  	      <div>Y19-P011-002</div>
+  	      <div>Y19-P011-002</div>
+  	      <div>Y19-P011-002</div>
+  	      <div>Y19-P011-002</div>
+  	      <div>Y19-P011-002</div>
+  	      <div>Y19-P011-002</div>
+  	      <div>Y19-P011-002</div>
+  	      <div>Y19-P011-002</div>
+  	      <div>Y19-P011-002</div>
+  	      <div>Y19-P011-002</div>
+  	    </div>
+  	  </div>
   	  <a id="showdata">坐标：000000.000, 000000.000</a>
   	</div>
-  	<div id="toolbar" style="display:none"></div>
   	<div id="list" style="display:none;">
   	  <span th:each="geomPipe:${geomPipes}">
   	    <a th:text="${geomPipe.id}"></a>

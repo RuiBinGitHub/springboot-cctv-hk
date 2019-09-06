@@ -2,6 +2,7 @@ $(document).ready(function() {
     initList();
     var language = $("#title").text() == "管道列表" ? "zh" : "en";
     /********************************************************************/
+    drawPipe();
     var id = $("#id").val();
     var no = $("#no").val();
     var index = no >= $("#tab1 tr").length ? $("#tab1 tr").length - 1 : no;
@@ -47,7 +48,7 @@ $(document).ready(function() {
         return hrml;
     }
     /********************************************************************/
-    $("#mainCenter table[id*=main] input").attr("readonly", "true");
+    $("#main2 input").attr("readonly", "true");
     /********************************************************************/
     var path = $("#path").val();
     $("#tab2 tbody tr").each(function(i) {
@@ -56,9 +57,9 @@ $(document).ready(function() {
             $(this).find("td:eq(0)").text("▶");
             var name = $(this).find("td:eq(12)").text();
             if (name == "" || name.leng == 0)
-                $("#pictures").attr("src", "/CCTV/img/blank-plus.png");
+                $("#image").attr("src", "/CCTV/img/blank-plus.png");
             else
-                $("#pictures").attr("src", path + name + ".png");
+                $("#image").attr("src", path + name + ".png");
         });
         // 设置输入框的title
         var text = $(this).find("td:eq(1)").text();
@@ -75,9 +76,9 @@ $(document).ready(function() {
             video.paused ? video.play() : video.pause();
     });
     $("#video").dblclick(function() {
-        $("#file1").click();
+        $("#file").click();
     });
-    $("#file1").change(function() {
+    $("#file").change(function() {
         if (!this.files || !this.files[0])
             return false;
         var url = getURL(this.files[0]);
@@ -137,6 +138,14 @@ $(document).ready(function() {
         }
     }
     /********************************************************************/
+    $("#tab3 input[type=text]").keypress(function(event) {
+        if (event.which >= 48 && event.which <= 57)
+            return true;
+        return false;
+    });
+    $("#tab3 input[type=text]").click(function() {
+    	$(this).eq(0).css("background-color", "#fff");
+    });
     $(document).scroll(function(e) {
         var height = $(document).scrollTop();
         if (height >= 135)
@@ -152,15 +161,15 @@ $(document).ready(function() {
             tipsText = "Please check the input score!";
             showText = "Operating successfully";
         }
-        var value1 = $("#tab3 input[type=number]").eq(0).val();
-        if (value1 == "" || value1 < 0 || value1 > 100) {
-        	$("#tab3 input[type=number]").eq(0).css("border-color", "#f00");
+        var value1 = $("#tab3 input[type=text]").eq(0).val();
+        if (value1 == "" || isNaN(value1) || value1 < 0 || value1 > 100) {
+        	$("#tab3 input[type=text]").eq(0).css("background-color", "#f00");
             showTips(tipsText);
             return false;
         }
-        var value2 = $("#tab3 input[type=number]").eq(1).val();
-        if (value2 == "" || value2 < 0 || value2 > 100) {
-        	$("#tab3 input[type=number]").eq(1).css("border-color", "#f00");
+        var value2 = $("#tab3 input[type=text]").eq(1).val();
+        if (value2 == "" || isNaN(value2) || value2 < 0 || value2 > 100) {
+        	$("#tab3 input[type=text]").eq(1).css("background-color", "#f00");
             showTips(tipsText);
             return false;
         }
@@ -170,9 +179,86 @@ $(document).ready(function() {
             showTips(showText);
         setTimeout("location.reload()", 2000);
     });
-    $("#tab3 input[type=number]").focus(function() {
-        $(this).css("border-color", "#CCC");
-    });
+    /********************************************************************/
+    function drawPipe() {
+        var canvas = $("#showpipeimg")[0];
+        var context = canvas.getContext("2d");
+        context.font = "12px Courier New";
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath();
+        context.fillStyle = "#A1A1A1";
+        context.strokeStyle = "#000000";
+        context.rect(30, 100, 30, 640);
+        context.fillRect(31, 101, 28, 638);
+        context.stroke();
+        context.closePath();
+
+        context.beginPath();
+        context.fillStyle = "#A0A0A0";
+        context.strokeStyle = "#606060";
+        var tl = 0.0;
+        var distlist = new Array();
+        var joinlist = new Array();
+        $("#tab2 tbody tr").each(function() {
+            if (Number($(this).find("td:eq(3)").text()) > tl)
+                tl = $(this).find("td:eq(3)").text();
+            if ($(this).find("td:eq(5)").text() == "MH")
+                distlist.push($(this).find("td:eq(3)").text());
+            if ($(this).find("td:eq(5)").text() == "JN")
+                joinlist.push($(this).find("td:eq(3)").text());
+        });
+        tl = tl <= 0.0 ? 1 : tl;
+        var use = $("#input3 input:eq(2)").val();
+        for (var i = 0; i < distlist.length; i++) {
+            if (use == "Foul") {
+                var distance = i > 0 ? 100 : 40;
+                var location = distlist[i] / tl * 640 + distance;
+                context.fillRect(15, location, 60, 60);
+            } else {
+                var distance = i > 0 ? 130 : 70;
+                var location = distlist[i] / tl * 640 + distance;
+                context.moveTo(75, location);
+                context.arc(45, location, 30, 0, Math.PI * 2);
+                context.fill();
+            }
+        }
+        for (var i = 0; i < joinlist.length; i++) {
+            var location = joinlist[i] / tl * 640 + 90;
+            context.fillRect(10, location, 19, 10);
+        }
+        function Note(dist, code) {
+            this.dist = dist;
+            this.code = code;
+        }
+        var list = new Array();
+        $("#tab2 tbody tr").each(function() {
+            if ($(this).find("td:eq(3)").text().length != 0) {
+                var dist = $(this).find("td:eq(3)").text();
+                var code = $(this).find("td:eq(5)").text();
+                var note = new Note(dist,code);
+                list.push(note);
+            }
+        });
+        
+        var i = 0;
+        context.fillStyle = "#000000";
+        var itemlength = 100;
+        while (i < list.length) {
+            var distance = Math.round(list[i].dist / tl * 640 + 100);
+            location = distance - itemlength < 0 ? itemlength : distance;
+            itemlength = location + 15;
+            context.moveTo(30, distance);
+            context.lineTo(60, distance);
+            context.moveTo(60, distance);
+            context.lineTo(110, location);
+            context.lineTo(125, location);
+            context.fillText(list[i].dist, 130, location + 4);
+            context.fillText(list[i].code, 170, location + 4);
+            i++;
+        }
+        context.stroke();
+        context.closePath();
+    }
     /********************************************************************/
     function showTips(text) {
         $("#Tip").show().delay(1800).hide(200);

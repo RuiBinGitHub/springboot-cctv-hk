@@ -13,7 +13,7 @@
 			#{nickname},
 			#{membergrades},
 			#{membernumber},
-			#{membernumber},
+			#{date},
 			#{company.id}
 		)
 	</insert>

@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	
     initList();
+    drawPipe();
     /********************************************************************/
     var id = $("#id").val();
     var no = $("#no").val() == "" ? 0 : $("#no").val();
@@ -70,7 +71,7 @@ $(document).ready(function() {
     		hrml += "<img src='/CCTV/img/星星1.png'/>";
     	return hrml;
     }
-    $("#mainCenter input").attr("readonly", "true");
+    $("#main2 input").attr("readonly", "true");
     /********************************************************************/
     var value1 = $("#showstar1").text();
     var value2 = $("#showstar2").text();
@@ -89,9 +90,9 @@ $(document).ready(function() {
         	$(this).find("td:eq(0)").text("▶");
             var name = $(this).find("td:eq(12)").text();
             if (name == "" || name.leng == 0)
-                $("#pictures").attr("src", "/CCTV/img/blank-plus.png");
+                $("#image").attr("src", "/CCTV/img/blank-plus.png");
             else
-                $("#pictures").attr("src", path + name + ".png");
+                $("#image").attr("src", path + name + ".png");
         });
         var text = $(this).find("td:eq(11),td:eq(13)").text();
         $(this).find("td:eq(11),td:eq(13)").attr("title", text);
@@ -134,6 +135,86 @@ $(document).ready(function() {
     function showTips(text) {
         $("#Tip").text(text);
         $("#Tip").show().delay(1800).hide(200);
+    }
+    /********************************************************************/
+    function drawPipe() {
+        var canvas = $("#showpipeimg")[0];
+        var context = canvas.getContext("2d");
+        context.font = "12px Courier New";
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath();
+        context.fillStyle = "#A1A1A1";
+        context.strokeStyle = "#000000";
+        context.rect(30, 100, 30, 640);
+        context.fillRect(31, 101, 28, 638);
+        context.stroke();
+        context.closePath();
+
+        context.beginPath();
+        context.fillStyle = "#A0A0A0";
+        context.strokeStyle = "#606060";
+        var tl = 0.0;
+        var distlist = new Array();
+        var joinlist = new Array();
+        $("#tab2 tbody tr").each(function() {
+            if (Number($(this).find("td:eq(3)").text()) > tl)
+                tl = $(this).find("td:eq(3)").text();
+            if ($(this).find("td:eq(5)").text() == "MH")
+                distlist.push($(this).find("td:eq(3)").text());
+            if ($(this).find("td:eq(5)").text() == "JN")
+                joinlist.push($(this).find("td:eq(3)").text());
+        });
+        tl = tl <= 0.0 ? 1 : tl;
+        var use = $("#input3 input:eq(2)").val();
+        for (var i = 0; i < distlist.length; i++) {
+            if (use == "Foul") {
+                var distance = i > 0 ? 100 : 40;
+                var location = distlist[i] / tl * 640 + distance;
+                context.fillRect(15, location, 60, 60);
+            } else {
+                var distance = i > 0 ? 130 : 70;
+                var location = distlist[i] / tl * 640 + distance;
+                context.moveTo(75, location);
+                context.arc(45, location, 30, 0, Math.PI * 2);
+                context.fill();
+            }
+        }
+        for (var i = 0; i < joinlist.length; i++) {
+            var location = joinlist[i] / tl * 640 + 90;
+            context.fillRect(10, location, 19, 10);
+        }
+        function Note(dist, code) {
+            this.dist = dist;
+            this.code = code;
+        }
+        var list = new Array();
+        $("#tab2 tbody tr").each(function() {
+            if ($(this).find("td:eq(3)").text().length != 0) {
+                var dist = $(this).find("td:eq(3)").text();
+                var code = $(this).find("td:eq(5)").text();
+                var note = new Note(dist,code);
+                list.push(note);
+            }
+        });
+        
+        var i = 0;
+        context.fillStyle = "#000000";
+        var itemlength = 100;
+        while (i < list.length) {
+            var distance = Math.round(list[i].dist / tl * 640 + 100);
+            location = distance - itemlength < 0 ? itemlength : distance;
+            itemlength = location + 15;
+            context.moveTo(30, distance);
+            context.lineTo(60, distance);
+            context.moveTo(60, distance);
+            context.lineTo(110, location);
+            context.lineTo(125, location);
+            context.fillText(list[i].dist, 130, location + 4);
+            context.fillText(list[i].code, 170, location + 4);
+            i++;
+        }
+        context.stroke();
+        context.closePath();
     }
     /********************************************************************/
     /** 格式化显示信息 */

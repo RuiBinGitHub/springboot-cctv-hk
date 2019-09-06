@@ -1,12 +1,24 @@
 $(document).ready(function() {
     // 获取当前语言
-    var language = $("#rightTop").text() == "項目列表" ? "zh" : "en";
-    var width = $("#rightMenu span:eq(0)").css("width");
+    var language = $("#infoTop").text() == "項目列表" ? "zh" : "en";
+    var tipsText1 = "數據正在上傳中...";
+    var tipsText2 = "確定要提交該數據嗎？";
+    var tipsText3 = "數據提交成功！";
+    var tipsText4 = "確定要刪除該數據嗎？";
+    var tipsText5 = "數據刪除成功！";
+    if (language == "en") {
+    	tipsText1 = "Data uploading...";
+    	tipsText2 = "Are you sure you want to submit this data?";
+    	tipsText3 = "Operating successfully!";
+    	tipsText4 = "Are you sure you want to delete this data?";
+    	tipsText5 = "Operating successfully!";
+    }
+    /********************************************************************/
+    var width = $("#infoMenu span:eq(0)").css("width");
     var length = width.substring(0, width.length - 2);
-    $("#rightMenu div:eq(0)").css("width", 530 - length);
+    $("#infoMenu div:eq(0)").css("width", 536 - length);
     /********************************************************************/
     if ($("#menuText").val().trim() == "") {
-        $("#menuBtn1").css("background-color", "#CCC");
         $("#menuBtn1").attr("disabled", true);
     }
     $("#menuText").keydown(function() {
@@ -26,6 +38,7 @@ $(document).ready(function() {
     $("#append").click(function() {
         window.open("insertview");
     });
+    /** 导入按钮 */
     $("#import").click(function() {
         $("#file1").click();
     });
@@ -33,10 +46,7 @@ $(document).ready(function() {
     $("#file1").change(function() {
         if (this.files.length == 0)
             return false;
-        var showText = "數據正在上傳中...";
-        if (language == "en")
-            showText = "Data uploading...";
-        $("#Tip").text(showText);
+        $("#Tip").text(tipsText1);
         $("#form1").submit();
         $("#page").show();
         $("#Tip").show();
@@ -56,42 +66,30 @@ $(document).ready(function() {
         }
         /*********************************************/
         var id = $(this).attr("id");
-        $(this).find(".tablebtn1").click(function() {
+        $(this).find("input[type=button]:eq(0)").click(function() {
             window.open("updateview?id=" + id);
         });
-        $(this).find(".tablebtn2").click(function() {
-            var tipsText = "確定要提交該數據嗎？";
-            var showText = "提交數據成功！";
-            if (language == "en") {
-                tipsText = "Are you sure you want to submit this data?";
-                showText = "Operating successfully!";
-            }
-            if (confirm(tipsText)) {
-                $(this).css("background-color", "#CCC");
+        $(this).find("input[type=button]:eq(1)").click(function() {
+            if (confirm(tipsText2)) {
+                $(this).css("background-color", "#ccc");
                 $(this).attr("disabled", true);
                 if (Ajax("submit", {id: id}))
-                    showTips(showText);
+                    showTips(tipsText3);
                 setTimeout("location.reload()", 2000);
             }
         });
-        $(this).find(".tablebtn3").click(function() {
-            var tipsText = "確定要刪除該數據嗎？";
-            var showText = "刪除數據成功！";
-            if (language == "en") {
-                tipsText = "Are you sure you want to delete this data?";
-                showText = "Operating successfully!";
-            }
-            if (confirm(tipsText)) {
-                $(this).css("background-color", "#CCC");
+        $(this).find("input[type=button]:eq(2)").click(function() {
+            if (confirm(tipsText4)) {
+                $(this).css("background-color", "#ccc");
                 $(this).attr("disabled", true);
                 if (Ajax("delete", {id: id}))
-                    showTips(showText);
+                    showTips(tipsText5);
                 setTimeout("location.reload()", 2000);
             }
         });
         $(this).click(function() {
-            $("#tab1 tbody tr:even").find("td:eq(0)").css("background-color", "#FFFFFF");
-            $("#tab1 tbody tr:odd").find("td:eq(0)").css("background-color", "#FAFAFA");
+            $("#tab1 tbody tr:even").find("td:eq(0)").css("background-color", "#FAFAFA");
+            $("#tab1 tbody tr:odd").find("td:eq(0)").css("background-color", "#EEEEEE");
             $(this).find("td:eq(0)").css("background-color", "#FFD58D");
         });
     });

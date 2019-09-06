@@ -77,6 +77,29 @@
 		</if>
 	</select>
 	
+	<select id="markListProject" parameterType="Map" resultMap="MarkMap">
+		select p.*, count(m.*) as count from project p left join 
+		(select * from markproject where personid = #{person.id}) as m on p.id = m.projectid 
+		<where>
+			<if test="name != null">
+				and p.name like #{name}
+			</if>
+			<if test="user != null">
+				and p.personid = #{user.id}
+			</if>
+			<if test="company != null">
+				and p.companyid = #{company.id}
+			</if>
+			<if test="project != null">
+				and m.projectid = #{project.id}
+			</if>
+		</where>
+		group by p.id order by p.date desc
+		<if test="page > 0">
+			limit 15 offset (#{page}-1)*15
+		</if>
+	</select>
+	
 	<select id="getCount" parameterType="Map" resultType="int">
 		select count(*) from project
 		<where>
@@ -103,6 +126,19 @@
 		<result property="slope" column="slope"/>
 		<result property="operator" column="operator"/>
 		<result property="date" column="date"/>
+	 	<association property="person" column="personid" select="com.springboot.dao.PersonDao.findPersonByID"/>
+	 	<association property="company" column="companyid" select="com.springboot.dao.CompanyDao.findCompanyByID"/>
+	</resultMap>
+	
+	<resultMap id="MarkMap" type="Project">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="client" column="client"/>
+		<result property="standard" column="standard"/>
+		<result property="slope" column="slope"/>
+		<result property="operator" column="operator"/>
+		<result property="date" column="date"/>
+		<result property="count" column="count"/>
 	 	<association property="person" column="personid" select="com.springboot.dao.PersonDao.findPersonByID"/>
 	 	<association property="company" column="companyid" select="com.springboot.dao.CompanyDao.findCompanyByID"/>
 	</resultMap>

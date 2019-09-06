@@ -4,6 +4,7 @@
     <title>信息中心</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/CCTV/css/comm/itemlist.css"/>
     <link rel="stylesheet" type="text/css" href="/CCTV/css/message/showlist.css"/>
     <script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js" ></script>
     <script type="text/javascript" src="/CCTV/js/message/showlist.js"></script>
@@ -12,7 +13,7 @@
     <div th:replace="navigation::navigation"></div>
     <div id="Tip"></div>
     <div id="main">
-      <div id="mainLeft">
+      <div id="mainMenu">
         <div id="menuTitle" th:text="#{menu.title.text}"></div>
         <div class="menu2"><a href="/CCTV/project/showlist" th:text="#{menu.div.text1}"></a></div>
         <shiro:hasRole name="role2">
@@ -34,17 +35,18 @@
         </shiro:hasRole>
         <div class="menu2"><a href="/CCTV/person/center" th:text="#{menu.div.text9}"></a></div>
       </div>
-      <div id="mainRight">
-        <div id="rightTop" th:text="#{message.showlist.title}"></div>
-        <table id="title1" style="width:330px;margin:15px 10px 10px 10px;">
+      
+      <div id="mainInfo">
+        <div id="infoTop" th:text="#{message.showlist.title}"></div>
+        <table id="title1">
           <tr style="font-size:16px;font-weight:600;font-family:'仿宋'">
             <td width="110px;"><span style="color:#5AABE1;border-bottom:2px solid #5AABE1;" th:text="#{message.showlist.title.label1}"></span></td>
             <td width="110px;" th:text="#{message.showlist.title.label2}+'('+${count1}+')'"></td>
             <td width="110px;" th:text="#{message.showlist.title.label3}+'('+${count2}+')'"></td>
           </tr>
         </table>
-        <table id="title2" style="width:980px;margin:0px 10px 0px 10px;font-size:20px;font-family:'Times New Roman'">
-          <thead style="background-color:#F5F6FA;border:1px solid #ccc;">
+        <table id="title2">
+          <thead>
             <tr height="40px" align="center">
               <th width="50%" align="left" style="text-indent:130px;" th:text="#{message.showlist.list.title1}"></th>
               <th width="15%" th:text="#{message.showlist.list.title2}"></th>
@@ -54,7 +56,7 @@
             </tr>
           </thead>
         </table>
-        <table id="tab1">
+        <table id="mtab1">
           <tr th:each="message:${messages}" align="center" th:id="${message.id}">
             <td width="50%" align="left"><a th:text="${message.title}"></a></td>
             <td width="15%" th:text="${message.sender.nickname}"></td>
@@ -76,19 +78,18 @@
     
     <div id="page">
       <div id="webform">
-        <div class="formbar">
-	      <span style="font-size:15px;font-weight:700;color:#fff;">信息詳情</span>
-	      <input type="button" class="closebtn" value="X"/>
-	    </div>
-	    <table id="messageInfo1">
-	      <tr><td><span style="font-size:18px;font-weight:700"></span></td></tr>
+	    <span class="title">信息詳情</span>
+	    <span class="colse">X</span>
+	    <table id="info1">
+	      <tr><td><span style="font-size:18px;font-weight:700">您有项目被评分</span></td></tr>
 	      <tr><td><a>發件人：</a><span></span></td></tr>
 	      <tr><td><a>收件人：</a><span></span></td></tr>
 	      <tr><td><a>时&nbsp;&nbsp;&nbsp;&nbsp;间：</a><span></span></td></tr>
 	    </table>
-	    <div id="messageInfo2"></div>
+	    <div id="info2"></div>
 	  </div>
 	</div>
+	
     <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
       <p>香港麦斯迪埃高科技有限责任公司</p>
       <p>Copyright © 2017 All Rights Reserved</p>	

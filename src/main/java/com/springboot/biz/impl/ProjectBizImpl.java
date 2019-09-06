@@ -63,6 +63,12 @@ public class ProjectBizImpl implements ProjectBiz {
 		return projectDao.findListProject(map);
 	}
 
+	public List<Project> markListProject(Map<String, Object> map) {
+		if (!StringUtils.isEmpty(map.get("name")))
+			map.put("name", "%" + map.get("name") + "%");
+		return projectDao.markListProject(map);
+	}
+
 	public int getCountPage(Map<String, Object> map, int size) {
 		if (!StringUtils.isEmpty(map.get("name")))
 			map.put("name", "%" + map.get("name") + "%");
@@ -130,4 +136,5 @@ public class ProjectBizImpl implements ProjectBiz {
 			e.printStackTrace();
 		}
 	}
+
 }
