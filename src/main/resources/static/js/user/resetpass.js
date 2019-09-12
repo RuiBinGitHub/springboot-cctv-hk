@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
     var code = null;
     $("#icon").attr("title", "用户登录");
     $("#tab1 input[type=password]:eq(0)").attr("name", "password");
@@ -61,7 +62,7 @@ $(document).ready(function() {
         var name = $("#tab1 .textbox:eq(0)").val();
         if (!Ajax("checknamemail", {username: name, mail: mail})) {
             $("#tab1 .textbox:eq(1)").css("border-color", "#f00");
-            $("#tips").text("*The UserName does not match the E-Mail!");
+            $("#tips").text("*The UserName doesn't match the E-Mail!");
             return false;
         }
         return true;

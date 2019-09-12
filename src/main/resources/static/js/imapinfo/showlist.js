@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	
+	// 定义坐标转换
     var projection = new ol.proj.Projection({
         code: "EPSG:2326",
         extent: [793259.70, 799130.01, 870525.78, 848940.16],
@@ -7,7 +9,6 @@ $(document).ready(function() {
     });
     proj4.defs("EPSG:2326", "+proj=tmerc+lat_0=22.31213333333334+lon_0=114.1785555555556+k=1+x_0=836694.05+y_0=819069.8+ellps=intl+towgs84=-162.619,-276.959,-161.764,0.067753,-2.24365,-1.15883,-1.09425+units=m +no_defs");
     ol.proj.addProjection(projection);
-    //定义坐标转换
     ol.proj.addCoordinateTransforms("EPSG:4326", "EPSG:2326", function(coordinate) {
         return proj4("EPSG:4326", "EPSG:2326", coordinate);
     }, function(coordinate) {
@@ -19,37 +20,101 @@ $(document).ready(function() {
         return proj4("EPSG:2326", "EPSG:3857", coordinate);
     });
     /** ************************************************************************ */
+    // 地图初始化
     var viewer = new Cesium.Viewer("cesiumContainer",{
-    	//是否显示查找控件
-        geocoder: true,
-        //是否显示时间控件
-        timeline: false,
-        //是否显示动画控件
-        animation: false,
-        //是否显示图层选择控件
-        baseLayerPicker: true,
-        //是否显示投影方式控件
-        sceneModePicker: true,
-        //是否显示帮助信息控件
-        navigationHelpButton: false,
-        //是否显示点击要素之后显示的信息
-        infoBox: true,
-        // 页面展示底图
-        imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+        geocoder: true, //是否显示查找控件
+        timeline: false, //是否显示时间控件
+        animation: false, //是否显示动画控件
+        baseLayerPicker: true, //是否显示图层选择控件
+        sceneModePicker: true, //是否显示投影方式控件
+        navigationHelpButton: true, //是否显示帮助信息控件
+        infoBox: true,  //是否显示点击要素之后显示的信息
+        imageryProvider: new Cesium.ArcGisMapServerImageryProvider({ // 页面展示底图
             url: "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer",
         })
     });
-    // 不显示版权声明
-    viewer._cesiumWidget._creditContainer.style.display = "none";
-    // 设置地图的默认显示中心点和俯瞰高度
-    var center = ol.proj.transform([831800.000, 830400.000], "EPSG:2326", "EPSG:4326");
-    viewer.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 40000)
-    });
-    /** ************************************************************************ */
+    viewer._cesiumWidget._creditContainer.style.display = "none"; // 不显示版权声明
     // 设置弹出框内元素可以执行操作
     var iframe = document.getElementsByClassName("cesium-infoBox-iframe")[0];
     iframe.setAttribute("sandbox", "allow-same-origin allow-scripts allow-popups allow-forms"); 
+    // 设置地图的默认显示中心点和俯瞰高度
+    var center = ol.proj.transform([831800.000, 830400.000], "EPSG:2326", "EPSG:4326");
+    viewer.camera.flyTo({  
+        destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 40000)
+    });
+    /** ************************************************************************ */
+    // 定义标记
+    var entity = new Cesium.Entity({
+    	model: {
+	    	name: "管道",
+	    	uri: "/CCTV/model/11(1).glb",
+	        maximumSize: 10000,
+	        maximumScale: 10000,
+	        minimumPixelSize: 10000,
+	        debugWireframe: false,
+	        debugShowBoundingVolume: false,
+	        runAnimations: true,
+	        scale: 10
+	    }
+    });
+    
+    $("#list1 div").each(function() {
+    	$(this).attr("class", $(this).text());
+    });
+    $("#data").html($("#list1").html());
+    $("#data div").each(function() {
+		// 鼠标靠近事件
+    	$(this).mouseenter(function() {
+    		entity.position = Cesium.Cartesian3.fromDegrees(114.0, 23.0)
+        	viewer.entities.add(entity);
+    	});
+    	// 鼠标远离事件
+    	$(this).mouseleave(function() {
+    		viewer.entities.remove(entity);
+    	});
+    	// 点击事件
+    	$(this).click(function() {
+    		var center = ol.proj.transform([820400.000, 834180.000], "EPSG:2326", "EPSG:4326");
+    		viewer.camera.flyTo({
+    	        destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 800)
+    	    });
+    	});
+    });
+    // 输入框输入事件
+    $("#textbox").on("input", function() {
+    	var value = $(this).val();
+    	if (value == "")
+    		$("#data").html($("#list1").html());
+    	else {
+    		var context = "";
+    		$("#list1 div[class*=" + value + "]").each(function(i){
+    			context += "<div id='"+$(this).attr("id")+"'>" + $(this).text() + "</div>";
+    		});
+    		$("#data").html(context);
+    	}
+    	$("#data div").each(function() {
+    		var text = $(this).text();
+			var expr=new RegExp(value, "gm")
+			$(this).html(text.replace(expr, "<font color='#f00'>" + value + "</font>"));
+    		// 鼠标靠近事件
+        	$(this).mouseenter(function() {
+        		entity.position = Cesium.Cartesian3.fromDegrees(114.0, 23.0)
+            	viewer.entities.add(entity);
+        	});
+        	// 鼠标远离事件
+        	$(this).mouseleave(function() {
+        		viewer.entities.remove(entity);
+        	});
+        	// 鼠标点击事件
+        	$(this).click(function() {
+        		viewer.camera.flyTo({  
+        	        destination: Cesium.Cartesian3.fromDegrees(114, 22.5, 10)
+        	    });
+        		//viewer.camera.zoomIn((10000000));
+        	});
+        });
+    });
+    
     /** ************************************************************************ */
     var scene = viewer.scene;
     var globe = scene.globe;
@@ -58,7 +123,7 @@ $(document).ready(function() {
     var cl_entities = []; //对应长度数组
     var mhList = new Array();
     // 获取管道数据绘画管道
-    $("#list span").each(function() {
+    $("#list2 span").each(function() {
         var id = $(this).find("a:eq(0)").text();
         var x1 = $(this).find("a:eq(1)").text();
         var y1 = $(this).find("a:eq(2)").text();
@@ -74,9 +139,8 @@ $(document).ready(function() {
         if (mhList.indexOf(center2) == -1)
             mhList.push(center2);
     });
-    var h = 0.000004;
     for (var i = 0; i < mhList.length; i++) {
-        drawManhole(i, "", mhList[i][0] - 0, mhList[i][1], -0.5);
+        drawManhole(i, "", mhList[i][0], mhList[i][1], -0.5);
     }
 
     //鼠标左键单击事件
@@ -225,7 +289,7 @@ $(document).ready(function() {
             var radians = Cesium.Math.toRadians(i);
             var x = radius * Math.cos(radians);
             var y = radius * Math.sin(radians);
-            var position = new Cesium.Cartesian2(x,y);
+            var position = new Cesium.Cartesian2(x, y);
             positions.push(position);
         }
         return positions;

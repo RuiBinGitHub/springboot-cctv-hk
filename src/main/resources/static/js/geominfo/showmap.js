@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
     $("#text").attr("placeholder", "请输入搜索地名");
     $(".location:eq(0)").attr("placeholder", "输入查询X坐标");
     $(".location:eq(1)").attr("placeholder", "输入查询Y坐标");

@@ -41,20 +41,12 @@ public class UserController {
 	private Map<String, Object> map = null;
 	private UsernamePasswordToken token = null;
 
-	/** 用户注册 */
-	@RequestMapping(value = "/logon", method = RequestMethod.POST)
-	public ModelAndView logon(Person person) {
-		ModelAndView view = new ModelAndView();
-		return view;
-	}
-
 	/** 用户登录 */
 	@RequestMapping(value = "/login")
 	public ModelAndView login(HttpServletRequest request, String username, String password) {
 		try {
 			ModelAndView view = new ModelAndView("user/login");
-			// 账号或密码为空
-			if (username == null || password == null) {
+			if (username == null || password == null) {  // 账号或密码为空
 				view.addObject("username", username);
 				view.addObject("password", password);
 				return view;
@@ -62,12 +54,11 @@ public class UserController {
 			token = new UsernamePasswordToken(username, password);
 			SecurityUtils.getSubject().login(token);
 			Person user = (Person) AppUtils.findMap("user");
-			// 账号已经被冻结
-			if ("0".equals(user.getState())) {
-				view.addObject("tips", "*This account is frozen!");
+			if ("0".equals(user.getState())) {  // 账号已经被冻结
+				view.addObject("tips", "*This Account is frozen!");
 				return view;
 			}
-			// 已超过使用期限
+			// 计算使用账号期限
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Company company = user.getCompany();
 			Calendar calendar = Calendar.getInstance();
@@ -78,8 +69,6 @@ public class UserController {
 				view.addObject("tips", "The Company has expired!");
 				return view;
 			}
-			// 登录成功
-			SecurityUtils.getSubject().getSession().setTimeout(-2000);
 			SavedRequest location = WebUtils.getSavedRequest(request);
 			if (!StringUtils.isEmpty(location)) {
 				String path = location.getRequestUrl();
@@ -108,6 +97,34 @@ public class UserController {
 		return view;
 	}
 
+	/** 判断账号和邮箱 */
+	@RequestMapping(value = "/checknamemail")
+	public boolean checkNameMail(String username, String mail) {
+		map = AppUtils.getMap("username", username, "email", mail);
+		if (personBiz.findInfoPerson(map) == null)
+			return false;
+		else
+			return true;
+	}
+	
+	/** 重置密码 */
+	@RequestMapping(value = "/resetpass", method = RequestMethod.POST)
+	public ModelAndView resetpass(String username, String password, String mail) {
+		ModelAndView view = new ModelAndView("user/resetpass");
+		map = AppUtils.getMap("username", username, "email", mail);
+		Person person = personBiz.findInfoPerson(map);
+		if (StringUtils.isEmpty(person)) {
+			view.addObject("tips", "*UserName and E-Mail mismatch!");
+			view.addObject("username", username);
+			view.addObject("email", mail);
+			return view;
+		}
+		person.setPassword(password);
+		personBiz.updatePerson(person);
+		view.setViewName("redirect:/success");
+		return view;
+	}
+	
 	/** 判断账号是否存在 */
 	@RequestMapping(value = "/isexistname")
 	public boolean isExistName(@RequestParam("name") String name) {
@@ -128,34 +145,6 @@ public class UserController {
 			return true;
 	}
 
-	/** 判断账号和邮箱 */
-	@RequestMapping(value = "/checknamemail")
-	public boolean checkNameMail(String username, String mail) {
-		map = AppUtils.getMap("username", username, "email", mail);
-		if (personBiz.findInfoPerson(map) == null)
-			return false;
-		else
-			return true;
-	}
-
-	/** 重置密码 */
-	@RequestMapping(value = "/resetpass", method = RequestMethod.POST)
-	public ModelAndView resetpass(String username, String password, String mail) {
-		ModelAndView view = new ModelAndView("user/resetpass");
-		map = AppUtils.getMap("username", username, "email", mail);
-		Person person = personBiz.findInfoPerson(map);
-		if (StringUtils.isEmpty(person)) {
-			view.addObject("tips", "*UserName and E-Mail mismatch!");
-			view.addObject("username", username);
-			view.addObject("email", mail);
-			return view;
-		}
-		person.setPassword(password);
-		personBiz.updatePerson(person);
-		view.setViewName("redirect:/success");
-		return view;
-	}
-
 	/** 发送电子邮件 */
 	@RequestMapping(value = "/sendmail")
 	public String sendmail(String mail) {
@@ -165,6 +154,13 @@ public class UserController {
 		return code;
 	}
 
+	/** 切换语言 */
+	@RequestMapping(value = "/change")
+	public boolean change(String l, HttpServletRequest request) {
+		AppUtils.pushMap("i18n", l);
+		return true;
+	}
+	
 	@RequestMapping(value = "/index")
 	public ModelAndView index() {
 		try {
@@ -177,17 +173,11 @@ public class UserController {
 			return view;
 		} catch (Exception e) {
 			ModelAndView view = new ModelAndView();
-			view.setViewName("redirect:/company/showlist");
+			view.setViewName("redirect:/project/showlist");
 			return view;
 		}
-
 	}
 
-	/** 切换语言 */
-	@RequestMapping(value = "/change")
-	public boolean change(String l, HttpServletRequest request) {
-		AppUtils.pushMap("i18n", l);
-		return true;
-	}
+	
 
 }

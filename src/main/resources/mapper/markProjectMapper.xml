@@ -72,6 +72,12 @@
 			<if test="company != null">
 				and p.companyid = #{company.id}		
 			</if>
+			<if test="project != null">
+				and m1.projectid=#{project.id}
+			</if>
+			<if test="person != null">
+				and m1.personid=#{person.id}
+			</if>
 		</where>
 		group by m1.id order by m1.date desc
 		<if test="page > 0">

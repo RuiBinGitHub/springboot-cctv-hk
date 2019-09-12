@@ -1,18 +1,12 @@
 $(document).ready(function() {
     // 获取当前语言
     var language = $("#infoTop").text() == "項目列表" ? "zh" : "en";
-    var tipsText1 = "數據正在上傳中...";
-    var tipsText2 = "確定要提交該數據嗎？";
-    var tipsText3 = "數據提交成功！";
-    var tipsText4 = "確定要刪除該數據嗎？";
-    var tipsText5 = "數據刪除成功！";
-    if (language == "en") {
-    	tipsText1 = "Data uploading...";
-    	tipsText2 = "Are you sure you want to submit this data?";
-    	tipsText3 = "Operating successfully!";
-    	tipsText4 = "Are you sure you want to delete this data?";
-    	tipsText5 = "Operating successfully!";
-    }
+    
+    var tipsText1 = language == "zh" ? "數據正在上傳中..." : "Data uploading...";
+    var tipsText2 = language == "zh" ? "確定要提交該數據嗎？" : "Are you sure you want to submit this data?";
+    var tipsText3 = language == "zh" ? "數據提交成功！" : "Operating successfully!";
+    var tipsText4 = language == "zh" ? "確定要刪除該數據嗎？" : "Are you sure you want to delete this data?";
+    var tipsText5 = language == "zh" ? "數據刪除成功！" : "Operating successfully!";
     /********************************************************************/
     var width = $("#infoMenu span:eq(0)").css("width");
     var length = width.substring(0, width.length - 2);
