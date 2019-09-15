@@ -6,6 +6,7 @@ body {
 
 #title1 {
 	width: 330px;
+	text-align: center;
 	margin: 15px 10px 10px 10px;
 	float: left;
 }
@@ -16,10 +17,16 @@ body {
 	font-family: 'Times New Roman';
 	float: left;
 }
+
 #title2 thead {
 	color: #fff;
 	font-size: 20px;
 	background-color: #39B549;
+}
+
+#choice {
+	color: #5AABE1;
+	border-bottom: 2px solid #5AABE1;
 }
 
 #mtab1 {
@@ -34,6 +41,7 @@ body {
 	height: 40px;
 	background-color: #fafafa;
 }
+
 #mtab1 tr:nth-child(even) {
 	background-color: #eeeeee;
 }

@@ -1,433 +1,491 @@
 @CHARSET "UTF-8";
-body{
+
+body {
 	background-color: #F6F6F6;
 }
-#Tip{
- 	top:40%;left:45%; 
- 	padding:10px 20px;
- 	position:fixed;
- 	color:#ffffff;
- 	font-size:18px;
- 	font-weight:500;
- 	text-align:center;
- 	line-height:80px;
- 	background-color:rgba(60,60,60,0.8);
- 	border-radius:6px; 
- 	display:none;
- 	z-index:10;
-}
-#map{
-	width:100%;
-	height:100%;
-	background-color:#fff;
-	position:relative;
-}
-#text{
-	width:250px;
-	height:30px;
-	top:50px;left:50px;
-	position:absolute;
-	font-size:15px;
-	text-indent:10px;
-	float:left;
-	z-index:9;
-}
-#find{
-	width:70px;
-	height:36px;
-	top:50px;left:300px;
-	position:absolute;
-	color:#ffffff;
-	font-size:16px;
-	background-color:#3385FF;
-	border:none;
-	z-index:9;
-	float:left;
-}
-#find:hover{
-	background-color:#5b9dff;
-	cursor:pointer;
+
+#Tip {
+	top: 40%;
+	left: 45%;
+	padding: 10px 20px;
+	position: fixed;
+	color: #ffffff;
+	font-size: 18px;
+	font-family: "宋体";
+	font-weight: 500;
+	text-align: center;
+	line-height: 80px;
+	background-color: rgba(60, 60, 60, 0.8);
+	border-radius: 6px;
+	display: none;
+	z-index: 10;
 }
 
-#result{
-	width:318px;
-	top:100px;left:50px;
-	background-color:#fff;
-	border:1px solid #ccc;
-	position:absolute;
-	display:none;
-	z-index:9;
-}
-#tltle{
-	width:90%;
-	font-size:20px;
-	font-weight:700;
-	line-height:50px;
-	text-indent:20px;
-	float:left;
-}
-#colse{
-	width:10%;
-	color:#999;
-	font-size:18px;
-	font-weight:700;
-	line-height:50px;
-	float:left;
-}
-#colse:hover{
-	cursor:pointer;
-	color:#ff4400;
-}
-#showplace{
-	width:100%;
-	max-height:520px;
-	border-top:1px solid #ccc;
-	border-bottom:1px solid #ccc;
-	overflow-y:auto;
-	float:left;
-}
-#showplace table{
-	width:100%;
-	font-size:14px;
-	border-collapse:collapse;
-	float:left;
-}
-#showplace table tr{
-	height:45px;
-	border-bottom:1px solid #ccc;
-	cursor:pointer;
-}
-.colspan1{
-	width:18%;
-	text-align:right;
-}
-.colspan2{
-	width:82%;
-	padding-right:10px;
-}
-#showplace table tr td a{
-	color:#2244DD;
-}
-#showplace table tr td a:hover{
-	text-decoration:underline;
-}
-#colseResult{
-	width:120px;
-	height:30px;
-	margin:15px 99px;
-	color:#ffffff;
-	background-color:#7092FF;
-	border-radius:4px;
-	border:none;
-	float:left;
-}
-#colseResult:hover{
-	background-color:#8ca9ff;
-	cursor:pointer;
-}
-/************************************************************************/
-#navigbtn{
-	width:24px;
-	height:26px;
-	top:50px;right:0px;
-	color:#999999;
-	font-size:20px;
-	font-weight:600;
-	background-color:#fff;
-	border:1px solid #ccc;
-	position:absolute;
-	z-index:9;
-}
-#navigbtn:hover{
-	cursor:pointer;
-	color:#FF711D;
-}
-#navigation{
-	width:460px;
-	height:24px;
-	top:50px;right:25px;
-	font-size:15px;
-	line-height:24px;
-	text-align:center;
-	background-color:#fff;
-	border:1px solid #ccc;
-	border-right:none;
-	position:absolute;
-	display:none;
-	z-index:9;
-}
-#navigation div{
-	height:100%;
-}
-#senior{
-	width:78px;
-	font-size:14px;
-	border-right:1px solid #999;
-	float:left;
-}
-#senior:hover{
-	color:#FF711D;
-	cursor:pointer;
-}
-.locaBtn{
-	height:24px;
-	color:#ffffff;
-	font-size:14px;
-	font-weight:700;
-	background-color:#FF711D;
-	border:none;
-	float:left;
-}
-.locaBtn:hover{
-	background-color:#ff8d48;
-	cursor:pointer;
-}
-.location{
-	width:105px;
-	height:22px;
-	font-size:13px;
-	text-indent:8px;
-	border:none;
-	float:left;
+#map {
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	position: relative;
 }
 
+#text {
+	width: 250px;
+	height: 30px;
+	top: 50px;
+	left: 50px;
+	position: absolute;
+	font-size: 15px;
+	text-indent: 10px;
+	float: left;
+	z-index: 9;
+}
 
+#find {
+	width: 70px;
+	height: 36px;
+	top: 50px;
+	left: 300px;
+	position: absolute;
+	color: #ffffff;
+	font-size: 16px;
+	background-color: #3385FF;
+	border: none;
+	z-index: 9;
+	float: left;
+}
 
-#rule{
-	width:30px;
-	text-align:center;
-	float:left;
+#find:hover {
+	background-color: #5b9dff;
+	cursor: pointer;
 }
-#rule img{
-	width:18px;
-	height:18px;
-	margin-top:3px;
-	cursor:pointer;
+
+#result {
+	width: 318px;
+	top: 100px;
+	left: 50px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	position: absolute;
+	display: none;
+	z-index: 9;
 }
-/************************************************************************/
-#Triangle{
-	top:68px;right:430px;
-	border:8px solid transparent;
-	border-bottom-color:#fff; 
-	position:absolute;
-	z-index:9;
+
+#tltle {
+	width: 90%;
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 50px;
+	text-indent: 20px;
+	float: left;
 }
-#QueryBox{
-	width:320px;
-	height:240px;
-	top:84px;right:275px;
-	background-color:#fff;
-	border-radius:4px;
-	position:absolute;
-	z-index:9;
+
+#colse {
+	width: 10%;
+	color: #999;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 50px;
+	float: left;
 }
-#QueryBox div{
-	width:270px;
-	height:45px;
-	line-height:55px;
-	margin-left:20px;
-	float:left;
+
+#colse:hover {
+	cursor: pointer;
+	color: #ff4400;
 }
-#QueryBox input[type=text]{
-	width:180px;
-	height:24px;
-	text-indent:6px;
-	border:1px solid #ccc;
-	float:left;
+
+#showplace {
+	width: 100%;
+	max-height: 520px;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	overflow-y: auto;
+	float: left;
 }
-#QueryBox .btn1{
-	width:30px;
-	height:28px;
-	margin-left:20px;
-	font-size:14px;
-	font-weight:600;
-	background-color:#EBEBEB;
-	border:1px solid #CCCCCC;
-	float:left;
+
+#showplace table {
+	width: 100%;
+	font-size: 14px;
+	border-collapse: collapse;
+	float: left;
 }
-#QueryBox .btn2{
-	width:60px;
-	height:28px;
-	font-size:14px;
-	text-indent:6px;
-	font-weight:600;
-	font-family:"仿宋";
-	background-color:#EBEBEB;
-	border:1px solid #CCCCCC;
-	float:left;
+
+#showplace table tr {
+	height: 45px;
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
 }
-#QueryBox input[type=button]:hover{
-	cursor:pointer;
-	color:#ff4400;
+
+.colspan1 {
+	width: 18%;
+	text-align: right;
 }
-/************************************************************************/
-#showBtn{
-	width:34px;
-	height:20px;
-	top:140px;right:0px;
-	font-size:10px;
-	color:#666;
-	background-color:#fff;
-	border:1px solid #ccc;
-	border-right:none;
-	position:absolute;
-	z-index:10;
+
+.colspan2 {
+	width: 82%;
+	padding-right: 10px;
 }
-#showBtn:hover{
-	cursor:pointer;
-	color:#ff4400;
+
+#showplace table tr td a {
+	color: #2244DD;
 }
-/************************************************************************/
-#showBox{
-	width:270px;
-	height:380px;
-	top:140px;right:0px;
-	position:absolute;
-	display:none;
-	z-index:9;
+
+#showplace table tr td a:hover {
+	text-decoration: underline;
 }
-.title{
-	width:60px;
-	height:100%;
-	text-align:center;
-	line-height:25px;
-	background-color:#fff;
-	border:1px solid #ccc;
-	border-radius:4px 4px 0px 0px;
-	border-bottom:none;
-	float:left;
-	z-index:9;
+
+#colseResult {
+	width: 120px;
+	height: 30px;
+	margin: 15px 99px;
+	color: #ffffff;
+	background-color: #7092FF;
+	border-radius: 4px;
+	border: none;
+	float: left;
 }
-.title:hover{
-	color:#ff4400;
-	cursor:pointer;
-}
-.panel{
-	width:270px;
-	height:352px;
-	background-color:#fff;
-	border:1px solid #ccc;
-	border-right:none;
-	display:none;
-	z-index:9;
-	float:left;
-}
-.infoTitle{
-	width:100%;
-	height:50px;
-	text-indent:30px;
-	line-height:50px;
-	//background-color:#D0D0D0;
-	float:left;
+
+#colseResult:hover {
+	background-color: #8ca9ff;
+	cursor: pointer;
 }
 /************************************************************************/
-#resultText{
-	width:226px;
-	height:20px;
-	margin:20px 20px 0px 20px;
-	text-indent:7px;
-	float:left;
+#navigbtn {
+	width: 24px;
+	height: 26px;
+	top: 50px;
+	right: 0px;
+	color: #999999;
+	font-size: 20px;
+	font-weight: 600;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	position: absolute;
+	z-index: 9;
 }
-#resultList{
-	width:228px;
-	max-height:278px;
-	margin:8px 20px;
-	border:1px solid #ccc;
-	overflow-y:auto;
-	float:left;
+
+#navigbtn:hover {
+	cursor: pointer;
+	color: #FF711D;
 }
-#resultList div{
-	width:100%;
-	height:30px;
-	font-size:14px;
-	text-indent:10px;
-	line-height:30px;
-	border-bottom:1px solid #ccc;
-	float:left;
+
+#navigation {
+	width: 460px;
+	height: 24px;
+	top: 50px;
+	right: 25px;
+	font-size: 15px;
+	line-height: 24px;
+	text-align: center;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-right: none;
+	position: absolute;
+	display: none;
+	z-index: 9;
 }
-#resultList div:hover{
-	background-color:#ccc;
-	cursor:pointer;
+
+#navigation div {
+	height: 100%;
+}
+
+#senior {
+	width: 78px;
+	font-size: 14px;
+	border-right: 1px solid #999;
+	float: left;
+}
+
+#senior:hover {
+	color: #FF711D;
+	cursor: pointer;
+}
+
+.locaBtn {
+	height: 24px;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: 700;
+	background-color: #FF711D;
+	border: none;
+	float: left;
+}
+
+.locaBtn:hover {
+	background-color: #ff8d48;
+	cursor: pointer;
+}
+
+.location {
+	width: 105px;
+	height: 22px;
+	font-size: 13px;
+	text-indent: 8px;
+	border: none;
+	float: left;
+}
+
+#rule {
+	width: 30px;
+	text-align: center;
+	float: left;
+}
+
+#rule img {
+	width: 18px;
+	height: 18px;
+	margin-top: 3px;
+	cursor: pointer;
+}
+/************************************************************************/
+#Triangle {
+	top: 68px;
+	right: 430px;
+	border: 8px solid transparent;
+	border-bottom-color: #fff;
+	position: absolute;
+	z-index: 9;
+}
+
+#QueryBox {
+	width: 320px;
+	height: 240px;
+	top: 84px;
+	right: 275px;
+	background-color: #fff;
+	border-radius: 4px;
+	position: absolute;
+	z-index: 9;
+}
+
+#QueryBox div {
+	width: 270px;
+	height: 45px;
+	line-height: 55px;
+	margin-left: 20px;
+	float: left;
+}
+
+#QueryBox input[type=text] {
+	width: 180px;
+	height: 24px;
+	text-indent: 6px;
+	border: 1px solid #ccc;
+	float: left;
+}
+
+#QueryBox .btn1 {
+	width: 30px;
+	height: 28px;
+	margin-left: 20px;
+	font-size: 14px;
+	font-weight: 600;
+	background-color: #EBEBEB;
+	border: 1px solid #CCCCCC;
+	float: left;
+}
+
+#QueryBox .btn2 {
+	width: 60px;
+	height: 28px;
+	font-size: 14px;
+	text-indent: 6px;
+	font-weight: 600;
+	font-family: "仿宋";
+	background-color: #EBEBEB;
+	border: 1px solid #CCCCCC;
+	float: left;
+}
+
+#QueryBox input[type=button]:hover {
+	cursor: pointer;
+	color: #ff4400;
+}
+/************************************************************************/
+#showBtn {
+	width: 34px;
+	height: 20px;
+	top: 140px;
+	right: 0px;
+	font-size: 10px;
+	color: #666;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-right: none;
+	position: absolute;
+	z-index: 10;
+}
+
+#showBtn:hover {
+	cursor: pointer;
+	color: #ff4400;
+}
+/************************************************************************/
+#showBox {
+	width: 270px;
+	height: 380px;
+	top: 140px;
+	right: 0px;
+	position: absolute;
+	display: none;
+	z-index: 9;
+}
+
+.title {
+	width: 60px;
+	height: 100%;
+	text-align: center;
+	line-height: 25px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px 4px 0px 0px;
+	border-bottom: none;
+	float: left;
+	z-index: 9;
+}
+
+.title:hover {
+	color: #ff4400;
+	cursor: pointer;
+}
+
+.panel {
+	width: 270px;
+	height: 352px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-right: none;
+	display: none;
+	z-index: 9;
+	float: left;
+}
+
+.infoTitle {
+	width: 100%;
+	height: 50px;
+	text-indent: 30px;
+	line-height: 50px; //
+	background-color: #D0D0D0;
+	float: left;
+}
+/************************************************************************/
+#resultText {
+	width: 226px;
+	height: 20px;
+	margin: 20px 20px 0px 20px;
+	text-indent: 7px;
+	float: left;
+}
+
+#resultList {
+	width: 228px;
+	max-height: 278px;
+	margin: 8px 20px;
+	border: 1px solid #ccc;
+	overflow-y: auto;
+	float: left;
+}
+
+#resultList div {
+	width: 100%;
+	height: 30px;
+	font-size: 14px;
+	text-indent: 10px;
+	line-height: 30px;
+	border-bottom: 1px solid #ccc;
+	float: left;
+}
+
+#resultList div:hover {
+	background-color: #ccc;
+	cursor: pointer;
 }
 /****************************************************/
-#infoTitle{
-	width:215px;
-	height:24px;
-	margin:15px 5px 0px 15px;
-	float:left;
+#infoTitle {
+	width: 215px;
+	height: 24px;
+	margin: 15px 5px 0px 15px;
+	float: left;
 }
-#link{
-	width:24px;
-	height:24px;
-	margin-top:15px;
-	background-color:#ccc;
-	border-radius:3px;
-	float:left;
+
+#link {
+	width: 24px;
+	height: 24px;
+	margin-top: 15px;
+	background-color: #ccc;
+	border-radius: 3px;
+	float: left;
 }
-#compare{
-	width:22px;
-	height:22px;
-	margin:2px;
-	cursor:pointer;
-	float:left;
+
+#compare {
+	width: 22px;
+	height: 22px;
+	margin: 2px;
+	cursor: pointer;
+	float: left;
 }
-#infoList{
-	width:242px;
-	height:290px;
-	margin:8px 15px;
-	text-align:center;
-	line-height:278px;
-	border:1px solid #ccc;
-	overflow-y:auto;
-	float:left;
+
+#infoList {
+	width: 242px;
+	height: 290px;
+	margin: 8px 15px;
+	text-align: center;
+	line-height: 278px;
+	border: 1px solid #ccc;
+	overflow-y: auto;
+	float: left;
 }
 /**  */
-#infoList table{
-	width:100%;
-	background-color:#8064A1;
-	float:left;
+#infoList table {
+	width: 100%;
+	background-color: #8064A1;
+	float: left;
 }
-#infoList table tr{
-	height:30px;
-	font-size:14px;
-	line-height:20px;
-	background-color:#F2F2F2;
-}
-/************************************************************************/
-#img{
-	width:76px;
-	height:36px;
-	right:300px;bottom:3px;
-	position:absolute;
-	z-index:9;
-}
-#coordinate{
-	width:280px;
-	height:30px;
-	right:50px;bottom:3px;
-	position:absolute;
-	color:#666666;
-	text-align:right;
-	z-index:9;
+
+#infoList table tr {
+	height: 30px;
+	font-size: 14px;
+	line-height: 20px;
+	background-color: #F2F2F2;
 }
 /************************************************************************/
-.tooltip{  /** 测量距离提示框 */
-    padding:4px 8px;
-    opacity:0.7;
-    color:#ffffff;
-    white-space:nowrap;
-    background:rgba(0,0,0,0.2);
-    border-radius:4px;
-    position:relative;
+#img {
+	width: 76px;
+	height: 36px;
+	right: 300px;
+	bottom: 3px;
+	position: absolute;
+	z-index: 9;
 }
-#showImg{
-	width:320px;
-	height:240px;
-	background-color:#ffffff;
-	border:5px solid #606060;
-	border-radius:4px;
-	position:absolute;
-	display:none;	
-	z-index:9;
+
+#coordinate {
+	width: 280px;
+	height: 30px;
+	right: 50px;
+	bottom: 3px;
+	position: absolute;
+	color: #666666;
+	text-align: right;
+	z-index: 9;
+}
+/************************************************************************/
+.tooltip { /** 测量距离提示框 */
+	padding: 4px 8px;
+	opacity: 0.7;
+	color: #ffffff;
+	white-space: nowrap;
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 4px;
+	position: relative;
+}
+
+#showImg {
+	width: 320px;
+	height: 240px;
+	background-color: #ffffff;
+	border: 5px solid #606060;
+	border-radius: 4px;
+	position: absolute;
+	display: none;
+	z-index: 9;
 }
 /************************************************************************/

@@ -1,23 +1,18 @@
 $(document).ready(function() {
-	
-	var language = $("#infoTop").text() == "項目列表" ? "zh" : "en";
-	var tipsText1 = "確定要撤回該項目嗎？";
-    var tipsText3 = "數據撤回成功！";
-    var tipsText4 = "確定要移除該數據嗎？";
-    var tipsText5 = "數據移除成功！";
-    if (language == "en") {
-    	tipsText1 = "Are you sure you want to revoke this data?";
-    	tipsText2 = "Operating successfully!";
-    	tipsText3 = "Are you sure you want to remove this data?";
-    	tipsText4 = "Operating successfully!";
-    }
+
+    var language = $("#infoTop").text() == "項目列表" ? "zh" : "en";
+
+    var tipsText1 = language == "zh" ? "確定要撤回該項目嗎？" : "Are you sure you want to revoke this data?";
+    var tipsText2 = language == "zh" ? "數據撤回成功！" : "Operating successfully!";
+    var tipsText3 = language == "zh" ? "確定要移除該數據嗎？" : "Are you sure you want to remove this data?";
+    var tipsText4 = language == "zh" ? "數據移除成功！" : "Operating successfully!";
     /********************************************************************/
-	var width = $("#infoMenu span:eq(0)").css("width");
+    var width = $("#infoMenu span:eq(0)").css("width");
     var length = width.substring(0, width.length - 2);
     if ($("#infoMenu input[type=button]").length == 4)
-    	$("#infoMenu div:eq(0)").css("width", 536 - length);
+        $("#infoMenu div:eq(0)").css("width", 536 - length);
     else
-    	$("#infoMenu div:eq(0)").css("width", 610 - length);
+        $("#infoMenu div:eq(0)").css("width", 610 - length);
     /********************************************************************/
     if ($("#menuText").val() == "") {
         $("#menuBtn1").attr("disabled", true);
@@ -39,7 +34,7 @@ $(document).ready(function() {
         window.open("combineview");
     });
     $("#commap").click(function() {
-    	window.open("/CCTV/imapinfo/showlist");
+        window.open("/CCTV/imapinfo/showlist");
     });
     /********************************************************************/
     /** 初始化表格 */
@@ -48,9 +43,9 @@ $(document).ready(function() {
         /*********************************************/
         var name = $("#menuText").val();
         if (name.trim() != "") {
-        	var exp = new RegExp(name,"gm")
+            var exp = new RegExp(name,"gm")
             var text = $(this).find("td:eq(1)").text();
-        	text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
+            text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
             $(this).find("td:eq(1) a").html(text);
         }
         /*********************************************/
@@ -59,25 +54,25 @@ $(document).ready(function() {
             window.open("/CCTV/download/file?id=" + id);
         });
         $(this).find("input[type=button]:eq(1)").click(function() {
-            if (!confirm(tipsText1)) 
-            	return false;
-        	$(this).css("background-color", "#ccc");
+            if (!confirm(tipsText1))
+                return false;
+            $(this).css("background-color", "#ccc");
             $(this).attr("disabled", true);
             if (Ajax("revoke", {id: id}))
-            	showTips(tipsText2);
+                showTips(tipsText2);
             setTimeout("location.reload()", 2000);
         });
         $(this).find("input[type=button]:eq(2)").click(function() {
             if (!confirm(tipsText3))
-            	return false;
-        	$(this).css("background-color", "#ccc");
+                return false;
+            $(this).css("background-color", "#ccc");
             $(this).attr("disabled", true);
             if (Ajax("remove", {id: id}))
-            	showTips(tipsText4);
+                showTips(tipsText4);
             setTimeout("location.reload()", 2000);
         });
         $(this).click(function() {
-        	$("#tab1 tbody tr:even").find("td:eq(0)").css("background-color", "#FAFAFA");
+            $("#tab1 tbody tr:even").find("td:eq(0)").css("background-color", "#FAFAFA");
             $("#tab1 tbody tr:odd").find("td:eq(0)").css("background-color", "#EEEEEE");
             $(this).find("td:eq(0)").css("background-color", "#FFD58D");
         });
@@ -114,12 +109,12 @@ $(document).ready(function() {
     function Ajax(url, data) {
         var result = null;
         $.ajax({
-            url:url,
-            data:data,
-            type:"post",
-            async:false,
-            datatype:"json",
-            success:function(data) {
+            url: url,
+            data: data,
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function(data) {
                 result = data;
             }
         });

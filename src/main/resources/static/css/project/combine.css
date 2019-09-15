@@ -10,7 +10,8 @@ body {
 	padding: 10px 20px;
 	position: fixed;
 	color: #ffffff;
-	font-size: 18px;
+	font-size: 20px;
+	font-family: "宋体";
 	font-weight: 500;
 	text-align: center;
 	line-height: 80px;
@@ -213,15 +214,17 @@ body {
 }
 
 .combtn {
-	width: 120px;
+	width: 130px;
 	height: 32px;
 	margin-left: 12px;
 	color: #ffffff;
 	font-size: 15px;
 	font-weight: 600;
 	background-color: #00953E;
-	border-radius: 3px;
+	border-radius: 32px;
+	outline: none;
 	border: none;
+	float: left;
 }
 
 .combtn:hover {

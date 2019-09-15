@@ -59,11 +59,11 @@
 	background-repeat: no-repeat;
 	border-bottom: 1px solid #ccc;
 	float: left;
-	background-repeat: no-repeat;
 }
 
 #data div:hover {
 	background-color: #F0F0F0;
+	cursor: pointer;
 }
 
 #showdata {

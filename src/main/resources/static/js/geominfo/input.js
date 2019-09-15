@@ -1,7 +1,6 @@
 $(document).ready(function() {
     // 获取当前语言
     var language = $(".title:eq(0) span").text() == "項目範圍" ? "zh" : "en";
-
     var tipsTest1 = "数据上传中...";
     var tipsTest2 = "數據導入成功！";
     var tipsTest3 = "數據上傳異常！";
@@ -140,6 +139,8 @@ $(document).ready(function() {
 			showTips(tipsTest6);
 			return false;
         }
+        $(this).attr("disabled", true);
+        $(this).css("background-color", "#ccc");
         if (Ajax("inputvalue", $("#form2").serialize()))
             showTips(tipsTest7);
         setTimeout("location.reload()", 2000);
@@ -152,6 +153,8 @@ $(document).ready(function() {
         $("#page").hide();
     });
     $("#webform input[type=button]").click(function() {
+    	$(this).attr("disabled", true);
+        $(this).css("background-color", "#ccc");
         if (Ajax("updategrade", $("#form3").serialize()))
         	showTips(tipsTest8);
         setTimeout("location.reload()", 2000);

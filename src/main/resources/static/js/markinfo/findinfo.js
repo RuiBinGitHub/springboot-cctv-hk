@@ -11,7 +11,7 @@ $(document).ready(function() {
     /********************************************************************/
     $(document).scroll(function(e) {
         var height = $(document).scrollTop();
-        if (height >= 135)
+        if (height >= 465)
             $("#TitleMemu").show();
         else
             $("#TitleMemu").hide();

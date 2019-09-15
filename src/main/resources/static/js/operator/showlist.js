@@ -2,12 +2,12 @@ $(document).ready(function() {
     // 获取当前语言
     var language = $("#rightTop").text() == "項目列表" ? "zh" : "en";
     
-    var tipsText1 = "確定要删除該數據嗎？";
-    var tipsText2 = "数据删除成功？";
-    if (language == "en") {
-        tipsText1 = "Are you sure you want to delete this data?";
-        tipsText2 = "Operating successfully!";
-    }
+    var tipsText1 = language == "zh" ? "確定要刪除該數據嗎？" : "Are you sure you want to delete this data?";
+    var tipsText2 = language == "zh" ? "數據刪除成功！" : "Operating successfully!";
+    /********************************************************************/
+    var width = $("#infoMenu span:eq(0)").css("width");
+    var length = width.substring(0, width.length - 2);
+    $("#infoMenu div:eq(0)").css("width", 604 - length);
     /********************************************************************/
     if ($("#menuText").val().trim() == "") {
         $("#menuBtn1").attr("disabled", true);

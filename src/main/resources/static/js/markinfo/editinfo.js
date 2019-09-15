@@ -1,6 +1,9 @@
 $(document).ready(function() {
     initList();
     var language = $("#title").text() == "管道列表" ? "zh" : "en";
+    
+    var tipsText1 = language == "zh" ? "請輸入正確的分數！" : "Please check the input score!";
+    var tipsText2 = language == "zh" ? "保存數據成功！" : "Operating successfully!";
     /********************************************************************/
     drawPipe();
     var id = $("#id").val();
@@ -27,10 +30,11 @@ $(document).ready(function() {
         var socre2 = $(this).find("td:eq(7)").text();
         $(this).find("td:eq(6)").html(getImg(socre1));
         $(this).find("td:eq(7)").html(getImg(socre2));
-
+        // 鼠标靠近列表事件
         $(this).mouseenter(function() {
             $(this).find("input").show();
         });
+        // 鼠标远离列表事件
         $(this).mouseleave(function() {
             $(this).find("input").hide();
         });
@@ -139,44 +143,39 @@ $(document).ready(function() {
     }
     /********************************************************************/
     $("#tab3 input[type=text]").keypress(function(event) {
-        if (event.which >= 48 && event.which <= 57)
+        if (event.which >= 48 && event.which <= 57 && event.which <= 46)
             return true;
         return false;
     });
-    $("#tab3 input[type=text]").click(function() {
-    	$(this).eq(0).css("background-color", "#fff");
+    $("#tab3 input[type=text]").on("input", function() {
+    	if ($(this).val() == "" || isNaN($(this).val()) || $(this).val() < 0 || $(this).val() > 100)
+    	$(this).css("background-color", "#fff");
     });
     $(document).scroll(function(e) {
         var height = $(document).scrollTop();
-        if (height >= 135)
+        if (height >= 465)
             $("#TitleMemu").show();
         else
             $("#TitleMemu").hide();
     });
     /**  确定评分*/
     $("#TitleMemu input,#common").click(function() {
-        var tipsText = "請輸入正確的分數！";
-        var showText = "保存數據成功！";
-        if (language == "en") {
-            tipsText = "Please check the input score!";
-            showText = "Operating successfully";
-        }
         var value1 = $("#tab3 input[type=text]").eq(0).val();
         if (value1 == "" || isNaN(value1) || value1 < 0 || value1 > 100) {
         	$("#tab3 input[type=text]").eq(0).css("background-color", "#f00");
-            showTips(tipsText);
+            showTips(tipsText1);
             return false;
         }
         var value2 = $("#tab3 input[type=text]").eq(1).val();
         if (value2 == "" || isNaN(value2) || value2 < 0 || value2 > 100) {
         	$("#tab3 input[type=text]").eq(1).css("background-color", "#f00");
-            showTips(tipsText);
+            showTips(tipsText1);
             return false;
         }
-        $("#TitleMemu input,#common").css("background-color", "#CCC");
-        $("#TitleMemu input,#common").attr("disabled", true);
+        $("#TitleMemu input, #common").css("background-color", "#CCC");
+        $("#TitleMemu input, #common").attr("disabled", true);
         if (Ajax("update", $("#form1").serialize()))
-            showTips(showText);
+            showTips(tipsText2);
         setTimeout("location.reload()", 2000);
     });
     /********************************************************************/

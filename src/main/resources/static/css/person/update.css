@@ -1,71 +1,82 @@
 @CHARSET "UTF-8";
-body{
-	background-color:#f1f1f1;
+
+body {
+	background-color: #f1f1f1;
 }
-#main{
-	width:1000px;
-	margin:0px auto;
+
+#main {
+	width: 1000px;
+	margin: 0px auto;
 }
-#mainInfo{
-	width:100%;
-	height:680px;
-	margin-top:10px;
-	background-color:#fff;
-	float:left;
+
+#mainInfo {
+	width: 100%;
+	height: 680px;
+	margin-top: 10px;
+	background-color: #fff;
+	float: left;
 }
-#top{
-	width:100%;
-	height:48px;
-	font-size:20px;
-	text-indent:20px;
-	line-height:48px;
-	font-weight:700;
-	border-bottom:2px solid #5EA500;
-	float:left;
+
+#top {
+	width: 100%;
+	height: 48px;
+	font-size: 20px;
+	text-indent: 20px;
+	line-height: 48px;
+	font-weight: 700;
+	border-bottom: 2px solid #5EA500;
+	float: left;
 }
-#tab1{
-	width:450px;
-	margin-top:50px;
-	margin-left:300px;
-	float:left;
+
+#tab1 {
+	width: 450px;
+	margin-top: 50px;
+	margin-left: 300px;
+	float: left;
 }
-#tab1 tr{
-	height:75px;
-	font-family:"宋体";
-	font-size:18px;
-	font-weight:600;
+
+#tab1 tr {
+	height: 75px;
+	font-family: "宋体";
+	font-size: 18px;
+	font-weight: 600;
 }
-#tab1 tr td a{
-	color:#f00;
+
+#tab1 tr td a {
+	color: #f00;
 }
-#tab1 tr td input[type=text]{
-	width:240px;
-	height:28px;
-	font-size:14px;
-	text-indent:10px;
-	border:1px solid #999;
-	border-radius:3px;
+
+#tab1 tr td input[type=text] {
+	width: 240px;
+	height: 28px;
+	font-size: 14px;
+	text-indent: 10px;
+	border: 1px solid #999;
+	border-radius: 3px;
 }
-select{
-	width:242px;
-	height:32px;
-	font-size:14px;
-	text-indent:5px;
-	border:1px solid #999;
-	border-radius:3px;
+
+select {
+	width: 242px;
+	height: 32px;
+	font-size: 14px;
+	text-indent: 5px;
+	border: 1px solid #999;
+	border-radius: 3px;
 }
-.combtn{
-	width:240px;
-	height:32px;
-	color:#ffffff;
-	font-size:15px;
-	font-weight:600;
-	background-color:#5EA500;
-	border-radius:3px;
-	border:none;
-	float:left;
+
+.combtn {
+	width: 240px;
+	height: 32px;
+	color: #ffffff;
+	font-size: 15px;
+	font-weight: 600;
+	background-color: #5EA500;
+	border-radius: 3px;
+	border: none;
+	float: left;
 }
-.combtn:hover{
-	background-color:#7BD700;
-	cursor:pointer;
+
+.combtn:hover {
+	background-color: #7BD700;
+	cursor: pointer;
 }

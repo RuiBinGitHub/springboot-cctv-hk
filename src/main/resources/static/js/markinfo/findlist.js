@@ -1,13 +1,8 @@
 $(document).ready(function() {
 
     var language = $("#infoTop").text() == "項目列表" ? "zh" : "en";
-    
-    var tipsText1 = "確定要移除該數據嗎？";
-    var tipsText2 = "數據移除成功！";
-    if (language == "en") {
-        tipsText1 = "Are you sure you want to remove this data?";
-        tipsText2 = "Operating successfully!";
-    }
+    var tipsText1 = language == "zh" ? "確定要移除該數據嗎？" : "Are you sure you want to remove this data?";
+    var tipsText2 = language == "zh" ? "數據移除成功！" : "Operating successfully!";
     /********************************************************************/
     if ($("#menuText").val() == "") {
         $("#menuBtn1").attr("disabled", true);
@@ -66,8 +61,8 @@ $(document).ready(function() {
             setTimeout("location.reload()", 2000);
         });
         $(this).click(function() {
-            $("#tab1 tbody tr:even").find("td:eq(0)").css("background-color", "#FFFFFF");
-            $("#tab1 tbody tr:odd").find("td:eq(0)").css("background-color", "#FAFAFA");
+            $("#tab1 tbody tr:even").find("td:eq(0)").css("background-color", "#FAFAFA");
+            $("#tab1 tbody tr:odd").find("td:eq(0)").css("background-color", "#EEEEEE");
             $(this).find("td:eq(0)").css("background-color", "#FFD58D");
         });
     });
@@ -76,13 +71,13 @@ $(document).ready(function() {
     $(".pagebtn:eq(0)").click(function() {
         var name = $("#menuText").val();
         var page = Number($("#page1").text()) - 1;
-        window.location.href = "showlist?name=" + name + "&page=" + page;
+        window.location.href = "findlist?name=" + name + "&page=" + page;
     });
     /** 下一页 */
     $(".pagebtn:eq(1)").click(function() {
         var name = $("#menuText").val();
         var page = Number($("#page1").text()) + 1;
-        window.location.href = "showlist?name=" + name + "&page=" + page;
+        window.location.href = "findlist?name=" + name + "&page=" + page;
     });
     $(".pagebtn:eq(0)").attr("disabled", false);
     $(".pagebtn:eq(1)").attr("disabled", false);

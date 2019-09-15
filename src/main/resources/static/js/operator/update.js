@@ -3,6 +3,12 @@ $(document).ready(function() {
     // 获取当前语言
     var language = $("#top").text() == "编辑人员" ? "zh" : "en";
     /********************************************************************/
+    var tipsText1 = "請輸入人員全名！";
+    var tipsText2 = "人員名稱已經存在！";
+    var tipsText3 = "請輸入人員姓氏！";
+    var tipsText4 = "請輸入人員名字！";
+    var tipsText5 = "請輸入會員等級！";
+    var tipsText6 = "請輸入會員編號！";
     if (language == "zh") {
         $(".textbox:eq(0)").attr("placeholder", "人員名稱，2-12位");
         $(".textbox:eq(1)").attr("placeholder", "人員姓氏，1-6位");
@@ -13,13 +19,13 @@ $(document).ready(function() {
         $(".textbox:eq(0)").attr("placeholder", "Operator Full Name,2-12 place");
         $(".textbox:eq(1)").attr("placeholder", "Operator Last Name,1-6 place");
         $(".textbox:eq(2)").attr("placeholder", "Operator First Name,1-6 place");
+        tipsText1 = "Please enter the Full Name!";  
+    	tipsText2 = "The Full Name already exists!"; 
+    	tipsText3 = "Please enter the Last Name!";  
+    	tipsText4 = "Please enter the First Name!";  
+    	tipsText5 = "Please enter the Member Level!";  
+    	tipsText6 = "Please enter the Member Number!";  
     }
-    var tipsText1 = "請輸入人員全名！";
-    var tipsText2 = "人員名稱已經存在！";
-    var tipsText3 = "請輸入人員姓氏！";
-    var tipsText4 = "請輸入人員名字！";
-    var tipsText5 = "請輸入會員等級！";
-    var tipsText6 = "請輸入會員編號！";
     /** ***************************************************************** */
     $(".combtn").click(function() {
         if ($(".textbox:eq(0)").val() == "") {
@@ -27,10 +33,7 @@ $(document).ready(function() {
             showTips(tipsText1);
             return false;
         }
-        var data = {
-            id: $("input[name=id]").val(),
-            name: $(".textbox:eq(0)").val()
-        };
+        var data = {id: $("input[name=id]").val(), name: $(".textbox:eq(0)").val()};
         if (Ajax("isexistname", data)) {
             $(".textbox:eq(0)").css("background-color", "#f00");
             showTips(tipsText2);

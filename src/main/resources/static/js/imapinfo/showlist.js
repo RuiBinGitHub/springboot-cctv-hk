@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	
 	// 定义坐标转换
     var projection = new ol.proj.Projection({
         code: "EPSG:2326",
@@ -40,15 +39,15 @@ $(document).ready(function() {
     // 设置地图的默认显示中心点和俯瞰高度
     var center = ol.proj.transform([831800.000, 830400.000], "EPSG:2326", "EPSG:4326");
     viewer.camera.flyTo({  
-        destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 40000)
+        destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 160000)
     });
     /** ************************************************************************ */
     // 定义标记
     var entity = new Cesium.Entity({
     	model: {
 	    	name: "管道",
-	    	uri: "/CCTV/model/11(1).glb",
-	        maximumSize: 10000,
+	    	uri: "/CCTV/model/tab.glb",
+	        maximumSize: 1000,
 	        maximumScale: 10000,
 	        minimumPixelSize: 10000,
 	        debugWireframe: false,
@@ -61,26 +60,6 @@ $(document).ready(function() {
     $("#list1 div").each(function() {
     	$(this).attr("class", $(this).text());
     });
-    $("#data").html($("#list1").html());
-    $("#data div").each(function() {
-		// 鼠标靠近事件
-    	$(this).mouseenter(function() {
-    		entity.position = Cesium.Cartesian3.fromDegrees(114.0, 23.0)
-        	viewer.entities.add(entity);
-    	});
-    	// 鼠标远离事件
-    	$(this).mouseleave(function() {
-    		viewer.entities.remove(entity);
-    	});
-    	// 点击事件
-    	$(this).click(function() {
-    		var center = ol.proj.transform([820400.000, 834180.000], "EPSG:2326", "EPSG:4326");
-    		viewer.camera.flyTo({
-    	        destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 800)
-    	    });
-    	});
-    });
-    // 输入框输入事件
     $("#textbox").on("input", function() {
     	var value = $(this).val();
     	if (value == "")
@@ -91,30 +70,48 @@ $(document).ready(function() {
     			context += "<div id='"+$(this).attr("id")+"'>" + $(this).text() + "</div>";
     		});
     		$("#data").html(context);
+    		$("#btn1").val("-");
     	}
     	$("#data div").each(function() {
     		var text = $(this).text();
 			var expr=new RegExp(value, "gm")
 			$(this).html(text.replace(expr, "<font color='#f00'>" + value + "</font>"));
-    		// 鼠标靠近事件
-        	$(this).mouseenter(function() {
-        		entity.position = Cesium.Cartesian3.fromDegrees(114.0, 23.0)
-            	viewer.entities.add(entity);
-        	});
-        	// 鼠标远离事件
-        	$(this).mouseleave(function() {
-        		viewer.entities.remove(entity);
-        	});
-        	// 鼠标点击事件
-        	$(this).click(function() {
-        		viewer.camera.flyTo({  
-        	        destination: Cesium.Cartesian3.fromDegrees(114, 22.5, 10)
-        	    });
-        		//viewer.camera.zoomIn((10000000));
-        	});
         });
+    	initDataDiv();
     });
-    
+    $("#btn1").click(function() {
+    	if ($(this).val() == "+") {
+    		$("#data").html($("#list1").html());
+    		$(this).val("-");
+    		initDataDiv();
+    	} else {
+    		$("#textbox").val("");
+    		$("#data").html("");
+    		$(this).val("+");
+    	}
+    });
+    function initDataDiv() {
+    	$("#data div").each(function() {
+    		var ids = $(this).attr("id").split(",");
+	    	$(this).unbind(); // 解除绑定所有事件
+	    	$(this).mouseenter(function() {  // 鼠标靠近事件
+	    		var x = Number(ids[0]) - 2592;
+	    		var y = Number(ids[1]) + 2592;
+	    		var center = ol.proj.transform([x, y], "EPSG:2326", "EPSG:4326");
+	    		entity.position = Cesium.Cartesian3.fromDegrees(center[0], center[1]);
+	        	viewer.entities.add(entity);
+	    	});
+	    	$(this).mouseleave(function() {  // 鼠标远离事件
+	    		viewer.entities.remove(entity);
+	    	});
+	    	$(this).click(function() {  // 点击事件
+	    		var center = ol.proj.transform([ids[0], ids[1]], "EPSG:2326", "EPSG:4326");
+	    		viewer.camera.flyTo({
+	    	        destination: Cesium.Cartesian3.fromDegrees(center[0], center[1], 200)
+	    	    });
+	    	});
+    	});
+    }
     /** ************************************************************************ */
     var scene = viewer.scene;
     var globe = scene.globe;
@@ -241,7 +238,7 @@ $(document).ready(function() {
     
     /** 画井函数 */
     function drawManhole(id, description, lon, lat, heght) {
-    	// 确定元素的经纬度和在高度（m）。
+    	// 确定元素的经纬度和在高度（m）
         var degree = Cesium.Cartesian3.fromDegrees(lon, lat, heght);
         var color = Cesium.Color.LIME;
         var model = viewer.entities.add({

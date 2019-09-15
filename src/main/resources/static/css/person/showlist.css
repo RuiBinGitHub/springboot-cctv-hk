@@ -1,35 +1,17 @@
 @CHARSET "UTF-8";
 
-.a1 {
-	width: 60px;
-	height: 22px;
-	color: #fff;
-	font-weight: 600;
-	background-color: #00C5FF;
-	border-radius: 4px;
-}
-
-.a2 {
-	width: 60px;
-	height: 22px;
-	color: #fff;
-	font-weight: 600;
-	background-color: #23AC44;
-	border-radius: 4px;
-}
-
 #tab1 tbody tr td input[type=button] {
 	width: 64px;
 	height: 24px;
 	color: #ffffff; 
-	font-family: "Helvetica";
 	font-weight: 600;
-	background-color: #FDB202;
+	font-family: "Helvetica";
+	background-color: #24b749;
 	border-radius: 4px;
 	border: none;
 }
 
 #tab1 tbody tr td input[type=button]:hover {
+	background-color: #29d154;
 	cursor: pointer;
-	color: #fdba1e;
 }

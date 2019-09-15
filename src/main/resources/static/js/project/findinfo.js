@@ -1,11 +1,12 @@
 $(document).ready(function() {
+	
     initList();
     drawPipe();
     var id = $("input[name=id]").val();
     var no = $("input[name=no]").val() == "" ? 0 : $("input[name=no]").val();
     /** ******************************************************************** */
     $(document).scroll(function(e) {
-        if ($(document).scrollTop() >= 150)
+        if ($(document).scrollTop() >= 450)
             $("#TitleMemu").show();
         else
             $("#TitleMemu").hide();

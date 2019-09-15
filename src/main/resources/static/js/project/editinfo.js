@@ -1,28 +1,43 @@
 ﻿$(document).ready(function() {
+    // 获取当前语言
+    var language = $("#title").text() == "管線數據" ? "zh" : "en";
+
+    var tipsText1 = "數據修改成功！";
+    var tipsText2 = "確定要删除該數據嗎？";
+    var tipsText3 = "删除數據成功！";
+    var tipsText4 = "數據上傳中...";
+    var tipsText5 = "數據修改成功！";
+    var tipsText6 = "數據上傳異常！";
+    var tipsText7 = "請檢查輸入數據！";
+    var tipsText8 = "確定移除全部圖片？";
+    var tipsText9 = "移除圖片成功！";
+    var tipsText10 = "文件格式僅限於：PNG和JPG！";
+    var tipsText11 = "圖片正在上傳中...";
+    var tipsText12 = "圖片上傳成功！";
+    var tipsText13 = "上傳圖片失敗，所需圖片數量：";
+    if (language == "en") {
+        tipsText1 = "Operating successfully!";
+        tipsText2 = "Are you sure you want to delete this data?";
+        tipsText3 = "Operating successfully!";
+        tipsText4 = "Data uploading...";
+        tipsText5 = "Operating successfully!";
+        tipsText6 = "Operating exceptioning!";
+        tipsText7 = "Please check the input data!";
+        tipsText8 = "Are you sure you want to remove all pictures?";
+        tipsText9 = "Operating successfully!";
+        tipsText10 = "File format：PNG and JPG!";
+        tipsText11 = "Data uploading...";
+        tipsText12 = "Operating successfully!";
+        tipsText13 = "Operating exceptioning,pictures count：";
+    }
+    /***********************************************************************/
     var itemindex = -1;
     mikeDataList(0);
     initItemList(0);
     drawPipe();
-    // 获取当前语言
-	var language = $("#title").text() == "管線數據" ? "zh" : "en";
-	
-	var tipsText1 = "數據修改成功！";
-	var tipsText2 = "確定要删除該數據嗎？";
-	var tipsText3 = "删除數據成功！";
-	var tipsText4 = "數據上傳中...";
-	var tipsText5 = "數據修改成功！";
-	var tipsText6 = "數據上傳異常！";
-	var tipsText7 = "請檢查輸入數據！";
-	var tipsText8 = "確定移除全部圖片？";
-	var tipsText9 = "移除圖片成功！";
-	
-	var tipsText10 = "文件格式僅限於：PNG和JPG！";
-	var tipsText11 = "圖片正在上傳中...";
-	var tipsText12 = "圖片上傳成功！";
-    var tipsText13 = "上傳圖片失敗，所需圖片數量：";
-    /***********************************************************************/
+    // 绘画管道
     if ($("#memu1 input").length == 3)
-    	$("#title").css("width", "910px");
+        $("#title").css("width", "910px");
     /***********************************************************************/
     $("#input2 select:eq(0)").change(function() {
         var context = "";
@@ -553,7 +568,7 @@
     /** ******************************************************************** */
     // 是否显示菜单
     $(document).scroll(function(e) {
-        if ($(document).scrollTop() >= 150)
+        if ($(document).scrollTop() >= 155)
             $("#TitleMemu").show();
         else
             $("#TitleMemu").hide();
@@ -561,11 +576,11 @@
     /** ******************************************************************** */
     /** 管道按鈕事件 */
     $("#memu1 input:eq(0), #TitleMemu input:eq(0)").click(function() {
-    	var value = $("#tab1 tbody tr:last").attr("id");
+        var value = $("#tab1 tbody tr:last").attr("id");
         var index = value == undefined ? 0 : value;
         var length = $("#tab1 tbody tr").length;
         if (Ajax("/CCTV/pipe/insert", {id: Pid, no: index}))
-        	window.location.href = "editinfo?id=" + Pid + "&no=" + length;
+            window.location.href = "editinfo?id=" + Pid + "&no=" + length;
     });
     $("#memu1 input:eq(1),#TitleMemu input:eq(1)").click(function() {
         if (!checkPipe() || !checkItem())
@@ -573,7 +588,7 @@
         $("#memu1 input:eq(1),#TitleMemu input:eq(1)").attr("disabled", true);
         $("#memu1 input:eq(1),#TitleMemu input:eq(1)").css("background-color", "#CCC");
         if (Ajax("/CCTV/pipe/update", $("#form1").serialize()))
-        	showTips(tipsText1);
+            showTips(tipsText1);
         setTimeout("location.reload()", 2000);
     });
     $("#memu1 input:eq(2)").click(function() {
@@ -591,7 +606,7 @@
     $("#tab1 tr").eq(index).find("td:eq(0)").text("▶");
     // 管理列表初始化事件
     $("#tab1 tr").each(function(no) {
-    	var id = $(this).attr("id");
+        var id = $(this).attr("id");
         $(this).mouseenter(function() {
             $(this).find("input").show();
         });
@@ -605,11 +620,13 @@
         $(this).find("input:eq(1)").css("background-color", "#ee4200");
         $(this).find("input:eq(1)").click(function() {
             if (!confirm(tipsText2))
-            	return false;
-        	$(this).css("background-color", "#CCC");
+                return false;
+            $(this).css("background-color", "#CCC");
             $(this).attr("disabled", true);
-            if (Ajax("/CCTV/pipe/delete", {id: id}))
-            	showTips(tipsText3);
+            if (Ajax("/CCTV/pipe/delete", {
+                id: id
+            }))
+                showTips(tipsText3);
             setTimeout("location.reload()", 2000);
         });
     });
@@ -618,22 +635,22 @@
     /** ******************************************************************** */
     $("#link1").attr("target", "_bank");
     $("#link1").attr("href", "http://www1.slope.landsd.gov.hk/smris/map");
-    $("#link2").click(function(){
-    	$("input[name=xfile]").click();
+    $("#link2").click(function() {
+        $("input[name=xfile]").click();
     });
-    $("input[name=xfile]").change(function(){
-    	if(this.files.length==0)
-			return false;
-    	var formFile=new FormData();
-    	formFile.append("id", Pid); 
-    	formFile.append("file",this.files[0]); 
+    $("input[name=xfile]").change(function() {
+        if (this.files.length == 0)
+            return false;
+        var formFile = new FormData();
+        formFile.append("id", Pid);
+        formFile.append("file", this.files[0]);
         $("#Tip").text(tipsText4);
-    	$("#Tip").show();
-    	if(FileAjax("importdepth", formFile))
-        	showTips(tipsText5);
-    	else
-    		showTips(tipsText6);
-    	setTimeout("location.reload()", 2000);
+        $("#Tip").show();
+        if (FileAjax("importdepth", formFile))
+            showTips(tipsText5);
+        else
+            showTips(tipsText6);
+        setTimeout("location.reload()", 2000);
     });
     $("#input1 input:eq(7)").attr("placeholder", "HH:MM");
     /** ******************************************************************** */
@@ -647,11 +664,11 @@
             $(this).css("background-color", "#FFFFFF");
     });
     $("#input4 input:eq(2), #input4 input:eq(5)").on("input", function() {
-    	$(this).css("background-color", "#EBEBE4");
+        $(this).css("background-color", "#EBEBE4");
     });
     // Pipe Length Reference
     $("#input1 input:eq(2)").on("input", function() {
-    	if ($(this).val() == "")
+        if ($(this).val() == "")
             $(this).css("background-color", "#FF0000");
         else
             $(this).css("background-color", "#EBEBE4");
@@ -686,29 +703,29 @@
     });
     // 限制時間輸入格式
     $("#input1 input:eq(7)").on("input", function() {
-    	if ($(this).val().length == 2)
-    		$(this).val($(this).val()+":");
+        if ($(this).val().length == 2)
+            $(this).val($(this).val() + ":");
         var timeReg = /^(([0-1][0-9])|2[0-3]):([0-5][0-9])$/;
         if (timeReg.test($(this).val()))
             $(this).css("background-color", "#FFFFFF");
         else
             $(this).css("background-color", "#FF0000");
     });
-    
+
     // Start MH
     $("#input3 input:eq(0)").attr("title", "*建議字符長度<10，長度過長可能會造成數據丟失！");
     $("#input3 input:eq(0)").bind("input", function() {
         $(this).val($(this).val().toUpperCase());
-        if ($(this).val() == "") 
-        	$(this).css("background-color", "#f00");
+        if ($(this).val() == "")
+            $(this).css("background-color", "#f00");
         else
-        	$(this).css("background-color", "#fff");
+            $(this).css("background-color", "#fff");
         if ($("#input3 select:eq(1)").val() == "D" && $(this).val() != "") {
-        	 $("#input1 input:eq(2)").css("background-color", "#EBEBE4");
-             $("#input1 input:eq(2)").val($(this).val() + "X");
+            $("#input1 input:eq(2)").css("background-color", "#EBEBE4");
+            $("#input1 input:eq(2)").val($(this).val() + "X");
         }
         if ($("#input3 select:eq(1)").val() == "D" && $(this).val() == "") {
-        	$("#input1 input:eq(2)").css("background-color", "#FF0000");
+            $("#input1 input:eq(2)").css("background-color", "#FF0000");
             $("#input1 input:eq(2)").val("");
         }
     });
@@ -716,20 +733,20 @@
     $("#input3 input:eq(1)").attr("title", "*建議字符長度<10，長度過長可能會造成數據丟失！");
     $("#input3 input:eq(1)").bind("input", function() {
         $(this).val($(this).val().toUpperCase());
-        if ($(this).val() == "") 
-        	$(this).css("background-color", "#f00");
+        if ($(this).val() == "")
+            $(this).css("background-color", "#f00");
         else
-        	$(this).css("background-color", "#fff");
+            $(this).css("background-color", "#fff");
         if ($("#input3 select:eq(1)").val() == "U" && $(this).val() != "") {
-        	$("#input1 input:eq(2)").css("background-color", "#EBEBE4");
+            $("#input1 input:eq(2)").css("background-color", "#EBEBE4");
             $("#input1 input:eq(2)").val($(this).val() + "X");
         }
         if ($("#input3 select:eq(1)").val() == "U" && $(this).val() == "") {
-        	$("#input1 input:eq(2)").css("background-color", "#FF0000");
+            $("#input1 input:eq(2)").css("background-color", "#FF0000");
             $("#input1 input:eq(2)").val("");
         }
     });
-    
+
     // 流向改變事件
     $("#input3 select:eq(1)").change(function() {
         if ($(this).val() == "D")
@@ -737,7 +754,7 @@
         if ($(this).val() == "U")
             $("#input3 input:eq(1)").trigger("input");
     });
-    
+
     // Size(Dia)H
     $("#input3 input:eq(2)").bind("input", function() {
         if ($(this).val() == "" || isNaN($(this).val()))
@@ -746,7 +763,7 @@
             $(this).css("background-color", "#FFFFFF");
     });
     $("#input3 input:eq(2)").keypress(function(event) {
-    	console.log(event.which);
+        console.log(event.which);
         if (event.which >= 48 && event.which <= 57 || event.which == 46)
             return true;
         return false;
@@ -763,11 +780,11 @@
             return true;
         return false;
     });
-    
+
     // Invert Level=Cover Level-Start Depth
     $("#input4 input:eq(0),#input4 input:eq(1)").attr("title", "*不確定具體數值時請輸入：--");
     $("#input4 input:eq(0),#input4 input:eq(1)").bind("input ", function() {
-    	if ($(this).val() != "" && (!isNaN($(this).val()) || $(this).val() == "--"))
+        if ($(this).val() != "" && (!isNaN($(this).val()) || $(this).val() == "--"))
             $(this).css("background-color", "#FFFFFF");
         else
             $(this).css("background-color", "#FF0000");
@@ -778,14 +795,14 @@
             $("#input4 input:eq(2)").css("background-color", "#EBEBE4");
         }
         if (num1 == "" || num2 == "" || num1 == "--" || num2 == "--") {
-        	$("#input4 input:eq(2)").css("background-color", "#EBEBE4");        	
-        	$("#input4 input:eq(2)").val("--");
+            $("#input4 input:eq(2)").css("background-color", "#EBEBE4");
+            $("#input4 input:eq(2)").val("--");
         }
     });
     // Invert Level=Cover Level-Finish Depth
     $("#input4 input:eq(3),#input4 input:eq(4)").attr("title", "*不確定具體數值時請輸入：--");
     $("#input4 input:eq(3),#input4 input:eq(4)").bind("input ", function() {
-    	if ($(this).val() != "" && (!isNaN($(this).val()) || $(this).val() == "--"))
+        if ($(this).val() != "" && (!isNaN($(this).val()) || $(this).val() == "--"))
             $(this).css("background-color", "#FFFFFF");
         else
             $(this).css("background-color", "#FF0000");
@@ -796,8 +813,8 @@
             $("#input4 input:eq(5)").css("background-color", "#EBEBE4");
         }
         if (num1 == "" || num2 == "" || num1 == "--" || num2 == "--") {
-        	$("#input4 input:eq(5)").css("background-color", "#EBEBE4");   	
-        	$("#input4 input:eq(5)").val("--");
+            $("#input4 input:eq(5)").css("background-color", "#EBEBE4");
+            $("#input4 input:eq(5)").val("--");
         }
     });
     /** ******************************************************************** */
@@ -809,23 +826,23 @@
                 result = false;
         });
         if (result == false)
-        	showTips(tipsText7);
+            showTips(tipsText7);
         return result;
     }
     /** ******************************************************************** */
-   if (sessionStorage.control == "隐藏") {
-	   $("#control").text("展开");
-	   $("#showItem").css("height", "807px");
-       $("#showPict").hide();
-   }
+    if (sessionStorage.control == "隐藏") {
+        $("#control").text("展开");
+        $("#showItem").css("height", "807px");
+        $("#showPict").hide();
+    }
     $("#control").click(function() {
         if ($(this).text() == "隐藏") {
-        	sessionStorage.control = "隐藏";
+            sessionStorage.control = "隐藏";
             $("#showItem").css("height", "807px");
             $("#showPict").hide();
             $(this).text("展开");
         } else {
-        	sessionStorage.control = "展开";
+            sessionStorage.control = "展开";
             $("#showItem").css("height", "237px");
             $("#showPict").show();
             $(this).text("隐藏");
@@ -848,38 +865,38 @@
         $("#file1").click();
     });
     $(document, "#video").keydown(function(e) {
-		if (e.altKey && e.which == 65) {
-			if ($("#video").attr("src") == undefined)
-	            return false;
-	        var video = $("#video")[0];
-	        var canvas1 = $("#canvas1")[0];
-	        var context1 = canvas1.getContext("2d");
-	        $(canvas1).attr("width", video.videoWidth);
-	        $(canvas1).attr("height", video.videoHeight);
-	        context1.drawImage(video, 0, 0);
-	        $("#pic1").attr("src", canvas1.toDataURL("image/png"));
-		}
-		if (e.altKey && e.which == 83) {
-			if (itemindex == -1 || $("#pic1").attr("src") == undefined)
-	            return false;
-	        var canvas1 = $("#canvas1")[0];
-	        var context1 = canvas1.getContext("2d");
-	        var ImageData = canvas1.toDataURL("image/png");
-	        ImageData = ImageData.substring(22, ImageData.length);
-	        $("#pic2").attr("src", $("#pic1").attr("src"));
-	        $("#tab2 tr").eq(itemindex).find("td:eq(2) input").val("#待保存#");
-	        $("#tab2 tr").eq(itemindex).find("td:eq(12) input").val(ImageData);
-		}
-	});
+        if (e.altKey && e.which == 65) {
+            if ($("#video").attr("src") == undefined)
+                return false;
+            var video = $("#video")[0];
+            var canvas1 = $("#canvas1")[0];
+            var context1 = canvas1.getContext("2d");
+            $(canvas1).attr("width", video.videoWidth);
+            $(canvas1).attr("height", video.videoHeight);
+            context1.drawImage(video, 0, 0);
+            $("#pic1").attr("src", canvas1.toDataURL("image/png"));
+        }
+        if (e.altKey && e.which == 83) {
+            if (itemindex == -1 || $("#pic1").attr("src") == undefined)
+                return false;
+            var canvas1 = $("#canvas1")[0];
+            var context1 = canvas1.getContext("2d");
+            var ImageData = canvas1.toDataURL("image/png");
+            ImageData = ImageData.substring(22, ImageData.length);
+            $("#pic2").attr("src", $("#pic1").attr("src"));
+            $("#tab2 tr").eq(itemindex).find("td:eq(2) input").val("#待保存#");
+            $("#tab2 tr").eq(itemindex).find("td:eq(12) input").val(ImageData);
+        }
+    });
     /** ****************************************************************************** */
-	// 快捷键控制视频播放
+    // 快捷键控制视频播放
     $(document, "#video").keydown(function(e) {
-		var video = $("#video")[0];
-		if (e.ctrlKey && e.which == 37)
-			video.currentTime = video.currentTime - 0.03;
-		if (e.ctrlKey && e.which == 39)
-			video.currentTime = video.currentTime + 0.03;
-	});
+        var video = $("#video")[0];
+        if (e.ctrlKey && e.which == 37)
+            video.currentTime = video.currentTime - 0.03;
+        if (e.ctrlKey && e.which == 39)
+            video.currentTime = video.currentTime + 0.03;
+    });
     /** ****************************************************************************** */
     /** 視頻文件選擇器 */
     $("#file1").change(function() {
@@ -908,7 +925,8 @@
             $(canvas1).attr("height", img.height);
             context1.drawImage($("#pic1")[0], 0, 0);
             this.value = "";
-        };
+        }
+        ;
     });
     /** 根據文件獲取路徑 */
     function getURL(file) {
@@ -938,7 +956,9 @@
             return false;
         var id = $("#tab2 tr").eq(itemindex).find("[type=hidden]").val();
         if (id != "" && id != "0")
-        	Ajax("/CCTV/item/delete", {id: id});
+            Ajax("/CCTV/item/delete", {
+                id: id
+            });
         $("#tab2 tr").eq(itemindex).remove();
         initItemList(itemindex);
         var list = new Array();
@@ -954,11 +974,11 @@
         $("input[name=files]").click();
     });
     $("#memu2 input[type=button]:eq(4)").click(function() {
-    	if (confirm(tipsText8)) {
-    		if (Ajax("/CCTV/item/removeimage", {id: Pid}))
-	    		showTips(tipsText9);
-	        setTimeout("location.reload()", 2000);
-    	}
+        if (confirm(tipsText8)) {
+            if (Ajax("/CCTV/item/removeimage", {id: Pid}))
+                showTips(tipsText9);
+            setTimeout("location.reload()", 2000);
+        }
     });
     $("input[name=files]").attr("webkitdirectory", true);
     $("input[name=files]").change(function() {
@@ -972,7 +992,7 @@
             if (type == "PNG" || type == "JPG")
                 formFile.append("files", this.files[i]);
             else {
-            	showTips(tipsText10);
+                showTips(tipsText10);
                 return false;
             }
         }
@@ -980,11 +1000,10 @@
         var data = FileAjax("/CCTV/item/inputimages", formFile);
         showTips(tipsText11);
         if (data.result) {
-        	showTips(tipsText12);
-        	setTimeout("location.reload()", 2000);
-        }
-        else 
-        	showTips(tipsText13 + data.count);
+            showTips(tipsText12);
+            setTimeout("location.reload()", 2000);
+        } else
+            showTips(tipsText13 + data.count);
         this.value = "";
     });
     /***********************************************************************/
@@ -1059,57 +1078,57 @@
                     $("#pic2").attr("src", "/CCTV/img/blank.png");
             });
             $(this).find("td").each(function(j) {
-            	$(this).attr("tabindex", i * 12 + j + 1);
+                $(this).attr("tabindex", i * 12 + j + 1);
             });
-            
+
             $(this).find("td").unbind();
-            $(this).find("td").focus(function(){
-            	$(this).parents("tr").click();
-            	$(this).css("background-color", "#FFFFFF");
-            	$(this).children().css("background-color", "#FFFFFF");
+            $(this).find("td").focus(function() {
+                $(this).parents("tr").click();
+                $(this).css("background-color", "#FFFFFF");
+                $(this).children().css("background-color", "#FFFFFF");
             });
-            
+
             $(this).find("td").keydown(function(event) {
-            	var index = $(this).parents("tr").find("td").index($(this));
-            	if (event.keyCode == 9) {
-            		$(this).focus();
-            	} else if (event.keyCode == 37) {
-            		$(this).prev().focus();
-            	} else if (event.keyCode == 39) {
-            		$(this).next().focus();
-            	} else if (event.keyCode == 38 && i > 0) {
-            		$("#tab2 tbody tr").eq(i - 1).find("td").eq(index).focus();
-            		$("#tab2 tbody tr").eq(i - 1).click();
-            		return false;
-            	} else if (event.keyCode == 40) {
-            		if (i == $("#tab2 tbody tr").length - 1)
-            			 $("#memu2 input[type=button]:eq(0)").click();
-            		$("#tab2 tbody tr").eq(i + 1).find("td").eq(index).focus();
-            		return false;
-            	} else 
-                	$(this).find("input").focus();
+                var index = $(this).parents("tr").find("td").index($(this));
+                if (event.keyCode == 9) {
+                    $(this).focus();
+                } else if (event.keyCode == 37) {
+                    $(this).prev().focus();
+                } else if (event.keyCode == 39) {
+                    $(this).next().focus();
+                } else if (event.keyCode == 38 && i > 0) {
+                    $("#tab2 tbody tr").eq(i - 1).find("td").eq(index).focus();
+                    $("#tab2 tbody tr").eq(i - 1).click();
+                    return false;
+                } else if (event.keyCode == 40) {
+                    if (i == $("#tab2 tbody tr").length - 1)
+                        $("#memu2 input[type=button]:eq(0)").click();
+                    $("#tab2 tbody tr").eq(i + 1).find("td").eq(index).focus();
+                    return false;
+                } else
+                    $(this).find("input").focus();
             });
-            
+
             $(this).find("td input").unbind();
-            $(this).find("td input").focus(function(){
-            	$(this).css("background-color", "#fff");
-            	$(this).find("input").css("background-color", "#fff");
-            	$(this).select();
+            $(this).find("td input").focus(function() {
+                $(this).css("background-color", "#fff");
+                $(this).find("input").css("background-color", "#fff");
+                $(this).select();
             });
-            
+
             $(this).find("td input").keydown(function(event) {
-            	event.stopPropagation();
-            	if (event.keyCode == 9){
-            		$(this).parent().focus();
-            	} else if(event.keyCode == 38 && i > 0){
-            		var index = $(this).parents("tr").find("td").index($(this).parent());
-            		$("#tab2 tbody tr").eq(i - 1).find("td").eq(index).focus();
-            	} else if(event.keyCode == 40 || event.keyCode == 13){
-            		if (i == $("#tab2 tbody tr").length - 1)
-            			$("#memu2 input[type=button]:eq(0)").click();
-            		var index = $(this).parents("tr").find("td").index($(this).parent());
-            		$("#tab2 tbody tr").eq(i + 1).find("td").eq(index).focus();
-            	}
+                event.stopPropagation();
+                if (event.keyCode == 9) {
+                    $(this).parent().focus();
+                } else if (event.keyCode == 38 && i > 0) {
+                    var index = $(this).parents("tr").find("td").index($(this).parent());
+                    $("#tab2 tbody tr").eq(i - 1).find("td").eq(index).focus();
+                } else if (event.keyCode == 40 || event.keyCode == 13) {
+                    if (i == $("#tab2 tbody tr").length - 1)
+                        $("#memu2 input[type=button]:eq(0)").click();
+                    var index = $(this).parents("tr").find("td").index($(this).parent());
+                    $("#tab2 tbody tr").eq(i + 1).find("td").eq(index).focus();
+                }
             });
             //設置第二個單元格事件
             $(this).find("td:eq(2)").unbind("mouseenter");
@@ -1140,12 +1159,12 @@
                 }
                 $(this).find("img").show();
             });
-            
+
             $(this).find("td:eq(2)").unbind("mouseleave");
             $(this).find("td:eq(2)").mouseleave(function() {
                 $(this).find("img").hide();
             });
-            
+
             var value = $(this).find("td:eq(3) input").val();
             if (value != "")
                 $(this).find("td:eq(3) input").val(parseFloat(value).toFixed(1));
@@ -1163,13 +1182,13 @@
                     $("#main2 table:eq(2) tr:eq(1) td:eq(10) input").val(value);
                 }
             });
-            
+
             $(this).find("td:eq(3) input").unbind("blur");
             $(this).find("td:eq(3) input").bind("blur", function() {
-            	var value = Number($(this).val()).toFixed(1);
-            	$(this).val(value);
+                var value = Number($(this).val()).toFixed(1);
+                $(this).val(value);
             });
-            
+
             $(this).find("td:eq(4) input").unbind("input");
             $(this).find("td:eq(4) input").bind("input", function() {
                 if ($(this).val() != "" && contlist.indexOf($(this).val()) == -1)
@@ -1177,7 +1196,7 @@
                 else
                     $(this).css("background-color", "#FFFFFF");
             });
-            
+
             $(this).find("td:eq(5) input").unbind("input");
             $(this).find("td:eq(5) input").bind("input", function() {
                 $(this).val($(this).val().toUpperCase());
@@ -1188,13 +1207,13 @@
                     $(this).css("background-color", "#FFFFFF");
                     $(this).find("td:eq(11) input").attr("list", $(this).val());
                 }
-                
+
                 if ($("#tab2 tbody tr").eq(i).find("td:eq(11) input").val() != "")
-                	return true;
-                
+                    return true;
+
                 var dist = $(this).parents("tr").find("td:eq(3) input").val();
                 var length = $("input[name=totallength]").val();
-                
+
                 if ($(this).val() == "MH" && Number(dist) == 0.0) {
                     var smh = $("input[name=smanholeno]").val();
                     $("#tab2 tbody tr").eq(i).find("td:eq(11) input").val(smh);
@@ -1264,63 +1283,80 @@
         $("#tab2 tbody tr").eq(index).click();
     }
     /**************************************************************************/
-    var codelist1 = new Array();  //mm
+    var codelist1 = new Array();
+    //mm
     codelist1.push("DI", "ST");
     /**************************************************************************/
-    var codelist2 = new Array();  //%
+    var codelist2 = new Array();
+    //%
     codelist2.push("DEC", "DE C", "DECJ", "DER", "DE R", "DES", "DESJ", "WL", "WLC", "WL C", "WLT", "WL T", "DH", "D H", "DV", "D V");
     /**************************************************************************/
-    var codelist3 = new Array();  //clock1
+    var codelist3 = new Array();
+    //clock1
     codelist3.push("CL", "C L", "CLJ", "EX", "EXJ", "FIC", "FWCS", "FIT", "FWTF", "FL", "F L", "FLJ", "LWL", "LX WL", "WXL", "WX L");
     /**************************************************************************/
-    var codelist4 = new Array();  //clock2
+    var codelist4 = new Array();
+    //clock2
     codelist4.push("B", "BJ", "CC", "C C", "CCJ", "CM", "C M", "CMJ", "CS", "C S", "CSJ", "FC", "F C", "FCJ", "FMJ", "FS", "F S", "FSJ", "JDL", "JD (L)", "JDM", "JD (M)", "MB", "ML", "MM", "MS");
     codelist4.push("SS", "SSL", "SSM", "SSS", "SW", "SWL", "SWM", "SWS", "LWC", "LX WC", "LWS", "LXWM", "LWM", "LXB", "LX B", "LXC", "LX C", "LXD", "LX D");
     codelist4.push("RPH", "RP H", "RPI", "RP I", "RPL", "RP L", "RPP", "RPR", "RP R", "RXM", "RX M", "WXC", "WX C", "WXS", "WX S", "LXE", "LX E");
     /**************************************************************************/
-    var codelist5 = new Array();  //remark
+    var codelist5 = new Array();
+    //remark
     codelist5.push("LC", "REM", "REM", "SC", "VVR", "VZ", "V Z", "GO", "LVS", "CU S", "LVW", "CU W", "PC", "P C", "#4", "SAA", "SAC", "SAZ", "MC");
     codelist5.push("CP", "CPF", "GY", "GYF", "IC", "ICF", "LH", "LHF", "BR", "BRF", "MH", "MHF", "OS", "OSF", "CZ", "OCF", "OF", "OFF", "RE", "REF", "SK", "SKF");
     codelist5.push("C P", "G Y", "I C", "L H", "B R", "O S", "O C", "O F", "R E");
     /**************************************************************************/
-    var codelist6 = new Array();  //mm  clock1
+    var codelist6 = new Array();
+    //mm  clock1
     codelist6.push("CX", "CN", "C N", "CNJ", "CXD", "CX D", "CXDJ", "CXP", "CX P", "CXPJ", "JN", "JNJ", "JXB", "JX B", "JXBJ", "JXD", "JX D", "JXDJ", "JXP", "JX P", "JXPJ");
     /**************************************************************************/
-    var codelist8 = new Array();  //%  clock2
+    var codelist8 = new Array();
+    //%  clock2
     codelist8.push("RM", "R M", "RMJ", "DAF", "DE F", "DAFJ", "DAG", "DE G", "DAGJ", "DAZ", "DE Z", "DAZJ", "EH", "DE E", "EHJ", "EL", "ELJ", "EM", "EMJ", "ESH", "ESL", "ESM");
     /**************************************************************************/
-    var codelist9 = new Array();  //%  remark
+    var codelist9 = new Array();
+    //%  remark
     codelist9.push("DEZ", "DE X", "DEZJ", "DZ");
     /**************************************************************************/
-    var codelist10 = new Array();  //clock1  clock2
+    var codelist10 = new Array();
+    //clock1  clock2
     codelist10.push("DB", "HA", "H", "HAJ", "HB", "HBJ", "SRB", "SR B", "SRI", "SR", "SV", "SVJ", "VV", "VVJ");
     /**************************************************************************/
-    var codelist11 = new Array();  //clock2  remark
+    var codelist11 = new Array();
+    //clock2  remark
     codelist11.push("RF", "R F", "RFJ", "FM", "F M", "LXZ", "LX Z", "RXZ", "RX Z", "RPS", "RP S", "RPZ", "RP Z");
     /**************************************************************************/
-    var codelist12 = new Array();  //mm  %  clock1
+    var codelist12 = new Array();
+    //mm  %  clock1
     codelist12.push("CXI", "CX I", "CXIJ");
     /**************************************************************************/
-    var codelist13 = new Array();  //mm  clock1  remark
+    var codelist13 = new Array();
+    //mm  clock1  remark
     codelist13.push("CXB", "CX B", "CXBJ", "CXZ", "CX Z", "CXZJ", "JXZ", "JX Z", "JXZJ");
     /**************************************************************************/
     var codelist14 = new Array();
     //%  clock1 clock2
     codelist14.push("OBB", "OB B", "OBC", "OB C", "OBI", "OB I", "OBM", "OB M", "OBP", "OB P", "OBS", "OB S");
     /**************************************************************************/
-    var codelist15 = new Array();  //%  clock2  remark
+    var codelist15 = new Array();
+    //%  clock2  remark
     codelist15.push("DAZ", "DA Z", "DAZJ");
     /**************************************************************************/
-    var codelist16 = new Array();  //clock1  clock2  remark
+    var codelist16 = new Array();
+    //clock1  clock2  remark
     codelist16.push("ID", "I D", "IDJ", "IG", "I G", "IGJ", "IR", "I R", "IRJ", "IS", "I S", "ISJ", "SRZ", "S O");
     /**************************************************************************/
-    var codelist17 = new Array();  //mm  %  clock1  clock2
+    var codelist17 = new Array();
+    //mm  %  clock1  clock2
     codelist17.push("INF", "ING F", "INFJ", "ING", "ING G", "INGJ", "INP", "INPJ", "INS", "ING S", "INSJ");
     /**************************************************************************/
-    var codelist18 = new Array();  //%  clock1  clock2  remark
+    var codelist18 = new Array();
+    //%  clock1  clock2  remark
     codelist18.push("OBZ", "OB Z");
     /**************************************************************************/
-    var codelist19 = new Array();  //mm  %  clock1  clock2  remark
+    var codelist19 = new Array();
+    //mm  %  clock1  clock2  remark
     codelist19.push("INZ", "ING Z", "INZJ");
     /**************************************************************************/
     function checkItem() {
@@ -1328,16 +1364,14 @@
         $("#tab2 tbody input").trigger("blur");
         $("#tab2 tbody input").trigger("input");
         $("#tab2 tbody input").each(function() {
-        	var color = $(this).css("background-color");
+            var color = $(this).css("background-color");
             if (color == "rgb(255, 0, 0)")
                 result = false;
         });
-        var showText = "請檢查輸入數據！";
-        if (language == "en")
-        	showText = "Please check the input data!";
+        var showText = language == "zh" ? "請輸入完整數據！" : "Please check the input data!";
         if (result == false) {
-        	showTips(showText);
-        	return result;
+            showTips(showText);
+            return false;
         }
         for (var i = 0; i < $("#tab2 tbody tr").length; i++) {
             var row = $("#tab2 tbody tr").eq(i);
@@ -1349,34 +1383,39 @@
             var intrusion1 = row.find("td:eq(9) input").val();
             var intrusion2 = row.find("td:eq(10) input").val();
             var remarks = row.find("td:eq(11) input").val();
-            if (codelist1.indexOf(code) != -1) {  //mm
+            if (codelist1.indexOf(code) != -1) {
+                //mm
                 if (intrusion2 == "") {
                     row.find("td:eq(10) input").css("background-color", "#FFFF00");
                     result = false;
                 }
-            } else if (codelist2.indexOf(code) != -1) {  //%
+            } else if (codelist2.indexOf(code) != -1) {
+                //%
                 if (intrusion1 == "") {
                     row.find("td:eq(9) input").css("background-color", "#FFFF00");
                     result = false;
                 }
-            } else if (codelist3.indexOf(code) != -1) {  //clockAt
+            } else if (codelist3.indexOf(code) != -1) {
+                //clockAt
                 if (clockAt == "") {
                     row.find("td:eq(7) input").css("background-color", "#FFFF00");
                     result = false;
                 }
-            } else if (codelist4.indexOf(code) != -1) {  //clockTo
+            } else if (codelist4.indexOf(code) != -1) {
+                //clockTo
                 if (clockTo == "") {
                     row.find("td:eq(8) input").css("background-color", "#FFFF00");
                     result = false;
                 }
-            } else if (codelist5.indexOf(code) != -1) {  //remarks
+            } else if (codelist5.indexOf(code) != -1) {
+                //remarks
                 if (remarks == "") {
                     row.find("td:eq(11) input").css("background-color", "#FFFF00");
                     result = false;
                 }
             } else if (codelist6.indexOf(code) != -1) {
                 if (intrusion2 == "" || clockAt == "") {
-                	row.find("td:eq(7) input").css("background-color", "#FFFF00");
+                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
                     row.find("td:eq(10) input").css("background-color", "#FFFF00");
                     result = false;
                 }
@@ -1406,14 +1445,14 @@
                 }
             } else if (codelist12.indexOf(code) != -1) {
                 if (intrusion1 == "" || intrusion2 == "" || clockAt == "") {
-                	row.find("td:eq(7) input").css("background-color", "#FFFF00");
+                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
                     row.find("td:eq(9) input").css("background-color", "#FFFF00");
                     row.find("td:eq(10) input").css("background-color", "#FFFF00");
                     result = false;
                 }
             } else if (codelist13.indexOf(code) != -1) {
-                if (intrusion2 == "" || clockAt == "" ||remarks == "") {
-                	row.find("td:eq(7) input").css("background-color", "#FFFF00");
+                if (intrusion2 == "" || clockAt == "" || remarks == "") {
+                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
                     row.find("td:eq(10) input").css("background-color", "#FFFF00");
                     row.find("td:eq(11) input").css("background-color", "#FFFF00");
                     result = false;
@@ -1427,7 +1466,7 @@
                 }
             } else if (codelist15.indexOf(code) != -1) {
                 if (intrusion1 == "" || clockTo == "" || remarks == "") {
-                	row.find("td:eq(8) input").css("background-color", "#FFFF00");
+                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
                     row.find("td:eq(9) input").css("background-color", "#FFFF00");
                     row.find("td:eq(11) input").css("background-color", "#FFFF00");
                     result = false;
@@ -1457,20 +1496,18 @@
                 }
             } else if (codelist19.indexOf(code) != -1) {
                 if (intrusion1 == "" || intrusion2 == "" || (clockAt == "" && clockTo == "") || remarks == "") {
-                	row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                	row.find("td:eq(8) input").css("background-color", "#FFFF00");
+                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
+                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
                     row.find("td:eq(9) input").css("background-color", "#FFFF00");
                     row.find("td:eq(10) input").css("background-color", "#FFFF00");
                     row.find("td:eq(11) input").css("background-color", "#FFFF00");
                     result = false;
                 }
             }
-            var showText = "請輸入完整數據！";
-            if (language == "en")
-            	showText = "Please enter the complete data!";
+            var showText = language == "zh" ? "請輸入完整數據！" : "Please check the input data!";
             if (result == false) {
-            	showTips(showText);
-            	return result
+                showTips(showText);
+                return false
             }
             if ((code == "EL" || code == "ELJ" || code == "ESL") && intrusion1 >= 5) {
                 row.find("td:eq(9) input").css("background-color", "#FFFF00");
@@ -1624,12 +1661,12 @@
     function Ajax(url, data) {
         var result = null;
         $.ajax({
-            url:url,
-            data:data,
-            type:"post",
-            async:false,
-            datatype:"json",
-            success:function(data) {
+            url: url,
+            data: data,
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function(data) {
                 result = data;
             }
         });
@@ -1640,14 +1677,14 @@
     function FileAjax(url, data) {
         var result = null;
         $.ajax({
-            url:url,
-            data:data,
-            type:"post",
-            async:false,
-            datatype:"json",
-            processData:false,
-            contentType:false,
-            success:function(data) {
+            url: url,
+            data: data,
+            type: "post",
+            async: false,
+            datatype: "json",
+            processData: false,
+            contentType: false,
+            success: function(data) {
                 result = data;
             }
         });
@@ -2813,42 +2850,42 @@
         $("body").append(list);
 
         var list = "<datalist id='SAZ'>";
-		list += "<option>Due to debris / silt.</option>";
-		list += "<option>Due to compacted / hard.</option>";
-		list += "<option>Due to scale medium.</option>";
-		list += "<option>Due to scale heavy.</option>";
-		list += "<option>Due to camera under water.</option>";
-		list += "<option>Due to high water level.</option>";
-		list += "<option>Due to backdrop.</option>";
-		list += "<option>Due to collapse.</option>";
-		list += "<option>Due to danger to equipment.</option>";
-		list += "<option>Due to debris.</option>";
-		list += "<option>Due to debris grease.</option>";
-		list += "<option>Due to deformed pipe.</option>";
-		list += "<option>Due to diameter change to.</option>";
-		list += "<option>Due to displaced joint large.</option>";
-		list += "<option>Due to displaced joint medium.</option>";
-		list += "<option>Due to encrustation heavy.</option>";
-		list += "<option>Due to encrustation medium.</option>";
-		list += "<option>Due to hole.</option>";
-		list += "<option>Due to intruding connection.</option>";
-		list += "<option>Due to line down.</option>";
-		list += "<option>Due to line left.</option>";
-		list += "<option>Due to line right.</option>";
-		list += "<option>Due to line up.</option>";
-		list += "<option>Due to loss of traction.</option>";
-		list += "<option>Due to main line.</option>";
-		list += "<option>Due to manhole in sight.</option>";
-		list += "<option>Due to mass roots.</option>";
-		list += "<option>Due to obstruction.</option>";
-		list += "<option>Due to out of survey area.</option>";
-		list += "<option>Due to overlap reached.</option>";
-		list += "<option>Due to surface wear large.</option>";
-		list += "<option>Due to surface wear medium.</option>";
-		list += "<option>Due to syphon.</option>";
-		list += "<option>Due to uncharted manhole.</option>";
-		list += "</datalist>";
-		$("body").append(list);
+        list += "<option>Due to debris / silt.</option>";
+        list += "<option>Due to compacted / hard.</option>";
+        list += "<option>Due to scale medium.</option>";
+        list += "<option>Due to scale heavy.</option>";
+        list += "<option>Due to camera under water.</option>";
+        list += "<option>Due to high water level.</option>";
+        list += "<option>Due to backdrop.</option>";
+        list += "<option>Due to collapse.</option>";
+        list += "<option>Due to danger to equipment.</option>";
+        list += "<option>Due to debris.</option>";
+        list += "<option>Due to debris grease.</option>";
+        list += "<option>Due to deformed pipe.</option>";
+        list += "<option>Due to diameter change to.</option>";
+        list += "<option>Due to displaced joint large.</option>";
+        list += "<option>Due to displaced joint medium.</option>";
+        list += "<option>Due to encrustation heavy.</option>";
+        list += "<option>Due to encrustation medium.</option>";
+        list += "<option>Due to hole.</option>";
+        list += "<option>Due to intruding connection.</option>";
+        list += "<option>Due to line down.</option>";
+        list += "<option>Due to line left.</option>";
+        list += "<option>Due to line right.</option>";
+        list += "<option>Due to line up.</option>";
+        list += "<option>Due to loss of traction.</option>";
+        list += "<option>Due to main line.</option>";
+        list += "<option>Due to manhole in sight.</option>";
+        list += "<option>Due to mass roots.</option>";
+        list += "<option>Due to obstruction.</option>";
+        list += "<option>Due to out of survey area.</option>";
+        list += "<option>Due to overlap reached.</option>";
+        list += "<option>Due to surface wear large.</option>";
+        list += "<option>Due to surface wear medium.</option>";
+        list += "<option>Due to syphon.</option>";
+        list += "<option>Due to uncharted manhole.</option>";
+        list += "</datalist>";
+        $("body").append(list);
 
         var list = "<datalist id='SC'>";
         list += "<option>Arched with Flat Bottom</option>";

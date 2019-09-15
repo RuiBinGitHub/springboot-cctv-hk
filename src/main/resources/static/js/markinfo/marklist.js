@@ -1,12 +1,8 @@
 $(document).ready(function() {
 
     var language = $("#infoTop").text() == "項目列表" ? "zh" : "en";
-    var tipsText1 = "確定要刪除該數據嗎？";
-    var tipsText2 = "刪除數據成功！";
-    if (language == "en") {
-        tipsText1 = "Are you sure you want to delete this data?";
-        tipsText2 = "Operating successfully!";
-    }
+    var tipsText1 = language == "zh" ? "確定要刪除該數據嗎？" : "Are you sure you want to delete this data?";
+    var tipsText2 = language == "zh" ? "數據刪除成功！" : "Operating successfully!";
     /********************************************************************/
     if ($("#menuText").val().trim() == "") {
         $("#menuBtn1").attr("disabled", true);

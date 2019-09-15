@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     var language = $("#infoTop").text() == "項目列表" ? "zh" : "en";
+    var btnText = language == "zh" ? "編輯" : "Edit";
     /********************************************************************/
     if ($("#menuText").val() == "") {
         $("#menuBtn1").attr("disabled", true);
@@ -28,8 +29,6 @@ $(document).ready(function() {
         }
         /*************************************************/
         var id = $(this).attr("id");
-        var btnText = language == "zh" ? "編輯" : "Edit";
-        /*************************************************/
         $(this).find("td:eq(6)").mouseenter(function(e) {
             $(this).css("background-color", "#FFE793");
             if ($(this).text() == 0)
@@ -56,11 +55,11 @@ $(document).ready(function() {
             $("#show").show();
         });
         $(this).find("td:eq(6)").mouseleave(function(e) {
-            $("#show").hide();
             if (i % 2 == 0)
                 $(this).css("background-color", "#FAFAFA");
             else
                 $(this).css("background-color", "#EEEEEE");
+            $("#show").hide();
         });
         /*************************************************/
         $(this).find("input:eq(0)").click(function() {

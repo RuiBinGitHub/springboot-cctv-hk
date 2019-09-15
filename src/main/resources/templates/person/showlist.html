@@ -42,7 +42,6 @@
           <input id="menuBtn1" type="button" value="←"/>
           <input id="menuText" th:value="${param.name}"/>
           <input id="menuBtn2"  type="button" th:value="#{person.showlist.menu2}"/>
-          <div style="width:550px;height:100%;float:left;"></div>
         </div>
         <table id="tab1">
           <thead>
@@ -74,8 +73,8 @@
           	  <td th:if="${person.role == 'Role2'}">管理人員</td>
           	  <td th:if="${person.role == 'Role3'}">評分人員</td>
           	  <td th:if="${person.role == 'Role4'}">操作人員</td>
-          	  <td th:if="${person.state == '0'}" align="center"><div class="a1">冻结</div></td>
-          	  <td th:if="${person.state == '1'}" align="center"><div class="a2">正常</div></td>
+          	  <td th:if="${person.state == '0'}" style="color:#FFB000;font-size:16px;font-weight:600">冻结</td>
+          	  <td th:if="${person.state == '1'}" style="color:#2AB673;font-size:16px;font-weight:600">正常</td>
 		      <td>
 		        <input type="button" th:value="#{person.showlist.table.button1}">
 		      </td>

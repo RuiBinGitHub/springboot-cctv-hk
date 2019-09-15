@@ -58,7 +58,7 @@
 			  <th width="10%" th:text="#{markinfo.markview.table.title8}"></th>   
 			</tr>       
           </thead>
-          <tbody>
+          <tbody style="font-family:等线">
             <tr th:each="project,status:${projects}" th:id="${project.id}">
               <td th:text="${status.count+(page-1)*15}"></td>
               <td th:text="${project.name}"></td>
@@ -84,6 +84,7 @@
           </tr>
         </table>
       </div>
+      
       <div id="show">
       <table>
         <thead style="background-color:#F0F0F0;">

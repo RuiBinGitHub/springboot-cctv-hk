@@ -1,18 +1,11 @@
 $(document).ready(function() {
-
 	// 获取当前语言
 	var language = $("#infoTop").text() == "信息列表" ? "zh" : "en";
-	var tipsText1 = "確定要刪除該數據嗎？";
-	var tipsText2 = "数据删除成功？";
-	var html1 = "<font color='#2AB673'>已读</font>";
-	var html2 = "<font color='#FFB000'>未读</font>";
-	if (language == "en") {
-		tipsText1 = "確定要刪除該數據嗎？";
-		tipsText2 = "数据删除成功？";
-		html1 = "<font color='#2AB673'>Already</font>";
-		html2 = "<font color='#FFB000'>Unread</font>";
-	}
-	console.log(language);
+	
+	var tipsText1 = language == "zh" ? "確定要刪除該數據嗎？" : "Are you sure you want to delete this data?";
+    var tipsText2 = language == "zh" ? "數據刪除成功！" : "Operating successfully!";
+    var html1 = language == "zh" ? "<font color='#2AB673'>已读</font>" : "<font color='#2AB673'>Already</font>";
+    var html2 = language == "zh" ? "<font color='#FFB000'>未读</font>" : "<font color='#FFB000'>Unread</font>";
 	/** ********************************************** */
 	$("#mtab1 tr").each(function(i) {
 		var id = $(this).attr("id");
@@ -84,12 +77,12 @@ $(document).ready(function() {
 	function Ajax(url, data) {
 		var result = null;
 		$.ajax({
-			url : url,
-			data : data,
-			type : "post",
-			async : false,
-			datatype : "json",
-			success : function(data) {
+			url: url,
+			data: data,
+			type: "post",
+			async: false,
+			datatype: "json",
+			success: function(data) {
 				result = data;
 			}
 		});

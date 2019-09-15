@@ -1,15 +1,17 @@
 $(document).ready(function() {
-	
-	var language = $("#top").text() == "項目合並" ? "zh" : "en"; 
-	/********************************************************************/
-    initlist(Ajax("combinelist", null));
-    
+
+    var language = $("#top").text() == "項目合並" ? "zh" : "en";
+
+    var tipsText1 = language == "zh" ? "請至少選擇兩個項目！" : "Please select at least 2 project!";
+    var tipsText2 = language == "zh" ? "確定要合並項目嗎？" : "Are you sure you want to combine projects?";
+    var tipsText3 = language == "zh" ? "項目合並成功！" : "Operating successfully!";
+    /********************************************************************/
     $("#menuBtn1").attr("disabled", true);
-    $("#menuText").on("input",function() {
-    	if ($(this).val() == "")
-    		$("#menuBtn1").attr("disabled", true);
-    	else
-    		$("#menuBtn1").attr("disabled", false);
+    $("#menuText").on("input", function() {
+        if ($(this).val() == "")
+            $("#menuBtn1").attr("disabled", true);
+        else
+            $("#menuBtn1").attr("disabled", false);
     });
     $("#menuText").keydown(function() {
         if (event.keyCode == 13)
@@ -22,12 +24,11 @@ $(document).ready(function() {
     });
     $("#menuBtn2").click(function() {
         var name = $("#menuText").val();
-        if (name.trim() != "") {
-            var result = Ajax("combinelist", {name: name});
-            initlist(result);
-        }
+        if (name.trim() != "")
+            initlist(Ajax("combinelist", {name: name}));
     });
     /********************************************************************/
+    initlist(Ajax("combinelist", null));
     function initlist(data) {
         var context = "";
         for (var i = 0; i < data.length; i++) {
@@ -49,15 +50,15 @@ $(document).ready(function() {
             list.push(Number($(this).attr("id")));
         });
         $("#tab1 tr").each(function(i) {
-        	 var id = $(this).find("input").attr("value");
-             $(this).find("a").attr("target", "_blank");
-             $(this).find("a").attr("href", "findinfo?id=" + id);
-             /*********************************************/
+            var id = $(this).find("input").attr("value");
+            $(this).find("a").attr("target", "_blank");
+            $(this).find("a").attr("href", "findinfo?id=" + id);
+            /*********************************************/
             if ($("#menuText").val() != "") {
                 var name = $("#menuText").val();
                 var exp = new RegExp(name,"gm")
                 var text = $(this).find("td:eq(2)").text();
-            	text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
+                text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
                 $(this).find("td:eq(2) a").html(text);
             }
             /*********************************************/
@@ -72,27 +73,25 @@ $(document).ready(function() {
                     text += "<div class='delete'>x</div></div>";
                     $("#fieldset").append(text);
                     initRemoveBtn();
-                } else {
-                    var value = $(this).val();
-                    $(".label[id=" + value + "]").remove();
-                }
+                } else
+                    $(".label[id=" + $(this).val() + "]").remove();
             });
         });
     }
     /********************************************************************/
     function initRemoveBtn() {
         $("#fieldset .label").each(function() {
-        	$(this).mouseenter(function() {
-        		$(this).find("div").show();
-        	});
-        	$(this).mouseleave(function() {
-        		$(this).find("div").hide();
-        	});
-        	var id = $(this).attr("id");
-        	$(this).find("div").click(function() {
-        		$(this).parent().remove();
-        		$("#tab1 input[value=" + id + "]").attr("checked", false);
-        	});
+            $(this).mouseenter(function() {
+                $(this).find("div").show();
+            });
+            $(this).mouseleave(function() {
+                $(this).find("div").hide();
+            });
+            var id = $(this).attr("id");
+            $(this).find("div").click(function() {
+                $(this).parent().remove();
+                $("#tab1 input[value=" + id + "]").attr("checked", false);
+            });
         });
     }
     /********************************************************************/
@@ -102,25 +101,16 @@ $(document).ready(function() {
             list.push(Number($(this).attr("id")));
         });
         if (list.length < 2) {
-            if (language == "zh")
-            	showTips("請至少選擇兩個項目！");
-			else
-				showTips("Please select at least 2 project!");
+            showTips(tipsText1);
             return false;
         }
-        var tipsText = "確定要合並項目嗎？";
-    	var showText = "項目合並成功！";
-    	if (language == "en") {
-    		tipsText = "Are you sure you want to combine projects?";
-    		showText = "Operating successfully!";
-    	}
-        if (confirm(tipsText)) {
-        	$(this).attr("disabled", true);
-            $(this).css("background-color", "#CCC");
-            if (Ajax("combine", {list: list}))
-            	showTips(showText);
-            setTimeout("location.reload()", 2000);
-        }
+        if (!confirm(tipsText2))
+            return false;
+        $(this).attr("disabled", true);
+        $(this).css("background-color", "#CCC");
+        if (Ajax("combine", {list: list}))
+            showTips(tipsText3);
+        setTimeout("location.reload()", 2000);
     });
     /** 显示提示信息 */
     function showTips(text) {
@@ -130,12 +120,12 @@ $(document).ready(function() {
     function Ajax(url, data) {
         var result = null;
         $.ajax({
-            url:url,
-            data:data,
-            type:"post",
-            async:false,
-            datatype:"json",
-            success:function(data) {
+            url: url,
+            data: data,
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function(data) {
                 result = data;
             }
         });

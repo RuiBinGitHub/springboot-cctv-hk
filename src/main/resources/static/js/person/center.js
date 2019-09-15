@@ -1,17 +1,17 @@
 $(document).ready(function() {
     var code = null;
     var language = $("#menuTitle").text() == "個人中心" ? "zh" : "en";
-    var tipsText1 = "用户名称格式不正确！";
-    var tipsText2 = "用户名称修改成功！";
-    var tipsText3 = "*密碼格式不正確，請重新輸入！";
-    var tipsText4 = "*兩次密碼不壹致，請重新輸入！";
-    var tipsText5 = "*旧密码不正确，请重新输入！";
-    var tipsText6 = "密碼修改成功！";
     
-    var tipsText7 = "*郵箱格式不正確，請重新輸入！";
-    var tipsText8 = "*電子郵箱已經被使用！";
-    var tipsText9 = "*請輸入正確的驗證碼！";
-    var tipsText10 = "郵箱修改成功！";
+    var tipsText1 = language == "zh" ? "用户名称格式不正确！" : "The Nick Name format is incorrect!";
+    var tipsText2 = language == "zh" ? "用户名称修改成功！" : "Operating successfully!";
+    var tipsText3 = language == "zh" ? "*密碼格式不正確，請重新輸入！" : "*Please check the input password!";
+    var tipsText4 = language == "zh" ? "*兩次密碼不壹致，請重新輸入！" : "*Two inconsistent password input!";
+    var tipsText5 = language == "zh" ? "*旧密码不正确，请重新输入！" : "*The old password is incorrect!";
+    var tipsText6 = language == "zh" ? "登录密碼修改成功！" : "Operating successfully!";
+    var tipsText7 = language == "zh" ? "*郵箱格式不正確，請重新輸入！" : "*Please check the input E-Mail!";
+    var tipsText8 = language == "zh" ? "*電子郵箱已經被使用！" : "*This email already exists!";
+    var tipsText9 = language == "zh" ? "*請輸入正確的驗證碼！" : "*Please check the input code!";
+    var tipsText0 = language == "zh" ? "电子郵箱绑定成功！" : "Operating successfully!";
     /********************************************************************/
     $("#edit").click(function() {
         var name = $(".namebox").val();
@@ -28,8 +28,7 @@ $(document).ready(function() {
     var date = $(".table1 tr:eq(2) td:eq(1)").text();
     var term = $(".table1 tr:eq(2) td:eq(3)").text();
     $(".table1 tr:eq(2) td:eq(3)").text(getDate(date, term));
-    // 计算使用期限
-    function getDate(date, idate) {
+    function getDate(date, idate) {   // 计算使用期限
         var date = new Date(date);
         date.setDate(date.getDate() + Number(idate));
         var y = date.getFullYear();
@@ -112,7 +111,7 @@ $(document).ready(function() {
         var mail = $("#table2 input[type=text]:eq(0)").val();
         var code = $("#table2 input[type=text]:eq(1)").val();
         if (Ajax("updatemail", {mail: mail, code: code})) 
-        	showTips(tipsText10);
+        	showTips(tipsText0);
        	setTimeout("location.reload()", 2000);
     });
     /********************************************************************/

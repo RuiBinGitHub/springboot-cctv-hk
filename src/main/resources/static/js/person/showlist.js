@@ -1,8 +1,5 @@
 $(document).ready(function() {
-
-    // 获取当前语言
-    var language = $("#rightTop").text() == "infoTop" ? "zh" : "en";
-    /********************************************************************/
+	
     if ($("#menuText").val().trim() == "") {
         $("#menuBtn1").attr("disabled", true);
     }
@@ -33,15 +30,14 @@ $(document).ready(function() {
         /*********************************************/
         // 隐藏用户密码
         var pass = $(this).find("td:eq(3)").text();
-        var cont = getrRepeats("", pass.length - 4);
+        var cont = getrRepeats("$1", pass.length - 4);
         var text = pass.replace(/(.{2}).*(.{2})/, cont);
         $(this).find("td:eq(3)").text(text);
         // 隐藏用户邮箱
         var mail = $(this).find("td:eq(4)").text();
-        var cont = getrRepeats("", mail.length - 13);
-        var text = mail.replace(/(.{3}).*(.{10})/, cont);
+        var cont = getrRepeats("$1", mail.length - 13);
+        var text = mail.replace(/(.{3}).*(.{9})/, cont);
         $(this).find("td:eq(4)").text(text);
-        /*********************************************/
         /*********************************************/
         var id = $(this).attr("id");
         $(this).find("input[type=button]:eq(0)").click(function() {
@@ -54,7 +50,6 @@ $(document).ready(function() {
         });
     });
     function getrRepeats(str, length) {
-        str += "$1";
         for (var i = 0; i < length; ++i)
             str += "*";
         str += "$2";
