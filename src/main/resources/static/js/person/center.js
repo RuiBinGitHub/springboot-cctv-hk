@@ -15,7 +15,7 @@ $(document).ready(function() {
     /********************************************************************/
     $("#edit").click(function() {
         var name = $(".namebox").val();
-        if (name.length < 2 || name.length > 6) {
+        if (name.length < 2 || name.length > 12) {
             showTips(tipsText1);
             return false;
         }

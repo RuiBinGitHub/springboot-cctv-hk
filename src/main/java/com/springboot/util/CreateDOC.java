@@ -48,6 +48,11 @@ public class CreateDOC {
 
 			double length = 0;
 			List<Pipe> pipes = pipeBiz.findListPipe(project);
+			if (project.getStandard().indexOf("H") != -1 && pipes.size() >= 3) {
+				pipes.remove(0);
+				pipes.remove(1);
+				pipes.remove(2);
+			}
 			for (int i = 0; pipes != null && i < pipes.size(); i++) {
 				Pipe pipe = pipes.get(i);
 				if (pipe.getSmanholeno() == null)

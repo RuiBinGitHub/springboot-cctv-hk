@@ -69,6 +69,7 @@ public class UserController {
 				view.addObject("tips", "The Company has expired!");
 				return view;
 			}
+			SecurityUtils.getSubject().getSession().setTimeout(-2000);
 			SavedRequest location = WebUtils.getSavedRequest(request);
 			if (!StringUtils.isEmpty(location)) {
 				String path = location.getRequestUrl();

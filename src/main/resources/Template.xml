@@ -705,8 +705,8 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if (pipe.items?size) gt 3> 
-						<w:t>${pipe.items[3].isSA}</w:t>
+                    <#if (pipe.items?size) gt 0> 
+						<w:t>${pipe.items[0].isSA}</w:t>
 					<#else> 
 						<w:t></w:t>
 					</#if>
@@ -734,8 +734,8 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if (pipe.items?size) gt 3> 
-						<w:t>${pipe.items[3].depict}</w:t>
+                    <#if (pipe.items?size) gt 0> 
+						<w:t>${pipe.items[0].depict}</w:t>
 					<#else> 
 						<w:t></w:t>
 					</#if>	
@@ -763,8 +763,8 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if (pipe.items?size) gt 3> 
-						<w:t>${pipe.items[3].dist}</w:t>
+                    <#if (pipe.items?size) gt 0> 
+						<w:t>${pipe.items[0].dist}</w:t>
 					<#else> 
 						<w:t></w:t>
 					</#if>	
@@ -792,8 +792,8 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if (pipe.items?size) gt 3> 
-						<w:t>${pipe.items[3].grade}</w:t>
+                    <#if (pipe.items?size) gt 0> 
+						<w:t>${pipe.items[0].grade}</w:t>
 					<#else> 
 						<w:t></w:t>
 					</#if>
@@ -802,8 +802,8 @@
               </w:tc>
             </w:tr>
 			<!-- ************************************************************************* -->
-			<#if (pipe.items?size) gt 4> 
-			<#list 4..(pipe.items?size-1) as i>
+			<#if (pipe.items?size) gt 1> 
+			<#list 1..(pipe.items?size-1) as i>
             <w:tr w:rsidR="00645310" w:rsidRPr="008F2AFE" w:rsidTr="00E63340">
               <w:trPr>
                 <w:trHeight w:val="454"/>

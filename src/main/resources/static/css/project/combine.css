@@ -28,7 +28,7 @@ body {
 
 #mainInfo {
 	width: 100%;
-	height: 750px;
+	height: 735px;
 	margin-top: 15px;
 	background-color: #fff;
 	float: left;
@@ -42,7 +42,7 @@ body {
 	text-indent: 20px;
 	line-height: 48px;
 	font-weight: 700;
-	border-bottom: 2px solid #009343;
+	border-bottom: 2px solid #3CB44B;
 	float: left;
 }
 
@@ -55,7 +55,6 @@ body {
 	background-color: #FAFAFA;
 	border: 1px solid #E2E2E2;
 	float: left;
-	background-color: #FAFAFA;
 }
 
 #Menu span {
@@ -117,9 +116,8 @@ body {
 	height: 40px;
 	color: #fff;
 	margin-left: 10px;
-	background-color: #009343;
+	background-color: #3CB44B;
 	float: left;
-	margin-left: 10px;
 }
 
 #title div {
@@ -220,7 +218,7 @@ body {
 	color: #ffffff;
 	font-size: 15px;
 	font-weight: 600;
-	background-color: #00953E;
+	background-color: #3CB44B;
 	border-radius: 32px;
 	outline: none;
 	border: none;
@@ -228,6 +226,6 @@ body {
 }
 
 .combtn:hover {
-	background-color: #00bd50;
+	background-color: #48c157;
 	cursor: pointer;
 }

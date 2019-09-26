@@ -566,8 +566,7 @@
     /***********************************************************************/
     var Pid = $("#id2").val();
     /** ******************************************************************** */
-    // 是否显示菜单
-    $(document).scroll(function(e) {
+    $(document).scroll(function(e) {  // 是否显示菜单
         if ($(document).scrollTop() >= 155)
             $("#TitleMemu").show();
         else
@@ -623,9 +622,7 @@
                 return false;
             $(this).css("background-color", "#CCC");
             $(this).attr("disabled", true);
-            if (Ajax("/CCTV/pipe/delete", {
-                id: id
-            }))
+            if (Ajax("/CCTV/pipe/delete", {id: id}))
                 showTips(tipsText3);
             setTimeout("location.reload()", 2000);
         });
@@ -865,7 +862,7 @@
         $("#file1").click();
     });
     $(document, "#video").keydown(function(e) {
-        if (e.altKey && e.which == 65) {
+        if (e.altKey && e.which == 65) { // 截屏
             if ($("#video").attr("src") == undefined)
                 return false;
             var video = $("#video")[0];
@@ -876,7 +873,7 @@
             context1.drawImage(video, 0, 0);
             $("#pic1").attr("src", canvas1.toDataURL("image/png"));
         }
-        if (e.altKey && e.which == 83) {
+        if (e.altKey && e.which == 83) {  // 保存
             if (itemindex == -1 || $("#pic1").attr("src") == undefined)
                 return false;
             var canvas1 = $("#canvas1")[0];
@@ -900,7 +897,7 @@
     /** ****************************************************************************** */
     /** 視頻文件選擇器 */
     $("#file1").change(function() {
-        if (!this.files || !this.files[0])
+    	if (this.files.length == 0)
             return false;
         var url = getURL(this.files[0]);
         $("#video").attr("src", url);
@@ -912,7 +909,7 @@
     });
     /** 圖片文件選擇器 */
     $("#file2").change(function() {
-        if (!this.files && this.files[0])
+    	if (this.files.length == 0)
             return false;
         var url = getURL(this.files[0]);
         $("#pic1").attr("src", url);
@@ -925,8 +922,7 @@
             $(canvas1).attr("height", img.height);
             context1.drawImage($("#pic1")[0], 0, 0);
             this.value = "";
-        }
-        ;
+        };
     });
     /** 根據文件獲取路徑 */
     function getURL(file) {
@@ -1036,6 +1032,8 @@
         codelist.push($(this).val());
     });
     var path = $("#path").val();
+    
+    
     function initItemList(index) {
         itemindex = -1;
         // 表格初始化
@@ -1179,7 +1177,7 @@
                         list.push($(this).find("td:eq(3) input").val());
                     });
                     var value = Math.max.apply(null, list);
-                    $("#main2 table:eq(2) tr:eq(1) td:eq(10) input").val(value);
+                    $("#main2 input[name=totallength]").val(value);
                 }
             });
 
@@ -1213,12 +1211,11 @@
 
                 var dist = $(this).parents("tr").find("td:eq(3) input").val();
                 var length = $("input[name=totallength]").val();
-
                 if ($(this).val() == "MH" && Number(dist) == 0.0) {
                     var smh = $("input[name=smanholeno]").val();
                     $("#tab2 tbody tr").eq(i).find("td:eq(11) input").val(smh);
                 } else if ($(this).val() == "MH" && Number(dist) == length) {
-                    var fmh = $("input[name=smanholeno]").val();
+                    var fmh = $("input[name=fmanholeno]").val();
                     $("#tab2 tbody tr").eq(i).find("td:eq(11) input").val(fmh);
                 }
             });

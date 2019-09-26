@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
     var language = $("#top").text() == "項目合並" ? "zh" : "en";
-
     var tipsText1 = language == "zh" ? "請至少選擇兩個項目！" : "Please select at least 2 project!";
     var tipsText2 = language == "zh" ? "確定要合並項目嗎？" : "Are you sure you want to combine projects?";
     var tipsText3 = language == "zh" ? "項目合並成功！" : "Operating successfully!";
@@ -64,36 +63,31 @@ $(document).ready(function() {
             /*********************************************/
             if (list.indexOf(Number(id)) != -1)
                 $(this).find("input[type=checkbox]").prop("checked", true);
-            /*********************************************/
-            $(this).find("input[type=checkbox]").click(function() {
-                if ($(this).is(":checked") && $("#fieldset .label").length < 20) {
-                    var value = $(this).val();
-                    var text = "<div id='" + value + "' class='label'>";
-                    text += $("#tab1 tr").eq(i).find("td:eq(2)").text();
-                    text += "<div class='delete'>x</div></div>";
-                    $("#fieldset").append(text);
-                    initRemoveBtn();
-                } else
-                    $(".label[id=" + $(this).val() + "]").remove();
-            });
         });
     }
-    /********************************************************************/
-    function initRemoveBtn() {
-        $("#fieldset .label").each(function() {
-            $(this).mouseenter(function() {
-                $(this).find("div").show();
-            });
-            $(this).mouseleave(function() {
-                $(this).find("div").hide();
-            });
-            var id = $(this).attr("id");
-            $(this).find("div").click(function() {
-                $(this).parent().remove();
-                $("#tab1 input[value=" + id + "]").attr("checked", false);
-            });
-        });
-    }
+    // 设置复选框点击事件
+    $("#tab1").on("click", "input[type=checkbox]", function() {
+    	if ($(this).is(":checked") && $("#fieldset .label").length < 20) {
+            var value = $(this).val();
+            var name = $(this).parents("tr").find("td:eq(2)").text();
+            var text = "<div id='" + value + "' class='label'>"
+            text += name + "<div class='delete'>x</div>";
+            text += "</div>";
+            $("#fieldset").append(text);
+    	} else
+    		$(".label[id=" + $(this).val() + "]").remove();
+    });
+    $("#fieldset").on("mouseenter", ".label", function() {
+    	$(this).find("div").show();
+    });
+    $("#fieldset").on("mouseleave", ".label", function() {
+    	$(this).find("div").hide();
+    });
+    $("#fieldset").on("click", ".label div", function() {
+    	var id = $(this).parents(".label").attr("id");
+    	$("#tab1 input[value=" + id + "]").attr("checked", false);
+    	$(this).parent().remove();
+    });
     /********************************************************************/
     $(".combtn").click(function() {
         var list = new Array();

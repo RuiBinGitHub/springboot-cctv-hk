@@ -1,7 +1,6 @@
 $(document).ready(function() {
     // 获取当前语言
     var language = $("#rightTop").text() == "項目列表" ? "zh" : "en";
-    
     var tipsText1 = language == "zh" ? "確定要刪除該數據嗎？" : "Are you sure you want to delete this data?";
     var tipsText2 = language == "zh" ? "數據刪除成功！" : "Operating successfully!";
     /********************************************************************/
@@ -36,7 +35,7 @@ $(document).ready(function() {
             var exp = new RegExp(name,"gm")
             var text = $(this).find("td:eq(1)").text();
             text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
-            $(this).find("td:eq(1) a").html(text);
+            $(this).find("td:eq(1)").html(text);
         }
         /*********************************************/
         var id = $(this).attr("id");

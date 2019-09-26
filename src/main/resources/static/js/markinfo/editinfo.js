@@ -42,6 +42,7 @@ $(document).ready(function() {
             location.href = "editinfo?id=" + id + "&no=" + i;
         });
     });
+    // 设置
     $("#showpipe").scrollTop(30 * index);
     function getImg(count) {
         var hrml = "";
@@ -53,7 +54,6 @@ $(document).ready(function() {
     }
     /********************************************************************/
     $("#main2 input").attr("readonly", "true");
-    /********************************************************************/
     var path = $("#path").val();
     $("#tab2 tbody tr").each(function(i) {
         $(this).click(function() {
@@ -143,17 +143,20 @@ $(document).ready(function() {
     }
     /********************************************************************/
     $("#tab3 input[type=text]").keypress(function(event) {
-        if (event.which >= 48 && event.which <= 57 && event.which <= 46)
+        if (event.which >= 48 && event.which <= 57 || event.which == 46)
             return true;
         return false;
     });
     $("#tab3 input[type=text]").on("input", function() {
-    	if ($(this).val() == "" || isNaN($(this).val()) || $(this).val() < 0 || $(this).val() > 100)
-    	$(this).css("background-color", "#fff");
+    	var value = $(this).val();
+    	if (value == "" || isNaN(value) || value < 0 || value > 100)
+			$(this).css("background-color", "#f00");
+		else
+			$(this).css("background-color", "#fff");
     });
     $(document).scroll(function(e) {
         var height = $(document).scrollTop();
-        if (height >= 465)
+        if (height >= 180)
             $("#TitleMemu").show();
         else
             $("#TitleMemu").hide();
@@ -280,181 +283,155 @@ $(document).ready(function() {
     /********************************************************************/
     /** 格式化显示信息 */
     function initList() {
-        var value = $("#maintab2 tr:eq(1) input:eq(2)").val();
-        if (value == "")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("--");
-        else if (value == "BL")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Bus Lane");
-        else if (value == "BLG")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Under Permament Building");
-        else if (value == "DIF")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Difficult Access Area");
-        else if (value == "EX")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Expressway");
-        else if (value == "FLD")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Fields");
-        else if (value == "FWY")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Footway");
-        else if (value == "RD")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Road");
-        else if (value == "PD")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Other Pedestrian Area");
-        else if (value == "PR")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Property With Building");
-        else if (value == "WWY")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Under a Waterway");
-        else if (value == "Z")
-            $("#maintab2 tr:eq(1) input:eq(2)").val("Other");
-        /***********************************************************/
-        var value = $("#maintab3 tr:eq(1) input:eq(2)").val();
+        var value = $("#input3 input:eq(2)").val();
         if (value == "F")
-            $("#maintab3 tr:eq(1) input:eq(2)").val("Foul");
+            $("#input3 input:eq(2)").val("Foul");
         else if (value == "S")
-            $("#maintab3 tr:eq(1) input:eq(2)").val("Surface water");
+            $("#input3 input:eq(2)").val("Surface water");
         else if (value == "C")
-            $("#maintab3 tr:eq(1) input:eq(2)").val("Combined");
+            $("#input3 input:eq(2)").val("Combined");
         else if (value == "T")
-            $("#maintab3 tr:eq(1) input:eq(2)").val("Trade effluent");
+            $("#input3 input:eq(2)").val("Trade effluent");
         else if (value == "W")
-            $("#maintab3 tr:eq(1) input:eq(2)").val("Watercourse");
+            $("#input3 input:eq(2)").val("Watercourse");
         else if (value == "O")
-            $("#maintab3 tr:eq(1) input:eq(2)").val("Others");
+            $("#input3 input:eq(2)").val("Others");
         else if (value == "U")
-            $("#maintab3 tr:eq(1) input:eq(2)").val("Unknown");
+            $("#input3 input:eq(2)").val("Unknown");
         /***********************************************************/
-        var value = $("#maintab3 tr:eq(1) input:eq(3)").val();
+        var value = $("#input3 input:eq(3)").val();
         if (value == "U")
-            $("#maintab3 tr:eq(1) input:eq(3)").val("Upstream");
+            $("#input3 input:eq(3)").val("Upstream");
         else if (value == "D")
-            $("#maintab3 tr:eq(1) input:eq(3)").val("Downstream");
+            $("#input3 input:eq(3)").val("Downstream");
         /***********************************************************/
-        var value = $("#maintab3 tr:eq(1) input:eq(6)").val();
+        var value = $("#input3 input:eq(6)").val();
         if (value == "A")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Arched with Flat Bottom");
+            $("#input3 input:eq(6)").val("Arched with Flat Bottom");
         else if (value == "B")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Barrel e.g. Beer Barrel Shape");
+            $("#input3 input:eq(6)").val("Barrel e.g. Beer Barrel Shape");
         else if (value == "C")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Circular");
+            $("#input3 input:eq(6)").val("Circular");
         else if (value == "E")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Egg Shape");
+            $("#input3 input:eq(6)").val("Egg Shape");
         else if (value == "H")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Horseshoe");
+            $("#input3 input:eq(6)").val("Horseshoe");
         else if (value == "O")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Oval");
+            $("#input3 input:eq(6)").val("Oval");
         else if (value == "K")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Kerb Block");
+            $("#input3 input:eq(6)").val("Kerb Block");
         else if (value == "R")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Rectangular");
+            $("#input3 input:eq(6)").val("Rectangular");
         else if (value == "S")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Square");
+            $("#input3 input:eq(6)").val("Square");
         else if (value == "T")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Trapezoidal");
+            $("#input3 input:eq(6)").val("Trapezoidal");
         else if (value == "U")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("U-shaped with Flat Top");
+            $("#input3 input:eq(6)").val("U-shaped with Flat Top");
         else if (value == "Z")
-            $("#maintab3 tr:eq(1) input:eq(6)").val("Other");
+            $("#input3 input:eq(6)").val("Other");
         /***********************************************************/
-        var value = $("#maintab3 tr:eq(1) input:eq(7)").val();
+        var value = $("#input3 input:eq(7)").val();
         if (value == "AC")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Asbestos Cement");
+            $("#input3 input:eq(7)").val("Asbestos Cement");
         else if (value == "BL")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Bitumen Lining");
+            $("#input3 input:eq(7)").val("Bitumen Lining");
         else if (value == "BR")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Brick");
+            $("#input3 input:eq(7)").val("Brick");
         else if (value == "CI")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Cast Iron");
+            $("#input3 input:eq(7)").val("Cast Iron");
         else if (value == "CL")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Cement Mortar Lining");
+            $("#input3 input:eq(7)").val("Cement Mortar Lining");
         else if (value == "CO")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Concrete");
+            $("#input3 input:eq(7)").val("Concrete");
         else if (value == "CS")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Concrete Segments");
+            $("#input3 input:eq(7)").val("Concrete Segments");
         else if (value == "DI")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Ductile Iron");
+            $("#input3 input:eq(7)").val("Ductile Iron");
         else if (value == "EP")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Epoxy");
+            $("#input3 input:eq(7)").val("Epoxy");
         else if (value == "FC")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Fibre Cement");
+            $("#input3 input:eq(7)").val("Fibre Cement");
         else if (value == "FRP")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Fibre Reinforced Plastics");
+            $("#input3 input:eq(7)").val("Fibre Reinforced Plastics");
         else if (value == "GI")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Galvanised Iron");
+            $("#input3 input:eq(7)").val("Galvanised Iron");
         else if (value == "MAC")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Masonry in Regular Courses");
+            $("#input3 input:eq(7)").val("Masonry in Regular Courses");
         else if (value == "MAR")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Masonry in Randomly Coursed");
+            $("#input3 input:eq(7)").val("Masonry in Randomly Coursed");
         else if (value == "PVC")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Polyvinyl Chloride");
+            $("#input3 input:eq(7)").val("Polyvinyl Chloride");
         else if (value == "PE")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Polyethylene");
+            $("#input3 input:eq(7)").val("Polyethylene");
         else if (value == "PF")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Pitch Fibre");
+            $("#input3 input:eq(7)").val("Pitch Fibre");
         else if (value == "PP")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Polypropylene");
+            $("#input3 input:eq(7)").val("Polypropylene");
         else if (value == "PS")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Polyester");
+            $("#input3 input:eq(7)").val("Polyester");
         else if (value == "RC")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Reinforced Concrete");
+            $("#input3 input:eq(7)").val("Reinforced Concrete");
         else if (value == "SPC")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Sprayed Concrete");
+            $("#input3 input:eq(7)").val("Sprayed Concrete");
         else if (value == "ST")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Steel");
+            $("#input3 input:eq(7)").val("Steel");
         else if (value == "VC")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Vitrified Clay");
+            $("#input3 input:eq(7)").val("Vitrified Clay");
         else if (value == "X")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Unidentified Material");
+            $("#input3 input:eq(7)").val("Unidentified Material");
         else if (value == "XI")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Unidentified Type of Iron or Steel");
+            $("#input3 input:eq(7)").val("Unidentified Type of Iron or Steel");
         else if (value == "XP")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Unidentified Type of Plastics");
+            $("#input3 input:eq(7)").val("Unidentified Type of Plastics");
         else if (value == "Z")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("Other");
+            $("#input3 input:eq(7)").val("Other");
         else if (value == "")
-            $("#maintab3 tr:eq(1) input:eq(7)").val("--");
+            $("#input3 input:eq(7)").val("--");
         /***********************************************************/
-        var value = $("#maintab3 tr:eq(1) input:eq(8)").val();
+        var value = $("#input3 input:eq(8)").val();
         if (value == "CF")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("Close Fit Lining");
+            $("#input3 input:eq(8)").val("Close Fit Lining");
         else if (value == "CIP")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("Cured In Place Lining");
+            $("#input3 input:eq(8)").val("Cured In Place Lining");
         else if (value == "CP")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("Lining With Continuous Pipes");
+            $("#input3 input:eq(8)").val("Lining With Continuous Pipes");
         else if (value == "DP")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("Lining With Discrete Pipes");
+            $("#input3 input:eq(8)").val("Lining With Discrete Pipes");
         else if (value == "M")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("Lining Inserted During Manufacture");
+            $("#input3 input:eq(8)").val("Lining Inserted During Manufacture");
         else if (value == "N")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("No Lining");
+            $("#input3 input:eq(8)").val("No Lining");
         else if (value == "SEG")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("Segmental Linings");
+            $("#input3 input:eq(8)").val("Segmental Linings");
         else if (value == "SP")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("Sprayed Lining");
+            $("#input3 input:eq(8)").val("Sprayed Lining");
         else if (value == "SW")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("Spirally Wound Lining");
+            $("#input3 input:eq(8)").val("Spirally Wound Lining");
         else if (value == "Z")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("Other");
+            $("#input3 input:eq(8)").val("Other");
         else if (value == "")
-            $("#maintab3 tr:eq(1) input:eq(8)").val("--");
+            $("#input3 input:eq(8)").val("--");
         /***********************************************************/
-        var value = $("#maintab4 table:eq(1) input:eq(6)").val();
+        var value = $("#input4 input:eq(7)").val();
         if (value == "")
-            $("#maintab4 tr:eq(1) input:eq(6)").val("--");
+            $("#input4 input:eq(7)").val("--");
         else if (value == "Y")
-            $("#maintab4 tr:eq(1) input:eq(6)").val("Y");
+            $("#input4 input:eq(7)").val("Y");
         else if (value == "N")
-            $("#maintab4 tr:eq(1) input:eq(6)").val("N");
+            $("#input4 input:eq(7)").val("N");
         /***********************************************************/
-        var value = $("#maintab4 tr:eq(1) input:eq(7)").val();
+        var value = $("#input4 input:eq(8)").val();
         if (value == "")
-            $("#maintab4 tr:eq(1) input:eq(7)").val("--");
+            $("#input4 input:eq(8)").val("--");
         else if (value == "1")
-            $("#maintab4 tr:eq(1) input:eq(7)").val("Dry");
+            $("#input4 input:eq(8)").val("Dry");
         else if (value == "2")
-            $("#maintab4 tr:eq(1) input:eq(7)").val("Heavy Rain");
+            $("#input4 input:eq(8)").val("Heavy Rain");
         else if (value == "3")
-            $("#maintab4 tr:eq(1) input:eq(7)").val("Light Rain");
+            $("#input4 input:eq(8)").val("Light Rain");
         else if (value == "4")
-            $("#maintab4 tr:eq(1) input:eq(7)").val("Showers");
+            $("#input4 input:eq(8)").val("Showers");
     }
 
 });
