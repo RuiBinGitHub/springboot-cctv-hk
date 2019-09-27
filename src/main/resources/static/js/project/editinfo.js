@@ -33,7 +33,6 @@
     /***********************************************************************/
     var itemindex = -1;
     mikeDataList(0);
-    initItemList(0);
     drawPipe();
     // 绘画管道
     if ($("#memu1 input").length == 3)
@@ -556,13 +555,13 @@
         $(this).val($(this).text());
     });
     var dist1 = $("#input2 select:eq(0)").attr("id");
-    $("#input2 select:eq(0) option[value='" + dist1 + "']").prop("selected", true);
+    $("#input2 select:eq(0)").val(dist1);
     $("#input2 select:eq(0)").change();
     var dist2 = $("#input2 select:eq(1)").attr("id");
-    $("#input2 select:eq(1) option[value='" + dist2 + "']").prop("selected", true);
+    $("#input2 select:eq(1)").val(dist2);
     $("#input2 select:eq(1)").change();
     var dist3 = $("#input2 select:eq(2)").attr("id");
-    $("#input2 select:eq(2) option[value='" + dist3 + "']").prop("selected", true);
+    $("#input2 select:eq(2)").val(dist3);
     /***********************************************************************/
     var Pid = $("#id2").val();
     /** ******************************************************************** */
@@ -936,25 +935,26 @@
         return url;
     }
     /** ******************************************************************** */
+    // 添加记录
     $("#memu2 input[type=button]:eq(0)").click(function() {
         $("#tab2").append(getContext());
         var length = $("#tab2 tr").length - 1;
         initItemList(length);
     });
+    // 插入记录
     $("#memu2 input[type=button]:eq(1)").click(function() {
         if (itemindex == -1)
             return false;
         $("#tab2 tr").eq(itemindex).before(getContext());
         initItemList(itemindex);
     });
+    // 删除记录
     $("#memu2 input[type=button]:eq(2)").click(function() {
         if (itemindex == -1 || !confirm(tipsText2))
             return false;
         var id = $("#tab2 tr").eq(itemindex).find("[type=hidden]").val();
         if (id != "" && id != "0")
-            Ajax("/CCTV/item/delete", {
-                id: id
-            });
+            Ajax("/CCTV/item/delete", {id: id});
         $("#tab2 tr").eq(itemindex).remove();
         initItemList(itemindex);
         var list = new Array();
@@ -970,11 +970,11 @@
         $("input[name=files]").click();
     });
     $("#memu2 input[type=button]:eq(4)").click(function() {
-        if (confirm(tipsText8)) {
-            if (Ajax("/CCTV/item/removeimage", {id: Pid}))
-                showTips(tipsText9);
-            setTimeout("location.reload()", 2000);
-        }
+        if (!confirm(tipsText8))
+        	return false;
+        if (Ajax("/CCTV/item/removeimage", {id: Pid}))
+            showTips(tipsText9);
+        setTimeout("location.reload()", 2000);
     });
     $("input[name=files]").attr("webkitdirectory", true);
     $("input[name=files]").change(function() {
@@ -993,8 +993,8 @@
             }
         }
         formFile.append("id", Pid);
-        var data = FileAjax("/CCTV/item/inputimages", formFile);
         showTips(tipsText11);
+        var data = FileAjax("/CCTV/item/inputimages", formFile);
         if (data.result) {
             showTips(tipsText12);
             setTimeout("location.reload()", 2000);
@@ -1032,8 +1032,199 @@
         codelist.push($(this).val());
     });
     var path = $("#path").val();
-    
-    
+    // 行点击事件
+    $("#tab2 tbody").on("click", "tr", function() {
+    	itemindex = $(this).parent().find("tr").index($(this));
+    	$("#tab2 tbody tr").find("td:eq(0) a").text("");
+        $(this).find("td:eq(0) a").text("▶");
+        var value = $(this).find("input:last").val();
+        if (value != "" && value.length < 40)
+            $("#pic2").attr("src", path + value + ".png");
+        else
+            $("#pic2").attr("src", "/CCTV/img/blank.png");
+    });
+    // 单元格获取焦点事件
+    $("#tab2 tbody").on("focus", "tr td, tr td input", function(event) {
+    	event.stopPropagation();
+    	$(this).parents("tr").click();
+        $(this).css("background-color", "#FFFFFF");
+        $(this).children().css("background-color", "#FFFFFF");
+        $(this).select();
+    });
+    $("#tab2 tbody").on("keydown", "tr td", function(event) {
+    	var low = $(this).parents("tr").find("td").index($(this));
+    	if (event.keyCode == 9) {
+            $(this).focus();
+        } else if (event.keyCode == 37) {
+            $(this).prev().focus();
+        } else if (event.keyCode == 39) {
+            $(this).next().focus();
+        } else if (event.keyCode == 38 && itemindex > 0) {
+            $("#tab2 tbody tr").eq(itemindex - 1).find("td").eq(low).focus();
+            return false;
+        } else if (event.keyCode == 40) {
+            if (itemindex == $("#tab2 tbody tr").length - 1)
+                $("#memu2 input[type=button]:eq(0)").click();
+            $("#tab2 tbody tr").eq(itemindex + 1).find("td").eq(low).focus();
+            return false;
+        } else
+            $(this).find("input").focus();
+    });
+    $("#tab2 tbody").on("keydown", "tr td input", function(event) {
+    	event.stopPropagation();
+        if (event.keyCode == 9) {
+            $(this).parent().focus();
+        } else if (event.keyCode == 38 && itemindex > 0) {
+            var low = $(this).parents("tr").find("td").index($(this).parent());
+            $("#tab2 tbody tr").eq(itemindex - 1).find("td").eq(low).focus();
+            return false;
+        } else if (event.keyCode == 40 || event.keyCode == 13) {
+            if (itemindex == $("#tab2 tbody tr").length - 1)
+                $("#memu2 input[type=button]:eq(0)").click();
+            var low = $(this).parents("tr").find("td").index($(this).parent());
+            $("#tab2 tbody tr").eq(itemindex + 1).find("td").eq(low).focus();
+            return false;
+        }
+    });
+    // 第三个单元格
+    $("#tab2 tbody").on("mouseenter", "tr td:nth-child(3)", function(event) {
+    	var value = $(this).find("input").val();
+        if (value == "" || value == "#已移除#") {
+            $(this).find("img").attr("src", "/CCTV/img/append.png");
+            $(this).find("img").click(function() {
+                $(this).prev().val("*插入图片")
+            });
+        } else if (value == "*插入图片") {
+            $(this).find("img").attr("src", "/CCTV/img/remove.png");
+            $(this).find("img").click(function() {
+                $(this).prev().val("");
+            });
+        } else if (value == "#待保存#") {
+            $(this).find("img").attr("src", "/CCTV/img/remove.png");
+            $(this).find("img").click(function() {
+                $(this).prev().val("#已移除#");
+                $(this).parents("tr").find("td:eq(12) input").val("");
+            });
+        } else {
+            $(this).find("img").attr("src", "/CCTV/img/remove.png");
+            $(this).find("img").click(function() {
+                $(this).prev().val("#已移除#");
+                $(this).parents("tr").find("td:eq(12) input").val("");
+            });
+        }
+        $(this).find("img").show();
+    });
+    $("#tab2 tbody").on("mouseleave", "tr td:nth-child(3)", function(event) {
+    	$(this).find("img").hide();
+    });
+    // 第四个单元格
+    $("#tab2 tbody").on("input", "tr td:nth-child(4) input", function(event) {
+    	if ($(this).val() == "" || isNaN($(this).val()))
+            $(this).css("background-color", "#FF0000");
+        else {
+            $(this).css("background-color", "#FFFFFF");
+            var list = new Array();
+            $("#tab2 tbody tr").each(function() {
+                list.push($(this).find("td:eq(3) input").val());
+            });
+            var value = Math.max.apply(null, list);
+            $("#main2 input[name=totallength]").val(value);
+        }
+    });
+    // 第五个单元格
+    $("#tab2 tbody").on("input", "tr td:nth-child(5) input", function(event) {
+    	if ($(this).val() != "" && contlist.indexOf($(this).val()) == -1)
+            $(this).css("background-color", "#FF0000");
+        else
+            $(this).css("background-color", "#FFFFFF");
+    });
+    // 第六个单元格
+    $("#tab2 tbody").on("input", "tr td:nth-child(6) input", function(event) {
+    	$(this).val($(this).val().toUpperCase());
+        if (codelist.indexOf($(this).val()) == -1) {
+            $(this).css("background-color", "#FF0000");
+            $(this).find("td:eq(11) input").attr("list", null);
+        } else {
+            $(this).css("background-color", "#FFFFFF");
+            $(this).find("td:eq(11) input").attr("list", $(this).val());
+        }
+        if ($("#tab2 tbody tr").eq(itemindex).find("td:eq(11) input").val() != "")
+            return true;
+        var dist = $(this).parents("tr").find("td:eq(3) input").val();
+        var length = $("input[name=totallength]").val();
+        if ($(this).val() == "MH" && Number(dist) == 0.0) {
+            var smh = $("input[name=smanholeno]").val();
+            $(this).parents("tr").find("td:eq(11) input").val(smh);
+        } else if ($(this).val() == "MH" && Number(dist) == length) {
+            var fmh = $("input[name=fmanholeno]").val();
+            $(this).parents("tr").find("td:eq(11) input").val(fmh);
+        }
+    });
+    // 第八个单元格
+    $("#tab2 tbody").on("input", "tr td:nth-child(8) input", function(event) {
+    	var reg = /^(0[1-9]|1[0-2])$/;
+        if ($(this).val() == "" || reg.test($(this).val()))
+            $(this).css("background-color", "#FFFFFF");
+        else
+            $(this).css("background-color", "#FF0000");
+    });
+    // 第九个单元格
+    $("#tab2 tbody").on("input", "tr td:nth-child(9) input", function(event) {
+    	var reg = /^(0[0-9]|1[0-2])(0[1-9]|1[0-2])$/;
+        if ($(this).val() == "" || reg.test($(this).val()))
+            $(this).css("background-color", "#FFFFFF");
+        else
+            $(this).css("background-color", "#FF0000");
+    });
+    // 第十个单元格
+    $("#tab2 tbody").on("input", "tr td:nth-child(10) input", function(event) {
+    	if (isNaN($(this).val()) || $(this).val() > 100)
+            $(this).css("background-color", "#FF0000");
+        else
+            $(this).css("background-color", "#FFFFFF");
+    });
+    // 第十一个单元格
+    $("#tab2 tbody").on("input", "tr td:nth-child(11) input", function(event) {
+    	if (isNaN($(this).val()))
+            $(this).css("background-color", "#FF0000");
+        else
+            $(this).css("background-color", "#FFFFFF");
+    });
+    // 第十二个单元格
+    $("#tab2 tbody").on("input", "tr td:nth-child(12) input", function(event) {
+    	if ($(this).val() != "")
+            $(this).css("background-color", "#FFFFFF");
+    });
+    $("#tab2 tbody").on("focus click", "tr td:nth-child(12) input", function(event) {
+    	var value = $(this).parents("tr").find("td:eq(5) input").val();
+        $(this).attr("list", value);
+    });
+    $("#tab2 tbody").on("keypress", "tr td:nth-child(4) input", function(event) {
+    	if (event.which == 46 || (event.which >= 48 && event.which <= 57))
+            return true;
+        return false;
+    });
+    $("#tab2 tbody").on("keypress", "tr td:nth-child(8) input", function(event) {
+    	if (event.which >= 48 && event.which <= 57)
+            return true;
+        return false;
+    });
+    $("#tab2 tbody").on("keypress", "tr td:nth-child(9) input", function(event) {
+    	if (event.which >= 48 && event.which <= 57)
+            return true;
+        return false;
+    });
+    $("#tab2 tbody").on("keypress", "tr td:nth-child(10) input", function(event) {
+    	if (event.which >= 48 && event.which <= 57)
+            return true;
+        return false;
+    });
+    $("#tab2 tbody").on("keypress", "tr td:nth-child(11) input", function(event) {
+    	if (event.which >= 48 && event.which <= 57)
+            return true;
+        return false;
+    });
+    initItemList(0);
     function initItemList(index) {
         itemindex = -1;
         // 表格初始化
@@ -1064,216 +1255,12 @@
             $(this).find("td:eq(12) input").attr("name", "items[" + i + "].picture");
             $(this).find("td:eq(12) ").css("display", "none");
             /***************************************************************************/
-            $(this).unbind("click");
-            $(this).click(function() {
-                itemindex = i;
-                $("#tab2 tbody tr").find("td:eq(0) a").text("");
-                $(this).find("td:eq(0) a").text("▶");
-                var value = $(this).find("input:last").val();
-                if (value != "" && value.length < 40)
-                    $("#pic2").attr("src", path + value + ".png");
-                else
-                    $("#pic2").attr("src", "/CCTV/img/blank.png");
-            });
             $(this).find("td").each(function(j) {
                 $(this).attr("tabindex", i * 12 + j + 1);
             });
-
-            $(this).find("td").unbind();
-            $(this).find("td").focus(function() {
-                $(this).parents("tr").click();
-                $(this).css("background-color", "#FFFFFF");
-                $(this).children().css("background-color", "#FFFFFF");
-            });
-
-            $(this).find("td").keydown(function(event) {
-                var index = $(this).parents("tr").find("td").index($(this));
-                if (event.keyCode == 9) {
-                    $(this).focus();
-                } else if (event.keyCode == 37) {
-                    $(this).prev().focus();
-                } else if (event.keyCode == 39) {
-                    $(this).next().focus();
-                } else if (event.keyCode == 38 && i > 0) {
-                    $("#tab2 tbody tr").eq(i - 1).find("td").eq(index).focus();
-                    $("#tab2 tbody tr").eq(i - 1).click();
-                    return false;
-                } else if (event.keyCode == 40) {
-                    if (i == $("#tab2 tbody tr").length - 1)
-                        $("#memu2 input[type=button]:eq(0)").click();
-                    $("#tab2 tbody tr").eq(i + 1).find("td").eq(index).focus();
-                    return false;
-                } else
-                    $(this).find("input").focus();
-            });
-
-            $(this).find("td input").unbind();
-            $(this).find("td input").focus(function() {
-                $(this).css("background-color", "#fff");
-                $(this).find("input").css("background-color", "#fff");
-                $(this).select();
-            });
-
-            $(this).find("td input").keydown(function(event) {
-                event.stopPropagation();
-                if (event.keyCode == 9) {
-                    $(this).parent().focus();
-                } else if (event.keyCode == 38 && i > 0) {
-                    var index = $(this).parents("tr").find("td").index($(this).parent());
-                    $("#tab2 tbody tr").eq(i - 1).find("td").eq(index).focus();
-                } else if (event.keyCode == 40 || event.keyCode == 13) {
-                    if (i == $("#tab2 tbody tr").length - 1)
-                        $("#memu2 input[type=button]:eq(0)").click();
-                    var index = $(this).parents("tr").find("td").index($(this).parent());
-                    $("#tab2 tbody tr").eq(i + 1).find("td").eq(index).focus();
-                }
-            });
-            //設置第二個單元格事件
-            $(this).find("td:eq(2)").unbind("mouseenter");
-            $(this).find("td:eq(2)").mouseenter(function() {
-                var value = $(this).find("input").val();
-                if (value == "" || value == "#已移除#") {
-                    $(this).find("img").attr("src", "/CCTV/img/append.png");
-                    $(this).find("img").click(function() {
-                        $(this).prev().val("*插入图片")
-                    });
-                } else if (value == "*插入图片") {
-                    $(this).find("img").attr("src", "/CCTV/img/remove.png");
-                    $(this).find("img").click(function() {
-                        $(this).prev().val("");
-                    });
-                } else if (value == "#待保存#") {
-                    $(this).find("img").attr("src", "/CCTV/img/remove.png");
-                    $(this).find("img").click(function() {
-                        $(this).prev().val("#已移除#");
-                        $(this).parents("tr").find("td:eq(12) input").val("");
-                    });
-                } else {
-                    $(this).find("img").attr("src", "/CCTV/img/remove.png");
-                    $(this).find("img").click(function() {
-                        $(this).prev().val("#已移除#");
-                        $(this).parents("tr").find("td:eq(12) input").val("");
-                    });
-                }
-                $(this).find("img").show();
-            });
-
-            $(this).find("td:eq(2)").unbind("mouseleave");
-            $(this).find("td:eq(2)").mouseleave(function() {
-                $(this).find("img").hide();
-            });
-
             var value = $(this).find("td:eq(3) input").val();
             if (value != "")
                 $(this).find("td:eq(3) input").val(parseFloat(value).toFixed(1));
-            $(this).find("td:eq(3) input").unbind("input");
-            $(this).find("td:eq(3) input").bind("input", function() {
-                if ($(this).val() == "" || isNaN($(this).val()))
-                    $(this).css("background-color", "#FF0000");
-                else {
-                    $(this).css("background-color", "#FFFFFF");
-                    var list = new Array();
-                    $("#tab2 tbody tr").each(function() {
-                        list.push($(this).find("td:eq(3) input").val());
-                    });
-                    var value = Math.max.apply(null, list);
-                    $("#main2 input[name=totallength]").val(value);
-                }
-            });
-
-            $(this).find("td:eq(3) input").unbind("blur");
-            $(this).find("td:eq(3) input").bind("blur", function() {
-                var value = Number($(this).val()).toFixed(1);
-                $(this).val(value);
-            });
-
-            $(this).find("td:eq(4) input").unbind("input");
-            $(this).find("td:eq(4) input").bind("input", function() {
-                if ($(this).val() != "" && contlist.indexOf($(this).val()) == -1)
-                    $(this).css("background-color", "#FF0000");
-                else
-                    $(this).css("background-color", "#FFFFFF");
-            });
-
-            $(this).find("td:eq(5) input").unbind("input");
-            $(this).find("td:eq(5) input").bind("input", function() {
-                $(this).val($(this).val().toUpperCase());
-                if (codelist.indexOf($(this).val()) == -1) {
-                    $(this).css("background-color", "#FF0000");
-                    $(this).find("td:eq(11) input").attr("list", null);
-                } else {
-                    $(this).css("background-color", "#FFFFFF");
-                    $(this).find("td:eq(11) input").attr("list", $(this).val());
-                }
-
-                if ($("#tab2 tbody tr").eq(i).find("td:eq(11) input").val() != "")
-                    return true;
-
-                var dist = $(this).parents("tr").find("td:eq(3) input").val();
-                var length = $("input[name=totallength]").val();
-                if ($(this).val() == "MH" && Number(dist) == 0.0) {
-                    var smh = $("input[name=smanholeno]").val();
-                    $("#tab2 tbody tr").eq(i).find("td:eq(11) input").val(smh);
-                } else if ($(this).val() == "MH" && Number(dist) == length) {
-                    var fmh = $("input[name=fmanholeno]").val();
-                    $("#tab2 tbody tr").eq(i).find("td:eq(11) input").val(fmh);
-                }
-            });
-            $(this).find("td:eq(7) input").unbind("input");
-            $(this).find("td:eq(7) input").bind("input", function() {
-                var reg = /^(0[1-9]|1[0-2])$/;
-                if ($(this).val() == "" || reg.test($(this).val()))
-                    $(this).css("background-color", "#FFFFFF");
-                else
-                    $(this).css("background-color", "#FF0000");
-            });
-            $(this).find("td:eq(8) input").unbind("input");
-            $(this).find("td:eq(8) input").bind("input", function() {
-                var reg = /^(0[0-9]|1[0-2])(0[1-9]|1[0-2])$/;
-                if ($(this).val() == "" || reg.test($(this).val()))
-                    $(this).css("background-color", "#FFFFFF");
-                else
-                    $(this).css("background-color", "#FF0000");
-            });
-            $(this).find("td:eq(9) input").unbind("input");
-            $(this).find("td:eq(9) input").bind("input", function() {
-                if (isNaN($(this).val()) || $(this).val() > 100)
-                    $(this).css("background-color", "#FF0000");
-                else
-                    $(this).css("background-color", "#FFFFFF");
-            });
-            $(this).find("td:eq(10) input").unbind("input");
-            $(this).find("td:eq(10) input").bind("input", function() {
-                if (isNaN($(this).val()))
-                    $(this).css("background-color", "#FF0000");
-                else
-                    $(this).css("background-color", "#FFFFFF");
-            });
-            $(this).find("td:eq(11) input").unbind("input");
-            $(this).find("td:eq(11) input").bind("input", function() {
-                if ($(this).val() != "")
-                    $(this).css("background-color", "#FFFFFF");
-            });
-            $(this).find("td:eq(11) input").unbind("click");
-            $(this).find("td:eq(11) input").click(function() {
-                var value = $(this).parents("tr").find("td:eq(5) input").val();
-                $(this).attr("list", value);
-            });
-            $(this).find("td:eq(3) input").keypress(function(event) {
-                if (event.which == 46 || (event.which >= 48 && event.which <= 57))
-                    return true;
-                return false;
-            });
-            $(this).find("input[type=text]:eq(6),input[type=text]:eq(7)").keypress(function(event) {
-                if (event.which >= 48 && event.which <= 57)
-                    return true;
-                return false;
-            });
-            $(this).find("input[type=text]:eq(8),input[type=text]:eq(9)").keypress(function(event) {
-                if (event.which >= 48 && event.which <= 57)
-                    return true;
-                return false;
-            })
         });
         if (index > $("#tab2 tbody tr").length - 1)
             index = $("#tab2 tbody tr").length - 1;
@@ -1286,7 +1273,7 @@
     /**************************************************************************/
     var codelist2 = new Array();
     //%
-    codelist2.push("DEC", "DE C", "DECJ", "DER", "DE R", "DES", "DESJ", "WL", "WLC", "WL C", "WLT", "WL T", "DH", "D H", "DV", "D V");
+    codelist2.push("DEC", "DE C", "DECJ", "DER", "DE R", "DES", "DE S", "DESJ", "WL", "WLC", "WL C", "WLT", "WL T", "DH", "D H", "DV", "D V");
     /**************************************************************************/
     var codelist3 = new Array();
     //clock1
@@ -1295,12 +1282,12 @@
     var codelist4 = new Array();
     //clock2
     codelist4.push("B", "BJ", "CC", "C C", "CCJ", "CM", "C M", "CMJ", "CS", "C S", "CSJ", "FC", "F C", "FCJ", "FMJ", "FS", "F S", "FSJ", "JDL", "JD (L)", "JDM", "JD (M)", "MB", "ML", "MM", "MS");
-    codelist4.push("SS", "SSL", "SSM", "SSS", "SW", "SWL", "SWM", "SWS", "LWC", "LX WC", "LWS", "LXWM", "LWM", "LXB", "LX B", "LXC", "LX C", "LXD", "LX D");
+    codelist4.push("SS-1", "SS-2", "SS-3", "SSL", "SSM", "SSS", "SW-1", "SW-2", "SW-3", "SWL", "SWM", "SWS", "LWC", "LX WC", "LWS", "LXWM", "LWM", "LXB", "LX B", "LXC", "LX C", "LXD", "LX D");
     codelist4.push("RPH", "RP H", "RPI", "RP I", "RPL", "RP L", "RPP", "RPR", "RP R", "RXM", "RX M", "WXC", "WX C", "WXS", "WX S", "LXE", "LX E");
     /**************************************************************************/
     var codelist5 = new Array();
     //remark
-    codelist5.push("LC", "REM", "REM", "SC", "VVR", "VZ", "V Z", "GO", "LVS", "CU S", "LVW", "CU W", "PC", "P C", "#4", "SAA", "SAC", "SAZ", "MC");
+    codelist5.push("LC", "REM", "REM", "SC", "VVR", "VZ", "V Z", "GO", "LVS", "CU S", "LVW", "CU W", "PC", "P C", "#4-1", "#4-2", "#4-3", "#4-4", "#4-5", "SAA", "SAC", "SAZ", "MC");
     codelist5.push("CP", "CPF", "GY", "GYF", "IC", "ICF", "LH", "LHF", "BR", "BRF", "MH", "MHF", "OS", "OSF", "CZ", "OCF", "OF", "OFF", "RE", "REF", "SK", "SKF");
     codelist5.push("C P", "G Y", "I C", "L H", "B R", "O S", "O C", "O F", "R E");
     /**************************************************************************/
@@ -1310,7 +1297,7 @@
     /**************************************************************************/
     var codelist8 = new Array();
     //%  clock2
-    codelist8.push("RM", "R M", "RMJ", "DAF", "DE F", "DAFJ", "DAG", "DE G", "DAGJ", "DAZ", "DE Z", "DAZJ", "EH", "DE E", "EHJ", "EL", "ELJ", "EM", "EMJ", "ESH", "ESL", "ESM");
+    codelist8.push("RM", "R M", "RMJ", "DAF", "DE F", "DAFJ", "DAG", "DE G", "DAGJ", "DAZ", "DE Z", "DAZJ", "EH", "DE E-1", "DE E-2", "DE E-3", "EHJ", "EL", "ELJ", "EM", "EMJ", "ESH", "ESL", "ESM");
     /**************************************************************************/
     var codelist9 = new Array();
     //%  remark
@@ -3050,6 +3037,196 @@
         list += "<option>LIVE</option>";
         list += "<option>POORLY FITTED</option>";
         list += "<option>VOID</option>";
+        list += "</datalist>";
+        $("body").append(list);
+        
+        var list = "<datalist id='#4-1'>";
+        list += "<option>Due to debris / silt.</option>";
+        list += "<option>Due to compacted / hard.</option>";
+        list += "<option>Due to scale medium.</option>";
+        list += "<option>Due to scale heavy.</option>";
+        list += "<option>Due to camera under water.</option>";
+        list += "<option>Due to high water level.</option>";
+        list += "<option>Due to backdrop.</option>";
+        list += "<option>Due to collapse.</option>";
+        list += "<option>Due to danger to equipment.</option>";
+        list += "<option>Due to debris.</option>";
+        list += "<option>Due to debris grease.</option>";
+        list += "<option>Due to deformed pipe.</option>";
+        list += "<option>Due to diameter change to.</option>";
+        list += "<option>Due to displaced joint large.</option>";
+        list += "<option>Due to displaced joint medium.</option>";
+        list += "<option>Due to encrustation heavy.</option>";
+        list += "<option>Due to encrustation medium.</option>";
+        list += "<option>Due to hole.</option>";
+        list += "<option>Due to intruding connection.</option>";
+        list += "<option>Due to line down.</option>";
+        list += "<option>Due to line left.</option>";
+        list += "<option>Due to line right.</option>";
+        list += "<option>Due to line up.</option>";
+        list += "<option>Due to loss of traction.</option>";
+        list += "<option>Due to main line.</option>";
+        list += "<option>Due to manhole in sight.</option>";
+        list += "<option>Due to mass roots.</option>";
+        list += "<option>Due to obstruction.</option>";
+        list += "<option>Due to out of survey area.</option>";
+        list += "<option>Due to overlap reached.</option>";
+        list += "<option>Due to surface wear large.</option>";
+        list += "<option>Due to surface wear medium.</option>";
+        list += "<option>Due to syphon.</option>";
+        list += "<option>Due to uncharted manhole.</option>";
+        list += "</datalist>";
+        $("body").append(list);
+        
+        var list = "<datalist id='#4-2'>";
+        list += "<option>Due to debris / silt.</option>";
+        list += "<option>Due to compacted / hard.</option>";
+        list += "<option>Due to scale medium.</option>";
+        list += "<option>Due to scale heavy.</option>";
+        list += "<option>Due to camera under water.</option>";
+        list += "<option>Due to high water level.</option>";
+        list += "<option>Due to backdrop.</option>";
+        list += "<option>Due to collapse.</option>";
+        list += "<option>Due to danger to equipment.</option>";
+        list += "<option>Due to debris.</option>";
+        list += "<option>Due to debris grease.</option>";
+        list += "<option>Due to deformed pipe.</option>";
+        list += "<option>Due to diameter change to.</option>";
+        list += "<option>Due to displaced joint large.</option>";
+        list += "<option>Due to displaced joint medium.</option>";
+        list += "<option>Due to encrustation heavy.</option>";
+        list += "<option>Due to encrustation medium.</option>";
+        list += "<option>Due to hole.</option>";
+        list += "<option>Due to intruding connection.</option>";
+        list += "<option>Due to line down.</option>";
+        list += "<option>Due to line left.</option>";
+        list += "<option>Due to line right.</option>";
+        list += "<option>Due to line up.</option>";
+        list += "<option>Due to loss of traction.</option>";
+        list += "<option>Due to main line.</option>";
+        list += "<option>Due to manhole in sight.</option>";
+        list += "<option>Due to mass roots.</option>";
+        list += "<option>Due to obstruction.</option>";
+        list += "<option>Due to out of survey area.</option>";
+        list += "<option>Due to overlap reached.</option>";
+        list += "<option>Due to surface wear large.</option>";
+        list += "<option>Due to surface wear medium.</option>";
+        list += "<option>Due to syphon.</option>";
+        list += "<option>Due to uncharted manhole.</option>";
+        list += "</datalist>";
+        $("body").append(list);
+        
+        var list = "<datalist id='#4-3'>";
+        list += "<option>Due to debris / silt.</option>";
+        list += "<option>Due to compacted / hard.</option>";
+        list += "<option>Due to scale medium.</option>";
+        list += "<option>Due to scale heavy.</option>";
+        list += "<option>Due to camera under water.</option>";
+        list += "<option>Due to high water level.</option>";
+        list += "<option>Due to backdrop.</option>";
+        list += "<option>Due to collapse.</option>";
+        list += "<option>Due to danger to equipment.</option>";
+        list += "<option>Due to debris.</option>";
+        list += "<option>Due to debris grease.</option>";
+        list += "<option>Due to deformed pipe.</option>";
+        list += "<option>Due to diameter change to.</option>";
+        list += "<option>Due to displaced joint large.</option>";
+        list += "<option>Due to displaced joint medium.</option>";
+        list += "<option>Due to encrustation heavy.</option>";
+        list += "<option>Due to encrustation medium.</option>";
+        list += "<option>Due to hole.</option>";
+        list += "<option>Due to intruding connection.</option>";
+        list += "<option>Due to line down.</option>";
+        list += "<option>Due to line left.</option>";
+        list += "<option>Due to line right.</option>";
+        list += "<option>Due to line up.</option>";
+        list += "<option>Due to loss of traction.</option>";
+        list += "<option>Due to main line.</option>";
+        list += "<option>Due to manhole in sight.</option>";
+        list += "<option>Due to mass roots.</option>";
+        list += "<option>Due to obstruction.</option>";
+        list += "<option>Due to out of survey area.</option>";
+        list += "<option>Due to overlap reached.</option>";
+        list += "<option>Due to surface wear large.</option>";
+        list += "<option>Due to surface wear medium.</option>";
+        list += "<option>Due to syphon.</option>";
+        list += "<option>Due to uncharted manhole.</option>";
+        list += "</datalist>";
+        $("body").append(list);
+        
+        var list = "<datalist id='#4-4'>";
+        list += "<option>Due to debris / silt.</option>";
+        list += "<option>Due to compacted / hard.</option>";
+        list += "<option>Due to scale medium.</option>";
+        list += "<option>Due to scale heavy.</option>";
+        list += "<option>Due to camera under water.</option>";
+        list += "<option>Due to high water level.</option>";
+        list += "<option>Due to backdrop.</option>";
+        list += "<option>Due to collapse.</option>";
+        list += "<option>Due to danger to equipment.</option>";
+        list += "<option>Due to debris.</option>";
+        list += "<option>Due to debris grease.</option>";
+        list += "<option>Due to deformed pipe.</option>";
+        list += "<option>Due to diameter change to.</option>";
+        list += "<option>Due to displaced joint large.</option>";
+        list += "<option>Due to displaced joint medium.</option>";
+        list += "<option>Due to encrustation heavy.</option>";
+        list += "<option>Due to encrustation medium.</option>";
+        list += "<option>Due to hole.</option>";
+        list += "<option>Due to intruding connection.</option>";
+        list += "<option>Due to line down.</option>";
+        list += "<option>Due to line left.</option>";
+        list += "<option>Due to line right.</option>";
+        list += "<option>Due to line up.</option>";
+        list += "<option>Due to loss of traction.</option>";
+        list += "<option>Due to main line.</option>";
+        list += "<option>Due to manhole in sight.</option>";
+        list += "<option>Due to mass roots.</option>";
+        list += "<option>Due to obstruction.</option>";
+        list += "<option>Due to out of survey area.</option>";
+        list += "<option>Due to overlap reached.</option>";
+        list += "<option>Due to surface wear large.</option>";
+        list += "<option>Due to surface wear medium.</option>";
+        list += "<option>Due to syphon.</option>";
+        list += "<option>Due to uncharted manhole.</option>";
+        list += "</datalist>";
+        $("body").append(list);
+        
+        var list = "<datalist id='#4-5'>";
+        list += "<option>Due to debris / silt.</option>";
+        list += "<option>Due to compacted / hard.</option>";
+        list += "<option>Due to scale medium.</option>";
+        list += "<option>Due to scale heavy.</option>";
+        list += "<option>Due to camera under water.</option>";
+        list += "<option>Due to high water level.</option>";
+        list += "<option>Due to backdrop.</option>";
+        list += "<option>Due to collapse.</option>";
+        list += "<option>Due to danger to equipment.</option>";
+        list += "<option>Due to debris.</option>";
+        list += "<option>Due to debris grease.</option>";
+        list += "<option>Due to deformed pipe.</option>";
+        list += "<option>Due to diameter change to.</option>";
+        list += "<option>Due to displaced joint large.</option>";
+        list += "<option>Due to displaced joint medium.</option>";
+        list += "<option>Due to encrustation heavy.</option>";
+        list += "<option>Due to encrustation medium.</option>";
+        list += "<option>Due to hole.</option>";
+        list += "<option>Due to intruding connection.</option>";
+        list += "<option>Due to line down.</option>";
+        list += "<option>Due to line left.</option>";
+        list += "<option>Due to line right.</option>";
+        list += "<option>Due to line up.</option>";
+        list += "<option>Due to loss of traction.</option>";
+        list += "<option>Due to main line.</option>";
+        list += "<option>Due to manhole in sight.</option>";
+        list += "<option>Due to mass roots.</option>";
+        list += "<option>Due to obstruction.</option>";
+        list += "<option>Due to out of survey area.</option>";
+        list += "<option>Due to overlap reached.</option>";
+        list += "<option>Due to surface wear large.</option>";
+        list += "<option>Due to surface wear medium.</option>";
+        list += "<option>Due to syphon.</option>";
+        list += "<option>Due to uncharted manhole.</option>";
         list += "</datalist>";
         $("body").append(list);
     }

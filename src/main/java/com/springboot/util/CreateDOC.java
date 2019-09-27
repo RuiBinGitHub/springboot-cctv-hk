@@ -89,6 +89,8 @@ public class CreateDOC {
 				List<Item> items = pipe.getItems();
 				for (int j = 0; items != null && j < items.size(); j++) {
 					Item item = items.get(j);
+					if (item.getCode().length() > 2 &&item.getCode().indexOf("-") != -1)
+						item.setCode(item.getCode().substring(0, item.getCode().length() - 2));
 					if (item.getCode() != null && item.getCode().indexOf("SA") == 0 || item.getCode().equals("#4"))
 						item.setIsSA("Y");
 					else

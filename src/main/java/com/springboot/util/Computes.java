@@ -27,6 +27,7 @@ public class Computes {
 			map = AppUtils.getMap("hkccec", item.getCode());
 		if (type.indexOf("M") != -1)
 			map = AppUtils.getMap("mscc", item.getCode());
+		System.out.println(item.getCode());
 		Code code = codeBiz.findInfoCode(map); 
 		int percent = getIntValue(item.getPercent());
 		int lengths = getIntValue(item.getLengths());
@@ -85,62 +86,6 @@ public class Computes {
 				}
 			} else if ("CXI".equals(value) && percent > 75)
 				setItemValue(item, "165.0", "5");
-
-		} else if ("MSCC 2004".equals(type)) {
-			String value = code.getMscc();
-			if ("DE E".equals(value)) {
-				if (percent < 5) {
-					setItemValue(item, "1.0", "2");
-					item.setDepict("Encrustation Heavy, <5% cross section area loss");
-				} else if (percent >= 5 && percent <= 20) {
-					setItemValue(item, "5.0", "4");
-					item.setDepict("Encrustation Heavy, 5%～20% cross section area loss");
-				} else if (percent > 20) {
-					setItemValue(item, "10.0", "5");
-					item.setDepict("Encrustation Heavy, >20% cross section area loss");
-				}
-			} else if ("H".equals(value)) {
-				if ("0903".equals(item.getClockTo())) {
-					item.setDepict("Hole Above");
-					setItemValue(item, "80.0", "4");
-				}
-				if ("0309".equals(item.getClockTo())) {
-					item.setDepict("Hole Below");
-					setItemValue(item, "120.0", "4");
-				}
-			} else if ("MB".equals(value)) {
-				if (percent != 0) {
-					item.setDepict("Missing Bricks #1");
-					if (percent < 50)
-						setItemValue(item, "120.0", "4");
-					else if (percent > 50)
-						setItemValue(item, "165.0", "5");
-				}
-			} else if ("MM".equals(value)) {
-				if (lengths >= 15 && lengths <= 50) {
-					item.setDepict("Mortar loss Medium (15-50mm)");
-					setItemValue(item, "20.0", "2");
-				} else if (lengths > 50) {
-					item.setDepict("Mortar loss Large (>50mm)");
-					setItemValue(item, "40.0", "3");
-				}
-			} else if ("SS".equals(value)) {
-				if (percent >= 25 && percent < 50) {
-					item.setDepict("Surface Damage - Spalling Media (Aggregate)");
-					setItemValue(item, "20.0", "2");
-				} else if (percent >= 50) {
-					item.setDepict("Surface Damage - Spalling Large (Deep voids)");
-					setItemValue(item, "40.0", "3");
-				}
-			} else if ("SW".equals(value)) {
-				if (percent >= 25 && percent < 50) {
-					item.setDepict("Surface Damage - Wear, Increased Roughness. Media(Aggregate)");
-					setItemValue(item, "20.0", "2");
-				} else if (percent >= 50) {
-					item.setDepict("Surface Damage - Wear, Increased Roughness. Large (Deep voids)");
-					setItemValue(item, "40.0", "3");
-				}
-			}
 		}
 		item.setDepict(item.getDepict().replace("#1", percent + "%"));
 		item.setDepict(item.getDepict().replace("#2", lengths + "mm"));

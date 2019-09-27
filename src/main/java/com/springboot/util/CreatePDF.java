@@ -333,6 +333,8 @@ public class CreatePDF {
 							else
 								graphics.setColor(new Color(255, 60, 60));
 						}
+						if (item.getCode().length() > 2 &&item.getCode().indexOf("-") != -1)
+							item.setCode(item.getCode().substring(0, item.getCode().length() - 2));
 						graphics.drawLine(90, distance, 102, distance);
 						graphics.drawLine(102, distance, 125, location);
 						graphics.drawLine(125, location, 145, location);

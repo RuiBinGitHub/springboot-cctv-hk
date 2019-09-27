@@ -90,6 +90,7 @@ $(document).ready(function() {
                 $("#pic1").attr("src", "/CCTV/img/blank.png");
         });
     	$(this).find("td:eq(12)").css("display", "none");
+    	setCode($(this).find("td:eq(5)"), $(this).find("td:eq(5)").text());
     });
     /** ***************************************************************************** */
     function drawPipe() {
@@ -326,5 +327,66 @@ $(document).ready(function() {
             $("#input4 input:eq(8)").val("Light Rain");
         else if (value == "4")
             $("#input4 input:eq(8)").val("Showers");
+    }
+    
+    function setCode(obj, code) {
+    	if (code == "DE E-1") {
+    		obj.attr("title", "Encrustation Heavy, >20% cross section area loss");
+    		obj.text("DE E");
+    	} else if (code == "DE E-2") {
+    		obj.attr("title", "Encrustation Light, <5% cross section area loss");
+    		obj.text("DE E");
+    	} else if (code == "DE E-3") {
+    		obj.attr("title", "Encrustation Medium, 5%-20% cross section area loss");
+    		obj.text("DE E");
+    	} else if (code == "H-1") {
+    		obj.attr("title", "Hole Above");
+    		obj.text("H");
+    	} else if (code == "H-2") {
+    		obj.attr("title", "Hole Below");
+    		obj.text("H");
+    	} else if (code == "MM-1") {
+    		obj.attr("title", "Mortar loss Large (>50mm)");
+    		obj.text("MM");
+    	} else if (code == "MM-2") {
+    		obj.attr("title", "Mortar loss Medium (15-50mm)");
+    		obj.text("MM");
+    	} else if (code == "MM-3") {
+    		obj.attr("title", "Mortar loss Slight (<15mm)");
+    		obj.text("MM");
+    	} else if (code == "SS-1") {
+    		obj.attr("title", "Surface Damage - Spalling Large (Deep voids)");
+    		obj.text("SS");
+    	} else if (code == "SS-2") {
+    		obj.attr("title", "Surface Damage - Spalling Media (Aggregate)");
+    		obj.text("SS");
+    	} else if (code == "SS-3") {
+    		obj.attr("title", "Surface Damage - Spalling Small (Surface exposed)");
+    		obj.text("SS");
+    	}  else if (code == "SW-1") {
+    		obj.attr("title", "Surface Damage - Wear, Increased Roughness. Large (Deep voids)");
+    		obj.text("SW");
+    	} else if (code == "SW-2") {
+    		obj.attr("title", "Surface Damage - Wear, Increased Roughness. Media (Aggregate)");
+    		obj.text("SW");
+    	} else if (code == "SW-3") {
+    		obj.attr("title", "Surface Damage - Wear, Increased Roughness. Small (Surface exposed)");
+    		obj.text("SW");
+    	} else if (code == "#4-1") {
+    		obj.attr("title", "Survey Abandoned - Out of Survey Area");
+    		obj.text("#4");
+    	} else if (code == "#4-2") {
+    		obj.attr("title", "Survey Abandoned - Complete from next side");
+    		obj.text("#4");
+    	} else if (code == "#4-3") {
+    		obj.attr("title", "Survey Abandoned - Defect");
+    		obj.text("#4");
+    	} else if (code == "#4-4") {
+    		obj.attr("title", "Survey Abandoned - Seal Pipe");
+    		obj.text("#4");
+    	} else if (code == "#4-5") {
+    		obj.attr("title", "Survey Abandoned - U-Trap");
+    		obj.text("#4");
+    	} 
     }
 });

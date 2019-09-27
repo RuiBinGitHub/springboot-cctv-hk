@@ -139,6 +139,8 @@ public class CreateMDB {
 				for (int j = 0; items != null && j < items.size(); j++) {
 					Item item = items.get(j);
 					compute.computeItem(item, project.getStandard());
+					if (item.getCode().length() > 2 &&item.getCode().indexOf("-") != -1)
+						item.setCode(item.getCode().substring(0, item.getCode().length() - 2));
 					pstat = conn.prepareStatement("insert into table2 values(" + str2 + "?)");
 
 					pstat.setInt(1, j);
