@@ -278,16 +278,15 @@ body {
 	width: 100%;
 	height: 32px;
 	font-family: "宋体";
-	border-top: 1px solid #ccc;
 	float: left;
 }
 
 #memu2 div {
-	width: 525px;
+	// width: 525px;
 	height: 100%;
 	font-size: 20px;
 	font-weight: 700;
-	line-height: 32px;
+	line-height: 34px;
 	text-indent: 20px;
 	float: left;
 }
@@ -295,7 +294,7 @@ body {
 #memu2 input {
 	width: 70px;
 	height: 24px;
-	margin: 4px 5px;
+	margin: 5px 5px;
 	color: #ffffff;
 	font-size: 15px;
 	font-weight: 600;
@@ -364,11 +363,30 @@ body {
 	float: right;
 }
 
-#toTop {
-	right: 10%;
-	bottom: 10%;
+#ishow {
 	width: 40px;
 	height: 40px;
+	right: 10%;
+	bottom: 150px;
+	position: fixed;
+	color: #ffffff;
+	font-size: 35px;
+	text-align: center;
+	line-height: 36px;
+	background-color: #AAA;
+	border-radius: 4px;
+}
+
+#ishow:hover {
+	background-color: #ff4444;
+	cursor: pointer;
+}
+
+#toTop {
+	width: 40px;
+	height: 40px;
+	right: 10%;
+	bottom: 100px;
 	position: fixed;
 	color: #ffffff;
 	font-size: 35px;

@@ -260,6 +260,7 @@
 	    <!-- 画图显示管道 -->
 	    <canvas id="showpipeimg" width="208px" height="840px"></canvas> 
 	    <div id="showvideo">
+	      <div id="showvnp" style="width:100%;border-bottom:1px solid #ccc;float:left;">
 	      <div style="width:640px;margin-left:20px;float:left;">
 	        <div class="videoTitle" style="width:640px;"><font color="#51C83D">---  </font>Video<font color="#51C83D">  ---</font></div>
 	        <video id="video" controls="controls" poster="/CCTV/img/picture/poster1.png" title="双击打开视频"></video>
@@ -270,6 +271,7 @@
 	        <div class="videoTitle" style="width:320px;text-align:left;">Picture</div>
 	        <img id="pic2" class="img" style="cursor:pointer;"/>
 	        <span id="explain">说明：双击video可以播放本地视频文件。</span>
+	      </div>
 	      </div>
 	      <div id="memu2">
 	        <div class="title" style="text-indent:20px" th:text="#{project.editinmfo.item.title}"></div>
@@ -333,6 +335,7 @@
 	<input type="file" id="file1" accept="video/*" style="display:none"/>
 	<input type="file" id="file2" accept="image/*" style="display:none"/>
 	<canvas id="canvas1" style="display:none"></canvas>
+	<div id="ishow">－</div>
 	<div id="toTop">△</div>
 	<!-- Code 列表 -->
 	<datalist id="codes" th:if="${project.standard=='HKCCEC 2009'}">
@@ -360,7 +363,6 @@
       <option>Video error: ST/MH: S1. S.A.</option>
       <option>Video error: Survey finished</option>
     </datalist>
-	
 	<div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
       <p>香港麦斯迪埃高科技有限责任公司</p>
       <p>Copyright © 2017 All Rights Reserved</p>	

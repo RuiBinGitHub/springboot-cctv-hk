@@ -1,6 +1,6 @@
 ﻿$(document).ready(function() {
     // 获取当前语言
-    var language = $("#title").text() == "管線數據" ? "zh" : "en";
+    var language = $("#memu1 div").text() == "管線數據" ? "zh" : "en";
 
     var tipsText1 = "數據修改成功！";
     var tipsText2 = "確定要删除該數據嗎？";
@@ -30,6 +30,10 @@
         tipsText12 = "Operating successfully!";
         tipsText13 = "Operating exceptioning,pictures count：";
     }
+    if (language == "zh")
+    	$("#memu2 div").css("width", "590px");
+    else
+    	$("#memu2 div").css("width", "525px");
     /***********************************************************************/
     var itemindex = -1;
     mikeDataList(0);
@@ -1266,6 +1270,25 @@
             index = $("#tab2 tbody tr").length - 1;
         $("#tab2 tbody tr").eq(index).click();
     }
+    /**************************************************************************/
+    if (sessionStorage.control == "隐藏") {
+ 	   $("#showItem").css("height", "760px");
+ 	   $("#ishow").text("＋");
+       $("#showvnp").hide();
+    }
+    $("#ishow").click(function() {
+    	if ($(this).text() == "－") {
+        	sessionStorage.control = "隐藏";
+            $("#showItem").css("height", "760px");
+            $("#ishow").text("＋");
+            $("#showvnp").hide();
+        } else {
+        	sessionStorage.control = "展开";
+            $("#showItem").css("height", "184px");
+            $("#ishow").text("－");
+            $("#showvnp").show();
+        }
+    });
     /**************************************************************************/
     var codelist1 = new Array();
     //mm
