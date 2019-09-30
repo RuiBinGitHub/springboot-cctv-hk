@@ -86,6 +86,11 @@ public class PipeBizImpl implements PipeBiz {
 			itemBiz.insertItem(item1);
 			itemBiz.insertItem(item2);
 			itemBiz.insertItem(item3);
+		} else {
+			Item item = new Item();
+			item.setNo(0);
+			item.setPipe(pipe);
+			itemBiz.insertItem(item);
 		}
 	}
 	

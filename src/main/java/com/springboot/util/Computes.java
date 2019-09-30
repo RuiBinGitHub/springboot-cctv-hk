@@ -27,7 +27,6 @@ public class Computes {
 			map = AppUtils.getMap("hkccec", item.getCode());
 		if (type.indexOf("M") != -1)
 			map = AppUtils.getMap("mscc", item.getCode());
-		System.out.println(item.getCode());
 		Code code = codeBiz.findInfoCode(map); 
 		int percent = getIntValue(item.getPercent());
 		int lengths = getIntValue(item.getLengths());

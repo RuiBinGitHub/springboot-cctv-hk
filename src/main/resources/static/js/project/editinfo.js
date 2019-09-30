@@ -1037,7 +1037,7 @@
     });
     var path = $("#path").val();
     // 行点击事件
-    $("#tab2 tbody").on("click", "tr", function() {
+    $("#tab2").on("click", "tr", function() {
     	itemindex = $(this).parent().find("tr").index($(this));
     	$("#tab2 tbody tr").find("td:eq(0) a").text("");
         $(this).find("td:eq(0) a").text("▶");
@@ -1048,15 +1048,14 @@
             $("#pic2").attr("src", "/CCTV/img/blank.png");
     });
     // 单元格获取焦点事件
-    $("#tab2 tbody").on("focus", "tr td, tr td input", function(event) {
+    $("#tab2").on("focus", "tr td, tr td input", function(event) {
     	event.stopPropagation();
     	$(this).parents("tr").click();
         $(this).css("background-color", "#FFFFFF");
         $(this).children().css("background-color", "#FFFFFF");
         $(this).select();
     });
-    $("#tab2 tbody").on("keydown", "tr td", function(event) {
-    	var low = $(this).parents("tr").find("td").index($(this));
+    $("#tab2").on("keydown", "tr td", function(event) {
     	if (event.keyCode == 9) {
             $(this).focus();
         } else if (event.keyCode == 37) {
@@ -1064,34 +1063,44 @@
         } else if (event.keyCode == 39) {
             $(this).next().focus();
         } else if (event.keyCode == 38 && itemindex > 0) {
+        	var low = $(this).parents("tr").find("td").index($(this));
             $("#tab2 tbody tr").eq(itemindex - 1).find("td").eq(low).focus();
             return false;
         } else if (event.keyCode == 40) {
-            if (itemindex == $("#tab2 tbody tr").length - 1)
+            if (itemindex == $("#tab2 tbody tr").length - 1) {
                 $("#memu2 input[type=button]:eq(0)").click();
+                itemindex--;
+            }
+            var low = $(this).parents("tr").find("td").index($(this));
             $("#tab2 tbody tr").eq(itemindex + 1).find("td").eq(low).focus();
             return false;
         } else
             $(this).find("input").focus();
     });
-    $("#tab2 tbody").on("keydown", "tr td input", function(event) {
+    $("#tab2").on("keydown", "tr td input", function(event) {
     	event.stopPropagation();
         if (event.keyCode == 9) {
             $(this).parent().focus();
+        } else if (event.keyCode == 37 && $(this).val() == "") {
+        	$(this).parent().prev().focus();
+        } else if (event.keyCode == 39 && $(this).val() == "") {
+        	$(this).parent().next().focus();
         } else if (event.keyCode == 38 && itemindex > 0) {
             var low = $(this).parents("tr").find("td").index($(this).parent());
             $("#tab2 tbody tr").eq(itemindex - 1).find("td").eq(low).focus();
             return false;
         } else if (event.keyCode == 40 || event.keyCode == 13) {
-            if (itemindex == $("#tab2 tbody tr").length - 1)
+            if (itemindex == $("#tab2 tbody tr").length - 1) {
                 $("#memu2 input[type=button]:eq(0)").click();
+                itemindex--;
+            }
             var low = $(this).parents("tr").find("td").index($(this).parent());
             $("#tab2 tbody tr").eq(itemindex + 1).find("td").eq(low).focus();
             return false;
         }
     });
     // 第三个单元格
-    $("#tab2 tbody").on("mouseenter", "tr td:nth-child(3)", function(event) {
+    $("#tab2").on("mouseenter", "tr td:nth-child(3)", function(event) {
     	var value = $(this).find("input").val();
         if (value == "" || value == "#已移除#") {
             $(this).find("img").attr("src", "/CCTV/img/append.png");
@@ -1118,11 +1127,11 @@
         }
         $(this).find("img").show();
     });
-    $("#tab2 tbody").on("mouseleave", "tr td:nth-child(3)", function(event) {
+    $("#tab2").on("mouseleave", "tr td:nth-child(3)", function(event) {
     	$(this).find("img").hide();
     });
     // 第四个单元格
-    $("#tab2 tbody").on("input", "tr td:nth-child(4) input", function(event) {
+    $("#tab2").on("input", "tr td:nth-child(4) input", function(event) {
     	if ($(this).val() == "" || isNaN($(this).val()))
             $(this).css("background-color", "#FF0000");
         else {
@@ -1136,14 +1145,14 @@
         }
     });
     // 第五个单元格
-    $("#tab2 tbody").on("input", "tr td:nth-child(5) input", function(event) {
+    $("#tab2").on("input", "tr td:nth-child(5) input", function(event) {
     	if ($(this).val() != "" && contlist.indexOf($(this).val()) == -1)
             $(this).css("background-color", "#FF0000");
         else
             $(this).css("background-color", "#FFFFFF");
     });
     // 第六个单元格
-    $("#tab2 tbody").on("input", "tr td:nth-child(6) input", function(event) {
+    $("#tab2").on("input", "tr td:nth-child(6) input", function(event) {
     	$(this).val($(this).val().toUpperCase());
         if (codelist.indexOf($(this).val()) == -1) {
             $(this).css("background-color", "#FF0000");
@@ -1165,7 +1174,7 @@
         }
     });
     // 第八个单元格
-    $("#tab2 tbody").on("input", "tr td:nth-child(8) input", function(event) {
+    $("#tab2").on("input", "tr td:nth-child(8) input", function(event) {
     	var reg = /^(0[1-9]|1[0-2])$/;
         if ($(this).val() == "" || reg.test($(this).val()))
             $(this).css("background-color", "#FFFFFF");
@@ -1173,7 +1182,7 @@
             $(this).css("background-color", "#FF0000");
     });
     // 第九个单元格
-    $("#tab2 tbody").on("input", "tr td:nth-child(9) input", function(event) {
+    $("#tab2").on("input", "tr td:nth-child(9) input", function(event) {
     	var reg = /^(0[0-9]|1[0-2])(0[1-9]|1[0-2])$/;
         if ($(this).val() == "" || reg.test($(this).val()))
             $(this).css("background-color", "#FFFFFF");
@@ -1181,49 +1190,49 @@
             $(this).css("background-color", "#FF0000");
     });
     // 第十个单元格
-    $("#tab2 tbody").on("input", "tr td:nth-child(10) input", function(event) {
+    $("#tab2").on("input", "tr td:nth-child(10) input", function(event) {
     	if (isNaN($(this).val()) || $(this).val() > 100)
             $(this).css("background-color", "#FF0000");
         else
             $(this).css("background-color", "#FFFFFF");
     });
     // 第十一个单元格
-    $("#tab2 tbody").on("input", "tr td:nth-child(11) input", function(event) {
+    $("#tab2").on("input", "tr td:nth-child(11) input", function(event) {
     	if (isNaN($(this).val()))
             $(this).css("background-color", "#FF0000");
         else
             $(this).css("background-color", "#FFFFFF");
     });
     // 第十二个单元格
-    $("#tab2 tbody").on("input", "tr td:nth-child(12) input", function(event) {
+    $("#tab2").on("input", "tr td:nth-child(12) input", function(event) {
     	if ($(this).val() != "")
             $(this).css("background-color", "#FFFFFF");
     });
-    $("#tab2 tbody").on("focus click", "tr td:nth-child(12) input", function(event) {
+    $("#tab2").on("focus click", "tr td:nth-child(12) input", function(event) {
     	var value = $(this).parents("tr").find("td:eq(5) input").val();
         $(this).attr("list", value);
     });
-    $("#tab2 tbody").on("keypress", "tr td:nth-child(4) input", function(event) {
+    $("#tab2").on("keypress", "tr td:nth-child(4) input", function(event) {
     	if (event.which == 46 || (event.which >= 48 && event.which <= 57))
             return true;
         return false;
     });
-    $("#tab2 tbody").on("keypress", "tr td:nth-child(8) input", function(event) {
+    $("#tab2").on("keypress", "tr td:nth-child(8) input", function(event) {
     	if (event.which >= 48 && event.which <= 57)
             return true;
         return false;
     });
-    $("#tab2 tbody").on("keypress", "tr td:nth-child(9) input", function(event) {
+    $("#tab2").on("keypress", "tr td:nth-child(9) input", function(event) {
     	if (event.which >= 48 && event.which <= 57)
             return true;
         return false;
     });
-    $("#tab2 tbody").on("keypress", "tr td:nth-child(10) input", function(event) {
+    $("#tab2").on("keypress", "tr td:nth-child(10) input", function(event) {
     	if (event.which >= 48 && event.which <= 57)
             return true;
         return false;
     });
-    $("#tab2 tbody").on("keypress", "tr td:nth-child(11) input", function(event) {
+    $("#tab2").on("keypress", "tr td:nth-child(11) input", function(event) {
     	if (event.which >= 48 && event.which <= 57)
             return true;
         return false;

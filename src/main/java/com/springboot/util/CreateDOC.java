@@ -41,18 +41,13 @@ public class CreateDOC {
 			Template template = config.getTemplate("Template.xml");
 			Project project = projectBiz.findInfoProject(id, null);
 
-			String FileName = path + "\\" + project.getDate() + "_" + project.getName();
+			String FileName = path + "/" + project.getDate() + "_" + project.getName();
 			OutputStream stream = new FileOutputStream(FileName + "_CCTV.doc");
 			OutputStreamWriter writer = new OutputStreamWriter(stream, "utf-8");
 			BufferedWriter bwriter = new BufferedWriter(writer);
 
 			double length = 0;
 			List<Pipe> pipes = pipeBiz.findListPipe(project);
-			if (project.getStandard().indexOf("H") != -1 && pipes.size() >= 3) {
-				pipes.remove(0);
-				pipes.remove(1);
-				pipes.remove(2);
-			}
 			for (int i = 0; pipes != null && i < pipes.size(); i++) {
 				Pipe pipe = pipes.get(i);
 				if (pipe.getSmanholeno() == null)
@@ -87,6 +82,11 @@ public class CreateDOC {
 				// 计算分数和等级
 				computes.computePipe(pipe, project.getStandard());
 				List<Item> items = pipe.getItems();
+				if (project.getStandard().indexOf("H") != -1 && items.size() >= 3) {
+					items.remove(0);
+					items.remove(0);
+					items.remove(0);
+				}
 				for (int j = 0; items != null && j < items.size(); j++) {
 					Item item = items.get(j);
 					if (item.getCode().length() > 2 &&item.getCode().indexOf("-") != -1)

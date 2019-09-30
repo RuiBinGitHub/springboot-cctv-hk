@@ -50,7 +50,7 @@ public class CreateMDB {
 		try {
 			int ImageName = 1;
 			Project project = projectBiz.findInfoProject(id, null);
-			String FileName = path + "\\" + project.getDate() + "_" + project.getName();
+			String FileName = path + "/" + project.getDate() + "_" + project.getName();
 			File file1 = new File(myfile + "temp.mdb"); // 模版位置
 			File file2 = new File(FileName + "_CCTV.mdb");
 			FileUtils.copyFile(file1, file2);
@@ -170,7 +170,7 @@ public class CreateMDB {
 						else {
 							pstat.setBinaryStream(19, stream, stream.available());
 							File Image = new File(mypath + item.getPicture() + ".png");
-							File temap = new File(path + "\\" + ImageName++ + ".png");
+							File temap = new File(path + "/" + ImageName++ + ".png");
 							FileUtils.copyFile(Image, temap);
 						}
 					}

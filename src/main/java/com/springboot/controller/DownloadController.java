@@ -61,19 +61,19 @@ public class DownloadController {
 	public void download(int id, HttpServletResponse response) throws Exception {
 		if ((project = projectBiz.findInfoProject(id, null)) == null)
 			return;
-		String srcPath = path + "report\\";
-		String zipPath = path + "compre\\";
+		String srcPath = path + "report/";
+		String zipPath = path + "compre/";
 		String name = AppUtils.UUIDCode();
-		File data = new File(srcPath + name + "\\data\\");
-		File vedio = new File(srcPath + name + "\\vedio\\");
-		File report = new File(srcPath + name + "\\report\\");
+		File data = new File(srcPath + name + "/data/");
+		File vedio = new File(srcPath + name + "/vedio/");
+		File report = new File(srcPath + name + "/report/");
 		data.mkdirs();
 		vedio.mkdirs();
 		report.mkdirs();
 
-		createMDB.initMDB(id, data.getPath() + "\\");
-		createPDF.initPDF(id, srcPath + name + "\\");
-		createDOC.initDOC(id, srcPath + name + "\\");
+		createMDB.initMDB(id, data.getPath() + "/");
+		createPDF.initPDF(id, srcPath + name + "/");
+		createDOC.initDOC(id, srcPath + name + "/");
 
 		String fileName = project.getDate() + "_" + project.getName();
 		File zipFile = this.toZip(srcPath + name, zipPath, fileName);

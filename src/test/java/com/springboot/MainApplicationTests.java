@@ -7,9 +7,9 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.StringUtils;
 
 import com.springboot.biz.CompanyBiz;
 import com.springboot.biz.PersonBiz;
@@ -41,6 +41,18 @@ public class MainApplicationTests {
 		for (Project project : projectss) {
 			System.out.println(project.getName() + "    " + project.getCount());
 		}
+	}
+	
+	@Value("${myfile}")
+	private String file;
+	
+	@Value("${mypath}")
+	private String path;
+	
+	@Test
+	public void test2(){
+		System.out.println(file);
+		System.out.println(path);
 	}
 }
 

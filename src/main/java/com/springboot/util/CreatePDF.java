@@ -71,7 +71,7 @@ public class CreatePDF {
 			project = projectBiz.findInfoProject(id, null);
 			/*****************************************************************/
 			document.setMargins(20, 20, 15, 10); // 左右上下间距
-			String FileName = path + "\\" + project.getDate() + "_" + project.getName();
+			String FileName = path + "/" + project.getDate() + "_" + project.getName();
 			OutputStream output = new FileOutputStream(FileName + "_CCTV.pdf");
 			PdfWriter writer = PdfWriter.getInstance(document, output);
 			MyPageEvent header = new MyPageEvent();
