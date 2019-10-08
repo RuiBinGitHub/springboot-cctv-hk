@@ -71,11 +71,11 @@ $(document).ready(function() {
 		$(this).attr("disabled", true);
 		$("#form1").submit();
 	});
-	$("#tab1 input[type=text]").focus(function() {
-		$(this).css("background-color", "#F2F2F2");
+	$("#tab1 input[type=text]").on("input", function() {
+		$(this).css("background-color", "#FFFFFF");
 	});
 	$("#tab1 select[name=operator]").focus(function() {
-		$(this).css("background-color", "#F2F2F2");
+		$(this).css("background-color", "#FFFFFF");
 	});
 	/** ***************************************************************** */
 	function showTips(text) {

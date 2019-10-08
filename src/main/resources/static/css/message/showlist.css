@@ -10,6 +10,19 @@ body {
 	margin: 15px 10px 10px 10px;
 	float: left;
 }
+#title1 span:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#choice {
+	border-bottom: 2px solid #5AABE1;
+	color: #5AABE1;
+}
+
+#choice:hover {
+	text-decoration: none;
+}
 
 #title2 {
 	width: 980px;
@@ -24,10 +37,7 @@ body {
 	background-color: #39B549;
 }
 
-#choice {
-	color: #5AABE1;
-	border-bottom: 2px solid #5AABE1;
-}
+
 
 #mtab1 {
 	width: 980px;
@@ -60,7 +70,6 @@ body {
 	width: 60px;
 	height: 24px;
 	background-color: #ff662d;
-	border-radius: 4px;
 	border: none;
 	color: #fff;
 }
@@ -69,7 +78,7 @@ body {
 	background-color: #ff804f;
 	cursor: pointer;
 }
-
+/******************************************************************/
 #page {
 	top: 0;
 	left: 0;

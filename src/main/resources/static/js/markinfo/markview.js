@@ -22,9 +22,9 @@ $(document).ready(function() {
     $("#tab1 tbody tr").each(function(i) {
         var name = $("#menuText").val();
         if (name.trim() != "") {
-            var exp = new RegExp(name,"gm")
+            var expr = new RegExp(name,"gm")
             var text = $(this).find("td:eq(1)").text();
-            text = text.replace(exp, "<font color='#f00'>" + name + "</font>");
+            text = text.replace(expr, "<font color='#f00'>" + name + "</font>");
             $(this).find("td:eq(1)").html(text);
         }
         /*************************************************/

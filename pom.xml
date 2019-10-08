@@ -9,9 +9,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.springboot</groupId>
-	<artifactId>springboot-cctv1</artifactId>
+	<artifactId>springboot-cctv</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-cctv1</name>
+	<name>springboot-cctv-hk</name>
 	<description></description>
 
 	<properties>
@@ -98,6 +98,7 @@
 			<version>3.9</version>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>

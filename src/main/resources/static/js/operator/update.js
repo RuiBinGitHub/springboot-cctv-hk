@@ -65,9 +65,9 @@ $(document).ready(function() {
         $("#form1").submit();
     });
     /** 输入框获取焦点事件 */
-    $("#tab1 input[type=text]").focus(function() {
-        $(this).css("background-color", "#F2F2F2");
-    });
+    $("#tab1 input[type=text]").on("input", function() {
+		$(this).css("background-color", "#FFFFFF");
+	});
     /** 显示提示信息 */
     function showTips(text) {
         $("#Tip").show().delay(1800).hide(200);

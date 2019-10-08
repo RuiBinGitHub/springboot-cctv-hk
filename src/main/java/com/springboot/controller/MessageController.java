@@ -27,11 +27,11 @@ public class MessageController {
 
 	/** 获取消息列表 */
 	@RequestMapping(value = "/showlist")
-	public ModelAndView showlist(@RequestParam(defaultValue = "1") int page) {
+	public ModelAndView showlist(String type, @RequestParam(defaultValue = "1") int page) {
 		ModelAndView view = new ModelAndView("message/showlist");
 		Person person = (Person) AppUtils.findMap("user");
-		map = AppUtils.getMap("accept", person);
-		int cont = messageBiz.getPageCount(map, 15);
+		map = AppUtils.getMap("type", type, "accept", person);
+		int cont = messageBiz.getPageCount(map, 10);
 		page = page > cont ? cont : page;
 		map.put("page", page);
 		List<Message> messages = messageBiz.findListMessage(map);

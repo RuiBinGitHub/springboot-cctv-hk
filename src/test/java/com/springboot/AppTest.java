@@ -2,11 +2,6 @@ package com.springboot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.util.StringUtils;
-
-import com.springboot.util.AppUtils;
 
 public class AppTest {
 

@@ -12,54 +12,56 @@
     <div th:replace="navigation::navigation"></div>
     <div id="Tip"></div>
     <div id="main">
-      <img id="img" src="/CCTV/img/picture/02.png">
-      <form id="form1" action="update" method="post">
-      <input type="hidden" name="id" th:value="${operator.id}"/>
-      <input type="hidden" name="date" th:value="${operator.date}"/>
-      <table id="tab1">
-        <tr>
-          <td width="180px" align="right"><a>*</a><span th:text="#{operator.update.label1}"></span></td>
-          <td width="300px">
-            <select class="select" name="title" th:field=${operator.title}>
-              <option value="Mr.">Mr.</option>
-              <option value="Ms.">Ms.</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td align="right"><a>*</a><span th:text="#{operator.update.label2}"></span></td>
-          <td><input type="text" class="textbox" name="fullname" th:value="${operator.fullname}"/></td>
-        </tr>
-        <tr>
-          <td align="right"><a>*</a><span th:text="#{operator.update.label3}"></span></td>
-          <td><input type="text" class="textbox" name="sure" th:value="${operator.sure}"/></td>
-        </tr>
-        <tr>
-          <td align="right"><a>*</a><span th:text="#{operator.update.label4}"></span></td>
-          <td><input type="text" class="textbox" name="name" th:value="${operator.name}"/></td>
-        </tr>
-        <tr>
-          <td align="right"><span th:text="#{operator.update.label5}"></span></td>
-          <td><input type="text" class="textbox" name="chianame" th:value="${operator.chianame}"/></td>
-        </tr>
-        <tr>
-          <td align="right"><span th:text="#{operator.update.label6}"></span></td>
-          <td><input type="text" class="textbox" name="nickname" th:value="${operator.nickname}"/></td>
-        </tr>
-        <tr>
-          <td align="right"><a>*</a><span th:text="#{operator.update.label7}"></span></td>
-          <td><input type="text" class="textbox" name="membergrades" th:value="${operator.membergrades}" list="list"/></td>
-        </tr>
-        <tr>
-          <td align="right"><a>*</a><span th:text="#{operator.update.label8}"></span></td>
-          <td><input type="text" class="textbox" name="membernumber" th:value="${operator.membernumber}"/></td>
-        </tr>
-        <tr>
-          <td align="left"></td>
-          <td><input type="button" th:value="#{operator.update.button}" class="combtn"></td>
-        </tr>
-      </table>
-      </form>
+      <div id="mainInfo">
+        <div id="top" th:text="#{operator.update.title}"></div>
+        <form id="form1" action="update" method="post">
+        <input type="hidden" name="id" th:value="${operator.id}"/>
+        <table id="tab1">
+          <tr>
+            <td width="180px" align="right"><a>*</a><span th:text="#{operator.update.label1}"></span></td>
+            <td width="300px">
+              <select class="select" name="title" th:field=${operator.title}>
+                <option value="Mr.">Mr.</option>
+                <option value="Ms.">Ms.</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td align="right"><a>*</a><span th:text="#{operator.update.label2}"></span></td>
+            <td><input type="text" class="textbox" name="fullname" th:value="${operator.fullname}"/></td>
+          </tr>
+          <tr>
+            <td align="right"><a>*</a><span th:text="#{operator.update.label3}"></span></td>
+    	    <td><input type="text" class="textbox" name="sure" th:value="${operator.sure}"/></td>
+       	  </tr>
+          <tr>
+       	    <td align="right"><a>*</a><span th:text="#{operator.update.label4}"></span></td>
+       	    <td><input type="text" class="textbox" name="name" th:value="${operator.name}"/></td>
+          </tr>
+          <tr>
+    	    <td align="right"><span th:text="#{operator.update.label5}"></span></td>
+    	    <td><input type="text" class="textbox" name="chianame" th:value="${operator.chianame}"/></td>
+    	  </tr>
+          <tr>
+    	    <td align="right"><span th:text="#{operator.update.label6}"></span></td>
+    	    <td><input type="text" class="textbox" name="nickname" th:value="${operator.nickname}"/></td>
+    	  </tr>
+          <tr>
+       	    <td align="right"><a>*</a><span th:text="#{operator.update.label7}"></span></td>
+       	    <td><input type="text" class="textbox" name="membergrades" th:value="${operator.membergrades}" list="list"/></td>
+       	  </tr>
+          <tr>
+       	    <td align="right"><a>*</a><span th:text="#{operator.update.label8}"></span></td>
+       	    <td><input type="text" class="textbox" name="membernumber" th:value="${operator.membernumber}"/></td>
+       	  </tr>
+          <tr>
+    	    <td align="left"></td>
+       	    <td><input type="button" th:value="#{operator.update.button}" class="combtn"></td>
+       	  </tr>
+        </table>
+        <input type="hidden" name="date" th:value="${operator.date}"/>
+        </form>
+      </div>
       <datalist id="list">
         <option value="Associate">Associate</option>
         <option value="Fellow">Fellow</option>

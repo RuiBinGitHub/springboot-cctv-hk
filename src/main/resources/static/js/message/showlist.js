@@ -6,6 +6,22 @@ $(document).ready(function() {
     var tipsText2 = language == "zh" ? "數據刪除成功！" : "Operating successfully!";
     var html1 = language == "zh" ? "<font color='#2AB673'>已读</font>" : "<font color='#2AB673'>Already</font>";
     var html2 = language == "zh" ? "<font color='#FFB000'>未读</font>" : "<font color='#FFB000'>Unread</font>";
+    /** ********************************************** */
+    if ($("#choice").val() == "")
+    	$("#title1 span:eq(0)").attr("id", "choice");
+    else if ($("#choice").val() == "已读")
+    	$("#title1 span:eq(1)").attr("id", "choice");
+    else if ($("#choice").val() == "未读")
+    	$("#title1 span:eq(2)").attr("id", "choice");
+    $("#title1 span:eq(0)").click(function() {
+    	location.href="showlist";
+    });
+    $("#title1 span:eq(1)").click(function() {
+    	location.href="showlist?type=已读";
+    });
+    $("#title1 span:eq(2)").click(function() {
+    	location.href="showlist?type=未读";
+    });
 	/** ********************************************** */
 	$("#mtab1 tr").each(function(i) {
 		var id = $(this).attr("id");
@@ -50,13 +66,15 @@ $(document).ready(function() {
 	/** ***************************************************************** */
 	/** 上一页 */
 	$(".pagebtn:eq(0)").click(function() {
+		var type = $("#choice").val();
 		var page = Number($("#page1").text()) - 1;
-		window.location.href = "showlist?page=" + page;
+		window.location.href = "showlist?type=" + type + "&page=" + page;
 	});
 	/** 下一页 */
 	$(".pagebtn:eq(1)").click(function() {
+		var type = $("#choice").val();
 		var page = Number($("#page1").text()) + 1;
-		window.location.href = "showlist?page=" + page;
+		window.location.href = "showlist?type=" + type + "&page=" + page;
 	});
 	/** ***************************************************************** */
 	var page1 = $("#page1").text();

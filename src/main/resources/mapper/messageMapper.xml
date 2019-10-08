@@ -43,20 +43,23 @@
 	<select id="findListMessage" parameterType="Map" resultMap="MessageMap">
 		select * from message
 		<where>
+			<if test="type != null">
+				and type= #{type}
+			</if>
 			<if test="accept != null">
-				acceptid= #{accept.id}
+				and acceptid= #{accept.id}
 			</if>
 		</where>
 		order by date desc
 		<if test="page > 0">
-			limit 15 offset (#{page}-1)*15
+			limit 10 offset (#{page}-1)*10
 		</if>
 	</select>
 	
 	<select id="getCount" parameterType="Map" resultType="int">
 		select count(*) from message where acceptid=#{accept.id}
 		<if test="type != null">
-			AND type = #{type}
+			and type = #{type}
 		</if>
 	</select>
 	

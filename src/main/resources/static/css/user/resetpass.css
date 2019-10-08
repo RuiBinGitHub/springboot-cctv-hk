@@ -68,10 +68,9 @@ body {
 #tab1 .row1 {
 	height: 30px;
 	color: #00953E;
-	font-size: 16px;
+	font-size: 18px;
 	font-family: "宋体";
 	font-weight: 600;
-	font-size: 16px;
 }
 
 #tab1 .row2 {
@@ -100,6 +99,7 @@ body {
 	border: 2px solid #00953E;
 	border-radius: 3px;
 	cursor: pointer;
+	outline: none;
 	float: left;
 }
 
@@ -111,6 +111,7 @@ body {
 	font-weight: 600;
 	background-color: #00953E;
 	border-radius: 30px;
+	outline: none;
 	border: none;
 	float: left;
 }

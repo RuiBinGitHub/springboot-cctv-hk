@@ -47,7 +47,7 @@ body {
 	width: 350px;
 	height: 25px;
 	color: #f00;
-	font-size: 15px;
+	font-size: 18px;
 	font-family: "宋体";
 	font-weight: 600;
 	line-height: 25px;
@@ -64,10 +64,9 @@ body {
 #tab1 .title {
 	height: 30px;
 	color: #00953E;
-	font-size: 16px;
+	font-size: 18px;
 	font-family: "宋体";
 	font-weight: 600;
-	font-size: 16px;
 }
 
 #name, #pass {
@@ -101,8 +100,9 @@ body {
 	font-weight: 600;
 	background-color: #00953E;
 	border-radius: 30px;
-	border: none;
+	outline: none; border : none;
 	float: left;
+	border: none;
 }
 
 #btn:hover {

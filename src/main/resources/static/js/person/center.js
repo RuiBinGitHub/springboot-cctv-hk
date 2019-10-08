@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var code = null;
-    var language = $("#menuTitle").text() == "個人中心" ? "zh" : "en";
+    var language = $("#infoTop").text() == "個人中心" ? "zh" : "en";
     
     var tipsText1 = language == "zh" ? "用户名称格式不正确！" : "The Nick Name format is incorrect!";
     var tipsText2 = language == "zh" ? "用户名称修改成功！" : "Operating successfully!";

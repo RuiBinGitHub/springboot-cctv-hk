@@ -65,11 +65,11 @@ $(document).ready(function() {
 	});
 
 	/** 输入框获取焦点事件 */
-	$("#tab1 input[type=text]").focus(function() {
-		$(this).css("background-color", "#F2F2F2");
+	$("#tab1 input[type=text]").on("input", function() {
+		$(this).css("background-color", "#FFFFFF");
 	});
 	$("#tab1 select[name=operator]").focus(function() {
-		$(this).css("background-color", "#F2F2F2");
+		$(this).css("background-color", "#FFFFFF");
 	});
 	/** ***************************************************************** */
 	function showTips(text) {

@@ -31,7 +31,7 @@ body {
 	width: 200px;
 	color: #ffffff;
 	font-family: "Helvetica";
-	background-color: #303231;
+	background-color: #3A3F4A;
 	float: left;
 }
 
@@ -77,7 +77,7 @@ body {
 }
 
 .menu2:hover {
-	background-color: #3f4140;
+	background-color: #515868;
 }
 
 #mainMenu a {
@@ -97,7 +97,7 @@ body {
 	line-height: 50px;
 	font-family: 宋体;
 	font-weight: 700;
-	border-bottom: 1px solid #303231;
+	border-bottom: 2px solid #3A3F4A;
 	float: left;
 }
 
@@ -125,7 +125,7 @@ body {
 	line-height: 28px;
 	background-color: #ffffff;
 	border-radius: 30px 0px 0px 30px;
-	border: 1px solid #303231;
+	border: 1px solid #3A3F4A;
 	cursor: pointer;
 	outline: none;
 	float: left;
@@ -138,7 +138,7 @@ body {
 	color: #ffffff;
 	font-size: 12px;
 	font-weight: 600;
-	background-color: #303231;
+	background-color: #3A3F4A;
 	border-radius: 0px 30px 30px 0px;
 	outline: none;
 	border: none;
@@ -146,7 +146,7 @@ body {
 }
 
 #menuBtn2:hover {
-	background-color: #3f4140;
+	background-color: #515868;
 	cursor: pointer;
 }
 
@@ -156,7 +156,7 @@ body {
 	margin-top: 5px;
 	font-size: 14px;
 	text-indent: 8px;
-	border: 1px solid #303231;
+	border: 1px solid #3A3F4A;
 	border-right: none;
 	border-left: none;
 	outline: none;
@@ -198,7 +198,7 @@ body {
 	height: 20px;
 	color: #ffffff; 
 	font-family: "等线";
-	border-radius: 4px;
+	border-radius: 2px;
 	border: none;
 }
 

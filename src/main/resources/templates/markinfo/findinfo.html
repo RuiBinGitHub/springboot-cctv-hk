@@ -210,7 +210,11 @@
 	  </div>
       
       <div id="mainBottom1">
-        <div id="bTitle" th:text="'---   ' + #{markinfo.findinfo.title3} + '   ---'"></div>
+        <div id="bTitle">
+	      <font color="#51C83D">---  </font>
+		  <span th:text="#{markinfo.findinfo.title3}"></span>
+		  <font color="#51C83D">  ---</font>
+	    </div>
         <table id="tab3">
           <tr height="60px">
             <td colspan="2" width="25%"><div th:text="#{markinfo.findinfo.mark.span1}"></div><input type="text" th:value="${markPipe.pipescore}"></td>

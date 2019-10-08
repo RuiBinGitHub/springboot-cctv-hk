@@ -97,7 +97,8 @@
 .title {
 	width: 380px;
 	height: 24px;
-	font-size: 18px;
+	font-size: 20px;
+	font-family: "宋体";
 	font-weight: 600;
 	margin: 15px 20px;
 	text-indent: 10px;
