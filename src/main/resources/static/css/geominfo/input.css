@@ -124,14 +124,14 @@ body {
 }
 
 #tips {
-    width: 720px;
-    height: 36px;
-    margin: 10px;
-    color: #666;
-    font-size: 18px;
-    font-family: 宋体;
-    line-height: 36px;
-    float: left;
+	width: 720px;
+	height: 36px;
+	margin: 10px;
+	color: #666;
+	font-size: 18px;
+	font-family: 宋体;
+	line-height: 36px;
+	float: left;
 }
 
 #head1 {
