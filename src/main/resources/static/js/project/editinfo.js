@@ -763,7 +763,6 @@
             $(this).css("background-color", "#FFFFFF");
     });
     $("#input3 input:eq(2)").keypress(function(event) {
-        console.log(event.which);
         if (event.which >= 48 && event.which <= 57 || event.which == 46)
             return true;
         return false;
@@ -820,11 +819,96 @@
     /** ******************************************************************** */
     function checkPipe() {
         var result = true;
-        $("#main2 input").trigger("input");
-        $("#main2 input").each(function() {
-            if ($(this).css("background-color") == "rgb(255, 0, 0)")
-                result = false;
-        });
+        // 第一行
+        var value = $("#input1 input:eq(0)").val();
+        if (value == "" || !reg.test(value)) {
+        	$("#input1 input:eq(0)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        if ($("#input1 input:eq(1)").val() == "") {
+        	$("#input1 input:eq(1)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        if ($("#input1 input:eq(2)").val() == "") {
+        	$("#input1 input:eq(2)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        if ($("#input1 input:eq(3)").val() == "") {
+        	$("#input1 input:eq(3)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        if ($("#input1 input:eq(4)").val() == "") {
+        	$("#input1 input:eq(4)").css("background-color", "#FF0000");
+        	result = false;
+        }
+	    var value = $("#input1 input:eq(5)").val();
+	    if (value == "" || !reg.test(value)) {
+	    	$("#input1 input:eq(5)").css("background-color", "#FF0000");
+	    	result = false;
+	    }
+	    if ($("#input1 input:eq(6)").val() == "") {
+        	$("#input1 input:eq(6)").css("background-color", "#FF0000");
+        	result = false;
+        }
+	    var timeReg = /^(([0-1][0-9])|2[0-3]):([0-5][0-9])$/;
+	    var value = $("#input1 input:eq(7)").val();
+        if (value == "" || !timeReg.test(value)) {
+        	$("#input1 input:eq(7)").css("background-color", "#FF0000");
+            result = false;
+        }
+        // 第三行
+        if ($("#input3 input:eq(0)").val() == "") {
+        	$("#input3 input:eq(0)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        if ($("#input3 input:eq(1)").val() == "") {
+        	$("#input3 input:eq(1)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        var value = $("#input3 input:eq(2)").val();
+        if (value == "" || isNaN(value)) {
+        	$("#input3 input:eq(2)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        var value = $("#input3 input:eq(4)").val();
+        if (value == "" || isNaN(value)) {
+        	$("#input3 input:eq(4)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        var value = $("#input3 input:eq(5)").val();
+        if (value == "" || isNaN(value)) {
+        	$("#input3 input:eq(5)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        // 第四行
+        var value = $("#input4 input:eq(0)").val();
+        if (value == "" || (isNaN(value) && value != "--")) {
+        	$("#input4 input:eq(0)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        var value = $("#input4 input:eq(1)").val();
+        if (value == "" || (isNaN(value) && value != "--")) {
+        	$("#input4 input:eq(1)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        var value = $("#input4 input:eq(3)").val();
+        if (value == "" || (isNaN(value) && value != "--")) {
+        	$("#input4 input:eq(3)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        var value = $("#input4 input:eq(4)").val();
+        if (value == "" || (isNaN(value) && value != "--")) {
+        	$("#input4 input:eq(4)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        if ($("#input4 input:eq(6)").val() == "") {
+        	$("#input4 input:eq(6)").css("background-color", "#FF0000");
+        	result = false;
+        }
+        if ($("#input4 input:eq(7)").val() == "") {
+        	$("#input4 input:eq(7)").css("background-color", "#FF0000");
+        	result = false;
+        }
         if (result == false)
             showTips(tipsText7);
         return result;
@@ -1309,7 +1393,7 @@
     /**************************************************************************/
     var codelist3 = new Array();
     //clock1
-    codelist3.push("CL", "C L", "CLJ", "EX", "EXJ", "FIC", "FWCS", "FIT", "FWTF", "FL", "F L", "FLJ", "LWL", "LX WL", "WXL", "WX L");
+    codelist3.push("CL", "C L", "CLJ", "EX", "EXJ", "FIC", "FIT", "FWCS", "FWTF", "FL", "F L", "FLJ", "LWL", "LX WL", "WXL", "WX L");
     /**************************************************************************/
     var codelist4 = new Array();
     //clock2
@@ -1377,167 +1461,146 @@
     /**************************************************************************/
     function checkItem() {
         var result = true;
-        $("#tab2 tbody input").trigger("blur");
-        $("#tab2 tbody input").trigger("input");
-        $("#tab2 tbody input").each(function() {
-            var color = $(this).css("background-color");
-            if (color == "rgb(255, 0, 0)")
-                result = false;
-        });
         var showText = language == "zh" ? "請輸入完整數據！" : "Please check the input data!";
+        $("#tab2 tbody tr").each(function () {
+        	var dist = $(this).find("td:eq(3) input").val();
+            var cont = $(this).find("td:eq(4) input").val();
+            var code = $(this).find("td:eq(5) input").val();
+            var clockAt = $(this).find("td:eq(7) input").val();
+            var clockTo = $(this).find("td:eq(8) input").val();
+            var intrusion1 = $(this).find("td:eq(9) input").val();
+            var intrusion2 = $(this).find("td:eq(10) input").val();
+            var remarks = $(this).find("td:eq(11) input").val();
+            
+            if (dist == "" || isNaN(dist)) {
+            	$(this).find("td:eq(3) input").css("background-color", "#ff0000");
+            	result = false;
+            }
+            if (cont != "" && contlist.indexOf(cont) == -1) {
+            	$(this).find("td:eq(4) input").css("background-color", "#ff0000");
+            	result = false;
+            }
+            if (code == "" || codelist.indexOf(code) == -1) {
+            	$(this).find("td:eq(5) input").css("background-color", "#ff0000");
+            	result = false;
+            }
+            var reg = /^(0[1-9]|1[0-2])$/;
+            if (clockAt != "" && !reg.test(clockAt)) {
+            	$(this).find("td:eq(7) input").css("background-color", "#ff0000");
+            	result = false;
+            }
+        	var reg = /^(0[0-9]|1[0-2])(0[1-9]|1[0-2])$/;
+            if (clockTo != "" && !reg.test(clockTo)) {
+            	$(this).find("td:eq(8) input").css("background-color", "#ff0000");
+            	result = false;
+            }
+        	if (intrusion1 != "" && (isNaN(intrusion1) || intrusion1 < 0 || intrusion1 > 100)) {
+        		$(this).find("td:eq(9) input").css("background-color", "#ff0000");
+            	result = false;
+        	}
+        	if (intrusion2 != "" && isNaN(intrusion2)) {
+        		$(this).find("td:eq(10) input").css("background-color", "#ff0000");
+            	result = false;
+        	}
+        	/***********************************************************************/
+        	if (codelist1.indexOf(code) != -1 && intrusion2 == "") {
+                $(this).find("td:eq(10) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist2.indexOf(code) != -1 && intrusion1 == "") {
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist3.indexOf(code) != -1 && clockAt == "") {
+                $(this).find("td:eq(7) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist4.indexOf(code) != -1 && clockTo == "") {
+                $(this).find("td:eq(8) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist5.indexOf(code) != -1 && remarks == "") {
+                $(this).find("td:eq(11) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist6.indexOf(code) != -1 && (intrusion2 == "" || clockAt == "")) {
+                $(this).find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(10) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist8.indexOf(code) != -1 && (intrusion1 == "" || clockTo == "")) {
+                $(this).find("td:eq(8) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist9.indexOf(code) != -1 && (intrusion1 == "" || remarks == "")) {
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(11) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist10.indexOf(code) != -1 && (clockAt == "" || clockTo == "")) {
+                $(this).find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(8) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist11.indexOf(code) != -1 && (clockTo == "" || remarks == "")) {
+                $(this).find("td:eq(8) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(11) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist12.indexOf(code) != -1 && (intrusion1 == "" || intrusion2 == "" || clockAt == "")) {
+                $(this).find("td$(this)(7) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(10) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist13.indexOf(code) != -1 && (intrusion2 == "" || clockAt == "" || remarks == "")) {
+                $(this).find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(10) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(11) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist14.indexOf(code) != -1 && (intrusion1 == "" || (clockAt == "" && clockTo == ""))) {
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(8) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist15.indexOf(code) != -1 && (intrusion1 == "" || clockTo == "" || remarks == "")) {
+                $(this).find("td:eq(8) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(11) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist16.indexOf(code) != -1 && ((clockAt == "" && clockTo == "") || remarks == "")) {
+                $(this).find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(8) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(11) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist17.indexOf(code) != -1 && (intrusion1 == "" || intrusion2 == "" || (clockAt == "" && clockTo == ""))) {
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(10) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(8) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist18.indexOf(code) != -1 && (intrusion1 == "" || (clockAt == "" && clockTo == "") || remarks == "")) {
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(8) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(11) input").css("background-color", "#FFFF00");
+                result = false;
+            } else if (codelist19.indexOf(code) != -1 && (intrusion1 == "" || intrusion2 == "" || (clockAt == "" && clockTo == "") || remarks == "")) {
+                $(this).find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(8) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(10) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(11) input").css("background-color", "#FFFF00");
+                result = false;
+            }
+        	
+        	if ((code == "EL" || code == "ELJ" || code == "ESL") && intrusion1 >= 5) {
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                showTips("Intrusion % < 5%");
+                result = false;
+            } else if ((code == "EM" || code == "EMJ" || code == "ESM") && (intrusion1 < 5 || intrusion1 > 20)) {
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                showTips("Intrusion % = 5%～20%");
+                result = false;
+            } else if ((code == "EH" || code == "EHJ" || code == "ESH") && intrusion1 < 20) {
+                $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
+                showTips("Intrusion % > 20%");
+                result = false;
+            }
+        });
         if (result == false) {
             showTips(showText);
             return false;
-        }
-        for (var i = 0; i < $("#tab2 tbody tr").length; i++) {
-            var row = $("#tab2 tbody tr").eq(i);
-            var dist = row.find("td:eq(3) input").val();
-            var cont = row.find("td:eq(4) input").val();
-            var code = row.find("td:eq(5) input").val();
-            var clockAt = row.find("td:eq(7) input").val();
-            var clockTo = row.find("td:eq(8) input").val();
-            var intrusion1 = row.find("td:eq(9) input").val();
-            var intrusion2 = row.find("td:eq(10) input").val();
-            var remarks = row.find("td:eq(11) input").val();
-            if (codelist1.indexOf(code) != -1) {
-                //mm
-                if (intrusion2 == "") {
-                    row.find("td:eq(10) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist2.indexOf(code) != -1) {
-                //%
-                if (intrusion1 == "") {
-                    row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist3.indexOf(code) != -1) {
-                //clockAt
-                if (clockAt == "") {
-                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist4.indexOf(code) != -1) {
-                //clockTo
-                if (clockTo == "") {
-                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist5.indexOf(code) != -1) {
-                //remarks
-                if (remarks == "") {
-                    row.find("td:eq(11) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist6.indexOf(code) != -1) {
-                if (intrusion2 == "" || clockAt == "") {
-                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(10) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist8.indexOf(code) != -1) {
-                if (intrusion1 == "" || clockTo == "") {
-                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist9.indexOf(code) != -1) {
-                if (intrusion1 == "" || remarks == "") {
-                    row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(11) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist10.indexOf(code) != -1) {
-                if (clockAt == "" || clockTo == "") {
-                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist11.indexOf(code) != -1) {
-                if (clockTo == "" || remarks == "") {
-                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(11) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist12.indexOf(code) != -1) {
-                if (intrusion1 == "" || intrusion2 == "" || clockAt == "") {
-                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(10) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist13.indexOf(code) != -1) {
-                if (intrusion2 == "" || clockAt == "" || remarks == "") {
-                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(10) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(11) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist14.indexOf(code) != -1) {
-                if (intrusion1 == "" || (clockAt == "" && clockTo == "")) {
-                    row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist15.indexOf(code) != -1) {
-                if (intrusion1 == "" || clockTo == "" || remarks == "") {
-                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(11) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist16.indexOf(code) != -1) {
-                if ((clockAt == "" && clockTo == "") || remarks == "") {
-                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(11) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist17.indexOf(code) != -1) {
-                if (intrusion1 == "" || intrusion2 == "" || (clockAt == "" && clockTo == "")) {
-                    row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(10) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist18.indexOf(code) != -1) {
-                if (intrusion1 == "" || (clockAt == "" && clockTo == "") || remarks == "") {
-                    row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(11) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            } else if (codelist19.indexOf(code) != -1) {
-                if (intrusion1 == "" || intrusion2 == "" || (clockAt == "" && clockTo == "") || remarks == "") {
-                    row.find("td:eq(7) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(8) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(10) input").css("background-color", "#FFFF00");
-                    row.find("td:eq(11) input").css("background-color", "#FFFF00");
-                    result = false;
-                }
-            }
-            var showText = language == "zh" ? "請輸入完整數據！" : "Please check the input data!";
-            if (result == false) {
-                showTips(showText);
-                return false
-            }
-            if ((code == "EL" || code == "ELJ" || code == "ESL") && intrusion1 >= 5) {
-                row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                showTips("Intrusion % < 5%");
-                return false;
-            } else if ((code == "EM" || code == "EMJ" || code == "ESM") && (intrusion1 < 5 || intrusion1 > 20)) {
-                row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                showTips("Intrusion % = 5%～20%");
-                return false;
-            } else if ((code == "EH" || code == "EHJ" || code == "ESH") && intrusion1 < 20) {
-                row.find("td:eq(9) input").css("background-color", "#FFFF00");
-                showTips("Intrusion % > 20%");
-                return false;
-            }
         }
         for (var i = 0; i < $("#tab2 tbody tr").length; i++) {
             var row = $("#tab2 tbody tr").eq(i);
@@ -1597,6 +1660,7 @@
         context.beginPath();
         context.fillStyle = "#A0A0A0";
         context.strokeStyle = "#606060";
+        
         var tl = 0.0;
         var distlist = new Array();
         var joinlist = new Array();
