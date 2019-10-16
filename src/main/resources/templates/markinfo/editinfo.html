@@ -220,40 +220,31 @@
 		  <span th:text="#{markinfo.findinfo.title3}"></span>
 		  <font color="#51C83D">  ---</font>
 	    </div>
-        <table id="tab3">
-          <tr height="60px">
-            <td colspan="2" width="25%">
-              <div th:text="#{markinfo.editinfo.mark.span1}"></div>
-              <input type=text name="pipescore" th:value="${markPipe.pipescore}">
-            </td>
-            <td colspan="2" width="25%">
-              <div th:text="#{markinfo.editinfo.mark.span2}"></div>
-              <input type="text" name="itemscore" th:value="${markPipe.itemscore}">
-            </td>
-            <td width="10%" th:text="#{markinfo.editinfo.mark.span3}"></td>
-            <td width="15%" id="showstar1">
-              <img src="/CCTV/img/星星1.png" class="star" title="较差"/>
-			  <img src="/CCTV/img/星星1.png" class="star" title="一般"/>
-			  <img src="/CCTV/img/星星1.png" class="star" title="合格"/>
-			  <img src="/CCTV/img/星星1.png" class="star" title="良好"/>
-			  <img src="/CCTV/img/星星1.png" class="star" title="优秀"/>
-            </td>
-            <td width="10%" th:text="#{markinfo.editinfo.mark.span4}"></td>
-            <td width="15%" id="showstar2">
-              <img src="/CCTV/img/星星1.png" class="star" title="较差"/>
-			  <img src="/CCTV/img/星星1.png" class="star" title="一般"/>
-			  <img src="/CCTV/img/星星1.png" class="star" title="合格"/>
-			  <img src="/CCTV/img/星星1.png" class="star" title="良好"/>
-			  <img src="/CCTV/img/星星1.png" class="star" title="优秀"/>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2"><textarea name="piperemark" th:text="${markPipe.piperemark}" th:placeholder="#{markinfo.editinfo.mark.remark}"></textarea></td>
-            <td colspan="2"><textarea name="itemremark" th:text="${markPipe.itemremark}" th:placeholder="#{markinfo.editinfo.mark.remark}"></textarea></td>
-            <td colspan="2"><textarea name="remark1" th:text="${markPipe.remark1}" th:placeholder="#{markinfo.editinfo.mark.remark}"></textarea></td>
-            <td colspan="2"><textarea name="remark2" th:text="${markPipe.remark2}" th:placeholder="#{markinfo.editinfo.mark.remark}"></textarea></td>
-          </tr>
-        </table>
+	    <div class="bSpan"><div th:text="#{markinfo.editinfo.mark.title1}"></div></div>
+	    <div id="bScore">
+	      <div th:text="#{markinfo.editinfo.mark.span1}" style="width:118px"></div>
+          <input type="text" name="pipescore" th:value="${markPipe.pipescore}">
+          <div th:text="#{markinfo.editinfo.mark.span2}" style="width:118px"></div>
+          <input type="text" name="itemscore" th:value="${markPipe.itemscore}">
+          <div th:text="#{markinfo.editinfo.mark.span3}"></div>
+          <div id="showstar1" style="width:149px">
+            <img src="/CCTV/img/星星1.png" class="star" title="较差"/>
+			<img src="/CCTV/img/星星1.png" class="star" title="一般"/>
+			<img src="/CCTV/img/星星1.png" class="star" title="合格"/>
+			<img src="/CCTV/img/星星1.png" class="star" title="良好"/>
+			<img src="/CCTV/img/星星1.png" class="star" title="优秀"/>
+          </div>
+          <div th:text="#{markinfo.editinfo.mark.span4}"></div>
+          <div id="showstar2" style="width:149px">
+            <img src="/CCTV/img/星星1.png" class="star" title="较差"/>
+			<img src="/CCTV/img/星星1.png" class="star" title="一般"/>
+			<img src="/CCTV/img/星星1.png" class="star" title="合格"/>
+			<img src="/CCTV/img/星星1.png" class="star" title="良好"/>
+			<img src="/CCTV/img/星星1.png" class="star" title="优秀"/>
+          </div>
+	    </div>
+        <div class="bSpan"><div th:text="#{markinfo.editinfo.mark.title2}"></div></div>
+        <textarea name="remark" th:text="${markPipe.remark}"></textarea>
       </div>
       </form>
     </div>

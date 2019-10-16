@@ -229,6 +229,7 @@ public class CreatePDF {
 			List<Item> items = null;
 			PdfPTable TableFormC = null;
 			PdfPTable explain = getExplain();
+			DecimalFormat format = new DecimalFormat("#000");
 			for (int i = 0; pipes != null && i < pipes.size(); i++) {
 				int page = 1;
 				Pipe pipe = pipes.get(i);
@@ -343,7 +344,7 @@ public class CreatePDF {
 
 						for (int no = 0; no < list.size(); no++)
 							graphics.drawString(list.get(no), 208, location + 3 + no * 10);
-						graphics.drawString(item.getPhoto() + "", 510, location + 3);
+						graphics.drawString(format.format(item.getPhoto()) + "", 510, location + 3);
 						graphics.drawString((int) item.getGrade() + "", 542, location + 3);
 
 					}
@@ -814,6 +815,7 @@ public class CreatePDF {
 	}
 
 	private PdfPTable getItemFormD(Item item) {
+		DecimalFormat format = new DecimalFormat("#000");
 		if (project.getStandard().indexOf("H") != -1)
 			map = AppUtils.getMap("hkccec", item.getCode());
 		if (project.getStandard().indexOf("M") != -1)
@@ -855,7 +857,7 @@ public class CreatePDF {
 		border = new int[] { 0, 0, 0, 1 };
 		TableValue(table, "Photo Ref:", font1, 10, 1, border, 2);
 		border = new int[] { 0, 1, 0, 0 };
-		TableValue(table, name + "/" + item.getPhoto(), font1, 10, 3, border, 0);
+		TableValue(table, name + "/" + format.format(item.getPhoto()), font1, 10, 3, border, 0);
 
 		border = new int[] { 0, 0, 1, 1 };
 		TableValue(table, "Observation:", font1, 10, 1, border, 2);

@@ -45,7 +45,7 @@
         </div>
         <table id="tab1">
           <thead>
-            <tr height="40px" style="color:#fff;font-size:16px;background-color:#39B549">
+            <tr height="40px" style="color:#fff;font-size:16px;background-color:#51596b">
               <th width="4%">NO</th>           
 			  <th width="12%" th:text="#{person.showlist.table.title1}"></th>   
 			  <th width="12%" th:text="#{person.showlist.table.title2}"></th> 
@@ -75,9 +75,7 @@
           	  <td th:if="${person.role == 'Role4'}">操作人員</td>
           	  <td th:if="${person.state == '0'}" style="color:#FFB000;font-size:16px;font-weight:600">冻结</td>
           	  <td th:if="${person.state == '1'}" style="color:#2AB673;font-size:16px;font-weight:600">正常</td>
-		      <td>
-		        <input type="button" th:value="#{person.showlist.table.button1}">
-		      </td>
+		      <td><input type="button" th:value="#{person.showlist.table.button1}"></td>
           	</tr>
           </tbody>
         </table>

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,7 +13,6 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
@@ -28,9 +26,6 @@ public class MyRealm extends AuthorizingRealm {
 
 	@Resource
 	private PersonBiz personBiz;
-	@Resource
-	private ApplicationContext applicationContext;
-	
 	private Map<String, Object> map = null;
 
 	/** 执行授权逻辑 */
@@ -67,8 +62,6 @@ public class MyRealm extends AuthorizingRealm {
 			throw exception;
 		}
 		AppUtils.pushMap("user", user);
-		Session session = SecurityUtils.getSubject().getSession();
-		applicationContext.pushMap(username, session);
 		info = new SimpleAuthenticationInfo(user, password, "");
 		return info;
 	}

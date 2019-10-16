@@ -1,7 +1,6 @@
 package com.springboot.biz.impl;
 
 import java.io.File;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -80,13 +79,14 @@ public class ItemBizImpl implements ItemBiz {
 	}
 
 	public void sortItemImg(Project project) {
-		DecimalFormat format = new DecimalFormat("#000");
-		map = AppUtils.getMap("project", project, "picture", "");
-		List<Item> items = this.findListItem(map);
-		for (int i = 0; items != null && i < items.size(); i++) {
-			items.get(i).setPhoto(format.format(i + 1));
-			this.updateItem(items.get(i));
-		}
+//		DecimalFormat format = new DecimalFormat("#000");
+//		map = AppUtils.getMap("project", project, "picture", "");
+//		List<Item> items = this.findListItem(map);
+//		for (int i = 0; items != null && i < items.size(); i++) {
+//			items.get(i).setPhoto(format.format(i + 1));
+//			this.updateItem(items.get(i));
+//		}
+		itemDao.sortItemImg(project.getId());
 	}
 
 }

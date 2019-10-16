@@ -1,16 +1,43 @@
 $(document).ready(function() {
     initList();
+    drawPipe();
     var language = $("#title").text() == "管道列表" ? "zh" : "en";
-    
     var tipsText1 = language == "zh" ? "請輸入正確的分數！" : "Please check the input score!";
     var tipsText2 = language == "zh" ? "保存數據成功！" : "Operating successfully!";
     /********************************************************************/
-    drawPipe();
     var id = $("#id").val();
     var no = $("#no").val();
     var index = no >= $("#tab1 tr").length ? $("#tab1 tr").length - 1 : no;
     $("#tab1 tbody tr").eq(index).find("td:eq(0)").text("▶");
     $("#tab2 tbody tr:eq(0)").find("td:eq(0)").text("▶");
+    /********************************************************************/
+    $(document).scroll(function(e) {
+        var height = $(document).scrollTop();
+        if (height >= 180)
+            $("#TitleMemu").show();
+        else
+            $("#TitleMemu").hide();
+    });
+    /**  确定评分*/
+    $("#TitleMemu input,#common").click(function() {
+        var value1 = $("#bScore input[type=text]").eq(0).val();
+        if (value1 == "" || isNaN(value1) || value1 < 0 || value1 > 100) {
+        	$("#bScore input[type=text]").eq(0).css("background-color", "#f00");
+            showTips(tipsText1);
+            return false;
+        }
+        var value2 = $("#bScore input[type=text]").eq(1).val();
+        if (value2 == "" || isNaN(value2) || value2 < 0 || value2 > 100) {
+        	$("#bScore input[type=text]").eq(1).css("background-color", "#f00");
+            showTips(tipsText1);
+            return false;
+        }
+        $("#TitleMemu input, #common").css("background-color", "#CCC");
+        $("#TitleMemu input, #common").attr("disabled", true);
+        if (Ajax("update", $("#form1").serialize()))
+            showTips(tipsText2);
+        setTimeout("location.reload()", 2000);
+    });
     /********************************************************************/
     $("#tab1 tr").each(function(i) {
         var score1 = $(this).find("td:eq(4)").text();
@@ -30,11 +57,9 @@ $(document).ready(function() {
         var socre2 = $(this).find("td:eq(7)").text();
         $(this).find("td:eq(6)").html(getImg(socre1));
         $(this).find("td:eq(7)").html(getImg(socre2));
-        // 鼠标靠近列表事件
         $(this).mouseenter(function() {
             $(this).find("input").show();
         });
-        // 鼠标远离列表事件
         $(this).mouseleave(function() {
             $(this).find("input").hide();
         });
@@ -42,7 +67,6 @@ $(document).ready(function() {
             location.href = "editinfo?id=" + id + "&no=" + i;
         });
     });
-    // 设置
     $("#showpipe").scrollTop(30 * index);
     function getImg(count) {
         var hrml = "";
@@ -52,10 +76,13 @@ $(document).ready(function() {
             hrml += "<img src='/CCTV/img/星星1.png'/>";
         return hrml;
     }
-    /********************************************************************/
     $("#main2 input").attr("readonly", "true");
+    /********************************************************************/
     var path = $("#path").val();
+    $("#tab2 tbody tr td:nth-child(1)").css("font-size", "14px");
     $("#tab2 tbody tr").each(function(i) {
+    	$(this).find("td:eq(3)").css("text-align", "right");
+        $(this).find("td:eq(3)").css("padding-right", "10px");
         $(this).click(function() {
             $("#tab2 tbody tr").find("td:eq(0)").text("");
             $(this).find("td:eq(0)").text("▶");
@@ -65,16 +92,19 @@ $(document).ready(function() {
             else
                 $("#image").attr("src", path + name + ".png");
         });
+        var photo = $(this).find("td:eq(2)").text();
+    	if (photo != "" && !isNaN(photo))
+        	$(this).find("td:eq(2)").text(fix(photo, 3));
         // 设置输入框的title
         var text = $(this).find("td:eq(1)").text();
         $(this).find("td:eq(1)").attr("title", text);
         var text = $(this).find("td:eq(11)").text();
         $(this).find("td:eq(11)").attr("title", text);
-        // 距离靠右显示
-        $(this).find("td:eq(3)").css("text-align", "right");
-        $(this).find("td:eq(3)").css("padding-right", "10px");
         setCode($(this).find("td:eq(5)"), $(this).find("td:eq(5)").text());
     });
+    function fix(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    }
     /********************************************************************/
     $("#video").click(function() {
         if ($("#video").attr("src") != undefined)
@@ -143,44 +173,17 @@ $(document).ready(function() {
         }
     }
     /********************************************************************/
-    $("#tab3 input[type=text]").keypress(function(event) {
+    $("#bScore input[type=text]").keypress(function(event) {
         if (event.which >= 48 && event.which <= 57 || event.which == 46)
             return true;
         return false;
     });
-    $("#tab3 input[type=text]").on("input", function() {
+    $("#bScore input[type=text]").on("input", function() {
     	var value = $(this).val();
     	if (value == "" || isNaN(value) || value < 0 || value > 100)
 			$(this).css("background-color", "#f00");
 		else
 			$(this).css("background-color", "#fff");
-    });
-    $(document).scroll(function(e) {
-        var height = $(document).scrollTop();
-        if (height >= 180)
-            $("#TitleMemu").show();
-        else
-            $("#TitleMemu").hide();
-    });
-    /**  确定评分*/
-    $("#TitleMemu input,#common").click(function() {
-        var value1 = $("#tab3 input[type=text]").eq(0).val();
-        if (value1 == "" || isNaN(value1) || value1 < 0 || value1 > 100) {
-        	$("#tab3 input[type=text]").eq(0).css("background-color", "#f00");
-            showTips(tipsText1);
-            return false;
-        }
-        var value2 = $("#tab3 input[type=text]").eq(1).val();
-        if (value2 == "" || isNaN(value2) || value2 < 0 || value2 > 100) {
-        	$("#tab3 input[type=text]").eq(1).css("background-color", "#f00");
-            showTips(tipsText1);
-            return false;
-        }
-        $("#TitleMemu input, #common").css("background-color", "#CCC");
-        $("#TitleMemu input, #common").attr("disabled", true);
-        if (Ajax("update", $("#form1").serialize()))
-            showTips(tipsText2);
-        setTimeout("location.reload()", 2000);
     });
     /********************************************************************/
     function drawPipe() {
@@ -495,4 +498,5 @@ $(document).ready(function() {
     		obj.text("#4");
     	} 
     }
+    
 });

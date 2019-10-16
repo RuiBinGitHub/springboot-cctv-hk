@@ -109,6 +109,7 @@ public class AppUtils {
 	public static void saveImage(String data, String path, String name) {
 		try {
 			BASE64Decoder decoder = new BASE64Decoder();
+			data = data.substring(22, data.length());
 			byte[] bytes = decoder.decodeBuffer(data);
 			for (int i = 0; i < bytes.length; i++)
 				bytes[i] = bytes[i] < 0 ? bytes[i] += 256 : bytes[i];

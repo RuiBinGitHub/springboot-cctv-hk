@@ -80,11 +80,10 @@ $(document).ready(function() {
 	$("#tab3 input").attr("readonly", true);
 	/** ***************************************************************** */
 	var path = $("#path").val();
+	$("#tab2 tbody tr td:nth-child(1)").css("font-size", "14px");
 	$("#tab2 tbody tr").each(function(i) {
 		$(this).find("td:eq(3)").css("text-align", "right");
 		$(this).find("td:eq(3)").css("padding-right", "10px");
-		$(this).find("td:eq(12)").css("text-align", "right");
-		$(this).find("td:eq(12)").css("padding-right", "10px");
 		$(this).click(function() {
 			$("#tab2 tbody tr").find("td:eq(0)").text("");
 			$(this).find("td:eq(0)").text("▶");
@@ -94,14 +93,23 @@ $(document).ready(function() {
 			else
 				$("#image").attr("src", path + name + ".png");
 		});
-		var text = $(this).find("td:eq(11),td:eq(13)").text();
-		$(this).find("td:eq(11),td:eq(13)").attr("title", text);
-		if (Number($(this).find("td:eq(12)").text()) != 0)
-			$(this).find("td:eq(12)").css("background-color", "#ff4400");
-		setCode($(this).find("td:eq(5)"), $(this).find("td:eq(5)").text());
+		var photo = $(this).find("td:eq(2)").text();
+    	if (photo != "" && !isNaN(photo))
+        	$(this).find("td:eq(2)").text(fix(photo, 3));
+    	// 设置输入框的title
+        var text = $(this).find("td:eq(1)").text();
+        $(this).find("td:eq(1)").attr("title", text);
+        var text = $(this).find("td:eq(11)").text();
+        $(this).find("td:eq(11)").attr("title", text);
+        setCode($(this).find("td:eq(5)"), $(this).find("td:eq(5)").text());
 	});
+	function fix(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    }
 	/** ***************************************************************** */
-	$(".showremark").each(function() {
+	$("#bScore input").attr("readonly", true);
+	$("textarea[name=remark]").attr("readonly", true);
+	$("textarea[name=remark]").each(function() {
 		if ($(this).text() == "")
 			$(this).text("(无)");
 	});

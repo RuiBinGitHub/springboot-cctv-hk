@@ -21,5 +21,7 @@ public interface ItemDao {
 	public Item findInfoItem(Map<String, Object> map);
 
 	public List<Item> findListItem(Map<String, Object> map);
+	
+	public void sortItemImg(int id);
 
 }

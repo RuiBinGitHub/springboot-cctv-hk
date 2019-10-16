@@ -48,6 +48,9 @@
 		<if test="code != null">
 			and code = #{code}
 		</if>
+		<if test="define != null">
+			and define = #{define}
+		</if>
 	</select>
 	
 	<select id="findListCompany" parameterType="Map" resultType="Company">

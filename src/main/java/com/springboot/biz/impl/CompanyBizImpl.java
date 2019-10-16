@@ -94,6 +94,7 @@ public class CompanyBizImpl implements CompanyBiz {
 		company.setDefine(temp.getDefine());
 		company.setDate(temp.getDate());
 		this.updateCompany(company);
+
 		if (company.getCont() < temp.getCont()) {
 			map = AppUtils.getMap("company", company);
 			List<Person> persons = personBiz.findListPerson(map);
@@ -102,19 +103,17 @@ public class CompanyBizImpl implements CompanyBiz {
 				personBiz.updatePerson(persons.get(i - 1));
 			}
 		} else if (company.getCont() > temp.getCont()) {
-			map = AppUtils.getMap("state", "0", "company", company);
+			map = AppUtils.getMap("company", company);
 			List<Person> persons = personBiz.findListPerson(map);
-			System.out.println(persons.size());
-			int count = company.getCont() - temp.getCont();
-			for (int i = 0; i < count && i < persons.size(); i++) {
-				persons.get(i).setState("1");
-				personBiz.updatePerson(persons.get(i));
+			for (int i = 0; i < company.getCont() && i < persons.size(); i++) {
+				if (persons.get(i).getState().equals("0")) {
+					persons.get(i).setState("1");
+					personBiz.updatePerson(persons.get(i));
+				}
 			}
 			String date = AppUtils.getDate(null);
 			Format foramt1 = new DecimalFormat("#0000");
-			map = AppUtils.getMap("company", company);
-			count = personBiz.getPageCount(map, 1);
-			for (int i = count; i < company.getCont(); i++) {
+			for (int i = persons.size(); i < company.getCont(); i++) {
 				Person person = new Person();
 				String name = foramt1.format(i + 1);
 				person.setNickname("No：" + name);

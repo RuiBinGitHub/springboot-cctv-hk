@@ -43,8 +43,8 @@
 	        <tr height="40px" style="background-color:#F0F0F0">
 	          <th width="4%">NO</th>
 	          <th width="24%">公司名稱</th>
-	          <th width="12%">人數</th>
-	          <th width="12%">期限</th>
+	          <th width="12%">人數(人)</th>
+	          <th width="12%">期限(年)</th>
 	          <th width="12%">注册日期</th>
 	          <th width="12%">使用期限</th>
 	          <th width="12%">使用版本</th>
@@ -54,9 +54,9 @@
 	      <tbody style="font-family:宋体;">
 	        <tr th:each="company,status:${companies}">
 	          <td th:text="${status.count}"></td>
-	          <td th:text="${company.name}"></td>
-	          <td th:text="${company.cont + ' 人'}"></td>
-	          <td th:text="${company.term + ' 天'}"></td>
+	          <td><a th:href=@{showinfo(id=${company.id})} th:text="${company.name}"></a></td>
+	          <td th:text="${company.cont}"></td>
+	          <td th:text="${company.term}"></td>
 	          <td th:text="${company.date}"></td>
 	          <td></td>
 	          <td th:text="${company.version}"></td>

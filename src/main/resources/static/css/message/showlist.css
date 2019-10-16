@@ -10,18 +10,17 @@ body {
 	margin: 15px 10px 10px 10px;
 	float: left;
 }
+#title1 span {
+	font-size: 18px;
+}
 #title1 span:hover {
-	text-decoration: underline;
+	border-bottom: 2px solid #000000;
 	cursor: pointer;
 }
 
 #choice {
 	border-bottom: 2px solid #5AABE1;
 	color: #5AABE1;
-}
-
-#choice:hover {
-	text-decoration: none;
 }
 
 #title2 {
@@ -36,8 +35,6 @@ body {
 	font-size: 20px;
 	background-color: #39B549;
 }
-
-
 
 #mtab1 {
 	width: 980px;
@@ -130,6 +127,8 @@ body {
 
 #info1 {
 	width: 592px;
+	font-size: 18px;
+	font-family: "宋体";
 	text-indent: 10px;
 	margin: 20px 25px 10px 25px;;
 	background-color: #fff;
@@ -142,15 +141,16 @@ body {
 }
 
 #info1 a {
-	font-family: "微软雅黑";
-	font-size: 14px;
 	color: #999;
+	font-size: 18px;
+	font-family: "宋体";
 }
 
 #info2 {
 	width: 590px;
 	height: 240px;
-	font-size: 15px;
+	font-size: 18px;
+	font-family: "宋体";
 	word-break: break-all;
 	margin: 0px 25px 0px 25px;
 	background-color: #fff;
@@ -161,7 +161,7 @@ body {
 #info2 p {
 	width: 540px;
 	height: 40px;
-	margin: 0px 25px;
+	margin: 0px 15px;
 	line-height: 40px;
 	float: left;
 }

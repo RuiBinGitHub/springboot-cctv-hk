@@ -8,10 +8,7 @@ public class MarkPipe {
 	private double itemscore;
 	private double score1;
 	private double score2;
-	private String piperemark;
-	private String itemremark;
-	private String remark1;
-	private String remark2;
+	private String remark;
 
 	private Pipe pipe;
 	private MarkProject markProject;
@@ -72,36 +69,12 @@ public class MarkPipe {
 		this.markProject = markProject;
 	}
 
-	public String getPiperemark() {
-		return piperemark;
+	public String getRemark() {
+		return remark;
 	}
 
-	public void setPiperemark(String piperemark) {
-		this.piperemark = piperemark;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
-
-	public String getItemremark() {
-		return itemremark;
-	}
-
-	public void setItemremark(String itemremark) {
-		this.itemremark = itemremark;
-	}
-
-	public String getRemark1() {
-		return remark1;
-	}
-
-	public void setRemark1(String remark1) {
-		this.remark1 = remark1;
-	}
-
-	public String getRemark2() {
-		return remark2;
-	}
-
-	public void setRemark2(String remark2) {
-		this.remark2 = remark2;
-	}
-
+	
 }

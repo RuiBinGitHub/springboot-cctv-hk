@@ -171,7 +171,7 @@
 	    <div class="videoTitle"><font color="#51C83D">---  </font>Photo<font color="#51C83D">  ---</font></div>
 	    <div id="vname" style="float:left;">
 	    <video id="video" controls="controls" poster="/CCTV/img/picture/poster2.png" title="双击打开视频"></video>
-	    <img id="pic1" class="img" style="cursor:pointer;"/>
+	    <img id="image" src="/CCTV/img/blank-plus.png" style="cursor:pointer;"/>
 	    <div id="menu2" th:text="#{project.findinfo.item.title}"></div>
 	    </div>
 	    <table id="title">
@@ -197,7 +197,7 @@
 	    <div id="showItem" style="background-color:#dddddd">
    		  <table id="tab2">
             <tr th:each="item:${pipe.items}">
-			  <td width="3%"></td>
+			  <td width="3%" align="center"></td>
 			  <td width="10%" th:text="${item.video}"></td>
 			  <td width="10%" th:text="${item.photo}"></td>
 			  <td width="10%" th:text="${item.dist}"></td>

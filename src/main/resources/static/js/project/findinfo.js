@@ -44,7 +44,7 @@ $(document).ready(function() {
         $(this).find("input").css("background-color", "#ff8000");
         $(this).find("input").click(function() {
             var id = $("#main2 input:eq(0)").val();
-            window.location.href = "findinfo?id=" + id + "&no=" + no;
+            location.href = "findinfo?id=" + id + "&no=" + no;
         });
     });
     /** ******************************************************************** */
@@ -78,6 +78,7 @@ $(document).ready(function() {
     /** ******************************************************************** */
     var path = $("#path").val();
     $("#tab2 tbody tr:eq(0) td:eq(0)").text("▶");
+    $("#tab2 tbody tr td:nth-child(1)").css("font-size", "14px");
     $("#tab2 tbody tr").each(function(i) {
         $(this).unbind("click");
         $(this).click(function() {
@@ -85,13 +86,19 @@ $(document).ready(function() {
             $(this).find("td:eq(0)").text("▶");
             var value = $(this).find("td:last").text();
             if (value.length > 0)
-                $("#pic1").attr("src", path + value + ".png");
+                $("#image").attr("src", path + value + ".png");
             else
-                $("#pic1").attr("src", "/CCTV/img/blank.png");
+                $("#image").attr("src", "/CCTV/img/blank.png");
         });
     	$(this).find("td:eq(12)").css("display", "none");
     	setCode($(this).find("td:eq(5)"), $(this).find("td:eq(5)").text());
+    	var photo = $(this).find("td:eq(2)").text();
+    	if (photo != "" && !isNaN(photo))
+        	$(this).find("td:eq(2)").text(fix(photo, 3));
     });
+    function fix(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    }
     /** ***************************************************************************** */
     function drawPipe() {
         var canvas = $("#showpipeimg")[0];

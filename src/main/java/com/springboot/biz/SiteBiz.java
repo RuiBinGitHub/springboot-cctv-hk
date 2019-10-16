@@ -12,11 +12,12 @@ public interface SiteBiz {
 
 	public void deleteSite(Site site);
 
+	public Site findInfoSite(Map<String, Object> map);
+
 	public Site findInfoSite(String value, Company company);
 
-	public Site findInfoSite(Map<String, Object> map);
+	public List<Site> findListSite(Map<String, Object> map);
 
 	public List<Site> findListSite(Company company);
 
-	public List<Site> findListSite(Map<String, Object> map);
 }

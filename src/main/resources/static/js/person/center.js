@@ -30,7 +30,7 @@ $(document).ready(function() {
     $(".table1 tr:eq(2) td:eq(3)").text(getDate(date, term));
     function getDate(date, idate) {   // 计算使用期限
         var date = new Date(date);
-        date.setDate(date.getDate() + Number(idate));
+        date.setFullYear(date.getFullYear() + Number(idate));
         var y = date.getFullYear();
         var m = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
         var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();

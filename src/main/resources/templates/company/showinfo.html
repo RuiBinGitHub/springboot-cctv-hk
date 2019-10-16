@@ -5,6 +5,23 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="icon" type="image/x-icon" href="/CCTV/favicon.ico"/>
 	<link rel="stylesheet" type="text/css" href="/CCTV/css/company/showinfo.css"/>
+	<script type="text/javascript" src="/CCTV/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+	        var date = $("#table1 tr:eq(2) td:eq(1) span").text();
+			var cont = $("#table1 tr:eq(2) td:eq(3) span").text();
+	        $("#table1 tr:eq(2) td:eq(3) span").text(getDate(date, cont));
+	        function getDate(idate, count) {
+	            var temp = new Date();
+	            var date = new Date(idate);
+	            date.setFullYear(date.getFullYear() + Number(count));
+	            var y = date.getFullYear();
+	            var m = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
+	            var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+	            return text = y + "-" + m + "-" + d;
+	        }
+		});
+	</script>
   </head>
   <body>
     <div id="naviMain">
@@ -32,9 +49,15 @@
 	    	</tr>
 	    	<tr>
 	    	  <td align="right"><span class="label">使用人数：</span></td>
-	    	  <td align="left"><span th:text="${company?.cont}"></span>人</td>
-	    	  <td align="right"><span class="label">使用天数：</span></td>
-	    	  <td align="left"><span th:text="${company?.term}"></span>天</td>
+	    	  <td align="left"><span th:text="${company?.cont}"></span> 人</td>
+	    	  <td align="right"><span class="label">使用年限：</span></td>
+	    	  <td align="left"><span th:text="${company?.term}"></span> 年</td>
+	    	</tr>
+	    	<tr>
+	    	  <td align="right"><span class="label">注册日期：</span></td>
+	    	  <td align="left"><span th:text="${company?.date}"></span></td>
+	    	  <td align="right"><span class="label">使用期限：</span></td>
+	    	  <td align="left"><span th:text="${company?.term}"></span></td>
 	    	</tr>
 	      </table>
 	  	</fieldset>

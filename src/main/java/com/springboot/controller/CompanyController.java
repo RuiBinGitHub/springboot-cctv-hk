@@ -65,15 +65,14 @@ public class CompanyController {
 		ModelAndView view = new ModelAndView("company/insert");
 		if (company.getName() == null)
 			return view;
-		map = AppUtils.getMap("username", company.getDefine());
-		List<Person> persons = personBiz.likeInfoPerson(map);
-		if (persons != null && persons.size() != 0) {
+		map = AppUtils.getMap("define", company.getDefine());
+		if (companyBiz.findInfoCompany(map) != null) {
 			view.addObject("tips", "*账号前缀已被使用！");
 			view.addObject("company", company);
 			return view;
 		}
-		int id = companyBiz.appendCompany(company);
-		view.setViewName("redirect:showinfo?id=" + id);
+		 int id = companyBiz.appendCompany(company);
+		 view.setViewName("redirect:showinfo?id=" + id);
 		return view;
 	}
 

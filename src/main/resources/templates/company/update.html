@@ -22,26 +22,36 @@
       </div>
     </div>
     <div id="main">
-      <div id="maininfo">
-        <div id="top">公司信息</div>
+      <div id="mainInfo">
+        <div id="mainTop">编辑公司</div>
         <form id="form1" action="update" method="post">
+        <fieldset id="field1" class="field">
+          <legend><span style="font-size:18px;font-weight:700">公司信息</span></legend>
           <input type="hidden" name="id" th:value="${company.id}"/>
 	      <table id="table1">
 	    	<tr>
 	    	  <td width="120px" align="right"><span style="color:#f00">*</span><span class="label">公司名称：</span></td>
-	    	  <td width="270px" align="left"><input type="text" name="name" th:value="${company.name}" class="textbox1" readonly style="background-color:#f0f0f0"/></td>
+	    	  <td width="270px" align="left"><input type="text" name="name" th:value="${company.name}" class="textbox1"/></td>
 	    	</tr>
 	    	<tr>
-	    	  <td align="right"><span style="color:#f00">*</span><span class="label">序列号码：</span></td>
-	    	  <td align="left"><input type="text" name="code" th:value="${company.code}" class="textbox1" readonly style="background-color:#f0f0f0"/></td>
+	    	  <td align="right"><span style="color:#f00">*</span><span class="label">账号前缀：</span></td>
+	    	  <td align="left"><input type="text" name="code" th:value="${company.define}" class="textbox1"/></td>
 	    	</tr>
 	    	<tr>
 	    	  <td align="right"><span style="color:#f00">*</span><span class="label">公司规模：</span></td>
-	    	  <td align="left"><input type="text" name="cont" th:value="${company.cont}" class="textbox1"/></td>
+	    	  <td align="left">
+	    	    <input type="button" class="btn1" value="-"/>
+	    	    <input type="text" name="cont" th:value="${company?.cont}" class="textbox2"/>
+	    	    <input type="button" class="btn2" value="+"/>
+	    	  </td>
 	    	</tr>
 	    	<tr>
 	       	  <td align="right"><span style="color:#f00">*</span><span class="label">使用期限：</span></td>
-	       	  <td align="left"><input type="text" name="term" th:value="${company.term}" class="textbox1"/></td>
+	       	  <td align="left">
+	       	    <input type="button" class="btn1" value="-"/>
+	       	    <input type="text" name="term" th:value="${company?.term}" class="textbox2"/>
+	       	    <input type="button" class="btn2" value="+"/>
+	       	  </td>
 	       	</tr>
 	    	<tr>
 	       	  <td align="right"><span style="color:#f00">*</span><span class="label">使用版本：</span></td>
@@ -55,6 +65,7 @@
 	       	  <td align="left"><input type="button" value="确定" class="combtn"></td>
 	       	</tr>
 	      </table>
+	    </fieldset>
   	  	</form>
       </div>
     </div>

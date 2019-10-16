@@ -8,10 +8,7 @@
 			#{itemscore},
 			#{score1},
 			#{score2},
-			#{piperemark},
-			#{itemremark},
-			#{remark1},
-			#{remark2},
+			#{remark},
 			#{pipe.id},
 			#{markProject.id}
 		)
@@ -22,10 +19,7 @@
 			itemscore=#{itemscore},
 			score1=#{score1},
 			score2=#{score2},
-			piperemark=#{piperemark},
-			itemremark=#{itemremark},
-			remark1=#{remark1},
-			remark2=#{remark2},
+			remark=#{remark},
 			pipeid=#{pipe.id},
 			markid=#{markProject.id}
 		where id=#{id}
@@ -67,10 +61,7 @@
 		<result property="itemscore" column="itemscore"/>
 		<result property="score1" column="score1"/>
 		<result property="score2" column="score2"/>
-		<result property="piperemark" column="piperemark"/>
-		<result property="itemremark" column="itemremark"/>
-		<result property="remark1" column="remark1"/>
-		<result property="remark2" column="remark2"/>
+		<result property="remark" column="remark"/>
 		<association property="pipe" column="pipeid" select="com.springboot.dao.PipeDao.findPipeByID"/>
 		<association property="markProject" column="markid" select="com.springboot.dao.MarkProjectDao.findMarkProjectByID"/>
 	</resultMap>

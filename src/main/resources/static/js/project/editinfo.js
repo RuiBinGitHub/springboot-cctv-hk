@@ -635,6 +635,7 @@
     /** ******************************************************************** */
     $("#link1").attr("target", "_bank");
     $("#link1").attr("href", "http://www1.slope.landsd.gov.hk/smris/map");
+    $("#input1 input:eq(7)").attr("placeholder", "HH:MM");
     $("#link2").click(function() {
         $("input[name=xfile]").click();
     });
@@ -652,7 +653,6 @@
             showTips(tipsText6);
         setTimeout("location.reload()", 2000);
     });
-    $("#input1 input:eq(7)").attr("placeholder", "HH:MM");
     /** ******************************************************************** */
     var reg = /^[+]{0,1}(\d+)$/;
     $("#input1 input:eq(2)").css("background-color", "#EBEBE4");
@@ -662,9 +662,6 @@
             $(this).css("background-color", "#FF0000");
         else
             $(this).css("background-color", "#FFFFFF");
-    });
-    $("#input4 input:eq(2), #input4 input:eq(5)").on("input", function() {
-        $(this).css("background-color", "#EBEBE4");
     });
     // Pipe Length Reference
     $("#input1 input:eq(2)").on("input", function() {
@@ -728,6 +725,13 @@
             $("#input1 input:eq(2)").css("background-color", "#FF0000");
             $("#input1 input:eq(2)").val("");
         }
+        var value = $(this).val();
+        $("#tab2 tbody tr").each(function() {
+        	var dist = $(this).find("td:eq(3) input").val();
+        	var code = $(this).find("td:eq(5) input").val();
+        	if (dist == 0.0 && code == "MH")
+        		$(this).find("td:eq(11) input").val(value);
+        });
     });
     // Finish MH
     $("#input3 input:eq(1)").attr("title", "*建議字符長度<10，長度過長可能會造成數據丟失！");
@@ -745,6 +749,14 @@
             $("#input1 input:eq(2)").css("background-color", "#FF0000");
             $("#input1 input:eq(2)").val("");
         }
+        var value = $(this).val();
+        var length = $("input[name=totallength]").val();
+        $("#tab2 tbody tr").each(function() {
+        	var dist = $(this).find("td:eq(3) input").val();
+        	var code = $(this).find("td:eq(5) input").val();
+        	if (dist == length && code == "MH")
+        		$(this).find("td:eq(11) input").val(value);
+        });
     });
 
     // 流向改變事件
@@ -815,6 +827,9 @@
             $("#input4 input:eq(5)").css("background-color", "#EBEBE4");
             $("#input4 input:eq(5)").val("--");
         }
+    });
+    $("#input4 input:eq(2), #input4 input:eq(5)").on("input", function() {
+        $(this).css("background-color", "#EBEBE4");
     });
     /** ******************************************************************** */
     function checkPipe() {
@@ -966,7 +981,7 @@
             var canvas1 = $("#canvas1")[0];
             var context1 = canvas1.getContext("2d");
             var ImageData = canvas1.toDataURL("image/png");
-            ImageData = ImageData.substring(22, ImageData.length);
+            // ImageData = ImageData.substring(22, ImageData.length);
             $("#pic2").attr("src", $("#pic1").attr("src"));
             $("#tab2 tr").eq(itemindex).find("td:eq(2) input").val("#待保存#");
             $("#tab2 tr").eq(itemindex).find("td:eq(12) input").val(ImageData);
@@ -1126,10 +1141,12 @@
     	$("#tab2 tbody tr").find("td:eq(0) a").text("");
         $(this).find("td:eq(0) a").text("▶");
         var value = $(this).find("input:last").val();
-        if (value != "" && value.length < 40)
+        if (value == "" || value.length == 0)
+        	$("#pic2").attr("src", "/CCTV/img/blank.png");
+        else if (value != "" && value.length < 40)
             $("#pic2").attr("src", path + value + ".png");
-        else
-            $("#pic2").attr("src", "/CCTV/img/blank.png");
+        else if (value != "" && value.length > 40)
+        	$("#pic2")[0].src = value;
     });
     // 单元格获取焦点事件
     $("#tab2").on("focus", "tr td, tr td input", function(event) {
@@ -1322,6 +1339,7 @@
         return false;
     });
     initItemList(0);
+    
     function initItemList(index) {
         itemindex = -1;
         // 表格初始化
@@ -1355,6 +1373,9 @@
             $(this).find("td").each(function(j) {
                 $(this).attr("tabindex", i * 12 + j + 1);
             });
+            var photo = $(this).find("td:eq(2) input").val();
+            if (photo != "" && !isNaN(photo))
+            	$(this).find("td:eq(2) input").val(fix(photo, 3));
             var value = $(this).find("td:eq(3) input").val();
             if (value != "")
                 $(this).find("td:eq(3) input").val(parseFloat(value).toFixed(1));
@@ -1362,6 +1383,9 @@
         if (index > $("#tab2 tbody tr").length - 1)
             index = $("#tab2 tbody tr").length - 1;
         $("#tab2 tbody tr").eq(index).click();
+    }
+    function fix(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
     }
     /**************************************************************************/
     if (sessionStorage.control == "隐藏") {

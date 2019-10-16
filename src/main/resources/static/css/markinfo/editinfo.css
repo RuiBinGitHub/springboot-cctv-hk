@@ -99,7 +99,6 @@ body {
 	border-radius: 2px;
 	border: none;
 	float: left;
-	border-radius: 2px;
 }
 
 #memu1 input:hover {
@@ -306,8 +305,7 @@ body {
 }
 
 #mainBottom1 {
-	width: 1238px; //
-	height: 250px;
+	width: 1238px; 
 	margin-top: 10px;
 	background-color: #fff;
 	border: 1px solid #ccc;
@@ -325,78 +323,77 @@ body {
 	line-height: 40px;
 	background-color: #505984;
 	float: left;
-	background-color: #505984;
-	line-height: 40px;
 }
 
-#display {
-	width: 24px;
-	height: 24px;
-	margin: 10px 15px;
-	font-size: 16px;
-	font-weight: 700;
-	background-color: #fff;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	float: right;
-}
-
-#display:hover {
-	cursor: pointer;
-	color: #ff8000;
-}
-
-#tab3 {
-	color: #4E6794;
-	font-size: 14px;
-	font-family: "Helvetica";
-	text-align: center;
-	margin-left: 18px;
+.bSpan {
+	width: 1200px;
+	height: 40px;
+	font-size: 20px;
+	font-family: 宋体;
+	font-weight: 600;
+	margin: 10px 20px 5px 20px;
+	border-bottom: 2px solid #505984;
 	float: left;
 }
 
-#tab3 tr td div {
-	width: 100%;
-	font-size: 13.5px;
-	font-family: "Helvetica";
-	text-align: left;
-	text-indent: 14px;
+.bSpan div {
+	width: 108px;
+	height: 40px;
+	color: #fff;
+	line-height: 42px;
+	text-align: center;
+	background-color: #505984;
+	float: left;
 }
 
-#tab3 tr td input {
-	width: 286px;
+#bScore {
+	width: 1198px;
+	height: 60px;
+	font-size: 18px;
+	font-family: 宋体;
+	font-weight: 600;
+	margin-left: 20px;
+	border: 1px solid #999;
+	float: left;
+}
+
+#bScore div {
+	width: 150px;
 	height: 30px;
-	margin-left: 8px;
+	color: #4E6794;
+	text-align: center;
+	margin-top: 15px;
+	line-height: 30px;
+	float: left;
+}
+
+#bScore input {
+	width: 170px;
+	height: 26px;
 	text-indent: 6px;
-	font-family: "微软雅黑";
-	border: none;
-	border-bottom: 2px solid #ccc;
-	outline: none;
-}
-
-#tab3 tr td input:hover {
-	border-bottom: 2px solid #4E6794;
-}
-
-#tab3 tr td textarea {
-	width: 282px;
-	height: 90px;
-	margin-top: 10px;
-	margin-left: 8px;
-	margin-bottom: 3px;
-	font-family: "微软雅黑";
-	border: none;
-	border-bottom: 2px solid #ccc;
-	outline: none;
-	resize: none;
-}
-
-#tab3 tr td textarea:hover {
-	border-bottom: 2px solid #4E6794;
+	margin-top: 15px;
+	margin-left: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	float: left;
 }
 
 .star {
+	margin-top: 4px;
 	margin-left: 4px;
 	cursor: pointer;
+	float: left;
+}
+
+textarea {
+	width: 1188px;
+	height: 130px;
+	font-size: 18px;
+	padding: 5px;
+	margin-left: 20px;
+	margin-bottom: 12px;
+	border: 1px solid #ccc;
+	outline: none;
+	resize: none;
 	float: left;
 }
