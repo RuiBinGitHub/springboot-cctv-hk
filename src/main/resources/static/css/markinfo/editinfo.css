@@ -391,9 +391,38 @@ textarea {
 	font-size: 18px;
 	padding: 5px;
 	margin-left: 20px;
-	margin-bottom: 12px;
+	// margin-bottom: 12px;
 	border: 1px solid #ccc;
 	outline: none;
 	resize: none;
+	float: left;
+}
+
+#bImage {
+	width: 1220px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	float: left;
+}
+#bImage img {
+	width: 132px;
+	height: 102px;
+	border: 2px solid #ddd;
+	margin: 10px 16px 0px 0px;
+	position: relative;
+	cursor: pointer;
+	float: left;
+}
+
+#append {
+	width: 132px;
+	height: 102px;
+	color: #ccc;
+	font-size: 50px;
+	text-align: center;
+	line-height: 90px;
+	margin: 10px 16px 0px 0px;
+	border: 2px dashed #ccc;
+	cursor: pointer;
 	float: left;
 }

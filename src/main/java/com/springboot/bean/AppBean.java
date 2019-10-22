@@ -26,6 +26,7 @@ public class AppBean {
 			text.append("您正在使用邮箱进行校验，效验码：<a href='#'>" + code + "</a>。");
 			text.append("有效时间10分钟，超时请重新获取。(如非本人操作，请忽略该信息)");
 			text.append("<p style='color:#999999'>该信息为系统自动发件，请勿回复!</p>");
+			
 			helper.setSubject("信息验证");
 			helper.setText(text.toString(), true);
 			sender.send(mimeMessage);

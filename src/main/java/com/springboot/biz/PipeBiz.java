@@ -27,5 +27,4 @@ public interface PipeBiz {
 
 	public void appendPipe(Pipe pipe);
 	
-
 }

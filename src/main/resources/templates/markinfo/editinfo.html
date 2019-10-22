@@ -207,7 +207,7 @@
 	    </div>
 	  </div>
       
-      <form id="form1" method="post">
+      <form id="form1" action="update" method="post" enctype="multipart/form-data">
       <input type="hidden" name="id" th:value="${markPipe.id}"/>
       <input type="hidden" name="pipe.id" th:value="${markPipe.pipe.id}"/>
       <input type="hidden" name="markProject.id"  th:value="${param.id}"/>
@@ -245,6 +245,11 @@
 	    </div>
         <div class="bSpan"><div th:text="#{markinfo.editinfo.mark.title2}"></div></div>
         <textarea name="remark" th:text="${markPipe.remark}"></textarea>
+        <div class="bSpan"><div th:text="#{markinfo.editinfo.mark.title2}"></div></div>
+        <div id="bImage"><div id="append">＋</div></div>
+      </div>
+      <div id="list" style="">
+        <input type="file" name="files" accept="image/*"/>
       </div>
       </form>
     </div>

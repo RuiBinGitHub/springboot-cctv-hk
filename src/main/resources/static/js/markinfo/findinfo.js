@@ -93,9 +93,6 @@ $(document).ready(function() {
 			else
 				$("#image").attr("src", path + name + ".png");
 		});
-		var photo = $(this).find("td:eq(2)").text();
-    	if (photo != "" && !isNaN(photo))
-        	$(this).find("td:eq(2)").text(fix(photo, 3));
     	// 设置输入框的title
         var text = $(this).find("td:eq(1)").text();
         $(this).find("td:eq(1)").attr("title", text);
@@ -103,9 +100,6 @@ $(document).ready(function() {
         $(this).find("td:eq(11)").attr("title", text);
         setCode($(this).find("td:eq(5)"), $(this).find("td:eq(5)").text());
 	});
-	function fix(num, n) {
-        return (Array(n).join(0) + num).slice(-n);
-    }
 	/** ***************************************************************** */
 	$("#bScore input").attr("readonly", true);
 	$("textarea[name=remark]").attr("readonly", true);

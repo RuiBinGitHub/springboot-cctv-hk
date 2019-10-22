@@ -25,10 +25,12 @@ $(document).ready(function() {
             var expr = new RegExp(name,"gm")
             var text = $(this).find("td:eq(1)").text();
             text = text.replace(expr, "<font color='#f00'>" + name + "</font>");
-            $(this).find("td:eq(1)").html(text);
+            $(this).find("td:eq(1) a").html(text);
         }
         /*************************************************/
         var id = $(this).attr("id");
+        $(this).find("a").attr("target", "_blank");
+        $(this).find("a").attr("href", "/CCTV/project/findinfo?id=" + id);
         $(this).find("td:eq(6)").mouseenter(function(e) {
             $(this).css("background-color", "#FFE793");
             if ($(this).text() == 0)
@@ -63,7 +65,7 @@ $(document).ready(function() {
         });
         /*************************************************/
         $(this).find("input:eq(0)").click(function() {
-            window.open("/CCTV/project/findinfo?id=" + id);
+        	window.open("/CCTV/download/file?id=" + id);
         });
         $(this).find("input:eq(1)").click(function() {
             window.open("insert?id=" + id);

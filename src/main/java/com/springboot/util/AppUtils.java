@@ -73,6 +73,13 @@ public class AppUtils {
 		return code.toUpperCase();
 	}
 
+	/** 获取request */
+	public static HttpServletRequest getRequest() {
+		RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
+		HttpServletRequest request = ((ServletRequestAttributes) attributes).getRequest();
+		return request;
+	}
+	
 	/** 获取session */
 	public static HttpSession getHttpSession(){
 		RequestAttributes attributes = RequestContextHolder.getRequestAttributes();

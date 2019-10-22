@@ -92,13 +92,7 @@ $(document).ready(function() {
         });
     	$(this).find("td:eq(12)").css("display", "none");
     	setCode($(this).find("td:eq(5)"), $(this).find("td:eq(5)").text());
-    	var photo = $(this).find("td:eq(2)").text();
-    	if (photo != "" && !isNaN(photo))
-        	$(this).find("td:eq(2)").text(fix(photo, 3));
     });
-    function fix(num, n) {
-        return (Array(n).join(0) + num).slice(-n);
-    }
     /** ***************************************************************************** */
     function drawPipe() {
         var canvas = $("#showpipeimg")[0];

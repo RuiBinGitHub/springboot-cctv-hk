@@ -1,5 +1,7 @@
 package com.springboot.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springboot.biz.ItemBiz;
@@ -37,9 +40,11 @@ public class MarkInfoContorller {
 	@Resource
 	private ItemBiz itemBiz;
 
+	@Value(value = "${myfile}")
+	private String myfile;
 	@Value(value = "${ImgPath}")
 	private String path;
-	
+
 	private Map<String, Object> map = null;
 	private MarkProject markProject = null;
 	private List<MarkProject> markProjects = null;
@@ -132,14 +137,24 @@ public class MarkInfoContorller {
 		return view;
 	}
 
-	/** 项目评分 */
+	/** 项目评分 
+	 * @throws IOException 
+	 * @throws  */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public boolean update(MarkPipe markPipe) {
-		Person user = (Person) AppUtils.findMap("user");
-		map = AppUtils.getMap("id", markPipe.getId(), "person", user);
-		if (markPipeBiz.findInfoMarkPipe(map) == null)
-			return false;
-		markPipeBiz.updateMarkPipe(markPipe);
+	public boolean update(MarkPipe markPipe, MultipartFile[] files) throws IOException {
+		// Person user = (Person) AppUtils.findMap("user");
+		// map = AppUtils.getMap("id", markPipe.getId(), "person", user);
+		// if (markPipeBiz.findInfoMarkPipe(map) == null)
+		// return false;
+		// markPipeBiz.updateMarkPipe(markPipe);
+		for (MultipartFile file : files) {
+			if (!StringUtils.isEmpty(file)) {
+				String name = AppUtils.UUIDCode();
+				File dest = new File(myfile + "MarkImage/" + name + ".png");
+				file.transferTo(dest);
+				System.out.println(name);
+			}
+		}
 		return true;
 	}
 

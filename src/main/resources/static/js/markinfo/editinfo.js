@@ -10,6 +10,7 @@ $(document).ready(function() {
     var index = no >= $("#tab1 tr").length ? $("#tab1 tr").length - 1 : no;
     $("#tab1 tbody tr").eq(index).find("td:eq(0)").text("▶");
     $("#tab2 tbody tr:eq(0)").find("td:eq(0)").text("▶");
+    console.log(id);
     /********************************************************************/
     $(document).scroll(function(e) {
         var height = $(document).scrollTop();
@@ -32,11 +33,15 @@ $(document).ready(function() {
             showTips(tipsText1);
             return false;
         }
+//        $("#list input").each(function(i) {
+//        	$(this).attr("name", "files['" + i + "']");
+//        });
         $("#TitleMemu input, #common").css("background-color", "#CCC");
         $("#TitleMemu input, #common").attr("disabled", true);
-        if (Ajax("update", $("#form1").serialize()))
-            showTips(tipsText2);
-        setTimeout("location.reload()", 2000);
+        $("#form1").submit();
+//        if (FileAjax("update", $("#form1").serialize()))
+//            showTips(tipsText2);
+//         setTimeout("location.reload()", 2000);
     });
     /********************************************************************/
     $("#tab1 tr").each(function(i) {
@@ -92,9 +97,6 @@ $(document).ready(function() {
             else
                 $("#image").attr("src", path + name + ".png");
         });
-        var photo = $(this).find("td:eq(2)").text();
-    	if (photo != "" && !isNaN(photo))
-        	$(this).find("td:eq(2)").text(fix(photo, 3));
         // 设置输入框的title
         var text = $(this).find("td:eq(1)").text();
         $(this).find("td:eq(1)").attr("title", text);
@@ -102,9 +104,6 @@ $(document).ready(function() {
         $(this).find("td:eq(11)").attr("title", text);
         setCode($(this).find("td:eq(5)"), $(this).find("td:eq(5)").text());
     });
-    function fix(num, n) {
-        return (Array(n).join(0) + num).slice(-n);
-    }
     /********************************************************************/
     $("#video").click(function() {
         if ($("#video").attr("src") != undefined)
@@ -184,6 +183,20 @@ $(document).ready(function() {
 			$(this).css("background-color", "#f00");
 		else
 			$(this).css("background-color", "#fff");
+    });
+    /********************************************************************/
+    $("#bImage").on("click", "img", function(i) {
+    	var index = $("#bImage img").index($(this));
+    	$("#list input").eq(index).remove();
+    	$(this).remove();
+    });
+    $("#append").click(function() {
+    	$("#list input:last").click();
+    });
+    $("#list").on("change", "input", function(i) {
+    	var url = getURL(this.files[0]);
+    	$("#append").before("<img src='" + url + "' title='删除'/>");
+    	$("#list").append("<input type='file' accept='iamge/*'/>");
     });
     /********************************************************************/
     function drawPipe() {
@@ -278,6 +291,23 @@ $(document).ready(function() {
             type: "post",
             async: false,
             datatype: "json",
+            success: function(data) {
+                result = data;
+            }
+        });
+        return result;
+    }
+    /** Ajax上传文件 */
+    function FileAjax(url, data) {
+        var result = null;
+        $.ajax({
+            url: url,
+            data: data,
+            type: "post",
+            async: false,
+            datatype: "json",
+            processData: false,
+            contentType: false,
             success: function(data) {
                 result = data;
             }

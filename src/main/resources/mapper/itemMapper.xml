@@ -82,15 +82,6 @@
 		</if>
 	</select>
 	
-	<update id="sortItemImg" parameterType="int">
-		update item i set photo = a.rownum from (
-			select i.id,row_number() over() rownum from 
-			item i left join pipe p on p.id=i.pipeid where 
-			p.projectid = #{id} and i.picture != '' order by p.no,i.no
-		) a	where i.pipeid in (select id from pipe where projectid = #{id}) 
-			and i.id = a.id and i.picture != ''
-	</update>
-	
 	<resultMap id="ItemMap" type="Item">
 		<id property="id" column="id"/>
 		<result property="no" column="no"/>

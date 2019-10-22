@@ -1373,9 +1373,6 @@
             $(this).find("td").each(function(j) {
                 $(this).attr("tabindex", i * 12 + j + 1);
             });
-            var photo = $(this).find("td:eq(2) input").val();
-            if (photo != "" && !isNaN(photo))
-            	$(this).find("td:eq(2) input").val(fix(photo, 3));
             var value = $(this).find("td:eq(3) input").val();
             if (value != "")
                 $(this).find("td:eq(3) input").val(parseFloat(value).toFixed(1));
@@ -1383,9 +1380,6 @@
         if (index > $("#tab2 tbody tr").length - 1)
             index = $("#tab2 tbody tr").length - 1;
         $("#tab2 tbody tr").eq(index).click();
-    }
-    function fix(num, n) {
-        return (Array(n).join(0) + num).slice(-n);
     }
     /**************************************************************************/
     if (sessionStorage.control == "隐藏") {

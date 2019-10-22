@@ -61,7 +61,7 @@
           <tbody style="font-family:等线">
             <tr th:each="project,status:${projects}" th:id="${project.id}">
               <td th:text="${status.count+(page-1)*15}"></td>
-              <td th:text="${project.name}"></td>
+              <td><a th:text="${project.name}"></a></td>
           	  <td th:text="${project.client}"></td>
           	  <td th:text="${project.standard}"></td>
           	  <td th:text="${project.operator}"></td>

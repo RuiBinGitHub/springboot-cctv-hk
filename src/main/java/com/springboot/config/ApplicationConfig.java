@@ -122,4 +122,5 @@ public class ApplicationConfig implements WebMvcConfigurer {
 	public LocaleResolver localeResolver() {
 		return new MyLocaleResolver();
 	}
+	
 }

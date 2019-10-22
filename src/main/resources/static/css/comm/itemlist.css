@@ -30,8 +30,8 @@ body {
 #mainMenu {
 	width: 200px;
 	color: #ffffff;
-	font-family: "Helvetica";
-	//background-color: #3A3F4A;
+	//font-family: "Helvetica";
+	font-family: "微软雅黑";
 	background-color: #434A52;
 	float: left;
 }
@@ -199,7 +199,6 @@ body {
 	height: 20px;
 	color: #ffffff; 
 	font-family: "等线";
-	border-radius: 2px;
 	border: none;
 }
 

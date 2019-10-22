@@ -22,6 +22,4 @@ public interface ItemDao {
 
 	public List<Item> findListItem(Map<String, Object> map);
 	
-	public void sortItemImg(int id);
-
 }
