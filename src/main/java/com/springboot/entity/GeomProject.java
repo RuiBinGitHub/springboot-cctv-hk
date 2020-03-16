@@ -5,6 +5,8 @@ import java.util.List;
 public class GeomProject {
 
 	private int id;
+	private double x;
+	private double y;
 	private String extent; // 项目范围
 	private String surveyer; // 测量人员
 	private Project project; // 所属项目
@@ -18,6 +20,22 @@ public class GeomProject {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
 	}
 
 	public String getExtent() {

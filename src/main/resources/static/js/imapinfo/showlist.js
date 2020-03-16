@@ -57,16 +57,13 @@ $(document).ready(function() {
 	    }
     });
     
-    $("#list1 div").each(function() {
-    	$(this).attr("class", $(this).text());
-    });
     $("#textbox").on("input", function() {
     	var value = $(this).val();
     	if (value == "")
     		$("#data").html($("#list1").html());
     	else {
     		var context = "";
-    		$("#list1 div[class*=" + value + "]").each(function(i){
+    		$("#list1 div[id*=" + value + "]").each(function(i){
     			context += "<div id='"+$(this).attr("id")+"'>" + $(this).text() + "</div>";
     		});
     		$("#data").html(context);
@@ -92,17 +89,17 @@ $(document).ready(function() {
     });
     function initDataDiv() {
     	$("#data div").each(function() {
-    		var ids = $(this).attr("id").split(",");
+    		var ids = $(this).attr("id").split("-");
 	    	$(this).unbind(); // 解除绑定所有事件
 	    	$(this).mouseenter(function() {  // 鼠标靠近事件
-	    		var x = Number(ids[0]) - 2592;
-	    		var y = Number(ids[1]) + 2592;
+	    		var x = Number(ids[0]) + 30;
+	    		var y = Number(ids[1]) - 30;
 	    		var center = ol.proj.transform([x, y], "EPSG:2326", "EPSG:4326");
 	    		entity.position = Cesium.Cartesian3.fromDegrees(center[0], center[1]);
-	        	viewer.entities.add(entity);
+	        	// viewer.entities.add(entity);
 	    	});
 	    	$(this).mouseleave(function() {  // 鼠标远离事件
-	    		viewer.entities.remove(entity);
+	    		// viewer.entities.remove(entity);
 	    	});
 	    	$(this).click(function() {  // 点击事件
 	    		var center = ol.proj.transform([ids[0], ids[1]], "EPSG:2326", "EPSG:4326");
@@ -152,9 +149,9 @@ $(document).ready(function() {
             context += "<table id='tab1' style='width:100%;font-size:14px;font-family:'宋体';background-color:#E0E0E0;'>";
             context += "  <tr style='height:30px;background-color:#545454;'>";
             context += "    <td align='right'>开始井号：</td>";
-            context += "    <td align='center'>" + geomPipe.smhNo + "</td>";
+            context += "    <td align='center'>" + geomPipe.pipe.smanholeno + "</td>";
             context += "    <td align='right'>结束井号：</td>";
-            context += "    <td align='center'>" + geomPipe.fmhNo + "</td>";
+            context += "    <td align='center'>" + geomPipe.pipe.fmanholeno + "</td>";
             context += "  </tr>";
             context += "  <tr style='height:30px;background-color:#545454;'>";
             context += "    <td align='right'>起始井坐标X：</td>";
@@ -170,7 +167,7 @@ $(document).ready(function() {
             context += "  </tr>";
             context += "  <tr style='height:30px;background-color:#545454;'>";
             context += "    <td align='right'>管道材质：</td>";
-            context += "    <td align='center'>" + geomPipe.pipe.material + "</td>";
+            context += "    <td align='center'>" + geomPipe.pipe.mater + "</td>";
             context += "    <td align='right'>管道形状：</td>";
             context += "    <td align='center'>" + geomPipe.pipe.shape + "</td>";
             context += "  </tr>";
@@ -181,7 +178,7 @@ $(document).ready(function() {
             context += "    <td align='center'>" + geomPipe.pipe.totallength + " (m)</td>";
             context += "  </tr>";
             context += "</table>";
-            context += "<table id='tab2' style='width:100%;margin-top:5px;font-size:14px;font-family:'宋体';background-color:#E0E0E0;'>";
+            context += "<table id='tab2' style='width:100%;margin-top:5px;font-size:14px;font-family:宋体;background-color:#E0E0E0;'>";
             context += "  <tr style='height:30px;background-color:#545454;'>";
             context += "    <td colspan='10'>记录信息</td>";
             context += "  </tr>";
@@ -248,8 +245,8 @@ $(document).ready(function() {
             model: {
                 uri: "/CCTV/model/F(1).glb",
                 minimumPixelSize: 1,
-                maximumSize: 2,
-                maximumScale: 2,
+                maximumSize: 1,
+                maximumScale: 1,
                 silhouetteColor: Cesium.Color.WHITE,
                 debugWireframe: false,
                 debugShowBoundingVolume: false,

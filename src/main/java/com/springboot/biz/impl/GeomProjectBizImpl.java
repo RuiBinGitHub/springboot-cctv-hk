@@ -98,17 +98,21 @@ public class GeomProjectBizImpl implements GeomProjectBiz {
 			coordinate.setH(AppUtils.getValue(foramt2.format((AppUtils.getNumeric(row.getCell(3))))));
 			map.put(smh, coordinate);
 		}
+		
 		List<GeomPipe> geomPipeList = geomPipeBiz.findListGeomPipe(geomProject);
 		for (GeomPipe geomPipe : geomPipeList) {
-			if (map.containsKey(geomPipe.getSmhNo())) {
-				Coordinate coordinate = map.get(geomPipe.getSmhNo());
+			if (map.containsKey(geomPipe.getPipe().getSmanholeno())) {
+				Coordinate coordinate = map.get(geomPipe.getPipe().getSmanholeno());
 				geomPipe.setSmhX(coordinate.getX());
 				geomPipe.setSmhY(coordinate.getY());
 				geomPipe.setSmhH(coordinate.getH());
 				geomPipeBiz.replacePipegeom(geomPipe);
 			}
-			if (map.containsKey(geomPipe.getFmhNo())) {
-				Coordinate coordinate = map.get(geomPipe.getFmhNo());
+			if (map.containsKey(geomPipe.getPipe().getFmanholeno())) {
+				
+				Coordinate coordinate = map.get(geomPipe.getPipe().getFmanholeno());
+				System.out.println(geomPipe.getFmhNo() + "--" + coordinate.getX() + "--" + coordinate.getY());
+				
 				geomPipe.setFmhX(coordinate.getX());
 				geomPipe.setFmhY(coordinate.getY());
 				geomPipe.setFmhH(coordinate.getH());

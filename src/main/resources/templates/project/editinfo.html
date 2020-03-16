@@ -336,6 +336,7 @@
 	<div id="ishow">－</div>
 	<div id="toTop">△</div>
 	<!-- Code 列表 -->
+	<datalist id="icode"></datalist>
 	<datalist id="codes" th:if="${project.standard=='HKCCEC 2009'}">
 	  <option th:each="code:${codes}" th:value="${code.hkccec}" th:text="${code.pdescription}"></option>
 	</datalist>

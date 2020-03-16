@@ -138,6 +138,7 @@ public class CreateMDB {
 				List<Item> items = itemBiz.findListItem(pipe);
 				for (int j = 0; items != null && j < items.size(); j++) {
 					Item item = items.get(j);
+					System.out.println(item.getId() + item.getCode());
 					compute.computeItem(item, project.getStandard());
 					if (item.getCode().length() > 2 &&item.getCode().indexOf("-") != -1)
 						item.setCode(item.getCode().substring(0, item.getCode().length() - 2));

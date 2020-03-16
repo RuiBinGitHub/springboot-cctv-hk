@@ -110,6 +110,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		registry.addViewController("/operator/insertview").setViewName("operator/insert");
 
 		registry.addViewController("showmap").setViewName("showmap");
+		registry.addViewController("hello").setViewName("hello");
 	}
 
 	@Bean

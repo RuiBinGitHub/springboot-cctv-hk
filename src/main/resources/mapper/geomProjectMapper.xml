@@ -26,43 +26,48 @@
 	</select>
 	
 	<select id="findInfoGeomProject" parameterType="Map" resultMap="GeomProjectMap">
-		select g.* from geomproject g left join project p on g.projectid=p.id
-		<where>
-			<if test="id != null">
-				g.id = #{id}
-			</if>
-			<if test="project != null">
-				and p.id = #{project.id}
-			</if>
-			<if test="person != null">
-				and p.personid = #{person.id}
-			</if>
-			<if test="company != null">
-				and p.companyid = #{company.id}
-			</if>
-		</where>
+		select b.id, c.name, avg(a.actualx1) x, avg(a.actualy1) y from geompipe a 
+			left join geomproject b on b.id = a.geomid 
+  			left join project c on c.id = b.projectid
+			left join person d on d.id = c.personid
+			where a.actualx1 > 0 and a.actualy1 > 0
+		<if test="id != null">
+			and b.id = #{id}
+		</if>
+		<if test="project != null">
+			and c.id = #{project.id}
+		</if>
+		<if test="person != null">
+			and c.personid = #{person.id}
+		</if>
+		<if test="company != null">
+			and c.companyid = #{company.id}
+		</if>
+		group by b.id, c.name
 	</select>
 	
 	<select id="findListGeomProject" parameterType="Map" resultMap="GeomProjectMap">
-		select g.* from geomproject g left join project p on g.projectid=p.id
-		<where>
-			<if test="option != null and value != null">
-				${option} = #{value}
-			</if>
-			<if test="extent != null">
-				and g.extent != ''
-			</if>
-			<if test="company != null">
-				and p.companyid = #{company.id}
-			</if>
-		</where>
+		select b.id, c.name, avg(a.actualx1) x, avg(a.actualy1) y from geompipe a 
+			left join geomproject b on b.id = a.geomid 
+  			left join project c on c.id = b.projectid
+			left join person d on d.id = c.personid
+			where a.actualx1 > 0 and a.actualy1 > 0
+		<if test="extent != null">
+			and g.extent != ''
+		</if>
+		<if test="company != null">
+			and d.companyid = #{company.id}
+		</if>
+		group by b.id, c.name
 	</select>
 	
 	<resultMap id="GeomProjectMap" type="GeomProject">
 		<id property="id" column="id"/>
-		<result property="extent" column="extent"/>
-		<result property="surveyer" column="surveyer"/>
-		<association property="project" column="projectid" select="com.springboot.dao.ProjectDao.findProjectByID"/>
+		<result property="x" column="x"/>
+		<result property="y" column="y"/>
+		<association property="project" javaType="Project">
+			<result property="name" column="name"/>
+		</association>
 	</resultMap>
 </mapper>
  

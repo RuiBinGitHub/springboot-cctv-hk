@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springboot.biz.CompanyBiz;
-import com.springboot.biz.MarkPipeBiz;
 import com.springboot.biz.MarkProjectBiz;
 import com.springboot.biz.PersonBiz;
 import com.springboot.biz.PipeBiz;
@@ -38,8 +37,6 @@ public class PersonController {
 	private PipeBiz pipeBiz;
 	@Resource
 	private MarkProjectBiz markProjectBiz;
-	@Resource
-	private MarkPipeBiz markPipeBiz;
 	
 	private Map<String, Object> map = null;
 

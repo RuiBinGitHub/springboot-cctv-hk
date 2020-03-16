@@ -964,9 +964,12 @@
         $("#file1").click();
     });
     $(document, "#video").keydown(function(e) {
-        if (e.altKey && e.which == 65) { // 截屏
+    	// a = 65, w = 87
+        if (e.altKey && e.which == 87) { // 截屏
+        	console.log(1);
             if ($("#video").attr("src") == undefined)
                 return false;
+            console.log(2);
             var video = $("#video")[0];
             var canvas1 = $("#canvas1")[0];
             var context1 = canvas1.getContext("2d");
@@ -976,6 +979,7 @@
             $("#pic1").attr("src", canvas1.toDataURL("image/png"));
         }
         if (e.altKey && e.which == 83) {  // 保存
+        	console.log(3);
             if (itemindex == -1 || $("#pic1").attr("src") == undefined)
                 return false;
             var canvas1 = $("#canvas1")[0];
@@ -1088,10 +1092,12 @@
             var name = this.files[i].name;
             var loca = name.lastIndexOf(".");
             var type = name.substr(loca + 1).toUpperCase();
+            console.log(type);
             if (type == "PNG" || type == "JPG")
                 formFile.append("files", this.files[i]);
             else {
                 showTips(tipsText10);
+                this.value = "";
                 return false;
             }
         }
@@ -1125,6 +1131,82 @@
         context += "</tr>";
         return context;
     }
+    /********************************************************************/
+    var codelist1 = new Array();
+    //mm
+    codelist1.push("DI", "ST");
+    /**************************************************************************/
+    var codelist2 = new Array();
+    //%
+    codelist2.push("DEC", "DE C", "DECJ", "DER", "DE R", "DES", "DE S", "DESJ", "WL", "WLC", "WL C", "WLT", "WL T", "DH", "D H", "DV", "D V");
+    /**************************************************************************/
+    var codelist3 = new Array();
+    //clock1
+    codelist3.push("CL", "C L", "CLJ", "EX", "EXJ", "FIC", "FIT", "FWCS", "FWTF", "FL", "F L", "FLJ", "LWL", "LX WL", "WXL", "WX L");
+    /**************************************************************************/
+    var codelist4 = new Array();
+    //clock2
+    codelist4.push("B", "BJ", "CC", "C C", "CCJ", "CM", "C M", "CMJ", "CS", "C S", "CSJ", "FC", "F C", "FCJ", "FMJ", "FS", "F S", "FSJ", "JDL", "JD (L)", "JDM", "JD (M)", "MB", "ML", "MM", "MS");
+    codelist4.push("SS-1", "SS-2", "SS-3", "SSL", "SSM", "SSS", "SW-1", "SW-2", "SW-3", "SWL", "SWM", "SWS", "LWC", "LX WC", "LWS", "LXWM", "LWM", "LXB", "LX B", "LXC", "LX C", "LXD", "LX D");
+    codelist4.push("RPH", "RP H", "RPI", "RP I", "RPL", "RP L", "RPP", "RPR", "RP R", "RXM", "RX M", "WXC", "WX C", "WXS", "WX S", "LXE", "LX E");
+    /**************************************************************************/
+    var codelist5 = new Array();
+    //remark
+    codelist5.push("LC", "REM", "REM", "SC", "VVR", "VZ", "V Z", "GO", "LVS", "CU S", "LVW", "CU W", "PC", "P C", "#4-1", "#4-2", "#4-3", "#4-4", "#4-5", "SAA", "SAC", "SAZ", "MC");
+    codelist5.push("CP", "CPF", "GY", "GYF", "IC", "ICF", "LH", "LHF", "BR", "BRF", "MH", "MHF", "OS", "OSF", "CZ", "OCF", "OF", "OFF", "RE", "REF", "SK", "SKF");
+    codelist5.push("C P", "G Y", "I C", "L H", "B R", "O S", "O C", "O F", "R E");
+    /**************************************************************************/
+    var codelist6 = new Array();
+    //mm  clock1
+    codelist6.push("CX", "CN", "C N", "CNJ", "CXD", "CX D", "CXDJ", "CXP", "CX P", "CXPJ", "JN", "JNJ", "JXB", "JX B", "JXBJ", "JXD", "JX D", "JXDJ", "JXP", "JX P", "JXPJ");
+    /**************************************************************************/
+    var codelist8 = new Array();
+    //%  clock2
+    codelist8.push("RM", "R M", "RMJ", "DAF", "DE F", "DAFJ", "DAG", "DE G", "DAGJ", "DAZ", "DE Z", "DAZJ", "EH", "DE E-1", "DE E-2", "DE E-3", "EHJ", "EL", "ELJ", "EM", "EMJ", "ESH", "ESL", "ESM");
+    /**************************************************************************/
+    var codelist9 = new Array();
+    //%  remark
+    codelist9.push("DEZ", "DE X", "DEZJ", "DZ");
+    /**************************************************************************/
+    var codelist10 = new Array();
+    //clock1  clock2
+    codelist10.push("DB", "HA", "H", "HAJ", "HB", "HBJ", "SRB", "SR B", "SRI", "SR", "SV", "SVJ", "VV", "VVJ");
+    /**************************************************************************/
+    var codelist11 = new Array();
+    //clock2  remark
+    codelist11.push("RF", "R F", "RFJ", "FM", "F M", "LXZ", "LX Z", "RXZ", "RX Z", "RPS", "RP S", "RPZ", "RP Z");
+    /**************************************************************************/
+    var codelist12 = new Array();
+    //mm  %  clock1
+    codelist12.push("CXI", "CX I", "CXIJ");
+    /**************************************************************************/
+    var codelist13 = new Array();
+    //mm  clock1  remark
+    codelist13.push("CXB", "CX B", "CXBJ", "CXZ", "CX Z", "CXZJ", "JXZ", "JX Z", "JXZJ");
+    /**************************************************************************/
+    var codelist14 = new Array();
+    //%  clock1 clock2
+    codelist14.push("OBB", "OB B", "OBC", "OB C", "OBI", "OB I", "OBM", "OB M", "OBP", "OB P", "OBS", "OB S");
+    /**************************************************************************/
+    var codelist15 = new Array();
+    //%  clock2  remark
+    codelist15.push("DAZ", "DA Z", "DAZJ");
+    /**************************************************************************/
+    var codelist16 = new Array();
+    //clock1  clock2  remark
+    codelist16.push("ID", "I D", "IDJ", "IG", "I G", "IGJ", "IR", "I R", "IRJ", "IS", "I S", "ISJ", "SRZ", "S O");
+    /**************************************************************************/
+    var codelist17 = new Array();
+    //mm  %  clock1  clock2
+    codelist17.push("INF", "ING F", "INFJ", "ING", "ING G", "INGJ", "INP", "INPJ", "INS", "ING S", "INSJ");
+    /**************************************************************************/
+    var codelist18 = new Array();
+    //%  clock1  clock2  remark
+    codelist18.push("OBZ", "OB Z");
+    /**************************************************************************/
+    var codelist19 = new Array();
+    //mm  %  clock1  clock2  remark
+    codelist19.push("INZ", "ING Z", "INZJ");
     /********************************************************************/
     var contlist = new Array();
     $("#conts option").each(function() {
@@ -1255,12 +1337,85 @@
     // 第六个单元格
     $("#tab2").on("input", "tr td:nth-child(6) input", function(event) {
     	$(this).val($(this).val().toUpperCase());
+    	if ($(this).val() == "")
+    		$(this).attr("list", "codes");
+    	else {
+    		$("#icode").html($("#codes option[value^=" + $(this).val() + "]").clone());
+    		$(this).attr("list", "icode");
+    	}
         if (codelist.indexOf($(this).val()) == -1) {
             $(this).css("background-color", "#FF0000");
-            $(this).find("td:eq(11) input").attr("list", null);
+            $(this).parents("tr").find("td:eq(11) input").attr("list", null);
+            $(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFFFF");
+            $(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFFFF");
+            $(this).parents("tr").find("td:eq(10) input").css("background-color", "#FFFFFF");
+            $(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFFFF");
         } else {
             $(this).css("background-color", "#FFFFFF");
-            $(this).find("td:eq(11) input").attr("list", $(this).val());
+            $(this).parents("tr").find("td:eq(11) input").attr("list", $(this).val());
+            // 设置颜色提醒
+            if (codelist1.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(10) input").css("background-color", "#FFFF00");
+            } else if (codelist2.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFF00");
+            } else if (codelist3.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(7) input").css("background-color", "#FFFF00");
+            } else if (codelist4.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFF00");
+            } else if (codelist5.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFF00");
+            } else if (codelist6.indexOf($(this).val()) != -1) {
+            	$(this).parents($(this).val()).find("td:eq(7) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(10) input").css("background-color", "#FFFF00");
+            } else if (codelist8.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFF00");
+            } else if (codelist9.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFF00");
+            } else if (codelist10.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(7) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFF00");
+            } else if (codelist11.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFF00");
+            } else if (codelist12.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(7) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(10) input").css("background-color", "#FFFF00");
+            } else if (codelist13.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(7) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(10) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFF00");
+            } else if (codelist14.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(7) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFF00");
+            } else if (codelist15.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFF00");
+            } else if (codelist16.indexOf($(this).val()) != -1) {
+            	$(this).parents("tr").find("td:eq(7) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFF00");
+            	$(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFF00");
+            } else if (codelist17.indexOf($(this).val()) != -1) {
+                $(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFF00");
+                $(this).parents("tr").find("td:eq(10) input").css("background-color", "#FFFF00");
+                $(this).parents("tr").find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFF00");
+            } else if (codelist18.indexOf($(this).val()) != -1) {
+                $(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFF00");
+                $(this).parents("tr").find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFF00");
+                $(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFF00");
+            } else if (codelist19.indexOf(code) != -1) {
+                $(this).parents("tr").find("td:eq(7) input").css("background-color", "#FFFF00");
+                $(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFF00");
+                $(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFF00");
+                $(this).parents("tr").find("td:eq(10) input").css("background-color", "#FFFF00");
+                $(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFF00");
+            } 
         }
         if ($("#tab2 tbody tr").eq(itemindex).find("td:eq(11) input").val() != "")
             return true;
@@ -1401,81 +1556,7 @@
         }
     });
     /**************************************************************************/
-    var codelist1 = new Array();
-    //mm
-    codelist1.push("DI", "ST");
-    /**************************************************************************/
-    var codelist2 = new Array();
-    //%
-    codelist2.push("DEC", "DE C", "DECJ", "DER", "DE R", "DES", "DE S", "DESJ", "WL", "WLC", "WL C", "WLT", "WL T", "DH", "D H", "DV", "D V");
-    /**************************************************************************/
-    var codelist3 = new Array();
-    //clock1
-    codelist3.push("CL", "C L", "CLJ", "EX", "EXJ", "FIC", "FIT", "FWCS", "FWTF", "FL", "F L", "FLJ", "LWL", "LX WL", "WXL", "WX L");
-    /**************************************************************************/
-    var codelist4 = new Array();
-    //clock2
-    codelist4.push("B", "BJ", "CC", "C C", "CCJ", "CM", "C M", "CMJ", "CS", "C S", "CSJ", "FC", "F C", "FCJ", "FMJ", "FS", "F S", "FSJ", "JDL", "JD (L)", "JDM", "JD (M)", "MB", "ML", "MM", "MS");
-    codelist4.push("SS-1", "SS-2", "SS-3", "SSL", "SSM", "SSS", "SW-1", "SW-2", "SW-3", "SWL", "SWM", "SWS", "LWC", "LX WC", "LWS", "LXWM", "LWM", "LXB", "LX B", "LXC", "LX C", "LXD", "LX D");
-    codelist4.push("RPH", "RP H", "RPI", "RP I", "RPL", "RP L", "RPP", "RPR", "RP R", "RXM", "RX M", "WXC", "WX C", "WXS", "WX S", "LXE", "LX E");
-    /**************************************************************************/
-    var codelist5 = new Array();
-    //remark
-    codelist5.push("LC", "REM", "REM", "SC", "VVR", "VZ", "V Z", "GO", "LVS", "CU S", "LVW", "CU W", "PC", "P C", "#4-1", "#4-2", "#4-3", "#4-4", "#4-5", "SAA", "SAC", "SAZ", "MC");
-    codelist5.push("CP", "CPF", "GY", "GYF", "IC", "ICF", "LH", "LHF", "BR", "BRF", "MH", "MHF", "OS", "OSF", "CZ", "OCF", "OF", "OFF", "RE", "REF", "SK", "SKF");
-    codelist5.push("C P", "G Y", "I C", "L H", "B R", "O S", "O C", "O F", "R E");
-    /**************************************************************************/
-    var codelist6 = new Array();
-    //mm  clock1
-    codelist6.push("CX", "CN", "C N", "CNJ", "CXD", "CX D", "CXDJ", "CXP", "CX P", "CXPJ", "JN", "JNJ", "JXB", "JX B", "JXBJ", "JXD", "JX D", "JXDJ", "JXP", "JX P", "JXPJ");
-    /**************************************************************************/
-    var codelist8 = new Array();
-    //%  clock2
-    codelist8.push("RM", "R M", "RMJ", "DAF", "DE F", "DAFJ", "DAG", "DE G", "DAGJ", "DAZ", "DE Z", "DAZJ", "EH", "DE E-1", "DE E-2", "DE E-3", "EHJ", "EL", "ELJ", "EM", "EMJ", "ESH", "ESL", "ESM");
-    /**************************************************************************/
-    var codelist9 = new Array();
-    //%  remark
-    codelist9.push("DEZ", "DE X", "DEZJ", "DZ");
-    /**************************************************************************/
-    var codelist10 = new Array();
-    //clock1  clock2
-    codelist10.push("DB", "HA", "H", "HAJ", "HB", "HBJ", "SRB", "SR B", "SRI", "SR", "SV", "SVJ", "VV", "VVJ");
-    /**************************************************************************/
-    var codelist11 = new Array();
-    //clock2  remark
-    codelist11.push("RF", "R F", "RFJ", "FM", "F M", "LXZ", "LX Z", "RXZ", "RX Z", "RPS", "RP S", "RPZ", "RP Z");
-    /**************************************************************************/
-    var codelist12 = new Array();
-    //mm  %  clock1
-    codelist12.push("CXI", "CX I", "CXIJ");
-    /**************************************************************************/
-    var codelist13 = new Array();
-    //mm  clock1  remark
-    codelist13.push("CXB", "CX B", "CXBJ", "CXZ", "CX Z", "CXZJ", "JXZ", "JX Z", "JXZJ");
-    /**************************************************************************/
-    var codelist14 = new Array();
-    //%  clock1 clock2
-    codelist14.push("OBB", "OB B", "OBC", "OB C", "OBI", "OB I", "OBM", "OB M", "OBP", "OB P", "OBS", "OB S");
-    /**************************************************************************/
-    var codelist15 = new Array();
-    //%  clock2  remark
-    codelist15.push("DAZ", "DA Z", "DAZJ");
-    /**************************************************************************/
-    var codelist16 = new Array();
-    //clock1  clock2  remark
-    codelist16.push("ID", "I D", "IDJ", "IG", "I G", "IGJ", "IR", "I R", "IRJ", "IS", "I S", "ISJ", "SRZ", "S O");
-    /**************************************************************************/
-    var codelist17 = new Array();
-    //mm  %  clock1  clock2
-    codelist17.push("INF", "ING F", "INFJ", "ING", "ING G", "INGJ", "INP", "INPJ", "INS", "ING S", "INSJ");
-    /**************************************************************************/
-    var codelist18 = new Array();
-    //%  clock1  clock2  remark
-    codelist18.push("OBZ", "OB Z");
-    /**************************************************************************/
-    var codelist19 = new Array();
-    //mm  %  clock1  clock2  remark
-    codelist19.push("INZ", "ING Z", "INZJ");
+    
     /**************************************************************************/
     function checkItem() {
         var result = true;
@@ -1557,7 +1638,7 @@
                 $(this).find("td:eq(11) input").css("background-color", "#FFFF00");
                 result = false;
             } else if (codelist12.indexOf(code) != -1 && (intrusion1 == "" || intrusion2 == "" || clockAt == "")) {
-                $(this).find("td$(this)(7) input").css("background-color", "#FFFF00");
+                $(this).find("td:eq(7) input").css("background-color", "#FFFF00");
                 $(this).find("td:eq(9) input").css("background-color", "#FFFF00");
                 $(this).find("td:eq(10) input").css("background-color", "#FFFF00");
                 result = false;

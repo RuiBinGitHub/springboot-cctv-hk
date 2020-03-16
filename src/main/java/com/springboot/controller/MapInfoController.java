@@ -16,6 +16,8 @@ import com.springboot.biz.GeomPipeBiz;
 import com.springboot.biz.GeomProjectBiz;
 import com.springboot.biz.ItemBiz;
 import com.springboot.entity.GeomPipe;
+import com.springboot.entity.GeomProject;
+import com.springboot.entity.Person;
 import com.springboot.entity.Pipe;
 import com.springboot.util.AppUtils;
 import com.springboot.util.Computes;
@@ -36,12 +38,16 @@ public class MapInfoController {
 	private CameBiz cameBiz;
 
 	private Map<String, Object> map = null;
-	// private List<GeomProject> GeomProjects = null;
+	private List<GeomProject> geomProjects = null;
 	private List<GeomPipe> geomPipes = null;
 
 	@RequestMapping(value = "/showlist")
 	public ModelAndView showlist(String option, String name) {
 		ModelAndView view = new ModelAndView("imapinfo/showlist");
+		Person user = (Person) AppUtils.findMap("user");
+		map = AppUtils.getMap("company", user.getCompany());
+		geomProjects = geomProjectBiz.findListGeomProject(map);
+		System.out.println(geomProjects.size());
 		map = AppUtils.getMap("actualX1", "null", "actualX2", "null");
 		geomPipes = geomPipeBiz.findListGeomPipe(map);
 		for (int i = 0; geomPipes != null && i < geomPipes.size(); i++) {
@@ -50,6 +56,7 @@ public class MapInfoController {
 			double value1 = pipe.getGrade()[0], value2 = pipe.getGrade()[3];
 			geomPipes.get(i).setGrade(value1 > value2 ? value1 : value2);
 		}
+		view.addObject("geomProjects", geomProjects);
 		view.addObject("geomPipes", geomPipes);
 		return view;
 	}
